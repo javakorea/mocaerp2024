@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- /carbang/src/main/resources/egovframework/egovProps/globals.properties -->
+ <!DOCTYPE mapper     
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"       
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="M">
+ 	    <select id="selectAnyList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+ 			SELECT * from MT_LETTCCMMNDETAILCODE 
+		</select>
+ </mapper>
