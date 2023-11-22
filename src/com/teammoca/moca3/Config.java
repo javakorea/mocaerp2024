@@ -25,7 +25,6 @@ public class Config {
     
           PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
           sessionFactory.setMapperLocations(resolver.getResources("classpath:M/*.xml"));
-          //sessionFactory.setConfigLocation(applicationContext.getResource("classpath:Mapper/mybatis-config.xml"));
           sessionFactory.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
           return sessionFactory.getObject();
       }
