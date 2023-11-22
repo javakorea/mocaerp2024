@@ -36,7 +36,6 @@ public class Moca3Application {
 	public Map index(){
 		Map resultMap = new HashMap();
 		List<Map<String,Object>> list = sqlSession.selectList("M.selectAnyList", new HashMap());
-		System.out.println("리스트"+list);
 		
 		resultMap.put("dataList1", list);
 		return resultMap;
@@ -57,13 +56,11 @@ public class Moca3Application {
 		
 		Map searchMap = (Map) param.get("dma_search");
 		//String boardType = (String) searchMap.get("BOARD_TYPE"); 
-		System.out.println("searchMap"+searchMap);
 		searchMap.put("BOARD_CONT", strToArr((String)searchMap.get("BOARD_CONT")," "));
 		
 		Map resultMap = new HashMap();
 		List<Map<String,Object>> list = sqlSession.selectList("M.selectBoardList", searchMap);
 		
-		System.out.println("리스트222"+list);
 		
 		resultMap.put("dataList1", list);
 		return resultMap;
