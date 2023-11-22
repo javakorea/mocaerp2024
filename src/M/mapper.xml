@@ -7,4 +7,62 @@
  	    <select id="selectAnyList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
  			SELECT * from MT_LETTCCMMNDETAILCODE 
 		</select>
+		
+		<select id="selectBoardList" parameterType="java.util.Map" resultType="java.util.HashMap">
+	    		SELECT 
+		        	A.CORP_CD,
+		        	A.CORP_NM,
+		        	A.BOARD_PIDX, 
+		        	A.BOARD_IDX, 
+		        	A.BOARD_SUPPORT, 
+		        	A.BOARD_DELYN, 
+		        	A.BOARD_TITLE, 
+		        	A.BOARD_WRITER, 
+		        	DATE_FORMAT(A.BOARD_DATE, '%Y-%m-%d %H:%i:%s') as BOARD_DATE ,
+		        	DATE_FORMAT(A.UPDATE_DATE,  '%Y-%m-%d %H:%i:%s') as UPDATE_DATE ,
+		        	A.BOARD_TYPE,
+		        	A.BOARD_RECEIPTIONER,
+		        	COUNT(F.BOARD_IDX) AS CNT,
+		        	A.BOARD_REPLYCNT
+				FROM ${BOARD_TABLE} A 
+				LEFT OUTER JOIN ${BOARD_FILE_TABLE} F ON A.BOARD_IDX = F.BOARD_IDX
+				
+				WHERE 1=1
+				AND A.BOARD_DELYN = 'N'
+				AND A.BOARD_PIDX = A.BOARD_IDX
+				AND A.BOARD_TYPE = #{BOARD_TYPE}
+				<if test="BOARD_WRITER != null and BOARD_WRITER != ''">
+		            AND A.BOARD_WRITER like CONCAT('%', #{BOARD_WRITER}, '%')
+		        </if>
+		        <if test="BOARD_CONT != null and BOARD_CONT != '' and BOARD_CONT.length !=0">
+		        	AND (
+					<foreach collection="BOARD_CONT" item="contents" index="K" separator="OR">
+						<choose>
+							<when test="contents != null and contents != ''">
+								A.BOARD_CONT like CONCAT ('%', #{contents}, '%')
+							</when>
+						</choose>
+					</foreach>
+					)
+				</if>
+		        <if test="BOARD_RECEIPTIONER != null and BOARD_RECEIPTIONER != ''">
+		            AND A.BOARD_RECEIPTIONER like CONCAT('%', #{BOARD_RECEIPTIONER}, '%')
+		        </if>
+		        <![CDATA[
+		        AND A.BOARD_DATE >= STR_TO_DATE(CONCAT(#{FROM},' 00:00:00'), '%Y%m%d %H:%i:%s') AND A.BOARD_DATE <= STR_TO_DATE(CONCAT(#{TO},' 23:59:59'), '%Y%m%d %H:%i:%s')
+		        ]]>
+		        GROUP BY A.BOARD_IDX
+		        ORDER BY A.UPDATE_DATE DESC, A.BOARD_DATE DESC
+    </select>
+    
+    <select id="selectBoardFileList" parameterType="java.util.Map" resultType="java.util.HashMap">
+    	/*selectBoardFileList 게시판첨부파일조회*/
+        SELECT *
+        FROM ${BOARD_FILE_TABLE} A
+        WHERE 1=1
+        <if test="BOARD_IDX != null and BOARD_IDX != ''">
+            AND A.BOARD_IDX = #{BOARD_IDX}
+        </if>
+        ORDER BY A.BOARDFILE_IDX DESC
+    </select>
  </mapper>

@@ -14,4 +14,5 @@ public interface Moca3Mapper {
      * @return
      */
     public List<Map<String,Object>> selectAnyList(HashMap param);
+    public List<Map<String,Object>> selectBoardList(HashMap param);
 }

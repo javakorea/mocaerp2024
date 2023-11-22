@@ -16,55 +16,54 @@
 
         			<w2:columnInfo>
 
-        				<w2:column dataType="text" id="CODE_ID" name="CODE_ID" />
+        				<w2:column dataType="text" id="CORP_CD" name="CORP_CD" />
 
-        				<w2:column dataType="text" id="CODE" name="CODE" />
+        				<w2:column dataType="text" id="CORP_NM" name="CORP_NM" />
 
-        				<w2:column dataType="text" id="LAST_UPDT_PNTTM" name="LAST_UPDT_PNTTM" />
+        				<w2:column dataType="text" id="BOARD_PIDX" name="BOARD_PIDX" />
 
-        				<w2:column dataType="text" id="USE_AT" name="USE_AT" />
+        				<w2:column dataType="text" id="BOARD_IDX" name="BOARD_IDX" />
 
-        				<w2:column dataType="text" id="CODE_NM" name="CODE_NM" />
+        				<w2:column dataType="text" id="BOARD_SUPPORT" name="BOARD_SUPPORT" />
 
-        				<w2:column dataType="text" id="CODE_DC" name="CODE_DC" />
+        				<w2:column dataType="text" id="BOARD_DELYN" name="BOARD_DELYN" />
 
-        				<w2:column dataType="text" id="INQ_SEQ" name="INQ_SEQ" />
+        				<w2:column dataType="text" id="BOARD_TITLE" name="BOARD_TITLE" />
 
-        				<w2:column dataType="text" id="FRST_REGIST_PNTTM" name="FRST_REGIST_PNTTM" />
+        				<w2:column dataType="text" id="BOARD_WRITER" name="BOARD_WRITER" />
 
+        				<w2:column id="BOARD_DATE" name="BOARD_DATE" dataType="text"></w2:column>
+        				<w2:column id="UPDATE_DATE" name="UPDATE_DATE" dataType="text"></w2:column>
+        				<w2:column id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:column>
+        				<w2:column id="BOARD_RECEIPTIONER" name="BOARD_RECEIPTIONER" dataType="text"></w2:column>
+        				<w2:column id="CNT" name="CNT" dataType="text"></w2:column>
+        				<w2:column id="BOARD_REPLYCNT" name="BOARD_REPLYCNT" dataType="text"></w2:column>
+        				<w2:column id="CHK" name="CHK" dataType="text"></w2:column>
         			</w2:columnInfo>
 
-        			<w2:data use="true">
-
-        				<w2:row />
-
-        				<w2:row />
-
-        				<w2:row />
-
-        				<w2:row />
-
-        				<w2:row />
-
-        				<w2:row />
-
-        				<w2:row />
-
-        				<w2:row />
-
-        				<w2:row />
-
-        				<w2:row />
-
-        			</w2:data>
+        			<w2:data use="false"></w2:data>
 
         		</w2:dataList>
 
+        		<w2:dataMap baseNode="map" id="dma_search">
+        			<w2:keyInfo>
+        				<w2:key id="BOARD_TYPE" name="name1" dataType="text"></w2:key>
+        				<w2:key id="BOARD_TABLE" name="name2" dataType="text"></w2:key>
+        				<w2:key id="BOARD_WRITER" name="name3" dataType="text"></w2:key>
+        				<w2:key id="CORP_CD" name="name4" dataType="text"></w2:key>
+        				<w2:key id="PAGE_TYPE" name="name5" dataType="text"></w2:key>
+        				<w2:key id="BOARD_CONT" name="name6" dataType="text"></w2:key>
+        				<w2:key id="BOARD_RECEIPTIONER" name="name7" dataType="text"></w2:key>
+        				<w2:key id="FROM" name="name8" dataType="text"></w2:key>
+        				<w2:key id="TO" name="name9" dataType="text"></w2:key>
+        				<w2:key id="BOARD_FILE_TABLE" name="name10" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
         	</w2:dataCollection>
 
         	<w2:workflowCollection></w2:workflowCollection>
 
-        	<xf:submission id="submission1" ref="" target="data:json,dataList1" action="/data" method="post" mediatype="application/json" encoding="UTF-8"
+        	<xf:submission id="submission1" ref="data:json,dma_search" target="data:json,dataList1" action="/selectBoardList.do" method="post" mediatype="application/json" encoding="UTF-8"
         		instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="scwin.submission1_submit"
         		ev:submitdone="" ev:submiterror="" abortTrigger="">
         	</xf:submission>
@@ -76,22 +75,46 @@
         <w2:publicInfo method=""/>
                
         <script lazy="false" type="text/javascript"><![CDATA[
-			scwin.onpageload = function() {
-			    pageList1.setCount(100);
-	        		
-	        	$(".btn_fav").click(function(){
-					$(".btn_fav").toggleClass("on");
-				});
-			};
+scwin.onpageload = function() {
+	//pageList1.setCount(100);
+	var currentDt = WebSquare.date.getCurrentServerDate();
+	var bfweekDt = WebSquare.date.dateAdd( currentDt, -365 );
+	dma_search.set('FROM', bfweekDt);
+	dma_search.set('TO', currentDt);
+	$(".btn_fav").click(function(){
+		$(".btn_fav").toggleClass("on");
+	});
+
+	scwin.btn_search_onclick();
+};
 		
 scwin.submission1_submit = function(e) {
-debugger;
 };
 
-scwin.trigger1_onclick = function(e) {
-com.sbm.execute (submission1);
+scwin.btn_search_onclick = function(e) {
+	dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
+	dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP");
+	dma_search.set("BOARD_TYPE","TECH");
+	
+	com.sbm.execute (submission1);
 };
-]]></script>
+
+scwin.btn_detail_onclick = function(e) {
+	var _param = {};
+	_param.rowJson = dataList1.getRowJSON(dataList1.getRowPosition());
+	var data = { data: _param, callbackFn: "scwin.btn_detail_callback" };
+	var options = {
+		id: "boardPopTech",
+		popupName: "게시판상세",
+		modal: true,
+		width: 680, height: 430
+	};
+	com.win.openPopup("/ui/boardPop.xml", options, data);
+};
+
+scwin.btn_detail_callback = function(e){
+	//callback
+}]]></script>
            
     </head>
        
@@ -186,10 +209,10 @@ com.sbm.execute (submission1);
                             <xf:group class="w2tb_td" style="" tagname="td">
 
                             	<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
-                            		renderDiv="true" rightAlign="false" style="width: 100px;">
+                            		renderDiv="true" rightAlign="false" style="width: 100px;    text-align: left;    text-indent: 10px;" ref="data:dma_search.FROM">
                             	</w2:inputCalendar>
                             	<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
-                            		renderDiv="true" rightAlign="false" style="width: 100px;">
+                            		renderDiv="true" rightAlign="false" style="width: 100px;text-align: left;text-indent: 10px;" ref="data:dma_search.TO">
                             	</w2:inputCalendar>
                             </xf:group>
 
@@ -197,14 +220,14 @@ com.sbm.execute (submission1);
                                 						
                             <xf:group class="w2tb_td" id="" style="" tagname="td">
 
-                            	<xf:input id="" style=""></xf:input>
+                            	<xf:input id="" style="" ref="data:dma_search.BOARD_WRITER"></xf:input>
 
                             </xf:group>
 
                             <xf:group tagname="td" id="" class="w2tb_th"><w2:attributes></w2:attributes><w2:textbox class="" id="" label="내용" style=""></w2:textbox></xf:group>
                             <xf:group tagname="td" id="" class="w2tb_td">
                         	<w2:attributes></w2:attributes>
-                        	<xf:input id="" style=""></xf:input>
+                        	<xf:input id="" style="" ref="data:dma_search.BOARD_CONT"></xf:input>
                         </xf:group></xf:group>
                             				
                     </xf:group>
@@ -213,7 +236,7 @@ com.sbm.execute (submission1);
                     			
                 <xf:group class="btn_shbox" id="" style="">
                         				
-                    <xf:trigger class="btn_cm sch" disabled="" escape="false" id="trigger1" style="" type="button" ev:onclick="scwin.trigger1_onclick">
+                    <xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_search" style="" type="button" ev:onclick="scwin.btn_search_onclick">
                             					
                         <xf:label><![CDATA[조회]]></xf:label>
                             				
@@ -247,27 +270,21 @@ com.sbm.execute (submission1);
                             				
                     </xf:trigger>
                         				
-                    <xf:trigger class="btn_cm  upload" id="" style="" type="button">
-                            					
-                        <xf:label><![CDATA[업로드]]></xf:label>
-                            				
-                    </xf:trigger>
-                        				
                     <xf:trigger class="btn_cm download" id="" style="" type="button">
                             					
                         <xf:label><![CDATA[다운로드]]></xf:label>
                             				
                     </xf:trigger>
                         				
-                    <xf:trigger class="btn_cm " id="" style="" type="button">
+                    <xf:trigger class="btn_cm" id="" style="" type="button">
                             					
-                        <xf:label><![CDATA[업무버튼]]></xf:label>
+                        <xf:label><![CDATA[글쓰기]]></xf:label>
                             				
                     </xf:trigger>
                         				
-                    <xf:trigger class="btn_cm " id="" style="" type="button">
+                    <xf:trigger class="btn_cm " id="btn_detail" style="" type="button" ev:onclick="scwin.btn_detail_onclick">
                             					
-                        <xf:label><![CDATA[업무버튼]]></xf:label>
+                        <xf:label><![CDATA[상세(임시)]]></xf:label>
                             				
                     </xf:trigger>
                         			
@@ -277,23 +294,22 @@ com.sbm.execute (submission1);
                 		
             <xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
                     			
-                <w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dataList1" defaultCellHeight="26"
-                	focusMode="row" id="" scrollByColumn="false" scrollByColumnAdaptive="false" style="height: 150px;" visibleRowNum="10">
+                <w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dataList1"
+                	defaultCellHeight="26" focusMode="row" id="" scrollByColumn="false" scrollByColumnAdaptive="false" style="height: 150px;"
+                	visibleRowNum="10">
 
                 	<w2:caption id="caption2" style="" value="this is a grid caption." />
 
                 	<w2:header id="header2" style="">
 
                 		<w2:row id="row3" style="">
-
-                			<w2:column width="70" inputType="text" style="" id="column1" value="CODE_ID" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="column2" value="CODE" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="column4" value="LAST_UPDT_PNTTM" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="column6" value="USE_AT" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="column8" value="CODE_NM" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="column10" value="CODE_DC" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="column12" value="INQ_SEQ" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="column13" value="FRST_REGIST_PNTTM" displayMode="label"></w2:column>
+                			<w2:column width="30" inputType="checkbox" style="" id="column21" value="" displayMode="label"></w2:column>
+                			<w2:column width="50" inputType="text" id="column9" value="글번호" displayMode="label"></w2:column>
+                			<w2:column width="200" inputType="text" id="column15" value="제목" displayMode="label"></w2:column>
+                			<w2:column width="20" inputType="text" style="" id="H_CNT" value="첨부" displayMode="label"></w2:column>
+                			<w2:column width="50" inputType="text" id="column16" value="작성자" displayMode="label"></w2:column>
+                			<w2:column width="80" inputType="text" id="column17" value="작성일시" displayMode="label"></w2:column>
+                			<w2:column width="80" inputType="text" id="column18" value="수정일시" displayMode="label"></w2:column>
                 		</w2:row>
 
                 	</w2:header>
@@ -301,24 +317,19 @@ com.sbm.execute (submission1);
                 	<w2:gBody id="gBody2" style="">
 
                 		<w2:row id="row4" style="">
-
-                			<w2:column width="70" inputType="text" style="" id="CODE_ID" value="" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="CODE" value="" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="LAST_UPDT_PNTTM" value="" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="USE_AT" value="" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="CODE_NM" value="" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="CODE_DC" value="" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="INQ_SEQ" value="" displayMode="label"></w2:column>
-                			<w2:column width="70" inputType="text" style="" id="FRST_REGIST_PNTTM" value="" displayMode="label"></w2:column>
+                			<w2:column width="30" inputType="checkbox" style="" id="CHK" value="" displayMode="label" readOnly="false" falseValue="0" trueValue="1" defaultValue="0" valueType="binary"></w2:column>
+                			<w2:column width="50" inputType="text" id="BOARD_IDX" displayMode="label" readOnly="true"></w2:column>
+                			<w2:column width="200" inputType="text" id="BOARD_TITLE" displayMode="label" textAlign="left" readOnly="true"></w2:column>
+                			<w2:column width="20" inputType="text" style="" id="CNT" value="" displayMode="label" readOnly="true"></w2:column>
+                			<w2:column width="50" inputType="text" id="BOARD_WRITER" displayMode="label" readOnly="true"></w2:column>
+                			<w2:column width="80" inputType="text" id="BOARD_DATE" displayMode="label" readOnly="true" dataType="text" value=""></w2:column>
+                			<w2:column width="80" inputType="text" id="UPDATE_DATE" displayMode="label" dataType="date" readOnly="true" value=""></w2:column>
                 		</w2:row>
 
                 	</w2:gBody>
 
                 </w2:gridView>
 
-                <w2:pageList class="pgl" displayButtonType="display" displayFormat="#" id="pageList1" pageSize="10" pagingType="0" style="">
-    			</w2:pageList>
-                    		
             </xf:group>
                 	
         </xf:group>

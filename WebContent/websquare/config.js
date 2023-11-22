@@ -698,7 +698,7 @@ export default {
     },
     "editor": {
       "version": {
-        "@value": "4.19.1"
+        "@value": "4.22.1"
       }
     },
     "fusionchart": {

@@ -11,13 +11,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
- 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,45 @@ public class Moca3Application {
 		resultMap.put("dataList1", list);
 		return resultMap;
 	}
-
+	
+	public static String[] strToArr(String str,String sepa) {
+		if(str == null || "".equals(str.trim())) {
+			return null;
+		}else {
+			String strIssuer = str.trim();
+			String[] arrIssuer = strIssuer.split(sepa);
+			return arrIssuer;	
+		}
+	} 
+	
+	@RequestMapping("/selectBoardList.do")
+	public Map selectBoardList(@RequestBody Map<String, Object> param) {
+		
+		Map searchMap = (Map) param.get("dma_search");
+		//String boardType = (String) searchMap.get("BOARD_TYPE"); 
+		System.out.println("searchMap"+searchMap);
+		searchMap.put("BOARD_CONT", strToArr((String)searchMap.get("BOARD_CONT")," "));
+		
+		Map resultMap = new HashMap();
+		List<Map<String,Object>> list = sqlSession.selectList("M.selectBoardList", searchMap);
+		
+		System.out.println("리스트222"+list);
+		
+		resultMap.put("dataList1", list);
+		return resultMap;
+	}
+	
+	//게시판 첨부파일조회
+	@RequestMapping("/selectBoardFileList.do")
+	public Map selectBoardFileList(@RequestBody Map<String, Object> param) {
+		Map searchMap = (Map) param.get("dma_search");
+		Map resultMap = new HashMap();
+		List<Map<String,Object>> list = sqlSession.selectList("M.selectBoardFileList", searchMap);
+		resultMap.put("dlt_boardFile", list);
+		return resultMap;
+	}
+	
+		
 	//메인 티스토리 조회  
 	@RequestMapping(value = "/main/selectTistroyList.do")
 	public List selectTistroyList(@RequestParam Map<String, Object> mocaMap) throws Exception {
