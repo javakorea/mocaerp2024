@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,4 +29,13 @@ public class Config {
           sessionFactory.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);
           return sessionFactory.getObject();
       }
+    
+	@Bean
+	public ServletRegistrationBean websquareDispatcher() {
+		  ServletRegistrationBean reg = new ServletRegistrationBean();
+		  reg.setServlet(new websquare.http.DefaultRequestDispatcher());
+		  reg.addUrlMappings("*.wq"); 
+		  reg.addInitParameter("WEBSQUARE_HOME","C:\\A_teammoca_repository\\eclipse_20231025\\mocaerp2024\\websquare_home");
+		  return reg;
+	}
 }

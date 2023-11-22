@@ -22,46 +22,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
- 
-
 @RestController
 @SpringBootApplication
 public class Moca3Application {
-	
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@RequestMapping("/data")
-	public Map index(){
-		Map resultMap = new HashMap();
-		List<Map<String,Object>> list = sqlSession.selectList("M.selectAnyList", new HashMap());
-		
-		resultMap.put("dataList1", list);
-		return resultMap;
-	}
-	
-	public static String[] strToArr(String str,String sepa) {
-		if(str == null || "".equals(str.trim())) {
-			return null;
-		}else {
-			String strIssuer = str.trim();
-			String[] arrIssuer = strIssuer.split(sepa);
-			return arrIssuer;	
-		}
-	} 
-	
 	@RequestMapping("/selectBoardList.do")
 	public Map selectBoardList(@RequestBody Map<String, Object> param) {
-		
 		Map searchMap = (Map) param.get("dma_search");
 		//String boardType = (String) searchMap.get("BOARD_TYPE"); 
-		searchMap.put("BOARD_CONT", strToArr((String)searchMap.get("BOARD_CONT")," "));
-		
+		searchMap.put("BOARD_CONT", util.strToArr((String)searchMap.get("BOARD_CONT")," "));
 		Map resultMap = new HashMap();
 		List<Map<String,Object>> list = sqlSession.selectList("M.selectBoardList", searchMap);
-		
-		
 		resultMap.put("dataList1", list);
 		return resultMap;
 	}
@@ -82,7 +55,6 @@ public class Moca3Application {
 	public List selectTistroyList(@RequestParam Map<String, Object> mocaMap) throws Exception {
 		List list = new ArrayList();
 		try {
-			//Map<String, Object> paramMap = Map(mocaMap)
 			// 서비스 테스트용 구문 추가
 			URL url = new URL("https://teammoca.tistory.com");
 			URLConnection conn = url.openConnection();
@@ -98,7 +70,6 @@ public class Moca3Application {
 			}
 			String s = sb.toString();
 			s = s.replaceAll("<a href=\"/", "<a target=\"_blank\" href=\"https://teammoca.tistory.com/");
-			
 			String ptnStr = "<div\\s+class=\"post-item\">.*?</div>";
 			Pattern p = Pattern.compile(ptnStr,Pattern.CASE_INSENSITIVE | Pattern.DOTALL );
 			Matcher m = p.matcher(s);
@@ -107,8 +78,6 @@ public class Moca3Application {
 				list.add(m.group());
 				i++;
 			}
-			System.out.println("list.size:"+list.size());
-			//System.out.println("list:"+list);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -119,17 +88,18 @@ public class Moca3Application {
 		SpringApplication.run(Moca3Application.class, args);
 	}
 
-	@Bean
-	public ServletRegistrationBean websquareDispatcher() {
-		  ServletRegistrationBean reg = new ServletRegistrationBean();
-		  reg.setServlet(new websquare.http.DefaultRequestDispatcher());
-		  reg.addUrlMappings("*.wq"); 
-		  reg.addInitParameter("WEBSQUARE_HOME","C:\\A_teammoca_repository\\eclipse_20231025\\mocaerp2024\\websquare_home");
-		  return reg;
-	}
-	
 }
 
 
 
-
+class util {
+	public static String[] strToArr(String str,String sepa) {
+		if(str == null || "".equals(str.trim())) {
+			return null;
+		}else {
+			String strIssuer = str.trim();
+			String[] arrIssuer = strIssuer.split(sepa);
+			return arrIssuer;	
+		}
+	} 
+}
