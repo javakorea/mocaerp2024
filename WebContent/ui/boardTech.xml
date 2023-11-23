@@ -12,19 +12,13 @@
 
         	<w2:dataCollection baseNode="map">
 
-        		<w2:dataList baseNode="list" id="dataList1" repeatNode="map" saveRemovedData="true">
+        		<w2:dataList baseNode="list" id="dlt_list" repeatNode="map" saveRemovedData="true">
 
         			<w2:columnInfo>
-
-        				<w2:column dataType="text" id="CORP_CD" name="CORP_CD" />
-
-        				<w2:column dataType="text" id="CORP_NM" name="CORP_NM" />
 
         				<w2:column dataType="text" id="BOARD_PIDX" name="BOARD_PIDX" />
 
         				<w2:column dataType="text" id="BOARD_IDX" name="BOARD_IDX" />
-
-        				<w2:column dataType="text" id="BOARD_SUPPORT" name="BOARD_SUPPORT" />
 
         				<w2:column dataType="text" id="BOARD_DELYN" name="BOARD_DELYN" />
 
@@ -35,7 +29,6 @@
         				<w2:column id="BOARD_DATE" name="BOARD_DATE" dataType="text"></w2:column>
         				<w2:column id="UPDATE_DATE" name="UPDATE_DATE" dataType="text"></w2:column>
         				<w2:column id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:column>
-        				<w2:column id="BOARD_RECEIPTIONER" name="BOARD_RECEIPTIONER" dataType="text"></w2:column>
         				<w2:column id="CNT" name="CNT" dataType="text"></w2:column>
         				<w2:column id="BOARD_REPLYCNT" name="BOARD_REPLYCNT" dataType="text"></w2:column>
         				<w2:column id="CHK" name="CHK" dataType="text"></w2:column>
@@ -63,9 +56,9 @@
 
         	<w2:workflowCollection></w2:workflowCollection>
 
-        	<xf:submission id="submission1" ref="data:json,dma_search" target="data:json,dataList1" action="/selectBoardList.do" method="post" mediatype="application/json" encoding="UTF-8"
-        		instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="scwin.submission1_submit"
-        		ev:submitdone="" ev:submiterror="" abortTrigger="">
+        	<xf:submission id="sbm_boardList" ref="data:json,dma_search" target="data:json,dlt_list" action="/selectBoardList.do" method="post" mediatype="application/json" encoding="UTF-8"
+        		instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
+        		ev:submitdone="scwin.sbm_boardList_submitdone" ev:submiterror="" abortTrigger="">
         	</xf:submission>
         </xf:model>
 
@@ -88,33 +81,56 @@ scwin.onpageload = function() {
 	scwin.btn_search_onclick();
 };
 		
-scwin.submission1_submit = function(e) {
-};
-
 scwin.btn_search_onclick = function(e) {
 	dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
 	dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP");
 	dma_search.set("BOARD_TYPE","TECH");
 	
-	com.sbm.execute (submission1);
+	com.sbm.execute (sbm_boardList);
 };
 
-scwin.btn_detail_onclick = function(e) {
+scwin.grd1_oncelldblclick = function(row,col,colId) {
 	var _param = {};
-	_param.rowJson = dataList1.getRowJSON(dataList1.getRowPosition());
+	_param.rowJson = dlt_list.getRowJSON(row);
+	_param.mode = "read";
+	_param.boardCategory = "ERP";
 	var data = { data: _param, callbackFn: "scwin.btn_detail_callback" };
 	var options = {
 		id: "boardPopTech",
 		popupName: "게시판상세",
 		modal: true,
-		width: 680, height: 430
+		width: 680, height: 545
+	};
+	com.win.openPopup("/ui/boardPop.xml", options, data);
+};
+
+scwin.sbm_boardList_submitdone = function(e) {
+	txt_cnt.setValue(dlt_list.getRowCount() + "건")
+};
+
+scwin.btn_write_onclick = function(e) {
+	var _param = {};
+	_param.rowJson = {
+		"BOARD_TYPE":"TECH"
+	};
+	_param.mode = "write";
+	_param.boardCategory = "ERP";
+	var data = { data: _param, callbackFn: "scwin.btn_detail_callback" };
+	var options = {
+		id: "boardPopTech",
+		popupName: "게시판등록",
+		modal: true,
+		width: 680, height: 545
 	};
 	com.win.openPopup("/ui/boardPop.xml", options, data);
 };
 
 scwin.btn_detail_callback = function(e){
 	//callback
-}]]></script>
+	com.win.alert(e.message);
+	scwin.btn_search_onclick();
+}
+]]></script>
            
     </head>
        
@@ -251,52 +267,36 @@ scwin.btn_detail_callback = function(e){
                 <w2:textbox class="" id="" label="서브타이틀" style="" tagname="h3"/>
                     			
                 <xf:group class="fr" id="" style="">
-                        				
-                    <xf:trigger class="btn_cm  copy" id="" style="" type="button">
-                            					
-                        <xf:label><![CDATA[행복사]]></xf:label>
-                            				
-                    </xf:trigger>
-                        				
-                    <xf:trigger class="btn_cm  row_add" id="" style="" type="button">
-                            					
-                        <xf:label><![CDATA[행추가]]></xf:label>
-                            				
-                    </xf:trigger>
-                        				
-                    <xf:trigger class="btn_cm  row_del" id="" style="" type="button">
-                            					
-                        <xf:label><![CDATA[행삭제]]></xf:label>
-                            				
-                    </xf:trigger>
-                        				
-                    <xf:trigger class="btn_cm download" id="" style="" type="button">
-                            					
-                        <xf:label><![CDATA[다운로드]]></xf:label>
-                            				
-                    </xf:trigger>
-                        				
-                    <xf:trigger class="btn_cm" id="" style="" type="button">
-                            					
-                        <xf:label><![CDATA[글쓰기]]></xf:label>
-                            				
-                    </xf:trigger>
-                        				
-                    <xf:trigger class="btn_cm " id="btn_detail" style="" type="button" ev:onclick="scwin.btn_detail_onclick">
-                            					
-                        <xf:label><![CDATA[상세(임시)]]></xf:label>
-                            				
-                    </xf:trigger>
-                        			
+
+                	<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
+
+                	<xf:trigger class="btn_cm download" id="" style="" type="button">
+
+                		<xf:label><![CDATA[다운로드]]></xf:label>
+
+                	</xf:trigger>
+
+                	
+
+                	<xf:trigger class="btn_cm row_del" id="" style="" type="button">
+                		<xf:label><![CDATA[선택삭제]]></xf:label>
+                	</xf:trigger>
+                	<xf:trigger class="btn_cm row_del" id="" style="" type="button">
+                		<xf:label><![CDATA[물리삭제]]></xf:label>
+                	</xf:trigger><xf:trigger class="btn_cm blue" id="btn_write" style="" type="button" ev:onclick="scwin.btn_write_onclick">
+
+                		<xf:label><![CDATA[글쓰기]]></xf:label>
+
+                	</xf:trigger>
                 </xf:group>
-                    		
+
             </xf:group>
                 		
             <xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
                     			
-                <w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dataList1"
-                	defaultCellHeight="26" focusMode="row" id="" scrollByColumn="false" scrollByColumnAdaptive="false" style="height: 150px;"
-                	visibleRowNum="10">
+                <w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
+                	defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style=""
+                	visibleRowNum="10" ev:oncelldblclick="scwin.grd1_oncelldblclick">
 
                 	<w2:caption id="caption2" style="" value="this is a grid caption." />
 

@@ -1,0 +1,9 @@
+.w2input_readonly, .w2input_readonly:focus{background:#fff !important; color:#20252a !important; border:0 !important}
+
+.edbox{position:relative; margin:0 0 16px}
+.w2editor .cke_1{width:100%}
+.w2editor.read .cke_top, .w2editor.read .cke_bottom{display:none}
+
+.btn_cm.blue, .btn_cm.blue:active, .btn_cm.blue:active:hover{ background-color: #2d5277;  color: #Fff;  border: 1px solid #2d5277;}
+
+

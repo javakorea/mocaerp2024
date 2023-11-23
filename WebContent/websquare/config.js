@@ -154,7 +154,7 @@ export default {
       "@value": "false"
     },
     "stylesheet": {
-      "@earlyImportList": "/cm/css/base.css,/cm/css/contents.css",
+      "@earlyImportList": "/cm/css/base.css,/cm/css/contents.css,/cm/css/new.css",
       "@enable": "true",
       "@import": "link",
       "@value": "stylesheet_ext.css"

@@ -16,8 +16,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +26,7 @@ public class Moca3Application {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	//게시판 목록조회
 	@RequestMapping("/selectBoardList.do")
 	public Map selectBoardList(@RequestBody Map<String, Object> param) {
 		Map searchMap = (Map) param.get("dma_search");
@@ -35,7 +34,17 @@ public class Moca3Application {
 		searchMap.put("BOARD_CONT", util.strToArr((String)searchMap.get("BOARD_CONT")," "));
 		Map resultMap = new HashMap();
 		List<Map<String,Object>> list = sqlSession.selectList("M.selectBoardList", searchMap);
-		resultMap.put("dataList1", list);
+		resultMap.put("dlt_list", list);
+		return resultMap;
+	}
+	
+	//게시판 단건조회
+	@RequestMapping("/selectBoardInfo.do")
+	public Map selectBoardInfo(@RequestBody Map<String, Object> param) {
+		Map searchMap = (Map) param.get("dma_search");
+		Map resultMap = new HashMap();
+		Map<String,Object> map = sqlSession.selectOne("M.selectBoardInfo", searchMap);
+		resultMap.put("dma_boardInfo", map);
 		return resultMap;
 	}
 	
@@ -49,7 +58,47 @@ public class Moca3Application {
 		return resultMap;
 	}
 	
-		
+	@RequestMapping("/insertBoardInfo.do")
+	public Map insertBoardInfo(@RequestBody Map<String, Object> param) {
+		Map resultMap = new HashMap();
+		try {
+			Map searchMap = (Map) param.get("dma_search");
+			int map = sqlSession.insert("M.insertBoardInfo", searchMap);
+			resultMap.put("cnt", map);
+			resultMap.put("status", "S");
+			resultMap.put("Message", "정상적으로 등록 되었습니다.");
+			
+			System.out.println("board_idx:"+searchMap.get("BOARD_IDX")+"board_pidx:"+searchMap.get("BOARD_PIDX")+",map:"+map);
+			if(searchMap.get("BOARD_PIDX") == null || searchMap.get("BOARD_PIDX") == "" ) {
+				searchMap.put("BOARD_PIDX", searchMap.get("BOARD_IDX"));
+				sqlSession.update("M.updateBoardInfo", searchMap);
+			}
+		}catch(Exception e) {
+				e.printStackTrace();
+				resultMap.put("status", "E");
+				resultMap.put("Message",e.getMessage());
+		}
+		return resultMap;
+	}
+	
+	@RequestMapping("/updateBoardInfo.do")
+	public Map updateBoardInfo(@RequestBody Map<String, Object> param) {
+		Map resultMap = new HashMap();
+		try {
+			Map searchMap = (Map) param.get("dma_search");
+			int map = sqlSession.insert("M.updateBoardInfo", searchMap);
+			resultMap.put("cnt", map);
+			resultMap.put("status", "S");
+			resultMap.put("Message", "정상적으로 처리 되었습니다.");
+			
+		}catch(Exception e) {
+				e.printStackTrace();
+				resultMap.put("status", "E");
+				resultMap.put("Message",e.getMessage());
+		}
+		return resultMap;
+	}
+	
 	//메인 티스토리 조회  
 	@RequestMapping(value = "/main/selectTistroyList.do")
 	public List selectTistroyList(@RequestParam Map<String, Object> mocaMap) throws Exception {
@@ -87,9 +136,7 @@ public class Moca3Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Moca3Application.class, args);
 	}
-
 }
-
 
 
 class util {

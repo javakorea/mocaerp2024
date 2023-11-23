@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
-	<head meta_programId="BM004P01" meta_programName="메뉴별 프로그램 조회 팝업" meta_programDesc="메뉴별 프로그램 조회 팝업" meta_author="Inswave Systems" meta_date="2021.02.25">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="BM004P01" meta_programName="메뉴별 프로그램 조회 팝업" meta_programDesc="메뉴별 프로그램 조회 팝업" meta_author="Inswave Systems"
+		meta_date="2021.02.25">
 		<w2:buildDate />
 		<xf:model>
 			<xf:instance>
@@ -11,11 +13,16 @@
 				<w2:dataMap baseNode="map" id="dma_search">
 					<w2:keyInfo>
 						<w2:key id="BOARD_IDX" name="게시물번호" dataType="text"></w2:key>
+						<w2:key id="BOARD_PIDX" name="게시물부모번호" dataType="text"></w2:key>
 						<w2:key id="BOARD_DATE" name="작성일시" dataType="text"></w2:key>
 						<w2:key id="BOARD_WRITER" name="작성자" dataType="text"></w2:key>
 						<w2:key id="BOARD_TITLE" name="제목" dataType="text"></w2:key>
-						<w2:key id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:key>
-						<w2:key id="BOARD_FILE_TABLE" name="BOARD_FILE_TABLE" dataType="text"></w2:key>
+						<w2:key id="BOARD_TYPE" name="게시판유형" dataType="text"></w2:key>
+						<w2:key id="BOARD_FILE_TABLE" name="게시판첨부파일테이블" dataType="text"></w2:key>
+						<w2:key id="BOARD_TABLE" name="게시판테이블" dataType="text"></w2:key>
+						<w2:key id="BOARD_CONT" name="게시물컨텐츠" dataType="text"></w2:key>
+
+						<w2:key id="BOARD_DELYN" name="삭제여부" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
 				<w2:dataList baseNode="list" repeatNode="map" id="dlt_boardFile" saveRemovedData="true">
@@ -29,36 +36,84 @@
 						<w2:column id="BOARDFILE_ID" name="BOARDFILE_ID" dataType="text"></w2:column>
 					</w2:columnInfo>
 				</w2:dataList>
+				<w2:dataMap baseNode="map" id="dma_boardInfo">
+					<w2:keyInfo>
+						<w2:key id="BOARD_IDX" name="BOARD_IDX" dataType="text"></w2:key>
+						<w2:key id="BOARD_TITLE" name="BOARD_TITLE" dataType="text"></w2:key>
+						<w2:key id="BOARD_CONT" name="BOARD_CONT" dataType="text"></w2:key>
+						<w2:key id="BOARD_WRITER" name="BOARD_WRITER" dataType="text"></w2:key>
+						<w2:key id="BOARD_DATE" name="BOARD_DATE" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
-			<xf:submission id="sbm_boardFileList" ref="data:json,dma_search" target="data:json,dlt_boardFile" action="/selectBoardFileList.do" method="post" mediatype="application/json" encoding="UTF-8"
-				instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone=""
-				ev:submiterror="" abortTrigger="">
+			<xf:submission id="sbm_boardFileList" ref="data:json,dma_search" target="data:json,dlt_boardFile"
+				action="/selectBoardFileList.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_boardFileList_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_boardInfo" ref="data:json,dma_search" target="data:json,dma_boardInfo" action="/selectBoardInfo.do"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_searchBoardInfo_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_insertBoardInfo" ref="data:json,dma_search" target="data:json,dma_boardInfo" action="/insertBoardInfo.do"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_insertBoardInfo_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_updateBoardInfo" ref="data:json,dma_search" target="data:json,dma_boardInfo" action="/updateBoardInfo.do"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_updateBoardInfo_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
 		</xf:model>
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
-
-		<script type="text/javascript" lazy="false"><![CDATA[
-/**
-  * 초기 스크립트 수행 함수 정의
-  */
-scwin.onpageload = function () {
+		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
 	scwin.param = com.data.getParameter();
 	dma_search.setJSON(scwin.param.data.rowJson);
-	dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP")
-	scwin.fn_searchFile();
+	if(scwin.param.data.boardCategory == "ERP"){
+		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
+		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP")
+	}else{
+		dma_search.set("BOARD_TABLE","MT_BOARD");
+		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE")
+	}
+	if(scwin.param.data.mode == "read"){
+		btn_update.show('');
+		btn_confirm.hide();
+		ibx_boardDate.setReadOnly(true);
+		scwin.fn_searchBoardInfo();
+	}else{
+		tr_read.hide();
+		ibx_boardWriter.setValue('superadmin');
+	}
 };
+
+var aaa = function(e){
+	if($(e).prev().prop('tagName') == 'IMG'){
+		$(e).prev().remove();
+	}
+	$(e).removeClass("hide");
+}
 
 /**
- * 프로그램 목록을 조회한다.
+ * 게시물 단건조회
  */
-scwin.btn_search_onclick = function () {
-//	com.sbm.execute(sbm_program);
+scwin.fn_searchBoardInfo = function () {
+	com.sbm.execute(sbm_boardInfo);
+	//callback
+	scwin.sbm_searchBoardInfo_submitdone = function(e) {
+		edi_1.setHTML(dma_boardInfo.get('BOARD_CONT'));
+		scwin.fn_searchFile();
+	};
 };
 
+/* 게시물 단건 첨부파일 목록조회 */
 scwin.fn_searchFile = function () {
 	com.sbm.execute(sbm_boardFileList);
+	//callback
+	
+	scwin.sbm_boardFileList_submitdone = function(e) {
+		txt_cnt.setValue(dlt_boardFile.getRowCount()+"건");
+	};
 };
 
 scwin.fn_bytesToLabel = function(_byte){
@@ -75,36 +130,80 @@ scwin.fn_bytesToLabel = function(_byte){
 	      reValue = ((_kb /1024)/1024).toFixed(1) + byteSize[3];//gb
 	  }
 	  return reValue;
-}
-
-scwin.btn_confirm_onclick = function(e) {
-
 };
 
+/* 게시물등록 */
+scwin.btn_confirm_onclick = function(e) {
+	com.win.confirm($p, '해당 게시물을 등록하시겠습니까?', function(e){
+		if(e.clickValue){
+			dma_search.set("BOARD_CONT", edi_1.getHTML());
+			com.sbm.execute(sbm_insertBoardInfo);
+		}
+	});
+	scwin.sbm_insertBoardInfo_submitdone = function(e) {
+		if(e.responseJSON.status == "S"){
+			com.win.alert(e.responseJSON.Message);
+			$p.parent().scwin.btn_search_onclick();
+		}
+		
+	};
+};
+
+/* 팝업취소 */
 scwin.btn_cancel_onclick = function(e) {
 	com.win.closePopup();
+};
+
+/* 게시물 논리삭제 */
+scwin.btn_del_onclick = function(e) {
+    com.win.confirm($p, '해당 게시물을 삭제하시겠습니까?', function(e){
+		if(e.clickValue){
+			dma_search.set("BOARD_DELYN","Y");
+			com.sbm.execute(sbm_updateBoardInfo);
+		}
+	});
+};
+
+/* 게시물 수정 */
+scwin.btn_update_onclick = function(e) {
+	com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
+		if(e.clickValue){
+			dma_search.set("BOARD_CONT", edi_1.getHTML());
+			com.sbm.execute(sbm_updateBoardInfo);
+		}
+	});
+};
+
+scwin.sbm_updateBoardInfo_submitdone = function(e) {
+	if(e.responseJSON.status == "S"){
+		if(dma_search.get('BOARD_DELYN') == "Y"){
+			var param = {
+				"message":"삭제가 완료되었습니다."
+			};
+			com.win.closePopup(param);
+		}else{
+			com.win.alert("수정되었습니다.");
+			$p.parent().scwin.btn_search_onclick();
+		}
+	}
 };
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw">
-			<xf:group id=""><xf:group style="" id="" class="dfbox">
-				<w2:textbox tagname="h3" style="" id="" label="서브타이틀" class=""></w2:textbox>
-				<xf:group style="" id="" class="fr">
-					<xf:trigger style="" id="" type="button" class="btn_cm  row_add">
-						<xf:label><![CDATA[답변작성]]></xf:label>
-					</xf:trigger>
-					<xf:trigger style="" id="" type="button" class="btn_cm write">
-						<xf:label><![CDATA[수정]]></xf:label>
-					</xf:trigger>
-					<xf:trigger style="" id="" type="button" class="btn_cm  row_del">
-						<xf:label><![CDATA[삭제]]></xf:label>
-					</xf:trigger>
-					<xf:trigger style="" id="" type="button" class="btn_cm row_del">
-						<xf:label><![CDATA[물리삭제]]></xf:label>
-					</xf:trigger>
+			<xf:group id="">
+				<xf:group style="" id="" class="dfbox">
+					<xf:group style="" id="" class="fr"><xf:trigger style="" id="btn_del" type="button" class="btn_cm  row_del" ev:onclick="scwin.btn_del_onclick">
+							<xf:label><![CDATA[삭제]]></xf:label>
+						</xf:trigger>
+						<xf:trigger style="" id="" type="button" class="btn_cm row_del">
+							<xf:label><![CDATA[물리삭제]]></xf:label>
+						</xf:trigger>
+						
+					</xf:group>
 				</xf:group>
-			</xf:group></xf:group><xf:group class="tbbox" id="tbl_search" style="">
+			</xf:group>
+			<xf:group class="tbbox" id="tbl_search" style="">
 				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
 					<w2:attributes>
 						<w2:summary></w2:summary>
@@ -112,17 +211,17 @@ scwin.btn_cancel_onclick = function(e) {
 					<xf:group tagname="colgroup">
 						<xf:group tagname="col" style="width:80px;"></xf:group>
 						<xf:group tagname="col"></xf:group>
-						<xf:group tagname="col"></xf:group>
+						<xf:group tagname="col" style="width:80px;"></xf:group>
 						<xf:group style="" tagname="col"></xf:group>
 					</xf:group>
-					<xf:group style="" tagname="tr">
+					<xf:group style="" tagname="tr" id="tr_read">
 						<xf:group tagname="th" class="w2tb_th">
 							<w2:attributes></w2:attributes>
 							<w2:textbox class="" id="" label="게시물번호" style=""></w2:textbox>
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_program" placeholder="" style="width:100%;" ref="data:dma_search.BOARD_IDX"></xf:input>
+							<xf:input class="" id="ibx_boardIdx" placeholder="" style="width:100%;" ref="data:dma_search.BOARD_IDX"></xf:input>
 						</xf:group>
 						<xf:group tagname="th" class="w2tb_th">
 							<w2:attributes></w2:attributes>
@@ -130,7 +229,7 @@ scwin.btn_cancel_onclick = function(e) {
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="PROGRAM10" placeholder="" ref="data:dma_search.BOARD_DATE" style="width:100%;"></xf:input>
+							<xf:input class="" id="ibx_boardDate" placeholder="" ref="data:dma_search.BOARD_DATE" style="width:100%;"></xf:input>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr">
@@ -138,29 +237,43 @@ scwin.btn_cancel_onclick = function(e) {
 							<w2:attributes>
 								<w2:scope>row</w2:scope>
 							</w2:attributes>
+							<w2:textbox class="req" id="" label="제목" style=""></w2:textbox>
+						</xf:group>
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes></w2:attributes>
+							<xf:input class="req" id="ibx_boardTitle" placeholder="" ref="data:dma_search.BOARD_TITLE" style="width:100%;"></xf:input>
+						</xf:group>
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
 							<w2:textbox class="" id="" label="작성자" style=""></w2:textbox>
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="PROGRAM" placeholder="" ref="data:dma_search.BOARD_WRITER" style="width:100%;"></xf:input>
-						</xf:group>
-						<xf:group tagname="th" class="w2tb_th">
-							<w2:attributes></w2:attributes>
-							<w2:textbox class="" id="" label="제목" style=""></w2:textbox>
-						</xf:group>
-						<xf:group tagname="td" class="w2tb_td">
-							<w2:attributes></w2:attributes>
-							<xf:input class="" id="PROGRAM20" placeholder="" ref="data:dma_search.BOARD_TITLE" style="width:100%;"></xf:input>
+							<xf:input class="" id="ibx_boardWriter" placeholder="" ref="data:dma_search.BOARD_WRITER" style="width:100%;"
+								readOnly="true">
+							</xf:input>
 						</xf:group>
 					</xf:group>
 				</xf:group>
 			</xf:group>
+			<xf:group id="" class="edbox">
+				<w2:editor style="height:150px;" id="edi_1"></w2:editor>
+			</xf:group>
+			<xf:group class="dfbox" id="" style="">
+				<w2:textbox class="" id="" label="첨부파일" style="" tagname="h3"></w2:textbox>
+				<xf:group class="fr" id="" style="">
+					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
+					<xf:trigger class="btn_cm upload" id="btn_fileUpload" style="" type="button">
+						<xf:label><![CDATA[파일찾기]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
 			<xf:group adaptiveThreshold="" class="gvwbox wq_flx" id="" style="">
-				<w2:editor style="height: 300px;" id=""></w2:editor>
+
 				<w2:gridView autoFit="allColumn" captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_boardFile"
 					defaultCellHeight="26" id="grd_program" rowStatusHeaderValue="상태" rowStatusVisible="false" rowStatusWidth="" scrollByColumn="false"
-					scrollByColumnAdaptive="false" style="height:43px;" ev:onrowindexchange="scwin.grd_program_onrowindexchange"
-					ev:oncelldblclick="scwin.grd_program_oncelldblclick" focusMode="row">
+					scrollByColumnAdaptive="false" style="min-height:80px" ev:onrowindexchange="scwin.grd_program_onrowindexchange"
+					ev:oncelldblclick="scwin.grd_program_oncelldblclick" focusMode="row" visibleRowNum="2">
 					<w2:caption id="caption1" style="" value="this is a grid caption."></w2:caption>
 					<w2:header id="header1" style="">
 						<w2:row id="row1" style="">
@@ -196,13 +309,18 @@ scwin.btn_cancel_onclick = function(e) {
 			</xf:group>
 			<xf:group class="btnbox" id="" style="">
 				<xf:group class="fr" id="">
+					<xf:trigger class="btn_cm pt" id="btn_update" nextTabID="" style="display:none;"
+						type="button" ev:onclick="scwin.btn_update_onclick">
+						<xf:label><![CDATA[수정]]></xf:label>
+					</xf:trigger>
 					<xf:trigger class="btn_cm pt" id="btn_confirm" style="" type="button" nextTabID=""
 						ev:onclick="scwin.btn_confirm_onclick">
-						<xf:label><![CDATA[확인]]></xf:label>
+						<xf:label><![CDATA[등록]]></xf:label>
 					</xf:trigger>
 					<xf:trigger class="btn_cm" id="btn_cancel" style="" type="button" ev:onclick="scwin.btn_cancel_onclick">
 						<xf:label><![CDATA[취소]]></xf:label>
 					</xf:trigger>
+
 				</xf:group>
 			</xf:group>
 		</xf:group>

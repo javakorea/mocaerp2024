@@ -9,19 +9,16 @@
 		</select>
 		
 		<select id="selectBoardList" parameterType="java.util.Map" resultType="java.util.HashMap">
+		/*selectBoardList 게시물 목록조회*/
 	    		SELECT 
-		        	A.CORP_CD,
-		        	A.CORP_NM,
 		        	A.BOARD_PIDX, 
 		        	A.BOARD_IDX, 
-		        	A.BOARD_SUPPORT, 
 		        	A.BOARD_DELYN, 
 		        	A.BOARD_TITLE, 
 		        	A.BOARD_WRITER, 
 		        	DATE_FORMAT(A.BOARD_DATE, '%Y-%m-%d %H:%i:%s') as BOARD_DATE ,
 		        	DATE_FORMAT(A.UPDATE_DATE,  '%Y-%m-%d %H:%i:%s') as UPDATE_DATE ,
 		        	A.BOARD_TYPE,
-		        	A.BOARD_RECEIPTIONER,
 		        	COUNT(F.BOARD_IDX) AS CNT,
 		        	A.BOARD_REPLYCNT
 				FROM ${BOARD_TABLE} A 
@@ -45,14 +42,26 @@
 					</foreach>
 					)
 				</if>
-		        <if test="BOARD_RECEIPTIONER != null and BOARD_RECEIPTIONER != ''">
-		            AND A.BOARD_RECEIPTIONER like CONCAT('%', #{BOARD_RECEIPTIONER}, '%')
-		        </if>
 		        <![CDATA[
 		        AND A.BOARD_DATE >= STR_TO_DATE(CONCAT(#{FROM},' 00:00:00'), '%Y%m%d %H:%i:%s') AND A.BOARD_DATE <= STR_TO_DATE(CONCAT(#{TO},' 23:59:59'), '%Y%m%d %H:%i:%s')
 		        ]]>
 		        GROUP BY A.BOARD_IDX
 		        ORDER BY A.UPDATE_DATE DESC, A.BOARD_DATE DESC
+    </select>
+    
+    <select id="selectBoardInfo" parameterType="java.util.Map" resultType="java.util.HashMap">
+  	  /*selectBoardInfo 게시물 단건조회*/
+         SELECT
+            A.BOARD_IDX, 
+            A.BOARD_TITLE, 
+            A.BOARD_CONT, 
+            A.BOARD_WRITER,
+            DATE_FORMAT(A.BOARD_DATE, '%Y-%m-%d  %H:%i:%s') AS BOARD_DATE
+        FROM ${BOARD_TABLE} A
+        WHERE 1=1
+        <if test="BOARD_IDX != null and BOARD_IDX != ''">
+            AND A.BOARD_IDX = #{BOARD_IDX}
+        </if>
     </select>
     
     <select id="selectBoardFileList" parameterType="java.util.Map" resultType="java.util.HashMap">
@@ -65,4 +74,41 @@
         </if>
         ORDER BY A.BOARDFILE_IDX DESC
     </select>
+    
+    <insert id="insertBoardInfo" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="BOARD_IDX">
+    		 /*insertBoard 게시물 작성*/
+            INSERT INTO ${BOARD_TABLE}(
+            	BOARD_DELYN,
+            	BOARD_TYPE,
+	            BOARD_TITLE,
+	            BOARD_CONT,
+	            BOARD_WRITER,
+	            BOARD_DATE,
+	            UPDATE_DATE
+            )VALUES (
+           		'N',
+           		#{BOARD_TYPE},
+				#{BOARD_TITLE},
+	            #{BOARD_CONT},
+	            #{BOARD_WRITER},
+	            CURRENT_TIMESTAMP,
+	            CURRENT_TIMESTAMP
+            )
+        </insert>
+        
+    <update id="updateBoardInfo" parameterType="java.util.Map">
+         /*updateBoardInfo 게시물수정*/
+         UPDATE ${BOARD_TABLE} SET 
+            BOARD_TYPE = #{BOARD_TYPE},
+            <if test="BOARD_DELYN != null and BOARD_DELYN != ''">
+            	BOARD_DELYN = #{BOARD_DELYN},
+            </if>
+            BOARD_PIDX = #{BOARD_PIDX},
+            BOARD_TITLE = #{BOARD_TITLE},
+            BOARD_CONT = #{BOARD_CONT},
+            BOARD_WRITER = #{BOARD_WRITER},
+            UPDATE_DATE = CURRENT_TIMESTAMP
+         WHERE 1=1
+         AND BOARD_IDX=#{BOARD_IDX}
+    </update>
  </mapper>

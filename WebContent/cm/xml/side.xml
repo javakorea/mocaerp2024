@@ -146,7 +146,7 @@ scwin.initDataCallback = function () {
 	};
 
 	var layout = $p.main().scwin.getLayoutId();
-
+debugger;
 	if (layout == "S") {
 		var menuCd = $w.getParameter("menuCd");
 
