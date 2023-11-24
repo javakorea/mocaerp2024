@@ -13,10 +13,10 @@ public interface Moca3Mapper {
     /**
      * @return
      */
-    public List<Map<String,Object>> selectAnyList(HashMap param);
-    public List<Map<String,Object>> selectBoardList(HashMap param);
-    public Map<String,Object> selectBoardInfo(HashMap param);
-    public List<Map<String,Object>> selectBoardFileList(HashMap param);
-    public Map<String,Object> insertBoardInfo(HashMap param);
-    public Map<String,Object> updateBoardInfo(HashMap param);
+    public List<Map<String,Object>> selectAnyList(HashMap<String,String> param);
+    public List<Map<String,Object>> selectBoardList(HashMap<String,String> param);
+    public Map<String,Object> selectBoardInfo(HashMap<String,String> param);
+    public List<Map<String,Object>> selectBoardFileList(HashMap<String,String> param);
+    public Map<String,Object> insertBoardInfo(HashMap<String,String> param);
+    public Map<String,Object> updateBoardInfo(HashMap<String,String> param);
 }

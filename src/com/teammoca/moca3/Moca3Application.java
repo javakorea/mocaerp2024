@@ -28,11 +28,11 @@ public class Moca3Application {
 	
 	//게시판 목록조회
 	@RequestMapping("/selectBoardList.do")
-	public Map selectBoardList(@RequestBody Map<String, Object> param) {
-		Map searchMap = (Map) param.get("dma_search");
+	public Map<String, Object> selectBoardList(@RequestBody Map<String, HashMap<String,Object>> param) {
+		Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_search");
 		//String boardType = (String) searchMap.get("BOARD_TYPE"); 
 		searchMap.put("BOARD_CONT", util.strToArr((String)searchMap.get("BOARD_CONT")," "));
-		Map resultMap = new HashMap();
+		Map<String, Object> resultMap = new HashMap<String,Object>();
 		List<Map<String,Object>> list = sqlSession.selectList("M.selectBoardList", searchMap);
 		resultMap.put("dlt_list", list);
 		return resultMap;
@@ -40,9 +40,9 @@ public class Moca3Application {
 	
 	//게시판 단건조회
 	@RequestMapping("/selectBoardInfo.do")
-	public Map selectBoardInfo(@RequestBody Map<String, Object> param) {
-		Map searchMap = (Map) param.get("dma_search");
-		Map resultMap = new HashMap();
+	public Map<String, Object> selectBoardInfo(@RequestBody Map<String, Map<String,Object>> param) {
+		Map<String, Object> searchMap = (Map<String, Object>) param.get("dma_search");
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		Map<String,Object> map = sqlSession.selectOne("M.selectBoardInfo", searchMap);
 		resultMap.put("dma_boardInfo", map);
 		return resultMap;
@@ -50,19 +50,19 @@ public class Moca3Application {
 	
 	//게시판 첨부파일조회
 	@RequestMapping("/selectBoardFileList.do")
-	public Map selectBoardFileList(@RequestBody Map<String, Object> param) {
-		Map searchMap = (Map) param.get("dma_search");
-		Map resultMap = new HashMap();
+	public Map<String, Object> selectBoardFileList(@RequestBody Map<String, Map<String,Object>> param) {
+		Map<String, Object> searchMap = (Map<String, Object>) param.get("dma_search");
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Map<String,Object>> list = sqlSession.selectList("M.selectBoardFileList", searchMap);
 		resultMap.put("dlt_boardFile", list);
 		return resultMap;
 	}
 	
 	@RequestMapping("/insertBoardInfo.do")
-	public Map insertBoardInfo(@RequestBody Map<String, Object> param) {
-		Map resultMap = new HashMap();
+	public Map<String,Object> insertBoardInfo(@RequestBody Map<String, Map<String,Object>> param) {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
 		try {
-			Map searchMap = (Map) param.get("dma_search");
+			Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_search");
 			int map = sqlSession.insert("M.insertBoardInfo", searchMap);
 			resultMap.put("cnt", map);
 			resultMap.put("status", "S");
@@ -82,10 +82,10 @@ public class Moca3Application {
 	}
 	
 	@RequestMapping("/updateBoardInfo.do")
-	public Map updateBoardInfo(@RequestBody Map<String, Object> param) {
-		Map resultMap = new HashMap();
+	public Map<String,Object> updateBoardInfo(@RequestBody Map<String, Map<String,Object>> param) {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
 		try {
-			Map searchMap = (Map) param.get("dma_search");
+			Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_search");
 			int map = sqlSession.insert("M.updateBoardInfo", searchMap);
 			resultMap.put("cnt", map);
 			resultMap.put("status", "S");
@@ -101,8 +101,8 @@ public class Moca3Application {
 	
 	//메인 티스토리 조회  
 	@RequestMapping(value = "/main/selectTistroyList.do")
-	public List selectTistroyList(@RequestParam Map<String, Object> mocaMap) throws Exception {
-		List list = new ArrayList();
+	public List<String> selectTistroyList(@RequestParam Map<String, Object> mocaMap) throws Exception {
+		List<String> list = new ArrayList<String>();
 		try {
 			// 서비스 테스트용 구문 추가
 			URL url = new URL("https://teammoca.tistory.com");
@@ -122,10 +122,8 @@ public class Moca3Application {
 			String ptnStr = "<div\\s+class=\"post-item\">.*?</div>";
 			Pattern p = Pattern.compile(ptnStr,Pattern.CASE_INSENSITIVE | Pattern.DOTALL );
 			Matcher m = p.matcher(s);
-			int i=0;
 			while(m.find()) {
 				list.add(m.group());
-				i++;
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

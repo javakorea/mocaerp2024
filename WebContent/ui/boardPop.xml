@@ -142,8 +142,10 @@ scwin.btn_confirm_onclick = function(e) {
 	});
 	scwin.sbm_insertBoardInfo_submitdone = function(e) {
 		if(e.responseJSON.status == "S"){
-			com.win.alert(e.responseJSON.Message);
-			$p.parent().scwin.btn_search_onclick();
+			var param = {
+				"message":"등록이이 완료되었습니다."
+			};
+			com.win.closePopup(param);
 		}
 		
 	};

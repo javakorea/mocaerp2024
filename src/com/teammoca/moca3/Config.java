@@ -31,8 +31,8 @@ public class Config {
       }
     
 	@Bean
-	public ServletRegistrationBean websquareDispatcher() {
-		  ServletRegistrationBean reg = new ServletRegistrationBean();
+	public ServletRegistrationBean<javax.servlet.Servlet> websquareDispatcher() {
+		  ServletRegistrationBean<javax.servlet.Servlet> reg = new ServletRegistrationBean<javax.servlet.Servlet>();
 		  reg.setServlet(new websquare.http.DefaultRequestDispatcher());
 		  reg.addUrlMappings("*.wq"); 
 		  reg.addInitParameter("WEBSQUARE_HOME","C:\\A_teammoca_repository\\eclipse_20231025\\mocaerp2024\\websquare_home");
