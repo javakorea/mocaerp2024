@@ -50,7 +50,7 @@
 
 			<xf:submission id="sbm_searchBoardList" ref="data:json,dma_search" target="data:json,dlt_list" action="/selectBoardList.do"
 				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
-				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_searchBoardList_submitdone" ev:submiterror="" abortTrigger="">
+				processMsg="조회중" ev:submit="" ev:submitdone="scwin.sbm_searchBoardList_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
 			<xf:submission id="sbm_deleteBoardList" ref='data:json,[{"action":"modified","id":"dlt_list"},"dma_search"]' target="data:json,dma_boardInfo"
 				action="/updateBoardList.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
