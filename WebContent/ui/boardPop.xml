@@ -23,6 +23,7 @@
 						<w2:key id="BOARD_CONT" name="게시물컨텐츠" dataType="text"></w2:key>
 
 						<w2:key id="BOARD_DELYN" name="삭제여부" dataType="text"></w2:key>
+						<w2:key id="STATUS" name="상태" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
 				<w2:dataList baseNode="list" repeatNode="map" id="dlt_boardFile" saveRemovedData="true">
@@ -79,7 +80,6 @@
 	if(scwin.param.data.mode == "read"){
 		btn_update.show('');
 		btn_confirm.hide();
-		ibx_boardDate.setReadOnly(true);
 		scwin.fn_searchBoardInfo();
 	}else{
 		tr_read.hide();
@@ -143,7 +143,7 @@ scwin.btn_confirm_onclick = function(e) {
 	scwin.sbm_insertBoardInfo_submitdone = function(e) {
 		if(e.responseJSON.status == "S"){
 			var param = {
-				"message":"등록이이 완료되었습니다."
+				"message":"등록이 완료되었습니다."
 			};
 			com.win.closePopup(param);
 		}
@@ -160,6 +160,7 @@ scwin.btn_cancel_onclick = function(e) {
 scwin.btn_del_onclick = function(e) {
     com.win.confirm($p, '해당 게시물을 삭제하시겠습니까?', function(e){
 		if(e.clickValue){
+			dma_search.set("STATUS", "U");
 			dma_search.set("BOARD_DELYN","Y");
 			com.sbm.execute(sbm_updateBoardInfo);
 		}
@@ -170,6 +171,7 @@ scwin.btn_del_onclick = function(e) {
 scwin.btn_update_onclick = function(e) {
 	com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
 		if(e.clickValue){
+			dma_search.set("STATUS", "U");
 			dma_search.set("BOARD_CONT", edi_1.getHTML());
 			com.sbm.execute(sbm_updateBoardInfo);
 		}
@@ -178,16 +180,28 @@ scwin.btn_update_onclick = function(e) {
 
 scwin.sbm_updateBoardInfo_submitdone = function(e) {
 	if(e.responseJSON.status == "S"){
-		if(dma_search.get('BOARD_DELYN') == "Y"){
+		debugger;
+		if(dma_search.get('STATUS') == "D" || dma_search.get('BOARD_DELYN') == "Y"){
 			var param = {
 				"message":"삭제가 완료되었습니다."
 			};
 			com.win.closePopup(param);
 		}else{
-			com.win.alert("수정되었습니다.");
-			$p.parent().scwin.btn_search_onclick();
+			var param = {
+				"message":"수정이 완료되었습니다."
+			};
+			com.win.closePopup(param);
 		}
 	}
+};
+
+scwin.btn_adminDel_onclick = function(e) {
+	com.win.confirm($p, '삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 해당 게시물을 삭제하시겠습니까?', function(e){
+		if(e.clickValue){
+			dma_search.set("STATUS", "D");
+			com.sbm.execute(sbm_updateBoardInfo);
+		}
+	});
 };
 ]]></script>
 	</head>
@@ -198,7 +212,7 @@ scwin.sbm_updateBoardInfo_submitdone = function(e) {
 					<xf:group style="" id="" class="fr"><xf:trigger style="" id="btn_del" type="button" class="btn_cm  row_del" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
 						</xf:trigger>
-						<xf:trigger style="" id="" type="button" class="btn_cm row_del">
+						<xf:trigger style="" id="btn_adminDel" type="button" class="btn_cm row_del" ev:onclick="scwin.btn_adminDel_onclick">
 							<xf:label><![CDATA[물리삭제]]></xf:label>
 						</xf:trigger>
 						
@@ -223,7 +237,7 @@ scwin.sbm_updateBoardInfo_submitdone = function(e) {
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_boardIdx" placeholder="" style="width:100%;" ref="data:dma_search.BOARD_IDX"></xf:input>
+							<xf:input class="" id="ibx_boardIdx" placeholder="" style="width:100%;" ref="data:dma_search.BOARD_IDX" readOnly="true"></xf:input>
 						</xf:group>
 						<xf:group tagname="th" class="w2tb_th">
 							<w2:attributes></w2:attributes>
@@ -231,7 +245,7 @@ scwin.sbm_updateBoardInfo_submitdone = function(e) {
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_boardDate" placeholder="" ref="data:dma_search.BOARD_DATE" style="width:100%;"></xf:input>
+							<xf:input class="" id="ibx_boardDate" placeholder="" ref="data:dma_search.BOARD_DATE" style="width:100%;" readOnly="true"></xf:input>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr">

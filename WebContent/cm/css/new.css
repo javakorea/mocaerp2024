@@ -1,4 +1,7 @@
+.header h1.logo{width:auto; height:auto; position:relative; top:8px;}
+
 .w2input_readonly, .w2input_readonly:focus{background:#fff !important; color:#20252a !important; border:0 !important}
+.w2inputCalendar_divInput{text-indent:-15px;}
 
 .edbox{position:relative; margin:0 0 16px}
 .w2editor .cke_1{width:100%}

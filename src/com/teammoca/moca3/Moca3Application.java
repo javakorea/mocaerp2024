@@ -19,6 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SpringBootApplication
@@ -84,10 +85,47 @@ public class Moca3Application {
 	@RequestMapping("/updateBoardInfo.do")
 	public Map<String,Object> updateBoardInfo(@RequestBody Map<String, Map<String,Object>> param) {
 		Map<String,Object> resultMap = new HashMap<String,Object>();
+		int cnt = 0;
 		try {
 			Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_search");
-			int map = sqlSession.insert("M.updateBoardInfo", searchMap);
-			resultMap.put("cnt", map);
+			String status = (String) searchMap.get("STATUS");
+			if (status.equals("U")) {
+				cnt = sqlSession.update("M.updateBoardInfo", searchMap);
+			}else if(status.equals("D")) {
+				cnt = sqlSession.delete("M.deleteBoard", searchMap);
+			}
+			resultMap.put("cnt", cnt);
+			resultMap.put("status", "S");
+			resultMap.put("Message", "정상적으로 처리 되었습니다.");
+		}catch(Exception e) {
+				e.printStackTrace();
+				resultMap.put("status", "E");
+				resultMap.put("Message",e.getMessage());
+		}
+		return resultMap;
+	};
+	
+	@RequestMapping("/updateBoardList.do")
+	public @ResponseBody Map<String, Object> updateBoardList(@RequestBody Map<String, Object> param) {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+			List<Map<String,Object>> dltList = (List<Map<String,Object>>) param.get("dlt_list");
+			Map<String,Object> searchMap = (Map<String, Object>) param.get("dma_search");
+			int uCnt = 0;
+			int dCnt = 0;
+			for (int i = 0; i < dltList.size(); i++) {
+				Map<String,Object> data = (Map<String,Object>) dltList.get(i);
+				String rowStatus = (String) data.get("rowStatus");
+				if (rowStatus.equals("U")) {
+					data.put("BOARD_TABLE",searchMap.get("BOARD_TABLE"));
+					uCnt += sqlSession.update("M.updateBoardInfo", data);
+					resultMap.put("UCNT", String.valueOf(uCnt));
+				}else if(rowStatus.equals("D")) {
+					data.put("BOARD_TABLE",searchMap.get("BOARD_TABLE"));
+					dCnt += sqlSession.delete("M.deleteBoard", data);
+					resultMap.put("DCNT", String.valueOf(dCnt));
+				}
+			}
 			resultMap.put("status", "S");
 			resultMap.put("Message", "정상적으로 처리 되었습니다.");
 			
@@ -147,4 +185,5 @@ class util {
 			return arrIssuer;	
 		}
 	} 
+	
 }

@@ -1,75 +1,71 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
-       
-    <head>
-               
-        <w2:type>COMPONENT</w2:type>
-               
-        <w2:buildDate/>
-               
-        <w2:MSA/>
-               
-        <xf:model>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
 
-        	<w2:dataCollection baseNode="map">
+	<head>
 
-        		<w2:dataList baseNode="list" id="dlt_list" repeatNode="map" saveRemovedData="true">
+		<w2:type>COMPONENT</w2:type>
 
-        			<w2:columnInfo>
+		<w2:buildDate />
 
-        				<w2:column dataType="text" id="BOARD_PIDX" name="BOARD_PIDX" />
+		<w2:MSA />
 
-        				<w2:column dataType="text" id="BOARD_IDX" name="BOARD_IDX" />
+		<xf:model>
 
-        				<w2:column dataType="text" id="BOARD_DELYN" name="BOARD_DELYN" />
+			<w2:dataCollection baseNode="map">
 
-        				<w2:column dataType="text" id="BOARD_TITLE" name="BOARD_TITLE" />
+				<w2:dataList baseNode="list" id="dlt_list" repeatNode="map" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column dataType="text" id="BOARD_PIDX" name="BOARD_PIDX" />
+						<w2:column dataType="text" id="BOARD_IDX" name="BOARD_IDX" />
+						<w2:column dataType="text" id="BOARD_DELYN" name="BOARD_DELYN" />
+						<w2:column dataType="text" id="BOARD_TITLE" name="BOARD_TITLE" />
+						<w2:column dataType="text" id="BOARD_WRITER" name="BOARD_WRITER" />
+						<w2:column id="BOARD_DATE" name="BOARD_DATE" dataType="text"></w2:column>
+						<w2:column id="UPDATE_DATE" name="UPDATE_DATE" dataType="text"></w2:column>
+						<w2:column id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:column>
+						<w2:column id="CNT" name="CNT" dataType="text"></w2:column>
+						<w2:column id="BOARD_REPLYCNT" name="BOARD_REPLYCNT" dataType="text"></w2:column>
+						<w2:column id="CHK" name="CHK" dataType="text"></w2:column>
+					</w2:columnInfo>
+					<w2:data use="false"></w2:data>
+				</w2:dataList>
+				<w2:dataMap baseNode="map" id="dma_search">
+					<w2:keyInfo>
+						<w2:key id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:key>
+						<w2:key id="BOARD_TABLE" name="BOARD_TABLE" dataType="text"></w2:key>
+						<w2:key id="BOARD_WRITER" name="BOARD_WRITER" dataType="text"></w2:key>
+						<w2:key id="CORP_CD" name="CORP_CD" dataType="text"></w2:key>
+						<w2:key id="PAGE_TYPE" name="PAGE_TYPE" dataType="text"></w2:key>
+						<w2:key id="BOARD_CONT" name="BOARD_CONT" dataType="text"></w2:key>
+						<w2:key id="BOARD_RECEIPTIONER" name="BOARD_RECEIPTIONER" dataType="text"></w2:key>
+						<w2:key id="FROM" name="FROM" dataType="text"></w2:key>
+						<w2:key id="TO" name="TO" dataType="text"></w2:key>
+						<w2:key id="BOARD_FILE_TABLE" name="BOARD_FILE_TABLE" dataType="text"></w2:key>
+						<w2:key id="BOARD_DELYN" name="BOARD_DELYN" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+			</w2:dataCollection>
 
-        				<w2:column dataType="text" id="BOARD_WRITER" name="BOARD_WRITER" />
+			<w2:workflowCollection></w2:workflowCollection>
 
-        				<w2:column id="BOARD_DATE" name="BOARD_DATE" dataType="text"></w2:column>
-        				<w2:column id="UPDATE_DATE" name="UPDATE_DATE" dataType="text"></w2:column>
-        				<w2:column id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:column>
-        				<w2:column id="CNT" name="CNT" dataType="text"></w2:column>
-        				<w2:column id="BOARD_REPLYCNT" name="BOARD_REPLYCNT" dataType="text"></w2:column>
-        				<w2:column id="CHK" name="CHK" dataType="text"></w2:column>
-        			</w2:columnInfo>
+			<xf:submission id="sbm_searchBoardList" ref="data:json,dma_search" target="data:json,dlt_list" action="/selectBoardList.do"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_searchBoardList_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_deleteBoardList" ref='data:json,[{"action":"modified","id":"dlt_list"},"dma_search"]' target="data:json,dma_boardInfo"
+				action="/updateBoardList.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_deleteBoardList_submitdone" ev:submiterror=""
+				abortTrigger="">
+			</xf:submission>
+		</xf:model>
 
-        			<w2:data use="false"></w2:data>
+		<w2:layoutInfo>
+		</w2:layoutInfo>
 
-        		</w2:dataList>
+		<w2:publicInfo method="" />
 
-        		<w2:dataMap baseNode="map" id="dma_search">
-        			<w2:keyInfo>
-        				<w2:key id="BOARD_TYPE" name="name1" dataType="text"></w2:key>
-        				<w2:key id="BOARD_TABLE" name="name2" dataType="text"></w2:key>
-        				<w2:key id="BOARD_WRITER" name="name3" dataType="text"></w2:key>
-        				<w2:key id="CORP_CD" name="name4" dataType="text"></w2:key>
-        				<w2:key id="PAGE_TYPE" name="name5" dataType="text"></w2:key>
-        				<w2:key id="BOARD_CONT" name="name6" dataType="text"></w2:key>
-        				<w2:key id="BOARD_RECEIPTIONER" name="name7" dataType="text"></w2:key>
-        				<w2:key id="FROM" name="name8" dataType="text"></w2:key>
-        				<w2:key id="TO" name="name9" dataType="text"></w2:key>
-        				<w2:key id="BOARD_FILE_TABLE" name="name10" dataType="text"></w2:key>
-        			</w2:keyInfo>
-        		</w2:dataMap>
-        	</w2:dataCollection>
-
-        	<w2:workflowCollection></w2:workflowCollection>
-
-        	<xf:submission id="sbm_boardList" ref="data:json,dma_search" target="data:json,dlt_list" action="/selectBoardList.do" method="post" mediatype="application/json" encoding="UTF-8"
-        		instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
-        		ev:submitdone="scwin.sbm_boardList_submitdone" ev:submiterror="" abortTrigger="">
-        	</xf:submission>
-        </xf:model>
-
-        <w2:layoutInfo>
-       </w2:layoutInfo>
-               
-        <w2:publicInfo method=""/>
-               
-        <script lazy="false" type="text/javascript"><![CDATA[
+		<script lazy="false" type="text/javascript"><![CDATA[
 scwin.onpageload = function() {
-	//pageList1.setCount(100);
 	var currentDt = WebSquare.date.getCurrentServerDate();
 	var bfweekDt = WebSquare.date.dateAdd( currentDt, -365 );
 	dma_search.set('FROM', bfweekDt);
@@ -80,21 +76,26 @@ scwin.onpageload = function() {
 
 	scwin.btn_search_onclick();
 };
-		
+
+/* 조회 */
 scwin.btn_search_onclick = function(e) {
 	dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
 	dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP");
 	dma_search.set("BOARD_TYPE","TECH");
 	
-	com.sbm.execute (sbm_boardList);
+	com.sbm.execute (sbm_searchBoardList);
+};
+scwin.sbm_searchBoardList_submitdone = function(e) {
+	txt_cnt.setValue(dlt_list.getRowCount() + "건")
 };
 
+/* 상세조회 */
 scwin.grd1_oncelldblclick = function(row,col,colId) {
 	var _param = {};
 	_param.rowJson = dlt_list.getRowJSON(row);
 	_param.mode = "read";
 	_param.boardCategory = "ERP";
-	var data = { data: _param, callbackFn: "scwin.btn_detail_callback" };
+	var data = { data: _param, callbackFn: "scwin.boardPop_callback" };
 	var options = {
 		id: "boardPopTech",
 		popupName: "게시판상세",
@@ -104,10 +105,7 @@ scwin.grd1_oncelldblclick = function(row,col,colId) {
 	com.win.openPopup("/ui/boardPop.xml", options, data);
 };
 
-scwin.sbm_boardList_submitdone = function(e) {
-	txt_cnt.setValue(dlt_list.getRowCount() + "건")
-};
-
+/* 글쓰기 팝업 */
 scwin.btn_write_onclick = function(e) {
 	var _param = {};
 	_param.rowJson = {
@@ -115,7 +113,7 @@ scwin.btn_write_onclick = function(e) {
 	};
 	_param.mode = "write";
 	_param.boardCategory = "ERP";
-	var data = { data: _param, callbackFn: "scwin.btn_detail_callback" };
+	var data = { data: _param, callbackFn: "scwin.boardPop_callback" };
 	var options = {
 		id: "boardPopTech",
 		popupName: "게시판등록",
@@ -125,215 +123,260 @@ scwin.btn_write_onclick = function(e) {
 	com.win.openPopup("/ui/boardPop.xml", options, data);
 };
 
-scwin.btn_detail_callback = function(e){
-	//callback
+/* 팝업 callback */
+scwin.boardPop_callback = function(e){
 	com.win.alert(e.message);
 	scwin.btn_search_onclick();
 }
-]]></script>
-           
-    </head>
-       
-    <body ev:onpageload="scwin.onpageload">
-            	
-        <xf:group class="sub_contents flex_gvw" id="" style="">
-                		
-            <xf:group class="pgtbox" id="" style="">
-                    			
-                <xf:trigger class="btn_fav" id="" style="" type="button">
-                        				
-                    <xf:label/>
-                        			
-                </xf:trigger>
-                    			
-                <w2:textbox class="pgt_tit" id="" label="기술데이터" style="" tagname=""/>
-                    			
-                <xf:group class="breadcrumb" id="" style="">
-                        				
-                    <xf:group id="" style="" tagname="ul">
-                            					
-                        <xf:group class="home" id="" style="" tagname="li">
-                                						
-                            <w2:anchor id="" outerDiv="false" style="">
-                                    							
-                                <xf:label><![CDATA[Home]]></xf:label>
-                                    						
-                            </w2:anchor>
-                                					
-                        </xf:group>
-                            					
-                        <xf:group id="" style="" tagname="li">
-                                						
-                            <w2:anchor id="" outerDiv="false" style="">
-                                    							
-                                <xf:label><![CDATA[1Depth Menu]]></xf:label>
-                                    						
-                            </w2:anchor>
-                                					
-                        </xf:group>
-                            					
-                        <xf:group id="" style="" tagname="li">
-                                						
-                            <w2:anchor id="" outerDiv="false" style="">
-                                    							
-                                <xf:label><![CDATA[2Depth Menu]]></xf:label>
-                                    						
-                            </w2:anchor>
-                                					
-                        </xf:group>
-                            					
-                        <xf:group id="" style="" tagname="li">
-                                						
-                            <w2:span id="" label="3Depth Menu" style=""/>
-                                					
-                        </xf:group>
-                            				
-                    </xf:group>
-                        			
-                </xf:group>
-                    		
-            </xf:group>
-                		
-            <xf:group class="shbox" id="" style="">
-                    			
-                <xf:group class="schbox_inner" id="" style="">
-                        				
-                    <xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="" tagname="table">
-                            					
-                        <w2:attributes>
-                                						
-                            <w2:summary/>
-                                					
-                        </w2:attributes>
-                            					
-                        <xf:group tagname="colgroup">
-                                						
-                            <xf:group style="width:60px;" tagname="col"/>
-                                						
-                            <xf:group style="" tagname="col"/>
-                                						
-                            <xf:group style="width:60px;" tagname="col"/>
-                                						
-                            <xf:group tagname="col"></xf:group><xf:group tagname="col" style="width:60px;"></xf:group><xf:group style="" tagname="col"/>
-                                					
-                        </xf:group>
-                            					
-                        <xf:group class="" id="" style="" tagname="tr">
-                                						
-                            <xf:group class="w2tb_th" style="" tagname="th"><w2:textbox class="req" id="" label="기간" style=""/></xf:group>
-                                						
-                            <xf:group class="w2tb_td" style="" tagname="td">
 
-                            	<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
-                            		renderDiv="true" rightAlign="false" style="width: 100px;    text-align: left;    text-indent: 10px;" ref="data:dma_search.FROM">
-                            	</w2:inputCalendar>
-                            	<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
-                            		renderDiv="true" rightAlign="false" style="width: 100px;text-align: left;text-indent: 10px;" ref="data:dma_search.TO">
-                            	</w2:inputCalendar>
-                            </xf:group>
+/* 선택삭제 */
+scwin.btn_del_onclick = function(e) {
+	let _chkIdxArr = dlt_list.getMatchedIndex('CHK','1');
+	if(_chkIdxArr.length < 1){
+		com.win.alert('선택된 항목이 없습니다.');
+		return;
+	}
+	com.win.confirm($p, `선택된 ${_chkIdxArr.length}건의 게시물을 삭제하시겠습니까?`, function(e){
+		if(e.clickValue){
+			for(let i=0; i<_chkIdxArr.length; i++){
+				dlt_list.setCellData(_chkIdxArr[i],"BOARD_DELYN","Y");
+			}
+			com.sbm.execute(sbm_deleteBoardList);
+		}
+	});
+};
 
-                            <xf:group class="w2tb_th" style="" tagname="th"><w2:textbox class="" id="" label="작성자" style=""/></xf:group>
-                                						
-                            <xf:group class="w2tb_td" id="" style="" tagname="td">
+/* 물리삭제 */
+scwin.btn_adminDel_onclick = function(e) {
+	let _chkIdxArr = dlt_list.getMatchedIndex('CHK','1');
+	if(_chkIdxArr.length < 1){
+		com.win.alert('선택된 항목이 없습니다.');
+		return;
+	}
+	com.win.confirm($p, `삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 선택된 ${_chkIdxArr.length}건의 게시물을 삭제하시겠습니까?`, function(e){
+		if(e.clickValue){
+			for(let i=0; i<_chkIdxArr.length; i++){
+				dlt_list._setRowStatus(_chkIdxArr[i],'D');
+			}
+			com.sbm.execute(sbm_deleteBoardList);
+			
+		}
+	});
+};
 
-                            	<xf:input id="" style="" ref="data:dma_search.BOARD_WRITER"></xf:input>
+/* 삭제callback */
+scwin.sbm_deleteBoardList_submitdone = function(e) {
+	if(e.responseJSON.status == "S"){
+		com.win.alert('삭제가 완료되었습니다.');
+		scwin.btn_search_onclick();
+	}
+};]]></script>
 
-                            </xf:group>
+	</head>
 
-                            <xf:group tagname="td" id="" class="w2tb_th"><w2:attributes></w2:attributes><w2:textbox class="" id="" label="내용" style=""></w2:textbox></xf:group>
-                            <xf:group tagname="td" id="" class="w2tb_td">
-                        	<w2:attributes></w2:attributes>
-                        	<xf:input id="" style="" ref="data:dma_search.BOARD_CONT"></xf:input>
-                        </xf:group></xf:group>
-                            				
-                    </xf:group>
-                        			
-                </xf:group>
-                    			
-                <xf:group class="btn_shbox" id="" style="">
-                        				
-                    <xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_search" style="" type="button" ev:onclick="scwin.btn_search_onclick">
-                            					
-                        <xf:label><![CDATA[조회]]></xf:label>
-                            				
-                    </xf:trigger>
-                        			
-                </xf:group>
-                    		
-            </xf:group>
-                		
-            <xf:group class="dfbox" id="" style="">
-                    			
-                <w2:textbox class="" id="" label="서브타이틀" style="" tagname="h3"/>
-                    			
-                <xf:group class="fr" id="" style="">
+	<body ev:onpageload="scwin.onpageload">
 
-                	<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
+		<xf:group class="sub_contents flex_gvw" id="" style="">
 
-                	<xf:trigger class="btn_cm download" id="" style="" type="button">
+			<xf:group class="pgtbox" id="" style="">
 
-                		<xf:label><![CDATA[다운로드]]></xf:label>
+				<xf:trigger class="btn_fav" id="" style="" type="button">
 
-                	</xf:trigger>
+					<xf:label />
 
-                	
+				</xf:trigger>
 
-                	<xf:trigger class="btn_cm row_del" id="" style="" type="button">
-                		<xf:label><![CDATA[선택삭제]]></xf:label>
-                	</xf:trigger>
-                	<xf:trigger class="btn_cm row_del" id="" style="" type="button">
-                		<xf:label><![CDATA[물리삭제]]></xf:label>
-                	</xf:trigger><xf:trigger class="btn_cm blue" id="btn_write" style="" type="button" ev:onclick="scwin.btn_write_onclick">
+				<w2:textbox class="pgt_tit" id="" label="기술데이터" style="" tagname="" />
 
-                		<xf:label><![CDATA[글쓰기]]></xf:label>
+				<xf:group class="breadcrumb" id="" style="">
 
-                	</xf:trigger>
-                </xf:group>
+					<xf:group id="" style="" tagname="ul">
 
-            </xf:group>
-                		
-            <xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
-                    			
-                <w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
-                	defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style=""
-                	visibleRowNum="10" ev:oncelldblclick="scwin.grd1_oncelldblclick">
+						<xf:group class="home" id="" style="" tagname="li">
 
-                	<w2:caption id="caption2" style="" value="this is a grid caption." />
+							<w2:anchor id="" outerDiv="false" style="">
 
-                	<w2:header id="header2" style="">
+								<xf:label><![CDATA[Home]]></xf:label>
 
-                		<w2:row id="row3" style="">
-                			<w2:column width="30" inputType="checkbox" style="" id="column21" value="" displayMode="label"></w2:column>
-                			<w2:column width="50" inputType="text" id="column9" value="글번호" displayMode="label"></w2:column>
-                			<w2:column width="200" inputType="text" id="column15" value="제목" displayMode="label"></w2:column>
-                			<w2:column width="20" inputType="text" style="" id="H_CNT" value="첨부" displayMode="label"></w2:column>
-                			<w2:column width="50" inputType="text" id="column16" value="작성자" displayMode="label"></w2:column>
-                			<w2:column width="80" inputType="text" id="column17" value="작성일시" displayMode="label"></w2:column>
-                			<w2:column width="80" inputType="text" id="column18" value="수정일시" displayMode="label"></w2:column>
-                		</w2:row>
+							</w2:anchor>
 
-                	</w2:header>
+						</xf:group>
 
-                	<w2:gBody id="gBody2" style="">
+						<xf:group id="" style="" tagname="li">
 
-                		<w2:row id="row4" style="">
-                			<w2:column width="30" inputType="checkbox" style="" id="CHK" value="" displayMode="label" readOnly="false" falseValue="0" trueValue="1" defaultValue="0" valueType="binary"></w2:column>
-                			<w2:column width="50" inputType="text" id="BOARD_IDX" displayMode="label" readOnly="true"></w2:column>
-                			<w2:column width="200" inputType="text" id="BOARD_TITLE" displayMode="label" textAlign="left" readOnly="true"></w2:column>
-                			<w2:column width="20" inputType="text" style="" id="CNT" value="" displayMode="label" readOnly="true"></w2:column>
-                			<w2:column width="50" inputType="text" id="BOARD_WRITER" displayMode="label" readOnly="true"></w2:column>
-                			<w2:column width="80" inputType="text" id="BOARD_DATE" displayMode="label" readOnly="true" dataType="text" value=""></w2:column>
-                			<w2:column width="80" inputType="text" id="UPDATE_DATE" displayMode="label" dataType="date" readOnly="true" value=""></w2:column>
-                		</w2:row>
+							<w2:anchor id="" outerDiv="false" style="">
 
-                	</w2:gBody>
+								<xf:label><![CDATA[업무관리]]></xf:label>
 
-                </w2:gridView>
+							</w2:anchor>
 
-            </xf:group>
-                	
-        </xf:group>
-           
-    </body>
-    
+						</xf:group>
+
+						<xf:group id="" style="" tagname="li">
+
+							<w2:span id="" label="기술데이터" style="" />
+
+						</xf:group>
+
+					</xf:group>
+
+				</xf:group>
+
+			</xf:group>
+
+			<xf:group class="shbox" id="" style="">
+
+				<xf:group class="schbox_inner" id="" style="">
+
+					<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="" tagname="table">
+
+						<w2:attributes>
+
+							<w2:summary />
+
+						</w2:attributes>
+
+						<xf:group tagname="colgroup">
+
+							<xf:group style="width:60px;" tagname="col" />
+
+							<xf:group style="" tagname="col" />
+
+							<xf:group style="width:60px;" tagname="col" />
+
+							<xf:group tagname="col"></xf:group>
+							<xf:group tagname="col" style="width:60px;"></xf:group>
+							<xf:group style="" tagname="col" />
+
+						</xf:group>
+
+						<xf:group class="" id="" style="" tagname="tr">
+
+							<xf:group class="w2tb_th" style="" tagname="th">
+								<w2:textbox class="req" id="" label="기간" style="" />
+							</xf:group>
+
+							<xf:group class="w2tb_td" style="" tagname="td">
+
+								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
+									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.FROM">
+								</w2:inputCalendar>
+								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
+									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.TO">
+								</w2:inputCalendar>
+							</xf:group>
+
+							<xf:group class="w2tb_th" style="" tagname="th">
+								<w2:textbox class="" id="" label="작성자" style="" />
+							</xf:group>
+
+							<xf:group class="w2tb_td" id="" style="" tagname="td">
+
+								<xf:input id="" style="" ref="data:dma_search.BOARD_WRITER"></xf:input>
+
+							</xf:group>
+
+							<xf:group tagname="td" id="" class="w2tb_th">
+								<w2:attributes></w2:attributes>
+								<w2:textbox class="" id="" label="내용" style=""></w2:textbox>
+							</xf:group>
+							<xf:group tagname="td" id="" class="w2tb_td">
+								<w2:attributes></w2:attributes>
+								<xf:input id="" style="" ref="data:dma_search.BOARD_CONT"></xf:input>
+							</xf:group>
+						</xf:group>
+
+					</xf:group>
+
+				</xf:group>
+
+				<xf:group class="btn_shbox" id="" style="">
+
+					<xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_search" style="" type="button"
+						ev:onclick="scwin.btn_search_onclick">
+
+						<xf:label><![CDATA[조회]]></xf:label>
+
+					</xf:trigger>
+
+				</xf:group>
+
+			</xf:group>
+
+			<xf:group class="dfbox" id="" style="">
+
+				<w2:textbox class="" id="" label="서브타이틀" style="" tagname="h3" />
+
+				<xf:group class="fr" id="" style="">
+
+					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
+
+					<xf:trigger class="btn_cm download" id="" style="" type="button">
+
+						<xf:label><![CDATA[다운로드]]></xf:label>
+
+					</xf:trigger>
+
+
+
+					<xf:trigger class="btn_cm row_del" id="btn_del" style="" type="button" ev:onclick="scwin.btn_del_onclick">
+						<xf:label><![CDATA[선택삭제]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm row_del" id="btn_adminDel" style="" type="button" ev:onclick="scwin.btn_adminDel_onclick">
+						<xf:label><![CDATA[물리삭제]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm blue" id="btn_write" style="" type="button" ev:onclick="scwin.btn_write_onclick">
+
+						<xf:label><![CDATA[글쓰기]]></xf:label>
+
+					</xf:trigger>
+				</xf:group>
+
+			</xf:group>
+
+			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+
+				<w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
+					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style="" visibleRowNum="10"
+					ev:oncelldblclick="scwin.grd1_oncelldblclick">
+
+					<w2:caption id="caption2" style="" value="this is a grid caption." />
+
+					<w2:header id="header2" style="">
+
+						<w2:row id="row3" style="">
+							<w2:column width="30" inputType="checkbox" style="" id="column21" value="" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" id="column9" value="글번호" displayMode="label"></w2:column>
+							<w2:column width="200" inputType="text" id="column15" value="제목" displayMode="label"></w2:column>
+							<w2:column width="20" inputType="text" style="" id="H_CNT" value="첨부" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" id="column16" value="작성자" displayMode="label"></w2:column>
+							<w2:column width="80" inputType="text" id="column17" value="작성일시" displayMode="label"></w2:column>
+							<w2:column width="80" inputType="text" id="column18" value="수정일시" displayMode="label"></w2:column>
+						</w2:row>
+
+					</w2:header>
+
+					<w2:gBody id="gBody2" style="">
+
+						<w2:row id="row4" style="">
+							<w2:column width="30" inputType="checkbox" style="" id="CHK" value="" displayMode="label" readOnly="false" falseValue="0"
+								trueValue="1" defaultValue="0" valueType="binary"></w2:column>
+							<w2:column width="50" inputType="text" id="BOARD_IDX" displayMode="label" readOnly="true"></w2:column>
+							<w2:column width="200" inputType="text" id="BOARD_TITLE" displayMode="label" textAlign="left" readOnly="true"></w2:column>
+							<w2:column width="20" inputType="text" style="" id="CNT" value="" displayMode="label" readOnly="true"></w2:column>
+							<w2:column width="50" inputType="text" id="BOARD_WRITER" displayMode="label" readOnly="true"></w2:column>
+							<w2:column width="80" inputType="text" id="BOARD_DATE" displayMode="label" readOnly="true" dataType="text" value=""></w2:column>
+							<w2:column width="80" inputType="text" id="UPDATE_DATE" displayMode="label" dataType="date" readOnly="true" value=""></w2:column>
+						</w2:row>
+
+					</w2:gBody>
+
+				</w2:gridView>
+
+			</xf:group>
+
+		</xf:group>
+
+	</body>
+
 </html>

@@ -74,26 +74,26 @@
         </if>
         ORDER BY A.BOARDFILE_IDX DESC
     </select>
-    
+
     <insert id="insertBoardInfo" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="BOARD_IDX">
-    		 /*insertBoard 게시물 작성*/
-            INSERT INTO ${BOARD_TABLE}(
-            	BOARD_DELYN,
-            	BOARD_TYPE,
-	            BOARD_TITLE,
-	            BOARD_CONT,
-	            BOARD_WRITER,
-	            BOARD_DATE,
-	            UPDATE_DATE
-            )VALUES (
-           		'N',
-           		#{BOARD_TYPE},
-				#{BOARD_TITLE},
-	            #{BOARD_CONT},
-	            #{BOARD_WRITER},
-	            CURRENT_TIMESTAMP,
-	            CURRENT_TIMESTAMP
-            )
+   		 /*insertBoard 게시물 작성*/
+           INSERT INTO ${BOARD_TABLE}(
+           	BOARD_DELYN,
+           	BOARD_TYPE,
+            BOARD_TITLE,
+            BOARD_CONT,
+            BOARD_WRITER,
+            BOARD_DATE,
+            UPDATE_DATE
+           )VALUES (
+          		'N',
+          		#{BOARD_TYPE},
+			#{BOARD_TITLE},
+            #{BOARD_CONT},
+            #{BOARD_WRITER},
+            CURRENT_TIMESTAMP,
+            CURRENT_TIMESTAMP
+           )
         </insert>
         
     <update id="updateBoardInfo" parameterType="java.util.Map">
@@ -111,4 +111,12 @@
          WHERE 1=1
          AND BOARD_IDX=#{BOARD_IDX}
     </update>
+        
+    <delete id="deleteBoard" parameterType="map">
+        /*deleteBoard 게시물 물리삭제*/
+        		DELETE FROM ${BOARD_TABLE}
+				WHERE 1=1
+  				AND BOARD_PIDX=#{BOARD_PIDX}
+  				AND BOARD_IDX=#{BOARD_IDX}
+    </delete>
  </mapper>
