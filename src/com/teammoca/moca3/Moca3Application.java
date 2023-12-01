@@ -14,19 +14,22 @@ import java.util.regex.Pattern;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 @SpringBootApplication
 public class Moca3Application {
 	@Autowired
 	private SqlSession sqlSession;
-	
+	@CrossOrigin("*") //2023-11-28
 	//게시판 목록조회
 	@RequestMapping("/selectBoardList.do")
 	public Map<String, Object> selectBoardList(@RequestBody Map<String, HashMap<String,Object>> param) {
@@ -172,9 +175,19 @@ public class Moca3Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Moca3Application.class, args);
 	}
+
+
+   /*
+    @RequestMapping(value="/api/v1/oauth2/google")
+    public String loginUrlGoogle(){
+        String reqUrl = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + googleClientId
+                + "&redirect_uri=http://localhost:8080/api/v1/oauth2/google&response_type=code&scope=email%20profile%20openid&access_type=offline";
+        return reqUrl;
+    }
+*/
+    
+    
 }
-
-
 class util {
 	public static String[] strToArr(String str,String sepa) {
 		if(str == null || "".equals(str.trim())) {
@@ -184,6 +197,5 @@ class util {
 			String[] arrIssuer = strIssuer.split(sepa);
 			return arrIssuer;	
 		}
-	} 
-	
+	};
 }

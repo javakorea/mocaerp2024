@@ -20,6 +20,7 @@
 						<w2:column id="MENU_LEVEL" name="메뉴레벨" dataType="text"></w2:column>
 						<w2:column id="SORT_ORDER" name="정렬순서" dataType="text"></w2:column>
 						<w2:column id="PROGRAM_CD" name="프로그램코드" dataType="text"></w2:column>
+						<w2:column id="TYPE" name="게시판타입" dataType="text"></w2:column>
 					</w2:columnInfo>
 					<w2:data use="true">
 						<w2:row>
@@ -32,6 +33,7 @@
 							<MENU_NM><![CDATA[기술데이터]]></MENU_NM>
 							<SRC_PATH><![CDATA[/ui/boardTech.xml]]></SRC_PATH>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<TYPE><![CDATA[TECH]]></TYPE>
 						</w2:row>
 						<w2:row>
 							<MENU_CD><![CDATA[1200]]></MENU_CD>
@@ -142,11 +144,10 @@ scwin.initDataCallback = function () {
 	gcm.menuComp = dlt_menu; //전체 공통 영역에 메뉴리스트 데이터 변수 설정
 	var option = {
 		isHistory: true,
-		closable: false
+		closable: false,
 	};
 
 	var layout = $p.main().scwin.getLayoutId();
-debugger;
 	if (layout == "S") {
 		var menuCd = $w.getParameter("menuCd");
 
@@ -253,7 +254,8 @@ scwin.setMenuRelation = function (menuNm, menuUrl, menuCode, skipType) {
 	if (menuList && menuList.length > 0) {
 		var option = {
 			isHistory: true,
-			closable: true
+			closable: true,
+			"aaa":"Bbb"
 		};
 
 		if (com.win.openMenu(menuNm, menuUrl, menuCode, null, option)) {

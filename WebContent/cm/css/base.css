@@ -865,9 +865,9 @@ input[type="file"]{cursor:pointer;}
 
 /* login */
 .login_wrap{position:relative;width:100%;height:100%;background:#f1f3f6;overflow-y:auto;background: url(../..//cm/images/base/bg_w.png) no-repeat #2D4874;}
-.login_wrap .login_container{position:absolute;top:50%;left:50%;width:570px;margin-left:-285px;text-align:center;margin-top: -321px;}
-.login_wrap .login_container img{}
-.login_wrap .login_container .login_contents{margin-top:40px;padding:50px 70px;text-align:left;border-radius:15px;background:#fff;box-sizing:border-box;border:1px solid #eaeaea;box-shadow: 0 7px 50px rgb(0 0 0 / 45%);}
+.login_wrap .login_container{position:absolute;top:15%;left: calc((100% - 570px)/2);width:570px;text-align:center}
+.login_wrap .login_container img{width:150px}
+.login_wrap .login_container .login_contents{margin-top:100px;padding:50px 84px;text-align:left;border-radius:15px;background:#fff;box-sizing:border-box;border:1px solid #eaeaea;box-shadow: 0 7px 50px rgb(0 0 0 / 45%);}
 .login_contents .w2textbox{font-size:16px;font-weight:bold;color:#20252A;}
 .login_contents ul li{margin-top:30px;}
 .login_contents ul li:first-child{margin-top:0;}

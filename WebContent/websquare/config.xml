@@ -14,6 +14,7 @@
 			<path src="/cm/js/commonGlobal.js"/>
 			<path src="/cm/js/commonScope.js"/>
 			<path src="/cm/js/main.js"/>
+			<path src="/cm/js/passport.js"/>
 		</commonPath>
 	</wpack>
 	<allValue value="all"/>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:type>COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map">
+            	<w2:dataMap baseNode="map" id="dma_search">
+            		<w2:keyInfo>
+
+            			<w2:key id="key1" name="name1" dataType="text"></w2:key>
+            		</w2:keyInfo>
+            	</w2:dataMap>
+            </w2:dataCollection>
+            <w2:workflowCollection/>
+            <xf:submission id="sbm_googleLogin" ref="data:json,dma_search" target=""
+				action="/api/v1/oauth2/google" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method=""/>
+        <style>
+        </style>
+        <script lazy="false" type="text/javascript"><![CDATA[
+scwin.onpageload = function() {
+    g_id_onload.render.setAttribute("id","g_id_onload");
+    g_id_onload.render.setAttribute("data-client_id","191058282154-kmn71d0j1fqnstu9joe2od2rvbhm7hot.apps.googleusercontent.com");
+    g_id_onload.render.setAttribute("data-callback","handleCredentialResponse");
+    g_id_signin2.render.setAttribute("data-type","standard");
+    g_id_signin2.render.setAttribute("data-shape","rectangular");
+    g_id_signin2.render.setAttribute("data-theme","filled_blue");
+    g_id_signin2.render.setAttribute("data-size","large");
+    g_id_signin2.render.setAttribute("data-width","");
+    g_id_signin2.render.setAttribute("data-logo_alignment","left");
+    var googleLoginURL = "https://accounts.google.com/gsi/client";
+   var googleLoginScript  = document.createElement('script');
+	googleLoginScript.setAttribute('src',googleLoginURL);
+	googleLoginScript.onload = function(e){
+      
+	}
+	document.body.insertBefore(googleLoginScript,document.body.firstChild);
+};]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<xf:group class="login_wrap type2" id="" style="background: url(/cm/images/base/bg_w.png) no-repeat #2D4874;">
+    		<xf:group class="login_container" id="">
+    			<xf:group id="" tagname="h1" style="text-align:center;">
+    				<xf:image alt="모카ERP2024" id="" src="/cm/images/erp/ci_merp_w.png" style=""></xf:image>
+    			</xf:group>
+    			<xf:group class="login_contents" id="" style="">
+    				<xf:group id="" tagname="ul" style="width:220px;margin:0 auto;">
+
+    					<xf:group id="" style="" tagname="li">
+    						<xf:group id="g_id_onload" style="" tagname="div"  ></xf:group>
+    						<xf:group id="g_id_signin2" style="" tagname="div" class="g_id_signin" text=""></xf:group>
+    					</xf:group>
+
+    				</xf:group>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+    </body>
+</html>

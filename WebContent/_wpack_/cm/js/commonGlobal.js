@@ -198,6 +198,7 @@ gcm.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option) {
             url = '/' + url;
         }
         url = gcm.CONTEXT_PATH + url;
+        debugger;
         if (typeof paramObj !== 'undefined' && paramObj !== null) {
             data = paramObj;
         }

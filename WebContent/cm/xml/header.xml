@@ -13,7 +13,9 @@
 			<w2:workflowCollection></w2:workflowCollection>
 		</xf:model>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-
+	let sInfo = JSON.parse(sessionStorage.getItem("loginInfo"));
+	txt_empNm.setValue(sInfo.name);
+	img_profile.setSrc(sInfo.picture)
 };
 
 /** 
@@ -177,26 +179,19 @@ scwin.toggleMenu = function () {
 }
 
 scwin.btn_logout_onclick = function (e) {
-	com.win.logout();
+	//com.win.logout();
+	com.win.confirm($p, '로그아웃하시겠습니까?', function(e){
+		if(e.clickValue){
+			//var auth2 = gapi.auth2.getAuthInstance();
+			//auth2.signOut().then(function () {
+				sessionStorage.removeItem("loginInfo");
+				com.win.goHome();
+			//});
+		}
+	});
+	
 };
 
-/**
- * 로그인된 사용자의 비밀번호를 변경한다.
- */
-scwin.btn_changePassword_onclick = function (e) {
-	var data = { "empCd": $p.parent().wfm_side.getWindow().dma_defInfo.get("EMP_CD") };
-
-	var options = {
-		"id": "settingPassword",
-		"width": "500px",
-		"height": "280px",
-		"popupName": "비밀번호변경",
-		frameModal: "top",
-		"modal": true
-	};
-
-	com.win.openPopup("/cm/xml/settingPassword.xml", options, data);
-};
 scwin.btn_logo_onclick = function () {
 	com.win.goHome();
 };
@@ -205,13 +200,7 @@ scwin.btn_logo_onclick = function () {
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group class="linkarea" id="" style="">
 			<w2:anchor class="btn_inspage" id="" outerDiv="false" style="">
-				<xf:label><![CDATA[인스웨이브 홈페이지]]></xf:label>
-			</w2:anchor>
-			<w2:anchor class="btn_wtechcenter" id="" outerDiv="false" style="">
-				<xf:label><![CDATA[W-Tech Center]]></xf:label>
-			</w2:anchor>
-			<w2:anchor class="btn_demosite" id="" outerDiv="false" style="">
-				<xf:label><![CDATA[데모사이트]]></xf:label>
+				<xf:label><![CDATA[모카ERP 홈페이지]]></xf:label>
 			</w2:anchor>
 			<w2:anchor class="btn_allmenu" id="" name="" outerDiv="false" style="">
 				<xf:label><![CDATA[전체메뉴]]></xf:label>
@@ -249,6 +238,7 @@ scwin.btn_logo_onclick = function () {
 		<xf:group class="option_box" id="" style="">
 			<xf:group class="" id="" style="" tagname="ul">
 				<xf:group class="on mypage" id="" style="" tagname="li">
+					<xf:image src="/cm/images/contents/ico_mypage.png" style="" id="img_profile" class="img_profile"></xf:image>
 					<w2:anchor class="btn_mypage" disabled="" ev:onclick="" id="txt_empNm" outerDiv="false" style="" target="" title="aa">
 						<xf:label><![CDATA[]]>
 						</xf:label>

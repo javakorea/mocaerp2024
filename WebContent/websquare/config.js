@@ -43,6 +43,9 @@ export default {
           },
           {
             "@src": "/cm/js/main.js"
+          },
+          {
+            "@src": "/cm/js/passport.js"
           }
         ]
       }

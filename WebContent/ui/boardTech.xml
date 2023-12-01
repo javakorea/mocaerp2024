@@ -66,6 +66,9 @@
 
 		<script lazy="false" type="text/javascript"><![CDATA[
 scwin.onpageload = function() {
+	debugger;
+	let menuInfo = $p.getAllParameter().paramData.menuInfo;
+	scwin.fn_setMenu(menuInfo);
 	var currentDt = WebSquare.date.getCurrentServerDate();
 	var bfweekDt = WebSquare.date.dateAdd( currentDt, -365 );
 	dma_search.set('FROM', bfweekDt);
@@ -77,6 +80,11 @@ scwin.onpageload = function() {
 	scwin.btn_search_onclick();
 };
 
+scwin.fn_setMenu = function(menuInfo){
+	//{menuNm: '기술데이터', menuCode: '1100', src: '/ui/boardTech.xml'}
+	pgt_tit.setValue(menuInfo.menuNm);
+}
+
 /* 조회 */
 scwin.btn_search_onclick = function(e) {
 	dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
@@ -86,7 +94,21 @@ scwin.btn_search_onclick = function(e) {
 	com.sbm.execute (sbm_searchBoardList);
 };
 scwin.sbm_searchBoardList_submitdone = function(e) {
-	txt_cnt.setValue(dlt_list.getRowCount() + "건")
+	/*
+	let data = dlt_list.getAllJSON();
+	let allData = [];
+	for(let i=0; i < 1000; i++){
+		allData = allData.concat(data);
+	}	
+
+	let allData2 = [];
+	for(let i=0; i < 1; i++){
+		allData2 = allData2.concat(allData);
+	}	
+
+	dlt_list.setJSON(allData2);
+	*/
+	txt_cnt.setValue(dlt_list.getRowCount() + "건");
 };
 
 /* 상세조회 */
@@ -170,7 +192,17 @@ scwin.sbm_deleteBoardList_submitdone = function(e) {
 		com.win.alert('삭제가 완료되었습니다.');
 		scwin.btn_search_onclick();
 	}
-};]]></script>
+};
+scwin.trigger1_onclick = function(e) {
+	var options = {};
+    options.type = "1";
+    options.fileName = "sample.xlsx";
+    options.splitProvider = "com.teammoca.moca3.SplitProvider";
+    options.showProcess = "true";
+    options.showConfirm = "true";
+	grd1.advancedExcelDownload(options)
+};
+]]></script>
 
 	</head>
 
@@ -186,7 +218,7 @@ scwin.sbm_deleteBoardList_submitdone = function(e) {
 
 				</xf:trigger>
 
-				<w2:textbox class="pgt_tit" id="" label="기술데이터" style="" tagname="" />
+				<w2:textbox class="pgt_tit" id="pgt_tit" label="기술데이터" style="" tagname="" />
 
 				<xf:group class="breadcrumb" id="" style="">
 
@@ -305,13 +337,11 @@ scwin.sbm_deleteBoardList_submitdone = function(e) {
 
 			<xf:group class="dfbox" id="" style="">
 
-				<w2:textbox class="" id="" label="서브타이틀" style="" tagname="h3" />
-
 				<xf:group class="fr" id="" style="">
 
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
 
-					<xf:trigger class="btn_cm download" id="" style="" type="button">
+					<xf:trigger class="btn_cm download" id="trigger1" style="" type="button" ev:onclick="scwin.trigger1_onclick">
 
 						<xf:label><![CDATA[다운로드]]></xf:label>
 

@@ -3,10 +3,70 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<meta name="referrer" content="no-referrer-when-downgrade" >
 		<title>	mocaerp2024 </title>
 		<meta name="viewport" content="user-scaleable=no, initail-scale=1.9, maxiumum-scale=2.0, minimum-scale=0.5, width=device-width">
 		<script type="text/javascript" src="./_websquare_/javascriptLoader.wq"></script>
 		<script type="text/javascript" src="app.js"></script>
-	</head>
-<body></body>
+		<script src="https://apis.google.com/js/api.js" onload="gapiLoaded()" async defer></script>
+		<script>
+		const URL = 'https://www.googleapis.com/drive/v3/files';
+		const FIELDS = 'name, mimeType, modifiedTime';
+		const CLIENT_ID = '191058282154-kmn71d0j1fqnstu9joe2od2rvbhm7hot.apps.googleusercontent.com';
+		const API_KEY = 'AIzaSyBj3llqgZdqRN9zKVvMr1kyxfnslmqxEJY';
+		const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+		const SCOPES = 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file';
+		let tokenClient;
+		let gapiInited = false;
+		let gisInited = false;
+		
+		if(location.search !='?w2xPath=/cm/main/login.xml' && !sessionStorage.getItem("loginInfo")){
+			location.href = '/websquare/websquare.html?w2xPath=/cm/main/login.xml';
+		};
+		function gapiLoaded() {
+		    gapi.load('client', initializeGapiClient);
+		 }
+		/**
+		   * Callback after the API client is loaded. Loads the
+		   * discovery doc to initialize the API.
+		   */
+	  async function initializeGapiClient() {
+	    await gapi.client.init({
+	      apiKey: API_KEY,
+	      discoveryDocs: [DISCOVERY_DOC],
+	    });
+	    gapiInited = true;
+	    maybeEnableButtons();
+	  }
+		function parseJwt (_token) {
+		    const base64Url = _token.split('.')[1];
+		    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+		    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+		        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+		    }).join(''));
+
+		    return JSON.parse(jsonPayload);
+		};
+        function handleCredentialResponse(response) {
+        	//var gauth = gapi.auth2.getAuthInstance();
+        	//gauth.signIn().then(function(){
+            	const responsePayload = parseJwt(response.credential);
+                console.log("ID: " + responsePayload.sub);
+                console.log('Full Name: ' + responsePayload.name);
+                console.log('Given Name: ' + responsePayload.given_name);
+                console.log('Family Name: ' + responsePayload.family_name);
+                console.log("Image URL: " + responsePayload.picture);
+                console.log("Email: " + responsePayload.email); 
+                sessionStorage.setItem("loginInfo",JSON.stringify(responsePayload));
+                location.href = '/websquare/websquare.html?w2xPath=/cm/main/index_windowContainer.xml';
+           // });
+            
+        };
+        </script>
+<body>
+        <div id="g_id_onload"
+		 data-client_id="191058282154-kmn71d0j1fqnstu9joe2od2rvbhm7hot.apps.googleusercontent.com"
+		 data-callback="handleCredentialResponse">
+        </div>
+</body>
 </html>
