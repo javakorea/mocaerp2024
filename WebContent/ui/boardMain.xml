@@ -64,13 +64,13 @@
 
 		<w2:publicInfo method="" />
 
-		<script lazy="false" type="text/javascript"><![CDATA[
-scwin.onpageload = function() {
-	debugger;
-	let menuInfo = $p.getAllParameter().paramData.menuInfo;
+		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
+	scwin.paramObj = $p.getAllParameter().paramData;
+	let menuInfo = scwin.paramObj.menuInfo;
 	scwin.fn_setMenu(menuInfo);
 	var currentDt = WebSquare.date.getCurrentServerDate();
-	var bfweekDt = WebSquare.date.dateAdd( currentDt, -365 );
+	var bfweekDt = WebSquare.date.dateAdd( currentDt, -1095 );
+	com.win.setEnterKeyEvent(tbl_search, scwin.btn_search_onclick);
 	dma_search.set('FROM', bfweekDt);
 	dma_search.set('TO', currentDt);
 	$(".btn_fav").click(function(){
@@ -87,10 +87,16 @@ scwin.fn_setMenu = function(menuInfo){
 
 /* 조회 */
 scwin.btn_search_onclick = function(e) {
-	dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
-	dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP");
-	dma_search.set("BOARD_TYPE","TECH");
-	
+	if(scwin.paramObj.boardType){
+		dma_search.set("BOARD_TYPE",scwin.paramObj.boardType);
+	}
+	if(scwin.paramObj.erpYn == "Y"){
+		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
+		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP");
+	}else{
+		dma_search.set("BOARD_TABLE","MT_BOARD");
+		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE");
+	}
 	com.sbm.execute (sbm_searchBoardList);
 };
 scwin.sbm_searchBoardList_submitdone = function(e) {
@@ -116,10 +122,10 @@ scwin.grd1_oncelldblclick = function(row,col,colId) {
 	var _param = {};
 	_param.rowJson = dlt_list.getRowJSON(row);
 	_param.mode = "read";
-	_param.boardCategory = "ERP";
+	_param.boardInfo = scwin.paramObj;
 	var data = { data: _param, callbackFn: "scwin.boardPop_callback" };
 	var options = {
-		id: "boardPopTech",
+		id: "boardPop",
 		popupName: "게시판상세",
 		modal: true,
 		width: 680, height: 545
@@ -130,14 +136,11 @@ scwin.grd1_oncelldblclick = function(row,col,colId) {
 /* 글쓰기 팝업 */
 scwin.btn_write_onclick = function(e) {
 	var _param = {};
-	_param.rowJson = {
-		"BOARD_TYPE":"TECH"
-	};
 	_param.mode = "write";
-	_param.boardCategory = "ERP";
+	_param.boardInfo = scwin.paramObj;
 	var data = { data: _param, callbackFn: "scwin.boardPop_callback" };
 	var options = {
-		id: "boardPopTech",
+		id: "boardPop",
 		popupName: "게시판등록",
 		modal: true,
 		width: 680, height: 545
@@ -260,7 +263,7 @@ scwin.trigger1_onclick = function(e) {
 
 				<xf:group class="schbox_inner" id="" style="">
 
-					<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="" tagname="table">
+					<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="tbl_search" style="" tagname="table">
 
 						<w2:attributes>
 
@@ -272,11 +275,11 @@ scwin.trigger1_onclick = function(e) {
 
 							<xf:group style="width:60px;" tagname="col" />
 
-							<xf:group style="" tagname="col" />
+							<xf:group style="width:225px;;" tagname="col" />
 
 							<xf:group style="width:60px;" tagname="col" />
 
-							<xf:group tagname="col"></xf:group>
+							<xf:group tagname="col" style="width:165px;"></xf:group>
 							<xf:group tagname="col" style="width:60px;"></xf:group>
 							<xf:group style="" tagname="col" />
 
@@ -288,33 +291,26 @@ scwin.trigger1_onclick = function(e) {
 								<w2:textbox class="req" id="" label="기간" style="" />
 							</xf:group>
 
-							<xf:group class="w2tb_td" style="" tagname="td">
-
-								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
+							<xf:group class="w2tb_td" style="" tagname="td"><w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
 									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.FROM">
-								</w2:inputCalendar>
-								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
+								</w2:inputCalendar><w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
 									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.TO">
-								</w2:inputCalendar>
-							</xf:group>
+								</w2:inputCalendar></xf:group>
 
 							<xf:group class="w2tb_th" style="" tagname="th">
-								<w2:textbox class="" id="" label="작성자" style="" />
+								<w2:textbox class="" id="" label="내용" style="" />
 							</xf:group>
 
-							<xf:group class="w2tb_td" id="" style="" tagname="td">
-
-								<xf:input id="" style="" ref="data:dma_search.BOARD_WRITER"></xf:input>
-
-							</xf:group>
+							<xf:group class="w2tb_td" id="" style="" tagname="td"><xf:input id="" style="" ref="data:dma_search.BOARD_CONT"></xf:input></xf:group>
 
 							<xf:group tagname="td" id="" class="w2tb_th">
 								<w2:attributes></w2:attributes>
-								<w2:textbox class="" id="" label="내용" style=""></w2:textbox>
+								<w2:textbox class="" id="" label="작성자" style=""></w2:textbox>
 							</xf:group>
 							<xf:group tagname="td" id="" class="w2tb_td">
 								<w2:attributes></w2:attributes>
-								<xf:input id="" style="" ref="data:dma_search.BOARD_CONT"></xf:input>
+
+								<xf:input id="" ref="data:dma_search.BOARD_WRITER" style=""></xf:input>
 							</xf:group>
 						</xf:group>
 

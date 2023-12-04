@@ -176,7 +176,7 @@ gcm.win.showToastMessage = function (messageType, message) {
         key: 'MessageFadeOut' + messageIdx
     });
 };
-gcm.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option) {
+gcm.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option,customParam) {
     if (com.util.isEmpty($p, url)) {
         com.win.alert($p, '메뉴에 프로그램이 등록되지 않았습니다.');
         return false;
@@ -194,14 +194,18 @@ gcm.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option) {
         var data = {};
         var closable = true;
         var fixed = false;
+        var customParam = {};
         if (url.indexOf('/') !== 0) {
             url = '/' + url;
         }
         url = gcm.CONTEXT_PATH + url;
-        debugger;
         if (typeof paramObj !== 'undefined' && paramObj !== null) {
             data = paramObj;
         }
+        if (typeof customParam !== 'undefined' && customParam !== null) {
+            customData = customParam;
+        }
+        
         data.menuInfo = {
             menuNm: menuNm,
             menuCode: menuCode,
@@ -232,8 +236,9 @@ gcm.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option) {
                 dataObject: {
                     type: 'json',
                     name: 'paramData',
-                    data: data
-                }
+                    data: data,
+                },
+                customData : customData 
             };
             return Promise.resolve().then(function () {
                 return $p.main().tac_layout.addTab(menuCode, tabObj, contObj);

@@ -72,7 +72,8 @@
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
 	scwin.param = com.data.getParameter();
 	dma_search.setJSON(scwin.param.data.rowJson);
-	if(scwin.param.data.boardCategory == "ERP"){
+	dma_search.set("BOARD_TYPE",scwin.param.data.boardInfo.boardType)
+	if(scwin.param.data.boardInfo.erpYn == "Y"){
 		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
 		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP")
 	}else{

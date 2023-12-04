@@ -21,6 +21,7 @@
 						<w2:column id="SORT_ORDER" name="정렬순서" dataType="text"></w2:column>
 						<w2:column id="PROGRAM_CD" name="프로그램코드" dataType="text"></w2:column>
 						<w2:column id="TYPE" name="게시판타입" dataType="text"></w2:column>
+						<w2:column id="ERP_YN" name="ERP여부" dataType="text"></w2:column>
 					</w2:columnInfo>
 					<w2:data use="true">
 						<w2:row>
@@ -30,16 +31,25 @@
 						</w2:row>
 						<w2:row>
 							<MENU_CD><![CDATA[1100]]></MENU_CD>
-							<MENU_NM><![CDATA[기술데이터]]></MENU_NM>
-							<SRC_PATH><![CDATA[/ui/boardTech.xml]]></SRC_PATH>
+							<MENU_NM><![CDATA[스케줄러]]></MENU_NM>
+							<SRC_PATH><![CDATA[/ui/schedule.xml]]></SRC_PATH>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
-							<TYPE><![CDATA[TECH]]></TYPE>
 						</w2:row>
 						<w2:row>
 							<MENU_CD><![CDATA[1200]]></MENU_CD>
-							<MENU_NM><![CDATA[회사데이터]]></MENU_NM>
-							<SRC_PATH><![CDATA[/ui/Comdata.xml]]></SRC_PATH>
+							<MENU_NM><![CDATA[기술데이터]]></MENU_NM>
+							<SRC_PATH><![CDATA[/ui/boardMain.xml]]></SRC_PATH>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<TYPE><![CDATA[TECH]]></TYPE>
+							<ERP_YN><![CDATA[Y]]></ERP_YN>
+						</w2:row>
+						<w2:row>
+							<MENU_CD><![CDATA[1300]]></MENU_CD>
+							<MENU_NM><![CDATA[회사데이터]]></MENU_NM>
+							<SRC_PATH><![CDATA[/ui/boardMain.xml]]></SRC_PATH>
+							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<ERP_YN><![CDATA[Y]]></ERP_YN>
+							<TYPE><![CDATA[COMDATA]]></TYPE>
 						</w2:row>
 
 						<w2:row>
@@ -48,14 +58,12 @@
 							<MENU_LEVEL><![CDATA[1]]></MENU_LEVEL>
 						</w2:row>
 						<w2:row>
-							<MENU_CD><![CDATA[2100]]></MENU_CD>
-							<MENU_NM><![CDATA[MOCA API Document]]></MENU_NM>
-							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
-						</w2:row>
-						<w2:row>
 							<MENU_CD><![CDATA[2200]]></MENU_CD>
 							<MENU_NM><![CDATA[웹스퀘어 게시판]]></MENU_NM>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<SRC_PATH><![CDATA[/ui/boardMain.xml]]></SRC_PATH>
+							<TYPE><![CDATA[WS]]></TYPE>
+							<ERP_YN><![CDATA[N]]></ERP_YN>
 						</w2:row>
 					</w2:data>
 				</w2:dataList>
@@ -210,7 +218,11 @@ scwin.trv_menu_onclick = function () {
 		var selectedMenu = dlt_menu.getMatchedJSON("MENU_CD", trv_menu.getSelectedValue());
 		if (selectedMenu.length > 0) {
 			var tURL = selectedMenu[0].SRC_PATH;
-			scwin.setMenuRelation(tLabel, tURL, tCode, "Tree");
+			var _param = {
+				"boardType": selectedMenu[0].TYPE,
+				"erpYn" :  selectedMenu[0].ERP_YN
+			}
+			scwin.setMenuRelation(tLabel, tURL, tCode, "Tree", _param);
 		}
 	}
 };
@@ -248,18 +260,17 @@ scwin.btn_History_onclick = function () {
  * scwin.setMenuRelation("인사조회", "/tmp/tmp01.xml", "010001");
  * scwin.setMenuRelation("인사조회", "/tmp/tmp01.xml", "010001", "Tree");
  */
-scwin.setMenuRelation = function (menuNm, menuUrl, menuCode, skipType) {
+scwin.setMenuRelation = function (menuNm, menuUrl, menuCode, skipType, param, option) {
 	var menuList = dlt_menu.getMatchedJSON("MENU_CD", menuCode, true);
 
 	if (menuList && menuList.length > 0) {
 		var option = {
 			isHistory: true,
 			closable: true,
-			"aaa":"Bbb"
+			
 		};
-
-		if (com.win.openMenu(menuNm, menuUrl, menuCode, null, option)) {
-			scwin.addHistory(menuNm, menuUrl, menuCode);
+		if (com.win.openMenu(menuNm, menuUrl, menuCode, param, option)) {
+			scwin.addHistory(menuNm, menuUrl, menuCode, null);
 		}
 
 		gen_history.removeClass("hide");

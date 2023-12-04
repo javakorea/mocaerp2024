@@ -1577,8 +1577,8 @@ com.win.isPopup = function ($p) {
         }
     }
 };
-com.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option) {
-    return gcm.win.openMenu($p, menuNm, url, menuCode, paramObj, option);
+com.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option, customParam) {
+    return gcm.win.openMenu($p, menuNm, url, menuCode, paramObj, option, customParam);
 };
 com.win.moveUrl = function ($p, moveUrl, paramObj) {
     var paramObj = {
