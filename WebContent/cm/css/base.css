@@ -807,7 +807,7 @@ input[type="file"]{cursor:pointer;}
 .fc-basic-view .fc-sat .fc-day-number{color: #006CFF}
 .fc-basic-view .fc-sun .fc-day-number{color: #DD1552}
 .w2widget_content .fc-day-grid-container.fc-scroller{height: 224px !important;}
-.fc-event.fc-event{ text-align: center; background-color: #FF836D; border-color: transparent}
+.fc-event.fc-event{ text-align: center; /*background-color: #FF836D*/ border-color: transparent}
 .fc-event .fc-title{ font-size: 12px; font-weight: 400; vertical-align: middle;}
 .fc a.fc-more{ font-size: 12px}
 

@@ -119,4 +119,29 @@
   				AND BOARD_PIDX=#{BOARD_PIDX}
   				AND BOARD_IDX=#{BOARD_IDX}
     </delete>
+				
+     <select id="selectScheduleList" parameterType="java.util.Map" resultType="java.util.HashMap">
+    	/*selectScheduleList 스케줄러 조회*/
+		SELECT
+			SCH_IDX as groupId,
+			SCH_CATEGORY,
+			SCH_TITLE,
+			SCH_CONT,
+			SCH_WRITER,
+			SCH_CREATE_DTTM,
+			SCH_CURRENTMONTH,
+			SCH_START,
+			SCH_END as end,
+			SCH_DISP as display,
+			SCH_COLOR ,
+			SCH_DELYN,
+			SCH_SENDYN
+		FROM MT_SCHEDULE
+		WHERE 1=1
+		AND SCH_DELYN = 'N'
+		AND SCH_CURRENTMONTH = #{SCH_CURRENTMONTH}
+		<if test="SCH_TODAY != null and SCH_TODAY != ''">
+            AND SCH_START like CONCAT('%', #{SCH_TODAY}, '%')
+        </if>
+    </select>
  </mapper>

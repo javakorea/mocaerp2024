@@ -9,4 +9,15 @@
 
 .btn_cm.blue, .btn_cm.blue:active, .btn_cm.blue:active:hover{ background-color: #2d5277;  color: #Fff;  border: 1px solid #2d5277;}
 
-
+.fullcalendar{height:100%;}
+.fullcalendar .fc-view-harness{height:100% !important}
+.fullcalendar table[role="presentation"].fc-col-header{width:100% !important;}
+.fullcalendar .fc-daygrid-body{width:100% !important; height:100% !important;}
+.fullcalendar table[role="presentation"].fc-scrollgrid-sync-table{width:100% !important; height:100% !important;}
+.fullcalendar.fc .fc-toolbar.fc-header-toolbar{margin:5px 0}
+.fullcalendar .fc-view-container{height: calc(100% - 30px)}
+.fullcalendar .fc-view, .fullcalendar .fc-view > table{height:100%}
+.fullcalendar .fc-day-grid-container{height:100% !important;}
+.fc-day-grid{height:100%;}
+.fullcalendar .fc-week.fc-widget-content.fc-rigid{height:calc(100% / 6) !important;}
+.fullcalendar .fc-basic-view .fc-body .fc-row {min-height: unset;}

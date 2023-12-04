@@ -62,6 +62,7 @@ public class Moca3Application {
 		return resultMap;
 	}
 	
+	//게시판등록
 	@RequestMapping("/insertBoardInfo.do")
 	public Map<String,Object> insertBoardInfo(@RequestBody Map<String, Map<String,Object>> param) {
 		Map<String,Object> resultMap = new HashMap<String,Object>();
@@ -85,6 +86,7 @@ public class Moca3Application {
 		return resultMap;
 	}
 	
+	//게시판 단건 수정
 	@RequestMapping("/updateBoardInfo.do")
 	public Map<String,Object> updateBoardInfo(@RequestBody Map<String, Map<String,Object>> param) {
 		Map<String,Object> resultMap = new HashMap<String,Object>();
@@ -139,6 +141,17 @@ public class Moca3Application {
 		}
 		return resultMap;
 	}
+	
+	//스케줄러 목록조회
+	@RequestMapping("/selectScheduleList.do")
+	public Map<String, Object> selectScheduleList(@RequestBody Map<String, HashMap<String,Object>> param) {
+		Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_search");
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		List<Map<String,Object>> list = sqlSession.selectList("M.selectScheduleList", searchMap);
+		resultMap.put("dlt_list", list);
+		return resultMap;
+	}
+	
 	
 	//메인 티스토리 조회  
 	@RequestMapping(value = "/main/selectTistroyList.do")

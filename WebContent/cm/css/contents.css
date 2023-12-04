@@ -551,6 +551,8 @@
 	.dfbox .df_tit {margin-top: 0; line-height:27px;}
 	
 	.flex_gvw,.flex_gvw .wq_flx {display:block;}
+	
+	.calendarbox.flex{height: calc(100% - 44px) !important;  display: block;}
 }
 @media screen and (max-width: 446px) { 
 	.login_wrap.type2 .login_container{ width: 312px;}
