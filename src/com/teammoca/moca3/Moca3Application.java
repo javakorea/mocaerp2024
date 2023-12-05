@@ -152,7 +152,58 @@ public class Moca3Application {
 		return resultMap;
 	}
 	
+	//스케줄러 단건조회
+	@RequestMapping("/selectScheduleInfo.do")
+	public Map<String, Object> selectScheduleInfo(@RequestBody Map<String, Map<String,Object>> param) {
+		Map<String, Object> searchMap = (Map<String, Object>) param.get("dma_schdInfo");
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		Map<String,Object> map = sqlSession.selectOne("M.selectScheduleInfo", searchMap);
+		resultMap.put("dma_schdInfo", map);
+		return resultMap;
+	}
 	
+	//스케줄러 등록
+	@RequestMapping("/insertSchedule.do")
+	public Map<String,Object> insertSchedule(@RequestBody Map<String, Map<String,Object>> param) {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+			Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_schdInfo");
+			int map = sqlSession.insert("M.insertSchedule", searchMap);
+			resultMap.put("cnt", map);
+			resultMap.put("status", "S");
+			resultMap.put("Message", "정상적으로 등록 되었습니다.");
+		}catch(Exception e) {
+				e.printStackTrace();
+				resultMap.put("status", "E");
+				resultMap.put("Message",e.getMessage());
+		}
+		return resultMap;
+	}
+		
+	//스케줄러 수정
+		@RequestMapping("/updateSchedule.do")
+		public Map<String,Object> updateSchedule(@RequestBody Map<String, Map<String,Object>> param) {
+			Map<String,Object> resultMap = new HashMap<String,Object>();
+			int cnt = 0;
+			try {
+				Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_schdInfo");
+				String status = (String) searchMap.get("STATUS");
+				if (status.equals("U")) {
+					cnt = sqlSession.update("M.updateSchedule", searchMap);
+				}else if(status.equals("D")) {
+					cnt = sqlSession.delete("M.deleteSchedule", searchMap);
+				}
+				resultMap.put("cnt", cnt);
+				resultMap.put("status", "S");
+				resultMap.put("Message", "정상적으로 처리 되었습니다.");
+			}catch(Exception e) {
+					e.printStackTrace();
+					resultMap.put("status", "E");
+					resultMap.put("Message",e.getMessage());
+			}
+			return resultMap;
+		};
+		
 	//메인 티스토리 조회  
 	@RequestMapping(value = "/main/selectTistroyList.do")
 	public List<String> selectTistroyList(@RequestParam Map<String, Object> mocaMap) throws Exception {

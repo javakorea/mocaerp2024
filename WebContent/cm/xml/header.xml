@@ -14,7 +14,7 @@
 		</xf:model>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
 	let sInfo = JSON.parse(sessionStorage.getItem("loginInfo"));
-	txt_empNm.setValue(sInfo.name);
+	txt_empNm.setValue(sInfo.name+' ('+sInfo.email+')');
 	img_profile.setSrc(sInfo.picture)
 };
 

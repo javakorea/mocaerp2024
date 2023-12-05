@@ -1,7 +1,7 @@
-/*amd /cm/xml/header.xml 13445 208d49297521c44a4d6c6cc35ed6a5dc651c7b5881dd1f7207eb5c0331d77a6f */
+/*amd /cm/xml/header.xml 13472 34cab8ae3c7d72b6596b116d6ce45d7cd3e927237ee6fda21e99bcfecb294ece */
 define({declaration:{A:{version:'1.0',encoding:'UTF-8'}},E:[{T:1,N:'html',A:{xmlns:'http://www.w3.org/1999/xhtml','xmlns:ev':'http://www.w3.org/2001/xml-events','xmlns:w2':'http://www.inswave.com/websquare','xmlns:xf':'http://www.w3.org/2002/xforms'},E:[{T:1,N:'head',E:[{T:1,N:'w2:type',E:[{T:3,text:'COMPONENT'}]},{T:1,N:'w2:buildDate'},{T:1,N:'xf:model',E:[{T:1,N:'w2:dataCollection',A:{baseNode:'map'}},{T:1,N:'w2:workflowCollection'}]},{T:1,N:'script',A:{type:'text/javascript',lazy:'false'},E:[{T:4,cdata:function(scopeObj){with(scopeObj){scwin.onpageload = function () {
     let sInfo = JSON.parse(sessionStorage.getItem('loginInfo'));
-    txt_empNm.setValue(sInfo.name);
+    txt_empNm.setValue(sInfo.name + ' (' + sInfo.email + ')');
     img_profile.setSrc(sInfo.picture);
 };
 scwin.setGenerator = function () {

@@ -36,7 +36,6 @@ $.fn.fullCalendar = function(options) {
 		var element = $(_element);
 		var calendar = element.data('fullCalendar'); // get the existing calendar object (if any)
 		var singleRes; // the returned value of this single method call
-
 		// a method call
 		if (typeof options === 'string') {
 
@@ -11519,8 +11518,8 @@ Calendar.defaults = {
 	defaultTimedEventDuration: '02:00:00',
 	defaultAllDayEventDuration: { days: 1 },
 	forceEventDuration: false,
-	nextDayThreshold: '09:00:00', // 9am
-
+	nextDayThreshold: '00:00:00', // 9am
+	timeZone : 'Asia/Seoul',
 	// display
 	columnHeader: true,
 	defaultView: 'month',

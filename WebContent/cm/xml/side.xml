@@ -34,6 +34,7 @@
 							<MENU_NM><![CDATA[스케줄러]]></MENU_NM>
 							<SRC_PATH><![CDATA[/ui/schedule.xml]]></SRC_PATH>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<PARENT_MENU_CD><![CDATA[1000]]></PARENT_MENU_CD>
 						</w2:row>
 						<w2:row>
 							<MENU_CD><![CDATA[1200]]></MENU_CD>
@@ -42,6 +43,7 @@
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
 							<TYPE><![CDATA[TECH]]></TYPE>
 							<ERP_YN><![CDATA[Y]]></ERP_YN>
+							<PARENT_MENU_CD><![CDATA[1000]]></PARENT_MENU_CD>
 						</w2:row>
 						<w2:row>
 							<MENU_CD><![CDATA[1300]]></MENU_CD>
@@ -50,6 +52,7 @@
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
 							<ERP_YN><![CDATA[Y]]></ERP_YN>
 							<TYPE><![CDATA[COMDATA]]></TYPE>
+							<PARENT_MENU_CD><![CDATA[1000]]></PARENT_MENU_CD>
 						</w2:row>
 
 						<w2:row>
@@ -64,6 +67,7 @@
 							<SRC_PATH><![CDATA[/ui/boardMain.xml]]></SRC_PATH>
 							<TYPE><![CDATA[WS]]></TYPE>
 							<ERP_YN><![CDATA[N]]></ERP_YN>
+							<PARENT_MENU_CD><![CDATA[2000]]></PARENT_MENU_CD>
 						</w2:row>
 					</w2:data>
 				</w2:dataList>
@@ -127,12 +131,11 @@
 				ev:submit="" ev:submitdone="scwin.setupdateFavCallback" ev:submiterror="" abortTrigger="">
 			</xf:submission>
 		</xf:model>
-		<script type="text/javascript" lazy="false"><![CDATA[
-// 최대 HISTORY 저장 개수	
+		<script type="text/javascript" lazy="false"><![CDATA[// 최대 HISTORY 저장 개수	
 scwin.HISTORY_MAX_SIZE = 10;
 
 scwin.onpageload = function () {
-
+	com.win.openMenu('스케줄러', '/ui/schedule.xml', '1100', null, {isHistory: true, closable: true});
 };
 
 scwin.getInitData = function () {

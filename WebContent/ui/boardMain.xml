@@ -83,6 +83,11 @@
 scwin.fn_setMenu = function(menuInfo){
 	//{menuNm: '기술데이터', menuCode: '1100', src: '/ui/boardTech.xml'}
 	pgt_tit.setValue(menuInfo.menuNm);
+	txt_menu.setValue(menuInfo.menuNm);
+	var _dlt_menu = $p.main().wfm_side.scope.dlt_menu;
+	var _pMenuCd = _dlt_menu.getMatchedJSON('MENU_CD',menuInfo.menuCode)[0].PARENT_MENU_CD
+	var _pMenuNm = _dlt_menu.getMatchedJSON('MENU_CD',_pMenuCd)[0].MENU_NM;
+	txt_pMenu.setValue(_pMenuNm);
 }
 
 /* 조회 */
@@ -127,8 +132,10 @@ scwin.grd1_oncelldblclick = function(row,col,colId) {
 	var options = {
 		id: "boardPop",
 		popupName: "게시판상세",
+		frameModal : "frame",
+		className : "h100",
 		modal: true,
-		width: 680, height: 545
+		width: 680, height: 580
 	};
 	com.win.openPopup("/ui/boardPop.xml", options, data);
 };
@@ -142,6 +149,8 @@ scwin.btn_write_onclick = function(e) {
 	var options = {
 		id: "boardPop",
 		popupName: "게시판등록",
+		frameModal : "frame",
+		className : "h100",
 		modal: true,
 		width: 680, height: 545
 	};
@@ -206,145 +215,83 @@ scwin.trigger1_onclick = function(e) {
 	grd1.advancedExcelDownload(options)
 };
 ]]></script>
-
 	</head>
-
 	<body ev:onpageload="scwin.onpageload">
-
 		<xf:group class="sub_contents flex_gvw" id="" style="">
-
 			<xf:group class="pgtbox" id="" style="">
-
 				<xf:trigger class="btn_fav" id="" style="" type="button">
-
 					<xf:label />
-
 				</xf:trigger>
-
 				<w2:textbox class="pgt_tit" id="pgt_tit" label="기술데이터" style="" tagname="" />
-
 				<xf:group class="breadcrumb" id="" style="">
-
 					<xf:group id="" style="" tagname="ul">
-
 						<xf:group class="home" id="" style="" tagname="li">
-
 							<w2:anchor id="" outerDiv="false" style="">
-
 								<xf:label><![CDATA[Home]]></xf:label>
-
 							</w2:anchor>
-
 						</xf:group>
-
 						<xf:group id="" style="" tagname="li">
-
-							<w2:anchor id="" outerDiv="false" style="">
-
-								<xf:label><![CDATA[업무관리]]></xf:label>
-
+							<w2:anchor id="txt_pMenu" outerDiv="false" style="">
+								<xf:label><![CDATA[]]></xf:label>
 							</w2:anchor>
-
 						</xf:group>
-
 						<xf:group id="" style="" tagname="li">
-
-							<w2:span id="" label="기술데이터" style="" />
-
+							<w2:span id="txt_menu" label="" style="" />
 						</xf:group>
-
 					</xf:group>
-
 				</xf:group>
-
 			</xf:group>
-
 			<xf:group class="shbox" id="" style="">
-
 				<xf:group class="schbox_inner" id="" style="">
-
 					<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="tbl_search" style="" tagname="table">
-
 						<w2:attributes>
-
 							<w2:summary />
-
 						</w2:attributes>
-
 						<xf:group tagname="colgroup">
-
 							<xf:group style="width:60px;" tagname="col" />
-
 							<xf:group style="width:225px;;" tagname="col" />
-
 							<xf:group style="width:60px;" tagname="col" />
-
 							<xf:group tagname="col" style="width:165px;"></xf:group>
 							<xf:group tagname="col" style="width:60px;"></xf:group>
 							<xf:group style="" tagname="col" />
-
 						</xf:group>
-
 						<xf:group class="" id="" style="" tagname="tr">
-
 							<xf:group class="w2tb_th" style="" tagname="th">
 								<w2:textbox class="req" id="" label="기간" style="" />
 							</xf:group>
-
 							<xf:group class="w2tb_td" style="" tagname="td"><w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
-									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.FROM">
+									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.FROM" class="">
 								</w2:inputCalendar><w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
-									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.TO">
+									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.TO" class="">
 								</w2:inputCalendar></xf:group>
-
 							<xf:group class="w2tb_th" style="" tagname="th">
 								<w2:textbox class="" id="" label="내용" style="" />
 							</xf:group>
-
 							<xf:group class="w2tb_td" id="" style="" tagname="td"><xf:input id="" style="" ref="data:dma_search.BOARD_CONT"></xf:input></xf:group>
-
 							<xf:group tagname="td" id="" class="w2tb_th">
 								<w2:attributes></w2:attributes>
 								<w2:textbox class="" id="" label="작성자" style=""></w2:textbox>
 							</xf:group>
 							<xf:group tagname="td" id="" class="w2tb_td">
 								<w2:attributes></w2:attributes>
-
 								<xf:input id="" ref="data:dma_search.BOARD_WRITER" style=""></xf:input>
 							</xf:group>
 						</xf:group>
-
 					</xf:group>
-
 				</xf:group>
-
 				<xf:group class="btn_shbox" id="" style="">
-
 					<xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_search" style="" type="button"
 						ev:onclick="scwin.btn_search_onclick">
-
 						<xf:label><![CDATA[조회]]></xf:label>
-
 					</xf:trigger>
-
 				</xf:group>
-
 			</xf:group>
-
 			<xf:group class="dfbox" id="" style="">
-
 				<xf:group class="fr" id="" style="">
-
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
-
 					<xf:trigger class="btn_cm download" id="trigger1" style="" type="button" ev:onclick="scwin.trigger1_onclick">
-
 						<xf:label><![CDATA[다운로드]]></xf:label>
-
 					</xf:trigger>
-
-
-
 					<xf:trigger class="btn_cm row_del" id="btn_del" style="" type="button" ev:onclick="scwin.btn_del_onclick">
 						<xf:label><![CDATA[선택삭제]]></xf:label>
 					</xf:trigger>
@@ -352,24 +299,16 @@ scwin.trigger1_onclick = function(e) {
 						<xf:label><![CDATA[물리삭제]]></xf:label>
 					</xf:trigger>
 					<xf:trigger class="btn_cm blue" id="btn_write" style="" type="button" ev:onclick="scwin.btn_write_onclick">
-
 						<xf:label><![CDATA[글쓰기]]></xf:label>
-
 					</xf:trigger>
 				</xf:group>
-
 			</xf:group>
-
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
-
 				<w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
 					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style="" visibleRowNum="10"
 					ev:oncelldblclick="scwin.grd1_oncelldblclick">
-
 					<w2:caption id="caption2" style="" value="this is a grid caption." />
-
 					<w2:header id="header2" style="">
-
 						<w2:row id="row3" style="">
 							<w2:column width="30" inputType="checkbox" style="" id="column21" value="" displayMode="label"></w2:column>
 							<w2:column width="50" inputType="text" id="column9" value="글번호" displayMode="label"></w2:column>
@@ -379,11 +318,8 @@ scwin.trigger1_onclick = function(e) {
 							<w2:column width="80" inputType="text" id="column17" value="작성일시" displayMode="label"></w2:column>
 							<w2:column width="80" inputType="text" id="column18" value="수정일시" displayMode="label"></w2:column>
 						</w2:row>
-
 					</w2:header>
-
 					<w2:gBody id="gBody2" style="">
-
 						<w2:row id="row4" style="">
 							<w2:column width="30" inputType="checkbox" style="" id="CHK" value="" displayMode="label" readOnly="false" falseValue="0"
 								trueValue="1" defaultValue="0" valueType="binary"></w2:column>
@@ -394,15 +330,9 @@ scwin.trigger1_onclick = function(e) {
 							<w2:column width="80" inputType="text" id="BOARD_DATE" displayMode="label" readOnly="true" dataType="text" value=""></w2:column>
 							<w2:column width="80" inputType="text" id="UPDATE_DATE" displayMode="label" dataType="date" readOnly="true" value=""></w2:column>
 						</w2:row>
-
 					</w2:gBody>
-
 				</w2:gridView>
-
 			</xf:group>
-
 		</xf:group>
-
 	</body>
-
 </html>

@@ -82,6 +82,7 @@
 	}
 	if(scwin.param.data.mode == "read"){
 		btn_update.show('');
+		dfbox.show('');
 		btn_confirm.hide();
 		scwin.fn_searchBoardInfo();
 	}else{
@@ -170,6 +171,16 @@ scwin.btn_del_onclick = function(e) {
 	});
 };
 
+/* 게시물 물리삭제 */
+scwin.btn_adminDel_onclick = function(e) {
+	com.win.confirm($p, '삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 해당 게시물을 삭제하시겠습니까?', function(e){
+		if(e.clickValue){
+			dma_search.set("STATUS", "D");
+			com.sbm.execute(sbm_updateBoardInfo);
+		}
+	});
+};
+
 /* 게시물 수정 */
 scwin.btn_update_onclick = function(e) {
 	com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
@@ -181,9 +192,9 @@ scwin.btn_update_onclick = function(e) {
 	});
 };
 
+/* 게시물 수정,삭제 callback */
 scwin.sbm_updateBoardInfo_submitdone = function(e) {
 	if(e.responseJSON.status == "S"){
-		debugger;
 		if(dma_search.get('STATUS') == "D" || dma_search.get('BOARD_DELYN') == "Y"){
 			var param = {
 				"message":"삭제가 완료되었습니다."
@@ -198,20 +209,7 @@ scwin.sbm_updateBoardInfo_submitdone = function(e) {
 	}
 };
 
-scwin.btn_adminDel_onclick = function(e) {
-	com.win.confirm($p, '삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 해당 게시물을 삭제하시겠습니까?', function(e){
-		if(e.clickValue){
-			dma_search.set("STATUS", "D");
-			com.sbm.execute(sbm_updateBoardInfo);
-		}
-	});
-};
-
 scwin.grd_program_oncelldblclick = async function(row,col,colId) {
-
-	//$m.EFC_BOARD_POP.grd_fileDownload_google = async function(_grd,rowIndex,colIndex,colId){
-		//var _list = $m.EFC_BOARD_POP.getObj('grd_file').list;
-debugger;
 	var id=dlt_boardFile.getCellData(row,"BOARDFILE_NAMESERVER");
 	try {
 		await gapi.client.load('drive','v3');
@@ -239,7 +237,7 @@ debugger;
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw">
 			<xf:group id="">
-				<xf:group style="" id="" class="dfbox">
+				<xf:group style="display:none;" id="dfbox" class="dfbox">
 					<xf:group style="" id="" class="fr">
 						<xf:trigger style="" id="btn_del" type="button" class="btn_cm  row_del" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
@@ -305,7 +303,7 @@ debugger;
 				</xf:group>
 			</xf:group>
 			<xf:group id="" class="edbox">
-				<w2:editor style="height:150px;" id="edi_1"></w2:editor>
+				<w2:editor style="" id="edi_1" menubar="board"></w2:editor>
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
 				<w2:textbox class="" id="" label="첨부파일" style="" tagname="h3"></w2:textbox>
@@ -320,7 +318,7 @@ debugger;
 
 				<w2:gridView autoFit="allColumn" captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_boardFile"
 					defaultCellHeight="26" id="grd_program" rowStatusHeaderValue="상태" rowStatusVisible="false" rowStatusWidth="" scrollByColumn="false"
-					scrollByColumnAdaptive="false" style="min-height:80px" ev:onrowindexchange="scwin.grd_program_onrowindexchange"
+					scrollByColumnAdaptive="false" style="min-height:80px;max-height:80px;" ev:onrowindexchange="scwin.grd_program_onrowindexchange"
 					ev:oncelldblclick="scwin.grd_program_oncelldblclick" focusMode="row" visibleRowNum="2">
 					<w2:caption id="caption1" style="" value="this is a grid caption."></w2:caption>
 					<w2:header id="header1" style="">

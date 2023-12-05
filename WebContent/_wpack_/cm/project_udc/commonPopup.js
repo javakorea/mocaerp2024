@@ -1,4 +1,4 @@
-/*amd /cm/project_udc/commonPopup.xml 7189 8a9c0d502f0a3c0d1f93dbd55197c0027a8f6365f28d53a8d3dffb7167313efb */
+/*amd /cm/project_udc/commonPopup.xml 7175 0938d0446669add88c7f18d1c557bf5d28ec96094c64658b8184026292dbac24 */
 define({declaration:{A:{version:'1.0',encoding:'UTF-8'}},E:[{T:1,N:'html',A:{xmlns:'http://www.w3.org/1999/xhtml','xmlns:ev':'http://www.w3.org/2001/xml-events','xmlns:w2':'http://www.inswave.com/websquare','xmlns:xf':'http://www.w3.org/2002/xforms'},E:[{T:1,N:'head',A:{},E:[{T:1,N:'w2:type',E:[{T:3,text:'COMPONENT'}]},{T:1,N:'w2:buildDate'},{T:1,N:'w2:publicInfo',A:{method:'scwin.alert,scwin.messagBox,scwin.confirm,scwin.openPopup,scwin.closePopup,scwin.isPopup'}},{T:1,N:'xf:model',E:[{T:1,N:'w2:dataCollection',A:{baseNode:'map'}},{T:1,N:'w2:workflowCollection'}]},{T:1,N:'w2:layoutInfo'},{T:1,N:'script',A:{type:'text/javascript',lazy:'false'},E:[{T:4,cdata:function(scopeObj){with(scopeObj){requires('uiplugin.popup');
 scwin.CB_FUNCTION_MANAGER = {
     cbFuncIdx: 0,
@@ -83,7 +83,6 @@ scwin._openPopup = function (_$p, url, opt, data) {
         var top = document.body.offsetHeight / 2 - $c.num.parseInt(height) / 2 + $(document).scrollTop() + 'px';
         var left = document.body.offsetWidth / 2 - $c.num.parseInt(width) / 2 + $(document).scrollLeft() + 'px';
     }
-    debugger;
     if (typeof _dataObj.data !== 'undefined') {
         if (typeof _dataObj.data.callbackFn == 'function') {
             var cbFuncIdx = scwin.CB_FUNCTION_MANAGER['cbFuncIdx'];

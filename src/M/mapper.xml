@@ -124,15 +124,13 @@
     	/*selectScheduleList 스케줄러 조회*/
 		SELECT
 			SCH_IDX as groupId,
-			SCH_CATEGORY,
 			SCH_TITLE,
 			SCH_CONT,
 			SCH_WRITER,
 			SCH_CREATE_DTTM,
 			SCH_CURRENTMONTH,
 			SCH_START,
-			SCH_END as end,
-			SCH_DISP as display,
+			SCH_END,
 			SCH_COLOR ,
 			SCH_DELYN,
 			SCH_SENDYN
@@ -144,4 +142,70 @@
             AND SCH_START like CONCAT('%', #{SCH_TODAY}, '%')
         </if>
     </select>
+     <select id="selectScheduleInfo" parameterType="java.util.Map" resultType="java.util.HashMap">
+    	/*selectScheduleInfo 스케줄러 단건조회*/
+        SELECT
+            SCH_IDX, 
+            SCH_TITLE, 
+            SCH_CONT, 
+            SCH_WRITER,
+            SCH_CURRENTMONTH,
+            SCH_COLOR,
+            DATE_FORMAT(SCH_CREATE_DTTM, '%Y-%m-%d  %H:%i:%s') AS SCH_CREATE_DTTM,
+            DATE_FORMAT(SCH_START, '%Y-%m-%d  %H:%i:%s') AS SCH_START,
+            DATE_FORMAT(SCH_END, '%Y-%m-%d  %H:%i:%s') AS SCH_END
+        FROM MT_SCHEDULE
+        WHERE 1=1
+        AND SCH_IDX = #{SCH_IDX}
+    </select>
+    
+    <insert id="insertSchedule" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="SCH_IDX">
+        /*insertSchedule 스케줄러 작성*/
+            INSERT INTO MT_SCHEDULE(
+            	SCH_TITLE,
+           		SCH_CONT,
+	            SCH_WRITER,
+	            SCH_CREATE_DTTM,
+	            SCH_CURRENTMONTH,
+	            SCH_START,
+	            SCH_END,
+	            SCH_COLOR,
+	            SCH_DELYN,
+	            SCH_SENDYN
+            )VALUES (
+           		#{SCH_TITLE},
+           		#{SCH_CONT},
+				#{SCH_WRITER},
+	           	CURRENT_TIMESTAMP,
+	            #{SCH_CURRENTMONTH},
+	            #{SCH_START},
+	            #{SCH_END},
+	            #{SCH_COLOR},
+	            'N',
+	            'N'
+            )
+    </insert>
+    
+    <update id="updateSchedule" parameterType="java.util.Map">
+         /*updateScheduleInfo 스케줄러 수정*/
+         UPDATE MT_SCHEDULE SET 
+            SCH_CONT = #{SCH_CONT},
+            SCH_TITLE = #{SCH_TITLE},
+            SCH_START = #{SCH_START},
+            SCH_END = #{SCH_END},
+            SCH_WRITER = #{SCH_WRITER},
+             <if test="SCH_DELYN != null and SCH_DELYN != ''">
+            	SCH_DELYN = #{SCH_DELYN},
+            </if>
+            SCH_COLOR = #{SCH_COLOR}
+         WHERE 1=1
+         AND SCH_IDX=#{SCH_IDX}
+    </update>
+    
+    <delete id="deleteSchedule" parameterType="map">
+        /*deleteSchedule 스케줄러 물리삭제*/
+        		DELETE FROM MT_SCHEDULE
+				WHERE 1=1
+  				AND SCH_IDX=#{SCH_IDX}
+    </delete>
  </mapper>

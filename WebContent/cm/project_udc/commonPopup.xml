@@ -203,7 +203,6 @@ xmlns:xf="http://www.w3.org/2002/xforms">
 
 	
 		
-	debugger;
 		if (typeof _dataObj.data !== "undefined") {
 			if (typeof _dataObj.data.callbackFn == "function") {
 				var cbFuncIdx =scwin.CB_FUNCTION_MANAGER["cbFuncIdx"];

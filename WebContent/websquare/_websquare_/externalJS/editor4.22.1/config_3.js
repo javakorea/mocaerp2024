@@ -18,6 +18,12 @@ CKEDITOR.editorConfig = function( config )
 	                                	['Font','FontSize','Table','Image'],
 	                                  	['Bold','Italic','Underline','TextColor']
 	                                  ];
+	config.toolbar_board = [
+	    	['Source','Font','FontSize','Bold','TextColor']
+	];
+	config.toolbar_onlyTxt = [
+							    	['Font','Bold','TextColor']
+      ];
 	config.toolbar_defaultImage = [
 	                                  	['Source','DocProps','-','NewPage','Preview','-'],
 	                                  	['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print'],
