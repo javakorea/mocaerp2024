@@ -554,7 +554,9 @@
 	.flex_gvw,.flex_gvw .wq_flx {display:block;}
 	
 	.calendarbox.flex{height: calc(100% - 44px) !important;  display: block;}
-	.w2inputCalendar_div.multi {width:100% !important; margin-right:0 !important;}
+	.w2inputCalendar_div.multi {width:100% !important; }
+	.w2inputCalendar_div.multi:first-child {margin-bottom:4px !important; }
+	.w2inputCalendar_div.multi:last-child {margin-right:4px !important; }
 }
 @media screen and (max-width: 446px) { 
 	.login_wrap.type2 .login_container{ width: 312px;}

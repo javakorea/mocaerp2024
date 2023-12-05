@@ -181,9 +181,9 @@ scwin.sbm_updateSchedule_submitdone = function(e) {
 							<w2:textbox class="" id="" label="일정기간" style=""></w2:textbox>
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td"><w2:attributes></w2:attributes><w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
-								ref="data:dma_schdInfo.SCH_START" renderDiv="true" rightAlign="false" style="width:calc(50% - 5px)" class="multi">
+								ref="data:dma_schdInfo.SCH_START" renderDiv="true" rightAlign="false" style="width:calc(50% - 5px);width:calc(50% - 2.5px);" class="multi">
 							</w2:inputCalendar><w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
-								ref="data:dma_schdInfo.SCH_END" renderDiv="true" rightAlign="false" style="width:calc(50% - 5px)" class="mr0 multi">
+								ref="data:dma_schdInfo.SCH_END" renderDiv="true" rightAlign="false" style="width:calc(50% - 2.5px);margin-right:0;" class="multi">
 							</w2:inputCalendar></xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_createDt" style="display:none;">
