@@ -352,7 +352,7 @@ gcm.win.openPopup = function ($p, url, opt, data) {
     }
     opt.type = opt.type || 'wframePopup';
     opt.frameModal = opt.frameModal || '';
-    opt.className = opt.frameModal == 'frame' ? opt.className ? opt.className + ' f_pop' : 'f_pop' : '';
+    opt.className = opt.frameModal == 'frame' ? opt.className ? opt.className + ' f_pop' : 'f_pop' : opt.className;
     if (opt.type == 'browserPopup') {
         var top = Math.floor((window.screen.availHeight - 50 - com.num.parseInt($p, height)) / 2) + (window.screen.availTop || 0) + 'px';
         var left = Math.floor((window.screen.availWidth - com.num.parseInt($p, width)) / 2) + (window.screen.availLeft || 0) + 'px';

@@ -89,10 +89,8 @@ scwin.sch_cal1_onclick = function(retObj,b) {
 	if(retObj.id){
 		_param.schInfo.SCH_IDX = retObj.id;
 		_popupName= "일정상세";
-		_height = 520;
 		_param.mode = "read";
 	}else{
-		_height = 428;
 		_popupName = "일정등록";
 		_param.mode = "write";
 		_param.writer = JSON.parse(sessionStorage.getItem("loginInfo")).name;
@@ -103,10 +101,10 @@ scwin.sch_cal1_onclick = function(retObj,b) {
 		id: "schedulePop",
 		popupName: _popupName,
 		modal: true,
-		frameModal : "frame",
-		width: 500, height: _height,
+		width: 500, height: 360,
 		className : "h100"
 	};
+	
 	com.win.openPopup("/ui/schedulePop.xml", options, data);
 };
 /* 팝업 callback */

@@ -423,7 +423,6 @@ input[type="file"]{cursor:pointer;}
 .btn_cm{display:inline-block;margin:0 4px 0 0;padding:0 8px;height:26px;color:#6A6C6F;font-size:12px;font-weight:bold;line-height:25px;text-align:center;background-color:#fff;border:1px solid #ced4da;border-radius:3px;box-sizing:border-box;}
 .btn_cm:hover{border-color:#8996a3;}
 .btn_cm:active,
-.btn_cm:active:hover{background-color:#F5F7FA;border-color:#8996a3;}
 .btn_cm:disabled {color:#c7c8ca;border-color: #ced4da;}
 .btn_cm.sch{display:inline-block;position:relative;padding:0;width:26px;height:26px;color:#fff;line-height:34px;background:#348FE2;border:0;}
 .btn_cm.sch:before{content:'';position:absolute;left:18px;top:10px;width:12px;height:12px;border:2px solid #fff;border-radius:100%;box-sizing:border-box;}
@@ -432,7 +431,8 @@ input[type="file"]{cursor:pointer;}
 .bar_btndiv {display:inline-block;position:relative;width:1px;}
 .bar_btndiv:after{content:'';display:inline-block;position:absolute;top:50%;left:0;margin-top:-10px;width:1px;height:15px;background: #ced4da;}
 .btn_cm.pt {background:#E0FCF9}
-
+.btn_cm.skyblue {background:#348FE2; border:1px solid #348FE2; color:#fff}
+.btn_cm.red {background:#f25b3b; border:1px solid #f25b3b; color:#fff; opacity:0.8]}
 /* 셔틀 버튼 */
 .btn_cm.btn_left,.btn_cm.btn_right,.btn_cm.btn_up,.btn_cm.btn_down{width:26px;height:26px;text-indent:-9999px;}
 .btn_cm.btn_left{background:url(../..//cm/images/base/btn_left.png) no-repeat 50% 50%;}
@@ -472,7 +472,7 @@ input[type="file"]{cursor:pointer;}
 .btnbox .btn_cm.pt:active:hover{background-color:#1c77cb;border-color:#1a65a8;}
 
 /* 타이틀영역 */
-.dfbox{position:relative;margin:0 0 8px;width:100%;min-height:14px;}/* 타이틀 박스 */
+.dfbox{position:relative;margin:0 0 8px;width:100%;min-height:26px;}/* 타이틀 박스 */
 .dfbox:after{content:'';display:block;clear:both;}
 .dfbox h3{position:relative;display:inline-block;padding:0;font-size:14px;line-height:26px;}
 .dfbox h4{display:inline-block;position:relative;padding:0 0 0 16px;margin:0;line-height:26px;font-size:13px;font-weight:600}
@@ -509,7 +509,7 @@ input[type="file"]{cursor:pointer;}
 .shbox .btn_shbox .btn_cm.sch:active:hover{background-color:#373D45;border-color:#373D45;}
 
 /* table */
-.tbbox{position:relative;padding:0;margin:0 0 16px}
+.tbbox{position:relative;padding:0;margin:0 0 8px}
 .tb{width:100%;border-top: 1px solid #ced4da;}
 .tb .w2tb_th{background: #f0f2f4;}
 .tb .w2tb_td{background: #fff;}

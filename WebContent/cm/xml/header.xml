@@ -256,7 +256,7 @@ scwin.btn_logo_onclick = function () {
 						</xf:group>
 					</xf:group>
 				</xf:group>
-				<xf:group class="set" id="" style="" tagname="li">
+				<xf:group class="set" id="" style="display:none;" tagname="li">
 					<w2:anchor class="btn_setting" ev:onclick="scwin.btn_setting_onclick" id="btn_setting" outerDiv="false" style="">
 						<xf:label><![CDATA[Setting]]></xf:label>
 					</w2:anchor>

@@ -16,9 +16,10 @@
 						<w2:key id="SCH_TITLE" name="SCH_TITLE" dataType="text"></w2:key>
 						<w2:key id="SCH_CONT" name="SCH_CONT" dataType="text"></w2:key>
 						<w2:key id="SCH_WRITER" name="SCH_WRITER" dataType="text"></w2:key>
-						
+
 						<w2:key id="SCH_CREATE_DTTM" name="SCH_CREATE_DTTM" dataType="text"></w2:key>
-						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key><w2:key id="SCH_START" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
+						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
+						<w2:key id="SCH_START" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
 						<w2:key id="SCH_END" name="SCH_START" dataType="text"></w2:key>
 						<w2:key id="STATUS" name="SCH_END" dataType="text"></w2:key>
 						<w2:key id="SCH_COLOR" name="SCH_COLOR" dataType="text"></w2:key>
@@ -29,9 +30,10 @@
 				</w2:dataMap>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
-			<xf:submission id="sbm_schdInfo" ref="data:json,dma_schdInfo" target="data:json,dma_schdInfo" action="/selectScheduleInfo.do"
-				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
-				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_schdInfo_submitdone" ev:submiterror="" abortTrigger="">
+			<xf:submission id="sbm_schdInfo" ref="data:json,dma_schdInfo" target="data:json,dma_schdInfo"
+				action="/selectScheduleInfo.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_schdInfo_submitdone" ev:submiterror=""
+				abortTrigger="">
 			</xf:submission>
 			<xf:submission id="sbm_insertSchedule" ref="data:json,dma_schdInfo" target="data:json,dma_schdInfo"
 				action="/insertSchedule.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
@@ -53,9 +55,9 @@
 	if(scwin.param.data.mode == "read"){
 		dfbox.show('');
 		btn_update.show('');
+		btn_del.show('');
+		btn_adminDel.show('');
 		btn_confirm.hide();
-		tr_writer.show('');
-		tr_createDt.show('');
 		scwin.fn_searchScheduleInfo();
 	}else{
 		dma_schdInfo.set("SCH_WRITER",scwin.param.data.writer);
@@ -71,6 +73,7 @@ scwin.fn_searchScheduleInfo = function () {
 	com.sbm.execute(sbm_schdInfo);
 	//callback
 	scwin.sbm_schdInfo_submitdone = function(e) {
+		$('#wcolor')[0].value = dma_schdInfo.get("SCH_COLOR");
 		edi_1.setHTML(dma_schdInfo.get('SCH_CONT'));
 	};
 
@@ -80,10 +83,12 @@ scwin.fn_searchScheduleInfo = function () {
 scwin.btn_confirm_onclick = function(e) {
 	com.win.confirm($p, '일정을 등록하시겠습니까?', function(e){
 		if(e.clickValue){
+			
 			let _current = dma_schdInfo.getJSON().SCH_START.substr(0,6);
 			dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
+			dma_schdInfo.set("SCH_TITLE", dma_schdInfo.get("SCH_CONT"));
 			dma_schdInfo.set("SCH_CURRENTMONTH",_current);
-			dma_schdInfo.set("SCH_COLOR",'#FF836D');
+			dma_schdInfo.set("SCH_COLOR", $('#wcolor')[0].value);
 			com.sbm.execute(sbm_insertSchedule);
 		}
 	});
@@ -130,6 +135,8 @@ scwin.btn_update_onclick = function(e) {
 		if(e.clickValue){
 			dma_schdInfo.set("STATUS", "U");
 			dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
+			dma_schdInfo.set("SCH_COLOR", $('#wcolor')[0].value);
+			dma_schdInfo.set("SCH_TITLE", dma_schdInfo.get("SCH_CONT"));
 			com.sbm.execute(sbm_updateSchedule);
 		}
 	});
@@ -153,15 +160,26 @@ scwin.sbm_updateSchedule_submitdone = function(e) {
 };]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="pop_contents flex_gvw">
+		<xf:group id="" class="pop_contents flex_gvw flex_m">
 			<xf:group id="">
-				<xf:group style="display:none;" id="dfbox" class="dfbox">
+				<xf:group style="" id="dfbox" class="dfbox">
 					<xf:group style="" id="" class="fr">
-						<xf:trigger style="" id="btn_del" type="button" class="btn_cm  row_del" ev:onclick="scwin.btn_del_onclick">
+						<xf:trigger style="display: none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
 						</xf:trigger>
-						<xf:trigger style="" id="btn_adminDel" type="button" class="btn_cm row_del" ev:onclick="scwin.btn_adminDel_onclick">
-							<xf:label><![CDATA[물리삭제]]></xf:label>
+						<xf:trigger style="display: none;" id="btn_adminDel" type="button" class="btn_cm red" ev:onclick="scwin.btn_adminDel_onclick">
+							<xf:label><![CDATA[폐기]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm skyblue" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style=""
+							type="button">
+							<xf:label><![CDATA[등록]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm skyblue" id="btn_update" nextTabID="" style="display:none;" type="button"
+							ev:onclick="scwin.btn_update_onclick">
+							<xf:label><![CDATA[수정]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_cancel_onclick" id="btn_cancel" style="" type="button">
+							<xf:label><![CDATA[취소]]></xf:label>
 						</xf:trigger>
 					</xf:group>
 				</xf:group>
@@ -172,27 +190,21 @@ scwin.sbm_updateSchedule_submitdone = function(e) {
 						<w2:summary></w2:summary>
 					</w2:attributes>
 					<xf:group tagname="colgroup">
-						<xf:group tagname="col" style="width:80px;"></xf:group>
 						<xf:group tagname="col" style=""></xf:group>
 					</xf:group>
 					<xf:group style="" tagname="tr" id="tr_read">
-						<xf:group tagname="th" class="w2tb_th">
+						<xf:group tagname="td" class="w2tb_td" style="padding: 4px; border:1px solid  #ced4da;">
 							<w2:attributes></w2:attributes>
-							<w2:textbox class="" id="" label="일정기간" style=""></w2:textbox>
-						</xf:group>
-						<xf:group tagname="td" class="w2tb_td"><w2:attributes></w2:attributes><w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
-								ref="data:dma_schdInfo.SCH_START" renderDiv="true" rightAlign="false" style="width:calc(50% - 5px);width:calc(50% - 2.5px);" class="multi">
-							</w2:inputCalendar><w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
+							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
+								ref="data:dma_schdInfo.SCH_START" renderDiv="true" rightAlign="false" style="width:calc(50% - 5px);width:calc(50% - 2.5px);"
+								class="multi">
+							</w2:inputCalendar>
+							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
 								ref="data:dma_schdInfo.SCH_END" renderDiv="true" rightAlign="false" style="width:calc(50% - 2.5px);margin-right:0;" class="multi">
-							</w2:inputCalendar></xf:group>
+							</w2:inputCalendar>
+						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_createDt" style="display:none;">
-						<xf:group tagname="th" class="w2tb_th">
-							<w2:attributes>
-								<w2:scope>row</w2:scope>
-							</w2:attributes>
-							<w2:textbox class="" id="" label="작성일시" style=""></w2:textbox>
-						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:input class="" id="ibx_schdDate" placeholder="" readOnly="true" ref="data:dma_schdInfo.SCH_CREATE_DTTM"
@@ -200,47 +212,24 @@ scwin.sbm_updateSchedule_submitdone = function(e) {
 							</xf:input>
 						</xf:group>
 					</xf:group>
-				<xf:group tagname="tr" style="display:none;" id="tr_writer">
-					<xf:group tagname="th" class="w2tb_th">
-						<w2:attributes>
-							<w2:scope>row</w2:scope>
-						</w2:attributes>
-						<w2:textbox class="" id="" label="작성자" style=""></w2:textbox>
+					<xf:group tagname="tr" style="display:none;" id="tr_writer">
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes></w2:attributes>
+							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_schdInfo.SCH_WRITER" style="width:100%;">
+							</xf:input>
+						</xf:group>
 					</xf:group>
-					<xf:group tagname="td" class="w2tb_td">
-						<w2:attributes></w2:attributes>
-						<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_schdInfo.SCH_WRITER"
-							style="width:100%;">
-						</xf:input>
-					</xf:group></xf:group><xf:group tagname="tr">
-	<xf:group tagname="th" class="w2tb_th">
-		<w2:attributes>
-			<w2:scope>row</w2:scope>
-		</w2:attributes>
-		<w2:textbox class="req" id="" label="제목" style=""></w2:textbox>
-	</xf:group>
-	<xf:group tagname="td" class="w2tb_td">
-		<w2:attributes></w2:attributes>
-		<xf:input class="req" id="ibx_boardTitle" placeholder="" ref="data:dma_schdInfo.SCH_TITLE" style="width:100%;"></xf:input>
-	</xf:group></xf:group></xf:group>
+					<xf:group tagname="tr" style="display:none;"  id="tr_title">
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes></w2:attributes>
+							<xf:input class="req" id="ibx_boardTitle" placeholder="" ref="data:dma_schdInfo.SCH_TITLE" style="width:100%;"></xf:input>
+						</xf:group>
+					</xf:group>
+				</xf:group>
 			</xf:group>
 			<xf:group id="" class="edbox">
 				<w2:editor style="height:200px;" id="edi_1" menubar="onlyTxt"></w2:editor>
-			</xf:group>
-			<xf:group class="btnbox" id="" style="">
-				<xf:group class="fr" id="">
-					<xf:trigger class="btn_cm pt" id="btn_update" nextTabID="" style="display:none;" type="button"
-						ev:onclick="scwin.btn_update_onclick">
-						<xf:label><![CDATA[수정]]></xf:label>
-					</xf:trigger>
-					<xf:trigger class="btn_cm pt" id="btn_confirm" style="" type="button" nextTabID="" ev:onclick="scwin.btn_confirm_onclick">
-						<xf:label><![CDATA[등록]]></xf:label>
-					</xf:trigger>
-					<xf:trigger class="btn_cm" id="btn_cancel" style="" type="button" ev:onclick="scwin.btn_cancel_onclick">
-						<xf:label><![CDATA[취소]]></xf:label>
-					</xf:trigger>
-
-				</xf:group>
+				<input type="color" id="wcolor" class="ipt_color" value="#3788d8">
 			</xf:group>
 		</xf:group>
 

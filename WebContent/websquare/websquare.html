@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<meta name="referrer" content="no-referrer-when-downgrade" >
 		<title>	mocaerp2024 </title>
-		<meta name="viewport" content="user-scaleable=no, initail-scale=1.9, maxiumum-scale=2.0, minimum-scale=0.5, width=device-width">
+		<meta name="viewport" content="user-scaleable=0, maxiumum-scale=1.0, width=device-width">
 		<script type="text/javascript" src="./_websquare_/javascriptLoader.wq"></script>
 		<script type="text/javascript" src="app.js"></script>
 		<script src="https://apis.google.com/js/api.js" onload="gapiLoaded()" async defer></script>
@@ -36,7 +36,6 @@
 	      discoveryDocs: [DISCOVERY_DOC],
 	    });
 	    gapiInited = true;
-	    maybeEnableButtons();
 	  }
 		function parseJwt (_token) {
 		    const base64Url = _token.split('.')[1];
@@ -50,15 +49,21 @@
         function handleCredentialResponse(response) {
         	//var gauth = gapi.auth2.getAuthInstance();
         	//gauth.signIn().then(function(){
+        		
             	const responsePayload = parseJwt(response.credential);
-                console.log("ID: " + responsePayload.sub);
+            	if( responsePayload.email == "shj9321@gmail.com" || responsePayload.email ==  " javakoreaboss@gmail.com"){
+            		 sessionStorage.setItem("loginInfo", JSON.stringify(responsePayload));
+                     location.href = '/websquare/websquare.html?w2xPath=/cm/main/index_windowContainer.xml';
+            	}else{
+            		alert('접근할 수 없는 계정입니다.')
+            	}
+/*            console.log("ID: " + responsePayload.sub);
                 console.log('Full Name: ' + responsePayload.name);
                 console.log('Given Name: ' + responsePayload.given_name);
                 console.log('Family Name: ' + responsePayload.family_name);
                 console.log("Image URL: " + responsePayload.picture);
-                console.log("Email: " + responsePayload.email); 
-                sessionStorage.setItem("loginInfo",JSON.stringify(responsePayload));
-                location.href = '/websquare/websquare.html?w2xPath=/cm/main/index_windowContainer.xml';
+                console.log("Email: " + responsePayload.email);  */
+               
            // });
             
         };

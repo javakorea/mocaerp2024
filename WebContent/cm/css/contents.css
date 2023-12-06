@@ -470,7 +470,7 @@
 	.header h1{width:135px;height:47px;}
 	.header h1 .logo{background-position:0;}
 	.w2popup_window{width: 100% !important; top:50% !important; left: 50% !important; transform:translate(-50%, -50%);}
-	.w2popup_window.f_pop.h100 {height:100% !important;}
+	.w2popup_window.h100 {height:100% !important;}
 	
 	.header .option_box{}
 	.header .option_box > ul > li:first-of-type{margin-right:5px;}
@@ -551,12 +551,14 @@
 	.lybox .ly_column {display: block; width: 100% !important;padding: 0 !important;}
 	.dfbox .df_tit {margin-top: 0; line-height:27px;}
 	
-	.flex_gvw,.flex_gvw .wq_flx {display:block;}
+	.flex_gvw, .flex_gvw .wq_flx {display:block;}
+	.pop_contents.flex_gvw.flex_m{display:flex;}
+	.pop_contents.flex_gvw.flex_m .edbox {display: flex;  height: 100%;  width: 100%;  flex-direction: column; }
+	.pop_contents.flex_gvw.flex_m .edbox > .w2editor {height:100% !important}
+	.pop_contents.flex_gvw.flex_m .edbox .cke_button__source_label, .cke_button__sourcedialog_label{display:none}
 	
 	.calendarbox.flex{height: calc(100% - 44px) !important;  display: block;}
-	.w2inputCalendar_div.multi {width:100% !important; }
-	.w2inputCalendar_div.multi:first-child {margin-bottom:4px !important; }
-	.w2inputCalendar_div.multi:last-child {margin-right:4px !important; }
+
 }
 @media screen and (max-width: 446px) { 
 	.login_wrap.type2 .login_container{ width: 312px;}

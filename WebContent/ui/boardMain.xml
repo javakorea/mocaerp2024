@@ -52,10 +52,10 @@
 				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
 				processMsg="조회중" ev:submit="" ev:submitdone="scwin.sbm_searchBoardList_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
-			<xf:submission id="sbm_deleteBoardList" ref='data:json,[{"action":"modified","id":"dlt_list"},"dma_search"]' target="data:json,dma_boardInfo"
-				action="/updateBoardList.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
-				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_deleteBoardList_submitdone" ev:submiterror=""
-				abortTrigger="">
+			<xf:submission id="sbm_deleteBoardList" ref='data:json,[{"action":"modified","id":"dlt_list"},"dma_search"]'
+				target="data:json,dma_boardInfo" action="/updateBoardList.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
+				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
+				ev:submitdone="scwin.sbm_deleteBoardList_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
 		</xf:model>
 
@@ -66,6 +66,11 @@
 
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
 	scwin.paramObj = $p.getAllParameter().paramData;
+	if(WebSquare.util.isMobile()){
+		grd1.setColumnVisible(4,false); //작성자
+		grd1.setColumnVisible(6,false); //수정일시
+		grd1._setColumnWidth(5,75);
+	}
 	let menuInfo = scwin.paramObj.menuInfo;
 	scwin.fn_setMenu(menuInfo);
 	var currentDt = WebSquare.date.getCurrentServerDate();
@@ -132,10 +137,9 @@ scwin.grd1_oncelldblclick = function(row,col,colId) {
 	var options = {
 		id: "boardPop",
 		popupName: "게시판상세",
-		frameModal : "frame",
 		className : "h100",
 		modal: true,
-		width: 680, height: 580
+		width: 680, height: 471
 	};
 	com.win.openPopup("/ui/boardPop.xml", options, data);
 };
@@ -149,10 +153,9 @@ scwin.btn_write_onclick = function(e) {
 	var options = {
 		id: "boardPop",
 		popupName: "게시판등록",
-		frameModal : "frame",
 		className : "h100",
 		modal: true,
-		width: 680, height: 545
+		width: 680, height: 469
 	};
 	com.win.openPopup("/ui/boardPop.xml", options, data);
 };
@@ -232,7 +235,8 @@ scwin.trigger1_onclick = function(e) {
 						</xf:group>
 						<xf:group id="" style="" tagname="li">
 							<w2:anchor id="txt_pMenu" outerDiv="false" style="">
-								<xf:label><![CDATA[]]></xf:label>
+								<xf:label><![CDATA[]]>
+								</xf:label>
 							</w2:anchor>
 						</xf:group>
 						<xf:group id="" style="" tagname="li">
@@ -259,16 +263,21 @@ scwin.trigger1_onclick = function(e) {
 							<xf:group class="w2tb_th" style="" tagname="th">
 								<w2:textbox class="req" id="" label="기간" style="" />
 							</xf:group>
-							<xf:group class="w2tb_td" style="" tagname="td"><w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
+							<xf:group class="w2tb_td" style="" tagname="td">
+								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
 									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.FROM" class="">
-								</w2:inputCalendar><w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
+								</w2:inputCalendar>
+								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
 									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.TO" class="">
-								</w2:inputCalendar></xf:group>
+								</w2:inputCalendar>
+							</xf:group>
 							<xf:group class="w2tb_th" style="" tagname="th">
 								<w2:textbox class="" id="" label="내용" style="" />
 							</xf:group>
-							<xf:group class="w2tb_td" id="" style="" tagname="td"><xf:input id="" style="" ref="data:dma_search.BOARD_CONT"></xf:input></xf:group>
-							<xf:group tagname="td" id="" class="w2tb_th">
+							<xf:group class="w2tb_td" id="" style="" tagname="td">
+								<xf:input id="" style="" ref="data:dma_search.BOARD_CONT"></xf:input>
+							</xf:group>
+							<xf:group tagname="th" id="" class="w2tb_th">
 								<w2:attributes></w2:attributes>
 								<w2:textbox class="" id="" label="작성자" style=""></w2:textbox>
 							</xf:group>
@@ -292,14 +301,14 @@ scwin.trigger1_onclick = function(e) {
 					<xf:trigger class="btn_cm download" id="trigger1" style="" type="button" ev:onclick="scwin.trigger1_onclick">
 						<xf:label><![CDATA[다운로드]]></xf:label>
 					</xf:trigger>
-					<xf:trigger class="btn_cm row_del" id="btn_del" style="" type="button" ev:onclick="scwin.btn_del_onclick">
-						<xf:label><![CDATA[선택삭제]]></xf:label>
+					<xf:trigger class="btn_cm" id="btn_del" style="" type="button" ev:onclick="scwin.btn_del_onclick">
+						<xf:label><![CDATA[삭제]]></xf:label>
 					</xf:trigger>
-					<xf:trigger class="btn_cm row_del" id="btn_adminDel" style="" type="button" ev:onclick="scwin.btn_adminDel_onclick">
-						<xf:label><![CDATA[물리삭제]]></xf:label>
+					<xf:trigger class="btn_cm red" id="btn_adminDel" style="" type="button" ev:onclick="scwin.btn_adminDel_onclick">
+						<xf:label><![CDATA[폐기]]></xf:label>
 					</xf:trigger>
 					<xf:trigger class="btn_cm blue" id="btn_write" style="" type="button" ev:onclick="scwin.btn_write_onclick">
-						<xf:label><![CDATA[글쓰기]]></xf:label>
+						<xf:label><![CDATA[작성]]></xf:label>
 					</xf:trigger>
 				</xf:group>
 			</xf:group>
@@ -313,10 +322,10 @@ scwin.trigger1_onclick = function(e) {
 							<w2:column width="30" inputType="checkbox" style="" id="column21" value="" displayMode="label"></w2:column>
 							<w2:column width="50" inputType="text" id="column9" value="글번호" displayMode="label"></w2:column>
 							<w2:column width="200" inputType="text" id="column15" value="제목" displayMode="label"></w2:column>
-							<w2:column width="20" inputType="text" style="" id="H_CNT" value="첨부" displayMode="label"></w2:column>
-							<w2:column width="50" inputType="text" id="column16" value="작성자" displayMode="label"></w2:column>
+							<w2:column width="40" inputType="text" style="" id="H_CNT" value="첨부" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" id="H_boardWriter" value="작성자" displayMode="label"></w2:column>
 							<w2:column width="80" inputType="text" id="column17" value="작성일시" displayMode="label"></w2:column>
-							<w2:column width="80" inputType="text" id="column18" value="수정일시" displayMode="label"></w2:column>
+							<w2:column width="80" inputType="text" id="H_updateDt" value="수정일시" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
@@ -325,7 +334,7 @@ scwin.trigger1_onclick = function(e) {
 								trueValue="1" defaultValue="0" valueType="binary"></w2:column>
 							<w2:column width="50" inputType="text" id="BOARD_IDX" displayMode="label" readOnly="true"></w2:column>
 							<w2:column width="200" inputType="text" id="BOARD_TITLE" displayMode="label" textAlign="left" readOnly="true"></w2:column>
-							<w2:column width="20" inputType="text" style="" id="CNT" value="" displayMode="label" readOnly="true"></w2:column>
+							<w2:column width="40" inputType="text" style="" id="CNT" value="" displayMode="label" readOnly="true"></w2:column>
 							<w2:column width="50" inputType="text" id="BOARD_WRITER" displayMode="label" readOnly="true"></w2:column>
 							<w2:column width="80" inputType="text" id="BOARD_DATE" displayMode="label" readOnly="true" dataType="text" value=""></w2:column>
 							<w2:column width="80" inputType="text" id="UPDATE_DATE" displayMode="label" dataType="date" readOnly="true" value=""></w2:column>

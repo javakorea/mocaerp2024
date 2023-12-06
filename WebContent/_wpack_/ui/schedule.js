@@ -1,4 +1,4 @@
-/*amd /ui/schedule.xml 7183 2762029c9ec74756ae4beb0cc86c002bd286cdbb02c04d0b9e156fc01f369481 */
+/*amd /ui/schedule.xml 7104 7a913e76566f3b638ce02c0ab9b810fe061374a1b8d7509864b911d62e8d8a1f */
 define({E:[{T:1,N:'html',A:{xmlns:'http://www.w3.org/1999/xhtml','xmlns:ev':'http://www.w3.org/2001/xml-events','xmlns:w2':'http://www.inswave.com/websquare','xmlns:xf':'http://www.w3.org/2002/xforms'},E:[{T:1,N:'head',E:[{T:1,N:'w2:type',E:[{T:3,text:'COMPONENT'}]},{T:1,N:'w2:buildDate'},{T:1,N:'w2:MSA'},{T:1,N:'xf:model',E:[{T:1,N:'w2:dataCollection',A:{baseNode:'map'},E:[{T:1,N:'w2:dataList',A:{baseNode:'list',id:'dlt_list',repeatNode:'map',saveRemovedData:'true'},E:[{T:1,N:'w2:columnInfo',E:[{T:1,N:'w2:column',A:{dataType:'text',id:'groupId',name:'groupId'}},{T:1,N:'w2:column',A:{dataType:'text',id:'SCH_CATEGORY',name:'SCH_CATEGORY'}},{T:1,N:'w2:column',A:{dataType:'text',id:'SCH_TITLE',name:'SCH_TITLE'}},{T:1,N:'w2:column',A:{dataType:'text',id:'SCH_CONT',name:'SCH_CONT'}},{T:1,N:'w2:column',A:{dataType:'text',id:'SCH_WRITER',name:'SCH_WRITER'}},{T:1,N:'w2:column',A:{id:'SCH_CREATE_DTTM',name:'SCH_CREATE_DTTM',dataType:'text'}},{T:1,N:'w2:column',A:{id:'SCH_CURRENTMONTH',name:'SCH_CURRENTMONTH',dataType:'text'}},{T:1,N:'w2:column',A:{id:'SCH_START',name:'SCH_START',dataType:'text'}},{T:1,N:'w2:column',A:{id:'SCH_END',name:'SCH_END',dataType:'text'}},{T:1,N:'w2:column',A:{id:'SCH_COLOR',name:'SCH_COLOR',dataType:'text',importFormatter:'scwin.fn_format'}},{T:1,N:'w2:column',A:{id:'SCH_DELYN',name:'SCH_DELYN',dataType:'text'}},{T:1,N:'w2:column',A:{id:'SCH_SENDYN',name:'SCH_SENDYN',dataType:'text'}}]},{T:1,N:'w2:data',A:{use:'false'}}]},{T:1,N:'w2:dataMap',A:{baseNode:'map',id:'dma_search'},E:[{T:1,N:'w2:keyInfo',E:[{T:1,N:'w2:key',A:{id:'SCH_CURRENTMONTH',name:'SCH_CURRENTMONTH',dataType:'text'}}]}]}]},{T:1,N:'w2:workflowCollection'},{T:1,N:'xf:submission',A:{id:'sbm_schdList',ref:'data:json,dma_search',target:'data:json,dlt_list',action:'/selectScheduleList.do',method:'post',mediatype:'application/json',encoding:'UTF-8',instance:'',replace:'',errorHandler:'',customHandler:'',mode:'asynchronous',processMsg:'조회중','ev:submit':'','ev:submitdone':'scwin.sbm_schdList_submitdone','ev:submiterror':'',abortTrigger:''}}]},{T:1,N:'w2:layoutInfo'},{T:1,N:'w2:publicInfo',A:{method:''}},{T:1,N:'script',A:{lazy:'false',type:'text/javascript'},E:[{T:4,cdata:function(scopeObj){with(scopeObj){scvar = {};
 scwin.onpageload = function () {
     $('.btn_fav').click(function () {
@@ -37,10 +37,8 @@ scwin.sch_cal1_onclick = function (retObj, b) {
     if (retObj.id) {
         _param.schInfo.SCH_IDX = retObj.id;
         _popupName = '일정상세';
-        _height = 520;
         _param.mode = 'read';
     } else {
-        _height = 428;
         _popupName = '일정등록';
         _param.mode = 'write';
         _param.writer = JSON.parse(sessionStorage.getItem('loginInfo')).name;
@@ -53,9 +51,8 @@ scwin.sch_cal1_onclick = function (retObj, b) {
         id: 'schedulePop',
         popupName: _popupName,
         modal: true,
-        frameModal: 'frame',
         width: 500,
-        height: _height,
+        height: 360,
         className: 'h100'
     };
     com.win.openPopup($p, '/ui/schedulePop.xml', options, data);
