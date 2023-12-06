@@ -27,7 +27,7 @@
 .edbox{position:relative; margin:0px}
 .w2editor .cke_1{width:100%}
 .w2editor.read .cke_top, .w2editor.read .cke_bottom{display:none}
-.ipt_color{border-radius: 0; height: 24px !important; border: 1px solid #bbc3ce; width: 24px; margin-left: 2px;  position: absolute; top: 9px;  right: 9px;}
+.ipt_color{border-radius: 0; height: 24px !important; border: 1px solid #bbc3ce; width: 40px; margin-left: 2px;  position: absolute; top: 9px;  right: 9px;}
    
 .btn_cm.blue, .btn_cm.blue:active, .btn_cm.blue:active:hover{ background-color: #2d5277;  color: #Fff;  border: 1px solid #2d5277;}
 

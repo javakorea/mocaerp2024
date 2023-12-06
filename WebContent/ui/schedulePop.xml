@@ -73,7 +73,7 @@ scwin.fn_searchScheduleInfo = function () {
 	com.sbm.execute(sbm_schdInfo);
 	//callback
 	scwin.sbm_schdInfo_submitdone = function(e) {
-		$('#wcolor')[0].value = dma_schdInfo.get("SCH_COLOR");
+		ipt_color.setValue(dma_schdInfo.get('SCH_COLOR'));
 		edi_1.setHTML(dma_schdInfo.get('SCH_CONT'));
 	};
 
@@ -88,7 +88,7 @@ scwin.btn_confirm_onclick = function(e) {
 			dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
 			dma_schdInfo.set("SCH_TITLE", dma_schdInfo.get("SCH_CONT"));
 			dma_schdInfo.set("SCH_CURRENTMONTH",_current);
-			dma_schdInfo.set("SCH_COLOR", $('#wcolor')[0].value);
+			dma_schdInfo.set("SCH_COLOR", ipt_color.getValue());
 			com.sbm.execute(sbm_insertSchedule);
 		}
 	});
@@ -135,7 +135,7 @@ scwin.btn_update_onclick = function(e) {
 		if(e.clickValue){
 			dma_schdInfo.set("STATUS", "U");
 			dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
-			dma_schdInfo.set("SCH_COLOR", $('#wcolor')[0].value);
+			dma_schdInfo.set("SCH_COLOR", ipt_color.getValue());
 			dma_schdInfo.set("SCH_TITLE", dma_schdInfo.get("SCH_CONT"));
 			com.sbm.execute(sbm_updateSchedule);
 		}
@@ -170,11 +170,11 @@ scwin.sbm_updateSchedule_submitdone = function(e) {
 						<xf:trigger style="display: none;" id="btn_adminDel" type="button" class="btn_cm red" ev:onclick="scwin.btn_adminDel_onclick">
 							<xf:label><![CDATA[폐기]]></xf:label>
 						</xf:trigger>
-						<xf:trigger class="btn_cm skyblue" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style=""
+						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style=""
 							type="button">
-							<xf:label><![CDATA[등록]]></xf:label>
+							<xf:label><![CDATA[저장]]></xf:label>
 						</xf:trigger>
-						<xf:trigger class="btn_cm skyblue" id="btn_update" nextTabID="" style="display:none;" type="button"
+						<xf:trigger class="btn_cm" id="btn_update" nextTabID="" style="display:none;" type="button"
 							ev:onclick="scwin.btn_update_onclick">
 							<xf:label><![CDATA[수정]]></xf:label>
 						</xf:trigger>
@@ -197,10 +197,10 @@ scwin.sbm_updateSchedule_submitdone = function(e) {
 							<w2:attributes></w2:attributes>
 							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
 								ref="data:dma_schdInfo.SCH_START" renderDiv="true" rightAlign="false" style="width:calc(50% - 5px);width:calc(50% - 2.5px);"
-								class="multi">
+								class="multi" mandatory="true">
 							</w2:inputCalendar>
 							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
-								ref="data:dma_schdInfo.SCH_END" renderDiv="true" rightAlign="false" style="width:calc(50% - 2.5px);margin-right:0;" class="multi">
+								ref="data:dma_schdInfo.SCH_END" renderDiv="true" rightAlign="false" style="width:calc(50% - 2.5px);margin-right:0;" class="multi" mandatory="true">
 							</w2:inputCalendar>
 						</xf:group>
 					</xf:group>
@@ -228,8 +228,8 @@ scwin.sbm_updateSchedule_submitdone = function(e) {
 				</xf:group>
 			</xf:group>
 			<xf:group id="" class="edbox">
-				<w2:editor style="height:200px;" id="edi_1" menubar="onlyTxt"></w2:editor>
-				<input type="color" id="wcolor" class="ipt_color" value="#3788d8">
+				<w2:editor style="height:200px;" id="edi_1" menubar="board"></w2:editor>
+				<xf:input id="ipt_color"  style="" type="color" class="ipt_color" initValue="#3788d8"></xf:input>
 			</xf:group>
 		</xf:group>
 

@@ -420,7 +420,7 @@ input[type="file"]{cursor:pointer;}
 .breadcrumb li.home:before{content:'';display:inline-block;padding-right:8px;width:10px;height:9px;background:url(../..//cm/images/base/ico_home.png) no-repeat center;}
 
 /* 공통버튼 */
-.btn_cm{display:inline-block;margin:0 4px 0 0;padding:0 8px;height:26px;color:#6A6C6F;font-size:12px;font-weight:bold;line-height:25px;text-align:center;background-color:#fff;border:1px solid #ced4da;border-radius:3px;box-sizing:border-box;}
+.btn_cm{display:inline-block;margin:0 4px 0 0;padding:0 8px;height:26px;color:#fff;font-size:12px;font-weight:bold;line-height:25px;text-align:center;background-color:#2d5277;border:1px solid #2d5277;border-radius:3px;box-sizing:border-box;}
 .btn_cm:hover{border-color:#8996a3;}
 .btn_cm:active,
 .btn_cm:disabled {color:#c7c8ca;border-color: #ced4da;}
