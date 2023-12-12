@@ -14,9 +14,10 @@ import java.util.regex.Pattern;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
+@Service("Moca3Application")
 public class Moca3Application {
 	@Autowired
 	private SqlSession sqlSession;
@@ -34,7 +36,6 @@ public class Moca3Application {
 	@RequestMapping("/selectBoardList.do")
 	public Map<String, Object> selectBoardList(@RequestBody Map<String, HashMap<String,Object>> param) {
 		Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_search");
-		//String boardType = (String) searchMap.get("BOARD_TYPE"); 
 		searchMap.put("BOARD_CONT", util.strToArr((String)searchMap.get("BOARD_CONT")," "));
 		Map<String, Object> resultMap = new HashMap<String,Object>();
 		List<Map<String,Object>> list = sqlSession.selectList("M.selectBoardList", searchMap);
@@ -236,22 +237,13 @@ public class Moca3Application {
         return list;
 	}
 	
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(Moca3Application.class, args);
 	}
-
-
-   /*
-    @RequestMapping(value="/api/v1/oauth2/google")
-    public String loginUrlGoogle(){
-        String reqUrl = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + googleClientId
-                + "&redirect_uri=http://localhost:8080/api/v1/oauth2/google&response_type=code&scope=email%20profile%20openid&access_type=offline";
-        return reqUrl;
-    }
-*/
-    
-    
 }
+
 class util {
 	public static String[] strToArr(String str,String sepa) {
 		if(str == null || "".equals(str.trim())) {

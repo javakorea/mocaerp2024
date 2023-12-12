@@ -538,7 +538,8 @@ input[type="file"]{cursor:pointer;}
 
 /* gridview */
 .w2grid .w2input{padding-right:0;box-sizing:content-box;}
-.gvwbox {position:relative;margin:0 0 16px}
+.gvwbox {position:relative;margin:0; height:100%}
+.gvwbox .w2grid{height:100%}
 .wq_gvw {outline:0;}
 .wq_gvw {border:1px solid #CED4DA;background:#fff;box-sizing:border-box;}
 .wq_gvw .gridHeaderTableDefault{border-bottom:0;}
@@ -932,10 +933,15 @@ input[type="file"]{cursor:pointer;}
 .tb.w2tb_adaptive_layout .w2tb_td > *:first-child {margin-top:0 !important} 
 .w2tb.w2tb_adaptive_layout .w2input {margin-bottom:0}
 .shbox .w2tb.w2tb_adaptive_layout{margin-top:0}
-.shbox .w2tb.w2tb_adaptive_layout .w2tb_td{padding: 8px 0 8px 110px;min-height:40px;border-top:0 !important;}
+.shbox .w2tb.w2tb_adaptive_layout .w2tb_td{padding: 8px 0 0 8px; min-height:34px;border-top:0 !important;}
 .shbox .w2tb.w2tb_adaptive_layout .w2tb_td:before{display:flex;align-items:center;padding-top:0;width:100px;background:transparent;border-left:0;border-right:0;}
 .shbox .w2tb.w2tb_adaptive_layout .w2tb_tr:last-child .w2tb_td:last-child{border-bottom:0;}
 
+.shbox .tb.w2tb.w2tb_adaptive_layout .w2tb_tr{display: flex;  flex-wrap: wrap; width:77%}
+.shbox .tb.w2tb.w2tb_adaptive_layout .w2tb_td.w100{width:100%}
+.shbox .tb.w2tb.w2tb_adaptive_layout .w2tb_td.w50{width:50%}
+.shbox .w2tb.w2tb_adaptive_layout .w2tb_td .w2input{margin-right:0; width:100%}
+.shbox .w2tb.w2tb_adaptive_layout .w2tb_td .w2inputCalendar_type_yearMonthDate{width:calc(50% - 4px) !important; margin-right:8px}
 /* tooltip */
 .w2balloonTip {z-index:99; border-radius:3px; background:#ffebf1;}
 .w2balloonTip_label {font-size:11px; background:#ffebf1; padding:5px 6px;color:#c7254e}

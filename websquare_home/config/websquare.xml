@@ -34,7 +34,7 @@
 			<!--
 				파일명을 변경하기 위해 업로드 경로 및 사용자 정의 클래스를 선언
 			-->
-			<imageDefiner value="" />
+			<imageDefiner value="com.inswave.wrm.util.FileUploadDefinerImpl" />
 		</imgUpload>
 	</upload>
 	<dispatcher>

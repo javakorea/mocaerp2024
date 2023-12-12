@@ -51,7 +51,7 @@
         	//gauth.signIn().then(function(){
         		
             	const responsePayload = parseJwt(response.credential);
-            	if( responsePayload.email == "shj9321@gmail.com" || responsePayload.email ==  " javakoreaboss@gmail.com"){
+            	if( responsePayload.email == "shj9321@gmail.com" || responsePayload.email ==  "javakoreaboss@gmail.com"){
             		 sessionStorage.setItem("loginInfo", JSON.stringify(responsePayload));
                      location.href = '/websquare/websquare.html?w2xPath=/cm/main/index_windowContainer.xml';
             	}else{

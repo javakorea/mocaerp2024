@@ -540,9 +540,9 @@
 	.tabc_layout .w2tabcontrol_container {top:0}
 	.tabc_layout .w2tabcontrol_container {border-top:none;padding: 16px; box-sizing: border-box;}
 	.shbox {padding:0 0 10px;}
-	.shbox .btn_shbox {position: static;width: 100%;margin-top: 5px;text-align: right;}
+	.shbox .btn_shbox {position: absolute;  margin-top: 5px;  text-align: right;  top: unset;  bottom: 10px;  right: 3px;}
 	.shbox .shbox_inner {margin:0}
-	
+	.shbox .btn_shbox .btn_cm.sch{padding-left: 28px;  padding-right: 12px; background-position: left 12px center;}
 	.login_wrap.type2 .login_container {z-index:10;top:60px;left:50%;padding-bottom:50px;-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%);width:70%;box-sizing:border-box;}
 	.login_wrap.type2 .login_container .login_contents:before {display:none;}
 	.login_wrap.type2 .login_container {margin-left: 0px;border-radius:30px;}	
@@ -552,7 +552,7 @@
 	.dfbox .df_tit {margin-top: 0; line-height:27px;}
 	
 	.flex_gvw, .flex_gvw .wq_flx {display:block;}
-	.pop_contents.flex_gvw.flex_m{display:flex;}
+	.flex_gvw.flex_m, .pop_contents.flex_gvw.flex_m{display:flex;}
 	.pop_contents.flex_gvw.flex_m .edbox {display: flex;  height: 100%;  width: 100%;  flex-direction: column; }
 	.pop_contents.flex_gvw.flex_m .edbox > .w2editor {height:100% !important}
 	.pop_contents.flex_gvw.flex_m .edbox .cke_button__source_label, .cke_button__sourcedialog_label{display:none}

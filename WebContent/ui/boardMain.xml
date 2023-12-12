@@ -1,18 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
 	xmlns:xf="http://www.w3.org/2002/xforms">
-
 	<head>
-
 		<w2:type>COMPONENT</w2:type>
-
 		<w2:buildDate />
-
 		<w2:MSA />
-
 		<xf:model>
-
 			<w2:dataCollection baseNode="map">
-
 				<w2:dataList baseNode="list" id="dlt_list" repeatNode="map" saveRemovedData="true">
 					<w2:columnInfo>
 						<w2:column dataType="text" id="BOARD_PIDX" name="BOARD_PIDX" />
@@ -42,6 +35,27 @@
 						<w2:key id="TO" name="TO" dataType="text"></w2:key>
 						<w2:key id="BOARD_FILE_TABLE" name="BOARD_FILE_TABLE" dataType="text"></w2:key>
 						<w2:key id="BOARD_DELYN" name="BOARD_DELYN" dataType="text"></w2:key>
+						
+						<w2:key id="START_IDX" name="name2" dataType="text"></w2:key>
+						<w2:key id="END_IDX" name="name3" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_search_excel" style="">
+					<w2:keyInfo>
+						<w2:key id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:key>
+						<w2:key id="BOARD_TABLE" name="BOARD_TABLE" dataType="text"></w2:key>
+						<w2:key id="BOARD_WRITER" name="BOARD_WRITER" dataType="text"></w2:key>
+						<w2:key id="CORP_CD" name="CORP_CD" dataType="text"></w2:key>
+						<w2:key id="PAGE_TYPE" name="PAGE_TYPE" dataType="text"></w2:key>
+						<w2:key id="BOARD_CONT" name="BOARD_CONT" dataType="text"></w2:key>
+						<w2:key id="BOARD_RECEIPTIONER" name="BOARD_RECEIPTIONER" dataType="text"></w2:key>
+						<w2:key id="FROM" name="FROM" dataType="text"></w2:key>
+						<w2:key id="TO" name="TO" dataType="text"></w2:key>
+						<w2:key id="BOARD_FILE_TABLE" name="BOARD_FILE_TABLE" dataType="text"></w2:key>
+						<w2:key id="BOARD_DELYN" name="BOARD_DELYN" dataType="text"></w2:key>
+						
+						<w2:key id="START_IDX" name="name2" dataType="text"></w2:key>
+						<w2:key id="END_IDX" name="name3" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
 			</w2:dataCollection>
@@ -217,10 +231,30 @@ scwin.trigger1_onclick = function(e) {
     options.showConfirm = "true";
 	grd1.advancedExcelDownload(options)
 };
+
+scwin.btn_excelSplitProvider_onclick = function () {
+	option = {};
+	var info = {};
+	option.fileName = "data.xlsx";
+	option.useSplitProvider = "true";
+	option.showProcess = "true";
+	
+	dma_search_excel.set("START_IDX", "1");
+	dma_search.set("START_IDX", "1");
+	option.providerRequestXml = scwin.setProviderData("Moca3Application", "selectBoardList", dma_search);
+	com.data.downloadGridViewExcel(grd1, option, info);
+};
+
+scwin.setProviderData = function (service, method, paramMap) {
+	var serviceXml = "<service>" + service + "</service>";
+	var methodXml = "<method>" + method + "</method>";
+	var paramXml = "<param>" + JSON.stringify(paramMap.getJSON()) + "</param>";
+	return "<data>" + serviceXml + methodXml + paramXml + "</data>";
+};
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group class="sub_contents flex_gvw" id="" style="">
+		<xf:group class="sub_contents flex_gvw flex_m" id="" style="">
 			<xf:group class="pgtbox" id="" style="">
 				<xf:trigger class="btn_fav" id="" style="" type="button">
 					<xf:label />
@@ -252,38 +286,25 @@ scwin.trigger1_onclick = function(e) {
 							<w2:summary />
 						</w2:attributes>
 						<xf:group tagname="colgroup">
-							<xf:group style="width:60px;" tagname="col" />
 							<xf:group style="width:225px;;" tagname="col" />
-							<xf:group style="width:60px;" tagname="col" />
 							<xf:group tagname="col" style="width:165px;"></xf:group>
-							<xf:group tagname="col" style="width:60px;"></xf:group>
 							<xf:group style="" tagname="col" />
 						</xf:group>
 						<xf:group class="" id="" style="" tagname="tr">
-							<xf:group class="w2tb_th" style="" tagname="th">
-								<w2:textbox class="req" id="" label="기간" style="" />
-							</xf:group>
-							<xf:group class="w2tb_td" style="" tagname="td">
+							<xf:group class="w2tb_td w100" style="" tagname="td">
 								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
 									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.FROM" class="" mandatory="true">
 								</w2:inputCalendar>
 								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
-									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.TO" class="" mandatory="true">
+									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.TO" class="mr0" mandatory="true">
 								</w2:inputCalendar>
 							</xf:group>
-							<xf:group class="w2tb_th" style="" tagname="th">
-								<w2:textbox class="" id="" label="내용" style="" />
+							<xf:group class="w2tb_td w50" id="" style="" tagname="td">
+								<xf:input id="" style="" ref="data:dma_search.BOARD_CONT" placeholder="내용을 입력해주세요."></xf:input>
 							</xf:group>
-							<xf:group class="w2tb_td" id="" style="" tagname="td">
-								<xf:input id="" style="" ref="data:dma_search.BOARD_CONT"></xf:input>
-							</xf:group>
-							<xf:group tagname="th" id="" class="w2tb_th">
+							<xf:group tagname="td" id="" class="w2tb_td w50">
 								<w2:attributes></w2:attributes>
-								<w2:textbox class="" id="" label="작성자" style=""></w2:textbox>
-							</xf:group>
-							<xf:group tagname="td" id="" class="w2tb_td">
-								<w2:attributes></w2:attributes>
-								<xf:input id="" ref="data:dma_search.BOARD_WRITER" style=""></xf:input>
+								<xf:input id="" ref="data:dma_search.BOARD_WRITER" style="" placeholder="작성자를 입력해주세요."></xf:input>
 							</xf:group>
 						</xf:group>
 					</xf:group>
@@ -298,7 +319,7 @@ scwin.trigger1_onclick = function(e) {
 			<xf:group class="dfbox" id="" style="">
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
-					<xf:trigger class="btn_cm" id="trigger1" style="" type="button" ev:onclick="scwin.trigger1_onclick">
+					<xf:trigger class="btn_cm" id="btn_excelSplitProvider" style="" type="button" ev:onclick="scwin.btn_excelSplitProvider_onclick">
 						<xf:label><![CDATA[다운로드]]></xf:label>
 					</xf:trigger>
 					<xf:trigger class="btn_cm" id="btn_del" style="" type="button" ev:onclick="scwin.btn_del_onclick">
@@ -314,8 +335,7 @@ scwin.trigger1_onclick = function(e) {
 			</xf:group>
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
 				<w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
-					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style="" visibleRowNum="10"
-					ev:oncelldblclick="scwin.grd1_oncelldblclick">
+					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style="" ev:oncelldblclick="scwin.grd1_oncelldblclick">
 					<w2:caption id="caption2" style="" value="this is a grid caption." />
 					<w2:header id="header2" style="">
 						<w2:row id="row3" style="">

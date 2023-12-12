@@ -436,6 +436,9 @@ export default {
       ]
     },
     "gridView": {
+      "showLastRow": {
+        "@value": "true"
+      },
       "noSelect": {
         "@value": "true"
       },

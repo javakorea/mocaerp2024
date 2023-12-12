@@ -165,6 +165,7 @@
 		</column>
 	</grid>
 	<gridView>
+		<showLastRow value="true"/>
 		<noSelect value="true"/>
 		<rowStatusWidth value="30"/>
 		<dataTag value="span"/>

@@ -300,7 +300,7 @@ scwin.grd_program_oncelldblclick = async function(row,col,colId) {
 				<w2:textbox class="" id="" label="첨부파일" style="" tagname="h3"></w2:textbox>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
-					<xf:trigger class="btn_cm upload" id="btn_fileUpload" style="" type="button">
+					<xf:trigger class="btn_cm" id="btn_fileUpload" style="" type="button">
 						<xf:label><![CDATA[파일찾기]]></xf:label>
 					</xf:trigger>
 				</xf:group>

@@ -47,6 +47,15 @@
 		        ]]>
 		        GROUP BY A.BOARD_IDX
 		        ORDER BY A.UPDATE_DATE DESC, A.BOARD_DATE DESC
+		        
+		        <choose>
+					<when test="(OFFSET_ROW != null and !OFFSET_ROW.equals('')) and (PAGE_SIZE != null and !PAGE_SIZE.equals(''))" ><![CDATA[
+						limit #{OFFSET_ROW}    ,     #{PAGE_SIZE}
+					]]></when>
+					<when test="OFFSET_ROW == null" ><![CDATA[
+
+					]]></when>
+				</choose>
     </select>
     
     <select id="selectBoardInfo" parameterType="java.util.Map" resultType="java.util.HashMap">
