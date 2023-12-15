@@ -28,7 +28,7 @@
         var found = false;
         var imageType = /^image/;
 
-        if (!clipboardData) {
+        if (!clipboardData || clipboardData.items.length != 1) {
             return;
         }
 

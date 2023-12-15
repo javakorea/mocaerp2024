@@ -70,26 +70,7 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-	scwin.param = com.data.getParameter();
-	dma_search.setJSON(scwin.param.data.rowJson);
-	dma_search.set("BOARD_TYPE",scwin.param.data.boardInfo.boardType)
-	if(scwin.param.data.boardInfo.erpYn == "Y"){
-		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
-		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP")
-	}else{
-		dma_search.set("BOARD_TABLE","MT_BOARD");
-		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE")
-	}
-	if(scwin.param.data.mode == "read"){
-		btn_update.show('');
-		btn_del.show('');
-		btn_adminDel.show('');
-		btn_confirm.hide();
-		scwin.fn_searchBoardInfo();
-	}else{
-		tr_read.hide();
-		ibx_boardWriter.setValue('superadmin');
-	}
+
 };
 
 var aaa = function(e){
@@ -233,6 +214,29 @@ scwin.grd_program_oncelldblclick = async function(row,col,colId) {
 	}
 
 };
+
+scwin.edi_1_onload = function() {
+	scwin.param = com.data.getParameter();
+	dma_search.setJSON(scwin.param.data.rowJson);
+	dma_search.set("BOARD_TYPE",scwin.param.data.boardInfo.boardType)
+	if(scwin.param.data.boardInfo.erpYn == "Y"){
+		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
+		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP")
+	}else{
+		dma_search.set("BOARD_TABLE","MT_BOARD");
+		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE")
+	}
+	if(scwin.param.data.mode == "read"){
+		btn_update.show('');
+		btn_del.show('');
+		btn_adminDel.show('');
+		btn_confirm.hide();
+		scwin.fn_searchBoardInfo();
+	}else{
+		tr_read.hide();
+		ibx_boardWriter.setValue('superadmin');
+	}
+};
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
@@ -294,7 +298,7 @@ scwin.grd_program_oncelldblclick = async function(row,col,colId) {
 	</xf:group></xf:group></xf:group>
 			</xf:group>
 			<xf:group id="" class="edbox" style="margin-bottom: 16px;">
-				<w2:editor style="" id="edi_1" menubar="board"></w2:editor>
+				<w2:editor style="" id="edi_1" menubar="board" ev:onload="scwin.edi_1_onload"></w2:editor>
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
 				<w2:textbox class="" id="" label="첨부파일" style="" tagname="h3"></w2:textbox>

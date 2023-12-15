@@ -19,11 +19,8 @@ CKEDITOR.editorConfig = function( config )
 	                                  	['Bold','Italic','Underline','TextColor']
 	                                  ];
 	config.toolbar_board = [
-	    	['Source','Font','FontSize','Bold','TextColor']
+	    	['Source','Font','FontSize','Bold','TextColor','Table']
 	];
-	config.toolbar_onlyTxt = [
-							    	['Font','Bold','TextColor']
-      ];
 	config.toolbar_defaultImage = [
 	                                  	['Source','DocProps','-','NewPage','Preview','-'],
 	                                  	['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print'],
@@ -49,7 +46,7 @@ CKEDITOR.editorConfig = function( config )
 	config.pasteFromWordRemoveFontStyles = false;
 	config.pasteFromWordRemoveStyles = false;
 	
-	config.extraPlugins = 'resize';
+	config.extraPlugins = 'resize, pastebase64';
 	config.removePlugins = 'exportpdf';
 	//config.resize_dir = 'both'; both || vertical || horizontal
 

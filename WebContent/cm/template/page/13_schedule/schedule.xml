@@ -55,7 +55,7 @@
     			<w2:scheduleCalendar dataList="" defaultDate="" editable="true" endColumn="end" eventLimit="true"
     				eventOrderColumn="" headerLeftBtn="true" headerRightBtn="true" headerTitle="true" id="scheduleCalendar1" idColumn="id"
     				includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="" selectable="true" startColumn="start"
-    				style="width: 100%;height: 600px" themeColumn="" timeFormat="" titleColumn="title" tooltipDisplay="" version="3.6">
+    				style="width: 100%;height: 600px" themeColumn="" timeFormat="H(:mm)" titleColumn="title" tooltipDisplay="" version="3.6">
     			</w2:scheduleCalendar>
     		</xf:group>
     	</xf:group>

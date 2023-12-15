@@ -203,7 +203,7 @@ scwin.dateToString = function(date){
     			<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END" eventLimit="true"
     				eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal1" idColumn="groupId"
     				includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false" startColumn="SCH_START"
-    				style="width: 100%;" timeFormat="" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar" ev:onclick="scwin.sch_cal1_onclick">
+    				style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar" ev:onclick="scwin.sch_cal1_onclick">
     			</w2:scheduleCalendar>
     		</xf:group>
 
