@@ -153,6 +153,7 @@ scwin.grd1_oncelldblclick = function(row,col,colId) {
 		popupName: "게시판상세",
 		className : "h100",
 		modal: true,
+		useMaximize : true,
 		width: 680, height: 513
 	};
 	com.win.openPopup("/ui/boardPop.xml", options, data);
@@ -169,6 +170,7 @@ scwin.btn_write_onclick = function(e) {
 		popupName: "게시판등록",
 		className : "h100",
 		modal: true,
+		useMaximize : true,
 		width: 680, height: 513
 	};
 	com.win.openPopup("/ui/boardPop.xml", options, data);

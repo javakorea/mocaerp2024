@@ -101,7 +101,8 @@ scwin.sch_cal1_onclick = function(retObj,b) {
 		id: "schedulePop",
 		popupName: _popupName,
 		modal: true,
-		width: 500, height: 360,
+		useMaximize : true,
+		width: 500, height: 402,
 		className : "h100"
 	};
 	
