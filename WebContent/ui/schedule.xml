@@ -53,8 +53,12 @@ scwin.onpageload = function() {
 /* 일정목록조회 */
 scwin.fn_search = function(){
 	let _yyyymm = sch_cal1.getView().title.replace(/년|월|\s/g,'');
+
 	if(_yyyymm == ''){
 		_yyyymm = WebSquare.date.getCurrentServerDate('YYYYMM');
+	}
+	if(_yyyymm.length == 5){
+		_yyyymm = _yyyymm.substr(0,4)+'0'+_yyyymm.substr(4,1);
 	}
 	dma_search.set("SCH_CURRENTMONTH",_yyyymm);
 	com.sbm.execute(sbm_schdList);
