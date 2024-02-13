@@ -49,3 +49,4 @@
 .fullcalendar .fc-week.fc-widget-content.fc-rigid{height:calc(100% / 6) !important;}
 .fullcalendar .fc-basic-view .fc-body .fc-row {min-height: unset;}
 .fullcalendar .fc-day-grid-event{height:16px !important; overflow:hidden;}
+.fullcalendar .fc-day-grid-event .fc-time{display:none}
