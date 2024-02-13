@@ -18,6 +18,8 @@
 						<w2:column id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:column>
 						<w2:column id="SCH_START" name="SCH_START" dataType="text"></w2:column>
 						<w2:column id="SCH_END" name="SCH_END" dataType="text"></w2:column>
+						<w2:column id="SCH_START_UTC" name="SCH_START_UTC" dataType="text"></w2:column>
+						<w2:column id="SCH_END_UTC" name="SCH_END_UTC" dataType="text"></w2:column>
 						<w2:column id="SCH_COLOR" name="SCH_COLOR" dataType="text" importFormatter="scwin.fn_format"></w2:column>
 						<w2:column id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:column>
 						<w2:column id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:column>
@@ -205,9 +207,9 @@ scwin.dateToString = function(date){
 
 			</xf:group>
 			<xf:group class="calendarbox flex" id="" style="height:100%;">
-    			<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END" eventLimit="true"
+    			<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
     				eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal1" idColumn="groupId"
-    				includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false" startColumn="SCH_START"
+    				includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false" startColumn="SCH_START_UTC"
     				style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar" ev:onclick="scwin.sch_cal1_onclick">
     			</w2:scheduleCalendar>
     		</xf:group>
