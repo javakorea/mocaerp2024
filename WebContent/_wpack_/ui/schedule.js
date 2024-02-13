@@ -1,4 +1,4 @@
-/*amd /ui/schedule.xml 7136 9c45120db631824bf371918d9fcc199e1b35aa5580dff3b6a7acc044ac5c6bb9 */
+/*amd /ui/schedule.xml 7242 ae7fe533537ee4b595543bf2a4a6f0599f83fc69cbad56779277db2f201b46e4 */
 define({E:[{T:1,N:'html',A:{xmlns:'http://www.w3.org/1999/xhtml','xmlns:ev':'http://www.w3.org/2001/xml-events','xmlns:w2':'http://www.inswave.com/websquare','xmlns:xf':'http://www.w3.org/2002/xforms'},E:[{T:1,N:'head',E:[{T:1,N:'w2:type',E:[{T:3,text:'COMPONENT'}]},{T:1,N:'w2:buildDate'},{T:1,N:'w2:MSA'},{T:1,N:'xf:model',E:[{T:1,N:'w2:dataCollection',A:{baseNode:'map'},E:[{T:1,N:'w2:dataList',A:{baseNode:'list',id:'dlt_list',repeatNode:'map',saveRemovedData:'true'},E:[{T:1,N:'w2:columnInfo',E:[{T:1,N:'w2:column',A:{dataType:'text',id:'groupId',name:'groupId'}},{T:1,N:'w2:column',A:{dataType:'text',id:'SCH_CATEGORY',name:'SCH_CATEGORY'}},{T:1,N:'w2:column',A:{dataType:'text',id:'SCH_TITLE',name:'SCH_TITLE'}},{T:1,N:'w2:column',A:{dataType:'text',id:'SCH_CONT',name:'SCH_CONT'}},{T:1,N:'w2:column',A:{dataType:'text',id:'SCH_WRITER',name:'SCH_WRITER'}},{T:1,N:'w2:column',A:{id:'SCH_CREATE_DTTM',name:'SCH_CREATE_DTTM',dataType:'text'}},{T:1,N:'w2:column',A:{id:'SCH_CURRENTMONTH',name:'SCH_CURRENTMONTH',dataType:'text'}},{T:1,N:'w2:column',A:{id:'SCH_START',name:'SCH_START',dataType:'text'}},{T:1,N:'w2:column',A:{id:'SCH_END',name:'SCH_END',dataType:'text'}},{T:1,N:'w2:column',A:{id:'SCH_COLOR',name:'SCH_COLOR',dataType:'text',importFormatter:'scwin.fn_format'}},{T:1,N:'w2:column',A:{id:'SCH_DELYN',name:'SCH_DELYN',dataType:'text'}},{T:1,N:'w2:column',A:{id:'SCH_SENDYN',name:'SCH_SENDYN',dataType:'text'}}]},{T:1,N:'w2:data',A:{use:'false'}}]},{T:1,N:'w2:dataMap',A:{baseNode:'map',id:'dma_search'},E:[{T:1,N:'w2:keyInfo',E:[{T:1,N:'w2:key',A:{id:'SCH_CURRENTMONTH',name:'SCH_CURRENTMONTH',dataType:'text'}}]}]}]},{T:1,N:'w2:workflowCollection'},{T:1,N:'xf:submission',A:{id:'sbm_schdList',ref:'data:json,dma_search',target:'data:json,dlt_list',action:'/selectScheduleList.do',method:'post',mediatype:'application/json',encoding:'UTF-8',instance:'',replace:'',errorHandler:'',customHandler:'',mode:'asynchronous',processMsg:'조회중','ev:submit':'','ev:submitdone':'scwin.sbm_schdList_submitdone','ev:submiterror':'',abortTrigger:''}}]},{T:1,N:'w2:layoutInfo'},{T:1,N:'w2:publicInfo',A:{method:''}},{T:1,N:'script',A:{lazy:'false',type:'text/javascript'},E:[{T:4,cdata:function(scopeObj){with(scopeObj){scvar = {};
 scwin.onpageload = function () {
     $('.btn_fav').click(function () {
@@ -10,6 +10,9 @@ scwin.fn_search = function () {
     let _yyyymm = sch_cal1.getView().title.replace(/년|월|\s/g, '');
     if (_yyyymm == '') {
         _yyyymm = WebSquare.date.getCurrentServerDate('YYYYMM');
+    }
+    if (_yyyymm.length == 5) {
+        _yyyymm = _yyyymm.substr(0, 4) + '0' + _yyyymm.substr(4, 1);
     }
     dma_search.set('SCH_CURRENTMONTH', _yyyymm);
     com.sbm.execute($p, sbm_schdList);

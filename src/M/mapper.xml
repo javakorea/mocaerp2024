@@ -210,11 +210,63 @@
          WHERE 1=1
          AND SCH_IDX=#{SCH_IDX}
     </update>
-    
+
     <delete id="deleteSchedule" parameterType="map">
         /*deleteSchedule 스케줄러 물리삭제*/
         		DELETE FROM MT_SCHEDULE
 				WHERE 1=1
   				AND SCH_IDX=#{SCH_IDX}
     </delete>
+    
+    <select id="selectTodaySchedule" parameterType="map" resultType="map">
+    	/*selectTodaySchedule 스케줄 당일일정 조회*/
+       SELECT A.*, B.MBTLNUM
+		FROM MT_SCHEDULE A LEFT JOIN MT_LETTNEMPLYRINFO 
+		B ON A.SCH_WRITER = B.EMPLYR_ID
+		WHERE 1=1 
+		AND A.SCH_DELYN = 'N' 
+		AND A.SCH_SENDYN = 'N'
+		AND DATE(A.SCH_START) = (SELECT CURDATE())
+    </select>
+    
+    <select id="selectTomorrowSchedule" parameterType="map" resultType="map">
+    	/*selectTomorrowSchedule 스케줄 일정 조회(1일전 조회)*/
+       SELECT A.*, B.MBTLNUM
+		FROM MT_SCHEDULE A LEFT JOIN MT_LETTNEMPLYRINFO 
+		B ON A.SCH_WRITER = B.EMPLYR_ID
+		WHERE 1=1 
+		AND A.SCH_DELYN = 'N' 
+		AND A.SCH_SENDYN = 'N'
+		AND DATE(A.SCH_START) = (SELECT ADDDATE(CURDATE(), 1))
+    </select>
+    
+    <select id="selectThreeDaysSchedule" parameterType="map" resultType="map">
+    	/*selectThreeDaysSchedule 스케줄러 일정 조회(3일전 조회)*/
+       SELECT A.*, B.MBTLNUM
+		FROM MT_SCHEDULE A LEFT JOIN MT_LETTNEMPLYRINFO 
+		B ON A.SCH_WRITER = B.EMPLYR_ID
+		WHERE 1=1 
+		AND A.SCH_DELYN = 'N' 
+		AND A.SCH_SENDYN = 'N'
+		AND DATE(A.SCH_START) = (SELECT ADDDATE(CURDATE(), 3))
+    </select>
+    
+    <select id="selectAWeekSchedule" parameterType="map" resultType="map">
+    	/*selectAWeekSchedule 스케줄러 일정알림 조회(7일전 미리조회)*/
+       SELECT A.*, B.MBTLNUM
+		FROM MT_SCHEDULE A LEFT JOIN MT_LETTNEMPLYRINFO 
+		B ON A.SCH_WRITER = B.EMPLYR_ID
+		WHERE 1=1 
+		AND A.SCH_DELYN = 'N' 
+		AND A.SCH_SENDYN = 'N'
+		AND DATE(A.SCH_START) = (SELECT ADDDATE(CURDATE(), 7))
+    </select>
+    
+    <update id="updateScheduleSendSmsYn" parameterType="map">
+        /* updateScheduleSendSmsYn 스케줄러 일정 SMS보내기 YN업데이트*/
+        UPDATE MT_SCHEDULE SET 
+        	SCH_SENDYN = 'Y'
+        WHERE 1=1
+		AND SCH_IDX=#{SCH_IDX}
+    </update>
  </mapper>

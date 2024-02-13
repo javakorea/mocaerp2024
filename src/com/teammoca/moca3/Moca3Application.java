@@ -13,10 +13,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@EnableScheduling
 @SpringBootApplication
 @Service("Moca3Application")
 public class Moca3Application {
@@ -153,6 +157,8 @@ public class Moca3Application {
 		return resultMap;
 	}
 	
+
+		
 	//스케줄러 단건조회
 	@RequestMapping("/selectScheduleInfo.do")
 	public Map<String, Object> selectScheduleInfo(@RequestBody Map<String, Map<String,Object>> param) {
@@ -182,29 +188,32 @@ public class Moca3Application {
 	}
 		
 	//스케줄러 수정
-		@RequestMapping("/updateSchedule.do")
-		public Map<String,Object> updateSchedule(@RequestBody Map<String, Map<String,Object>> param) {
-			Map<String,Object> resultMap = new HashMap<String,Object>();
-			int cnt = 0;
-			try {
-				Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_schdInfo");
-				String status = (String) searchMap.get("STATUS");
-				if (status.equals("U")) {
-					cnt = sqlSession.update("M.updateSchedule", searchMap);
-				}else if(status.equals("D")) {
-					cnt = sqlSession.delete("M.deleteSchedule", searchMap);
-				}
-				resultMap.put("cnt", cnt);
-				resultMap.put("status", "S");
-				resultMap.put("Message", "정상적으로 처리 되었습니다.");
-			}catch(Exception e) {
-					e.printStackTrace();
-					resultMap.put("status", "E");
-					resultMap.put("Message",e.getMessage());
+	@RequestMapping("/updateSchedule.do")
+	public Map<String,Object> updateSchedule(@RequestBody Map<String, Map<String,Object>> param) {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		int cnt = 0;
+		try {
+			Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_schdInfo");
+			String status = (String) searchMap.get("STATUS");
+			if (status.equals("U")) {
+				cnt = sqlSession.update("M.updateSchedule", searchMap);
+			}else if(status.equals("D")) {
+				cnt = sqlSession.delete("M.deleteSchedule", searchMap);
 			}
-			return resultMap;
-		};
-		
+			resultMap.put("cnt", cnt);
+			resultMap.put("status", "S");
+			resultMap.put("Message", "정상적으로 처리 되었습니다.");
+		}catch(Exception e) {
+				e.printStackTrace();
+				resultMap.put("status", "E");
+				resultMap.put("Message",e.getMessage());
+		}
+		return resultMap;
+	};
+	
+	
+	
+
 	//메인 티스토리 조회  
 	@RequestMapping(value = "/main/selectTistroyList.do")
 	public List<String> selectTistroyList(@RequestParam Map<String, Object> mocaMap) throws Exception {
@@ -237,12 +246,186 @@ public class Moca3Application {
         return list;
 	}
 	
+	// @Scheduled(cron = "0 15 10 15 * ?", zone = "Europe/Paris") // timezone 설정
+    // 초(0-59) 분(0-59) 시간(0-23) 일(1-31) 월(1-12) 요일(0-7)
+	// 매일 아침 7시마다 조회 (당일 일정 조회)
+	@Scheduled(cron = "0 0 7 * * ?")
+	public void scheduleTaskUsingCronExpression() throws Exception{
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		List<Map<String,Object>> scheduleList = sqlSession.selectList("M.selectTodaySchedule", new HashMap());
+		try {
+	    	if(scheduleList != null && scheduleList.size() > 0){
+	    		for(int i=0;i < scheduleList.size() ;i++) {
+	    			Map sendMap = (Map)scheduleList.get(i);
+	    			System.out.println(sendMap);
+			    	String _cont = sendMap.get("SCH_TITLE").toString();
+			    	if(_cont.length() > 20) {
+			    		_cont = _cont.substring(0,20)+"...";
+			    	};
+			    	String sendPhoneNum = "01091168072,01090789322";
+			    	String _resultCode = API.sendSms(
+			    			"[당일] "+
+			    					sendMap.get("SCH_START").toString().substring(0, 16)+" "+
+	    				_cont+" 일정",
+	    				sendPhoneNum,
+	    				sendMap.get("SCH_WRITER").toString()
+			    	);
+			    	
+			    	System.out.println(_resultCode);
+			    	JSONParser parser = new JSONParser();
+			    	Object obj = parser.parse( _resultCode );
+			    	JSONObject jsonObj = (JSONObject) obj;
 
+			    	String code = jsonObj.get("result_code").toString();
+			    	String name = (String) jsonObj.get("message");
+			    	//System.out.println("code:"+code);
+			    	//System.out.println("name:"+name);
+			    	
+			    	if(code.equals("1")){
+			    		Map<String, Object> uMap = new HashMap<String, Object>();
+						uMap.put("SCH_IDX", sendMap.get("SCH_IDX"));
+						sqlSession.update("M.updateScheduleSendSmsYn", uMap);
+			    	}
+	    		}
+	    	}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
+	// 매일 아침 9시마다 조회 (내일 일정 조회)
+	@Scheduled(cron = "0 0 9 * * ?")
+	public void batchTomorrowScheduleAlarmSms() throws Exception{
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		List<Map<String,Object>> scheduleList = sqlSession.selectList("M.selectTomorrowSchedule", new HashMap());
+		try {
+			if(scheduleList != null && scheduleList.size() > 0){
+	    		for(int i=0;i < scheduleList.size() ;i++) {
+	    			Map sendMap = (Map)scheduleList.get(i);
+	    			System.out.println(sendMap);
+			    	String _cont = sendMap.get("SCH_TITLE").toString();
+			    	if(_cont.length() > 20) {
+			    		_cont = _cont.substring(0,20)+"...";
+			    	};
+			    	String sendPhoneNum = "01091168072,01090789322";
+			    	String _resultCode = API.sendSms(
+			    			"[1일전]\n"+
+			    					sendMap.get("SCH_START").toString().substring(0, 16)+" "+
+	    				_cont+" 일정",
+	    				sendPhoneNum,
+	    				sendMap.get("SCH_WRITER").toString()
+			    	);
+			    	System.out.println(_resultCode);
+			    	JSONParser parser = new JSONParser();
+			    	Object obj = parser.parse( _resultCode );
+			    	JSONObject jsonObj = (JSONObject) obj;
+			    	String code = jsonObj.get("result_code").toString();
+			    	String name = (String) jsonObj.get("message");
+			    	//System.out.println("code:"+code);
+			    	//System.out.println("name:"+name);
+	    		}
+	    	}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 매일 아침 9시마다 조회 (3일전 일정 조회)
+	@Scheduled(cron = "0 0 9 * * ?")
+	public void batchThreeDaysScheduleAlarmSms() throws Exception{
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		List<Map<String,Object>> scheduleList = sqlSession.selectList("M.selectThreeDaysSchedule", new HashMap());
+		try {
+			if(scheduleList != null && scheduleList.size() > 0){
+	    		for(int i=0;i < scheduleList.size() ;i++) {
+	    			Map sendMap = (Map)scheduleList.get(i);
+	    			System.out.println(sendMap);
+			    	String _cont = sendMap.get("SCH_TITLE").toString();
+			    	if(_cont.length() > 20) {
+			    		_cont = _cont.substring(0,20)+"...";
+			    	};
+			    	String sendPhoneNum = "01091168072,01090789322";
+			    	String _resultCode = API.sendSms(
+			    			"[3일전]\n"+
+			    					sendMap.get("SCH_START").toString().substring(0, 16)+" "+
+	    				_cont+" 일정",
+	    				sendPhoneNum,
+	    				sendMap.get("SCH_WRITER").toString()
+			    	);
+			    	System.out.println(_resultCode);
+			    	JSONParser parser = new JSONParser();
+			    	Object obj = parser.parse( _resultCode );
+			    	JSONObject jsonObj = (JSONObject) obj;
+			    	String code = jsonObj.get("result_code").toString();
+			    	String name = (String) jsonObj.get("message");
+			    	//System.out.println("code:"+code);
+			    	//System.out.println("name:"+name);
+	    		}
+	    	}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 매일 아침 9시마다 조회 (7일전 일정 조회)
+	@Scheduled(cron = "0 0 9 * * ?")
+	public void batchAWeekScheduleAlarmSms() throws Exception{
+		Map<String, Object> resultMap = new HashMap<String,Object>();
+		List<Map<String,Object>> scheduleList = sqlSession.selectList("M.selectAWeekSchedule", new HashMap());
+		try {
+			if(scheduleList != null && scheduleList.size() > 0){
+	    		for(int i=0;i < scheduleList.size() ;i++) {
+	    			Map sendMap = (Map)scheduleList.get(i);
+	    			System.out.println(sendMap);
+			    	String _cont = sendMap.get("SCH_TITLE").toString();
+			    	if(_cont.length() > 20) {
+			    		_cont = _cont.substring(0,20)+"...";
+			    	};
+			    	String sendPhoneNum = "01091168072,01090789322";
+			    	String _resultCode = API.sendSms(
+			    			"[7일전]\n"+
+			    					sendMap.get("SCH_START").toString().substring(0, 16)+" "+
+	    				_cont+" 일정",
+	    				sendPhoneNum,
+	    				sendMap.get("SCH_WRITER").toString()
+			    	);
+			    	System.out.println(_resultCode);
+			    	JSONParser parser = new JSONParser();
+			    	Object obj = parser.parse( _resultCode );
+			    	JSONObject jsonObj = (JSONObject) obj;
+			    	String code = jsonObj.get("result_code").toString();
+			    	String name = (String) jsonObj.get("message");
+			    	//System.out.println("code:"+code);
+			    	//System.out.println("name:"+name);
+	    		}
+	    	}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 평일 아침 9시마다 주식개장알림
+	@Scheduled(cron = "0 0 9 ? * MON-FRI")
+	public void batchStockAlarmSms() throws Exception{
+		//batchStockAlarmSms
+		try {
+	    	String _resultCode = API.sendSms(
+	    			"안녕하세요!"+ "오전 9시 주식 개장시간입니다",
+				"01090789322,01091168072",
+				"superadmin"
+	    	);
+	    	//System.out.println(_resultCode);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+		
 	public static void main(String[] args) {
 		SpringApplication.run(Moca3Application.class, args);
 	}
+	
 }
+
 
 class util {
 	public static String[] strToArr(String str,String sepa) {
