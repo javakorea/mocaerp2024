@@ -258,9 +258,9 @@ public class Moca3Application {
 	//매일 아침 9시 조회 (내일,3일전,7일전 일정 조회)
 	@Scheduled(cron="0 0 9 * * ?")public void _0_0_9_A_A_Q() throws Exception{u.exeBatch("M.selectTomorrowSchedule","1일전",ss);u.exeBatch("M.selectThreeDaysSchedule","3일전",ss);u.exeBatch("M.selectAWeekSchedule","7일전",ss);}
 	//월~금 아침 9시 (고정알림)
-	@Scheduled(cron = "0 0 9 ? * MON-FRI")public void _0_0_9_Q_A_MON_FRI() throws Exception{u.exeSms("안녕하세요! 오전9시 주식개장시간입니다",u.getSmsDefaultNumbers(null),"",null,ss);}
+	@Scheduled(cron = "0 0 9 ? * MON-FRI")public void _0_0_9_Q_A_MON_FRI() throws Exception{u.exeSms("안녕하세요! 오전9시 주식개장시간입니다",u.getSmsDefaultNumbers(null),"",null,ss,null);}
 	//매시30분 (고정알림)
-	@Scheduled(cron = "0 30 * * * *")public void _0_30_A_A_A_A() throws Exception{u.exeSms("30분주기알림 테스트중입니다.",u.getSmsDefaultNumbers(null),"",null,ss);}	
+	//@Scheduled(cron = "0 30 * * * *")public void _0_30_A_A_A_A() throws Exception{u.exeSms("30분주기알림 테스트중입니다.",u.getSmsDefaultNumbers(null),"",null,ss);}	
 	
 		
 	public static void main(String[] args) {
@@ -358,9 +358,9 @@ class u {
 		String _msg = "["+head+"] "+ getSmsSchTime(d)+" "+getSmsTitle(d)+" 일정";
 		String _receiver = getSmsDefaultNumbers(d);
 		String _receiverNm = d.get("SCH_WRITER").toString();
-		return exeSms(_msg, _receiver, _receiverNm, d, sqlSession);
+		return exeSms(_msg, _receiver, _receiverNm, d, sqlSession, head);
 	}
-	public static String exeSms(String _msg, String _receiver, String _receiverNm,Map d, SqlSession ss)
+	public static String exeSms(String _msg, String _receiver, String _receiverNm,Map d, SqlSession ss, String _head)
 			throws Exception {
 		final String encodingType = "utf-8";
 		final String boundary = "____boundary____";
@@ -422,7 +422,7 @@ class u {
 	    	JSONObject jsonObj = (JSONObject) obj;
 	    	String code = jsonObj.get("result_code").toString();
 	    	String name = (String) jsonObj.get("message");
-	    	if(code.equals("1")){
+	    	if(code.equals("1") && _head.equals("당일")){
 	    		Map<String, Object> uMap = new HashMap<String, Object>();
 				uMap.put("SCH_IDX", d.get("SCH_IDX"));
 				ss.update("M.updateScheduleSendSmsYn", uMap);
