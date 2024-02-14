@@ -238,7 +238,7 @@ public class Moca3Application {
 			list.add(m.group());
 		}
 		return list;
-	}
+	};
 
 	
 	
