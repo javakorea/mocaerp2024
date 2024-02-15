@@ -31,14 +31,10 @@
 				<if test="BOARD_WRITER != null and BOARD_WRITER != ''">
 		            AND A.BOARD_WRITER like CONCAT('%', #{BOARD_WRITER}, '%')
 		        </if>
-		        <if test="BOARD_CONT != null and BOARD_CONT != '' and BOARD_CONT.length !=0">
+		        <if test="BOARD_CONT_LIST != null and BOARD_CONT_LIST != ''">
 		        	AND (
-					<foreach collection="BOARD_CONT" item="contents" index="K" separator="OR">
-						<choose>
-							<when test="contents != null and contents != ''">
-								A.BOARD_CONT like CONCAT ('%', #{contents}, '%')
-							</when>
-						</choose>
+					<foreach collection="BOARD_CONT_LIST" item="cont" index="K" separator="OR">
+						A.BOARD_CONT like CONCAT ('%', #{cont}, '%')
 					</foreach>
 					)
 				</if>

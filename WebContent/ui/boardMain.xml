@@ -35,9 +35,11 @@
 						<w2:key id="TO" name="TO" dataType="text"></w2:key>
 						<w2:key id="BOARD_FILE_TABLE" name="BOARD_FILE_TABLE" dataType="text"></w2:key>
 						<w2:key id="BOARD_DELYN" name="BOARD_DELYN" dataType="text"></w2:key>
-						
-						<w2:key id="START_IDX" name="name2" dataType="text"></w2:key>
-						<w2:key id="END_IDX" name="name3" dataType="text"></w2:key>
+
+						<w2:key id="START_IDX" name="START_IDX" dataType="text"></w2:key>
+						<w2:key id="END_IDX" name="END_IDX" dataType="text"></w2:key>
+						<w2:key id="BOARD_CONT_LIST" name="BOARD_CONT_LIST" dataType="text"></w2:key>
+						<w2:key id="QUERY" name="QUERY" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
 				<w2:dataMap baseNode="map" id="dma_search_excel" style="">
@@ -62,7 +64,7 @@
 
 			<w2:workflowCollection></w2:workflowCollection>
 
-			<xf:submission id="sbm_searchBoardList" ref="data:json,dma_search" target="data:json,dlt_list" action="/selectBoardList.do"
+			<xf:submission id="sbm_searchBoardList" ref="data:json,dma_search" target="data:json,dlt_list" action="/selectList.do"
 				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
 				processMsg="조회중" ev:submit="" ev:submitdone="scwin.sbm_searchBoardList_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
@@ -121,6 +123,11 @@ scwin.btn_search_onclick = function(e) {
 		dma_search.set("BOARD_TABLE","MT_BOARD");
 		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE");
 	}
+	let _boardContArr = ibx_boardCont.getValue().split(/\s+/g);
+	if(_boardContArr.length > 0){
+		dma_search.set('BOARD_CONT_LIST',_boardContArr);
+	}
+	dma_search.set('QUERY',"M.selectBoardList");
 	com.sbm.execute (sbm_searchBoardList);
 };
 scwin.sbm_searchBoardList_submitdone = function(e) {
@@ -302,7 +309,7 @@ scwin.setProviderData = function (service, method, paramMap) {
 								</w2:inputCalendar>
 							</xf:group>
 							<xf:group class="w2tb_td w50" id="" style="" tagname="td">
-								<xf:input id="" style="" ref="data:dma_search.BOARD_CONT" placeholder="내용을 입력해주세요."></xf:input>
+								<xf:input id="ibx_boardCont" style="" ref="data:dma_search.BOARD_CONT" placeholder="내용을 입력해주세요."></xf:input>
 							</xf:group>
 							<xf:group tagname="td" id="" class="w2tb_td w50">
 								<w2:attributes></w2:attributes>

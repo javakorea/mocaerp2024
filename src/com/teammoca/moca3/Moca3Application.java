@@ -44,105 +44,77 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import websquare.logging.util.LogUtil;
+
 @RestController
 @EnableScheduling
 @SpringBootApplication
 @Service("Moca3Application")
 public class Moca3Application {
-	
-	
-
-	
-	
-	
 	@Autowired
 	private SqlSession ss;
 	@CrossOrigin("*") //2023-11-28
-	//게시판 목록조회
-	@RequestMapping("/selectBoardList.do")
-	public Map<String, Object> selectBoardList(@RequestBody Map<String, HashMap<String,Object>> param) {Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_search");searchMap.put("BOARD_CONT", u.strToArr((String)searchMap.get("BOARD_CONT")," "));Map<String, Object> resultMap = new HashMap<String,Object>();List<Map<String,Object>> list = ss.selectList("M.selectBoardList", searchMap);resultMap.put("dlt_list", list);return resultMap;}
-	//게시판 단건조회
-	@RequestMapping("/selectBoardInfo.do")
-	public Map<String, Object> selectBoardInfo(@RequestBody Map<String, Map<String,Object>> param) {Map<String, Object> searchMap = (Map<String, Object>) param.get("dma_search");Map<String, Object> resultMap = new HashMap<String, Object>();Map<String,Object> map = ss.selectOne("M.selectBoardInfo", searchMap);resultMap.put("dma_boardInfo", map);return resultMap;}
-	//게시판 첨부파일조회
-	@RequestMapping("/selectBoardFileList.do")
-	public Map<String, Object> selectBoardFileList(@RequestBody Map<String, Map<String,Object>> param) {Map<String, Object> searchMap = (Map<String, Object>) param.get("dma_search");Map<String, Object> resultMap = new HashMap<String, Object>();List<Map<String,Object>> list = ss.selectList("M.selectBoardFileList", searchMap);resultMap.put("dlt_boardFile", list);return resultMap;}
+	
+	//목록조회
+	@RequestMapping("/selectList.do")public Map selectList(@RequestBody Map param) {return u.selectList(param,ss);}
+	//단건조회
+	@RequestMapping("/selectMap.do")public Map selectMap(@RequestBody Map param) {return u.selectMap(param,ss);}
+
 	//게시판등록
 	@RequestMapping("/insertBoardInfo.do")
-	public Map<String,Object> insertBoardInfo(@RequestBody Map<String, Map<String,Object>> param) {
-		Map<String,Object> resultMap = new HashMap<String,Object>();
-		try {
-			Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_search");
-			int map = ss.insert("M.insertBoardInfo", searchMap);
-			resultMap.put("cnt", map);
-			resultMap.put("status", "S");
-			resultMap.put("Message", "정상적으로 등록 되었습니다.");
-			
-			if(searchMap.get("BOARD_PIDX") == null || searchMap.get("BOARD_PIDX") == "" ) {
-				searchMap.put("BOARD_PIDX", searchMap.get("BOARD_IDX"));
-				ss.update("M.updateBoardInfo", searchMap);
-			}
-		}catch(Exception e) {
-				e.printStackTrace();
-				resultMap.put("status", "E");
-				resultMap.put("Message",e.getMessage());
+	public Map insertBoardInfo(@RequestBody Map param) throws Exception{
+		Map resultMap = new HashMap();
+		Map searchMap = (Map) param.get("dma_search");
+		int map = ss.insert("M.insertBoardInfo", searchMap);
+		resultMap.put("cnt", map);
+		u.setSuccessMsg(resultMap);
+		
+		if(searchMap.get("BOARD_PIDX") == null || searchMap.get("BOARD_PIDX") == "" ) {
+			searchMap.put("BOARD_PIDX", searchMap.get("BOARD_IDX"));
+			ss.update("M.updateBoardInfo", searchMap);
 		}
 		return resultMap;
 	}
 	
 	//게시판 단건 수정
 	@RequestMapping("/updateBoardInfo.do")
-	public Map<String,Object> updateBoardInfo(@RequestBody Map<String, Map<String,Object>> param) {
-		Map<String,Object> resultMap = new HashMap<String,Object>();
+	public Map updateBoardInfo(@RequestBody Map param) throws Exception{
+		Map resultMap = new HashMap();
 		int cnt = 0;
-		try {
-			Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_search");
-			String status = (String) searchMap.get("STATUS");
-			if (status.equals("U")) {
-				cnt = ss.update("M.updateBoardInfo", searchMap);
-			}else if(status.equals("D")) {
-				cnt = ss.delete("M.deleteBoard", searchMap);
-			}
-			resultMap.put("cnt", cnt);
-			resultMap.put("status", "S");
-			resultMap.put("Message", "정상적으로 처리 되었습니다.");
-		}catch(Exception e) {
-				e.printStackTrace();
-				resultMap.put("status", "E");
-				resultMap.put("Message",e.getMessage());
+		Map searchMap = (Map) param.get("dma_search");
+		String status = (String) searchMap.get("STATUS");
+		if (status.equals("U")) {
+			cnt = ss.update("M.updateBoardInfo", searchMap);
+		}else if(status.equals("D")) {
+			cnt = ss.delete("M.deleteBoard", searchMap);
 		}
+		resultMap.put("cnt", cnt);
+		u.setSuccessMsg(resultMap);
 		return resultMap;
-	};
+	}
+
 	
 	@RequestMapping("/updateBoardList.do")
-	public @ResponseBody Map<String, Object> updateBoardList(@RequestBody Map<String, Object> param) {
-		Map<String,Object> resultMap = new HashMap<String,Object>();
-		try {
-			List<Map<String,Object>> dltList = (List<Map<String,Object>>) param.get("dlt_list");
-			Map<String,Object> searchMap = (Map<String, Object>) param.get("dma_search");
-			int uCnt = 0;
-			int dCnt = 0;
-			for (int i = 0; i < dltList.size(); i++) {
-				Map<String,Object> data = (Map<String,Object>) dltList.get(i);
-				String rowStatus = (String) data.get("rowStatus");
-				if (rowStatus.equals("U")) {
-					data.put("BOARD_TABLE",searchMap.get("BOARD_TABLE"));
-					uCnt += ss.update("M.updateBoardInfo", data);
-					resultMap.put("UCNT", String.valueOf(uCnt));
-				}else if(rowStatus.equals("D")) {
-					data.put("BOARD_TABLE",searchMap.get("BOARD_TABLE"));
-					dCnt += ss.delete("M.deleteBoard", data);
-					resultMap.put("DCNT", String.valueOf(dCnt));
-				}
+	public @ResponseBody Map updateBoardList(@RequestBody Map param) throws Exception{
+		Map resultMap = new HashMap();
+		List dltList = (List) param.get("dlt_list");
+		Map searchMap = (Map) param.get("dma_search");
+		int uCnt = 0;
+		int dCnt = 0;
+		for (int i = 0; i < dltList.size(); i++) {
+			Map data = (Map) dltList.get(i);
+			String rowStatus = (String) data.get("rowStatus");
+			if (rowStatus.equals("U")) {
+				data.put("BOARD_TABLE",searchMap.get("BOARD_TABLE"));
+				uCnt += ss.update("M.updateBoardInfo", data);
+				resultMap.put("UCNT", String.valueOf(uCnt));
+			}else if(rowStatus.equals("D")) {
+				data.put("BOARD_TABLE",searchMap.get("BOARD_TABLE"));
+				dCnt += ss.delete("M.deleteBoard", data);
+				resultMap.put("DCNT", String.valueOf(dCnt));
 			}
-			resultMap.put("status", "S");
-			resultMap.put("Message", "정상적으로 처리 되었습니다.");
-			
-		}catch(Exception e) {
-				e.printStackTrace();
-				resultMap.put("status", "E");
-				resultMap.put("Message",e.getMessage());
 		}
+		u.setSuccessMsg(resultMap);
 		return resultMap;
 	}
 	
@@ -160,50 +132,36 @@ public class Moca3Application {
 	
 	//스케줄러 목록조회
 	@RequestMapping("/selectScheduleList.do")
-	public Map<String, Object> selectScheduleList(@RequestBody Map<String, HashMap<String,Object>> param) {Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_search");Map<String, Object> resultMap = new HashMap<String,Object>();List<Map<String,Object>> list = ss.selectList("M.selectScheduleList", searchMap);resultMap.put("dlt_list", list);return resultMap;}
+	public Map selectScheduleList(@RequestBody Map param) {Map searchMap = (Map) param.get("dma_search");Map resultMap = new HashMap();List list = ss.selectList("M.selectScheduleList", searchMap);resultMap.put("dlt_list", list);return resultMap;}
 	//스케줄러 단건조회
 	@RequestMapping("/selectScheduleInfo.do")
-	public Map<String, Object> selectScheduleInfo(@RequestBody Map<String, Map<String,Object>> param) {Map<String, Object> searchMap = (Map<String, Object>) param.get("dma_schdInfo");Map<String, Object> resultMap = new HashMap<String, Object>();Map<String,Object> map = ss.selectOne("M.selectScheduleInfo", searchMap);resultMap.put("dma_schdInfo", map);return resultMap;}
+	public Map selectScheduleInfo(@RequestBody Map param) {Map searchMap = (Map) param.get("dma_schdInfo");Map resultMap = new HashMap();Map map = ss.selectOne("M.selectScheduleInfo", searchMap);resultMap.put("dma_schdInfo", map);return resultMap;}
 	
 	//스케줄러 등록
 	@RequestMapping("/insertSchedule.do")
-	public Map<String,Object> insertSchedule(@RequestBody Map<String, Map<String,Object>> param) {
-		Map<String,Object> resultMap = new HashMap<String,Object>();
-		try {
-			Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_schdInfo");
-			int map = ss.insert("M.insertSchedule", searchMap);
-			resultMap.put("cnt", map);
-			resultMap.put("status", "S");
-			resultMap.put("Message", "정상적으로 등록 되었습니다.");
-		}catch(Exception e) {
-				e.printStackTrace();
-				resultMap.put("status", "E");
-				resultMap.put("Message",e.getMessage());
-		}
+	public Map insertSchedule(@RequestBody Map param) throws Exception{
+		Map resultMap = new HashMap();
+		Map searchMap = (Map) param.get("dma_schdInfo");
+		int map = ss.insert("M.insertSchedule", searchMap);
+		resultMap.put("cnt", map);
+		u.setSuccessMsg(resultMap);
 		return resultMap;
 	}
 		
 	//스케줄러 수정
 	@RequestMapping("/updateSchedule.do")
-	public Map<String,Object> updateSchedule(@RequestBody Map<String, Map<String,Object>> param) {
-		Map<String,Object> resultMap = new HashMap<String,Object>();
+	public Map updateSchedule(@RequestBody Map param) throws Exception{
+		Map resultMap = new HashMap();
 		int cnt = 0;
-		try {
-			Map<String,Object> searchMap = (Map<String,Object>) param.get("dma_schdInfo");
-			String status = (String) searchMap.get("STATUS");
-			if (status.equals("U")) {
-				cnt = ss.update("M.updateSchedule", searchMap);
-			}else if(status.equals("D")) {
-				cnt = ss.delete("M.deleteSchedule", searchMap);
-			}
-			resultMap.put("cnt", cnt);
-			resultMap.put("status", "S");
-			resultMap.put("Message", "정상적으로 처리 되었습니다.");
-		}catch(Exception e) {
-				e.printStackTrace();
-				resultMap.put("status", "E");
-				resultMap.put("Message",e.getMessage());
+		Map searchMap = (Map) param.get("dma_schdInfo");
+		String status = (String) searchMap.get("STATUS");
+		if (status.equals("U")) {
+			cnt = ss.update("M.updateSchedule", searchMap);
+		}else if(status.equals("D")) {
+			cnt = ss.delete("M.deleteSchedule", searchMap);
 		}
+		resultMap.put("cnt", cnt);
+		u.setSuccessMsg(resultMap);
 		return resultMap;
 	};
 	
@@ -224,14 +182,14 @@ public class Moca3Application {
 
 	//메인 티스토리 조회  
 	@RequestMapping(value = "/main/selectTistroyList.do")
-	public List<String> selectTistroyList(@RequestParam Map<String, Object> mocaMap) throws Exception {
+	public List selectTistroyList(@RequestParam Map mocaMap) throws Exception {
 		String s = u.getWebPageString("https://teammoca.tistory.com");
 		
 		s = s.replaceAll("<a href=\"/", "<a target=\"_blank\" href=\"https://teammoca.tistory.com/");
 		String ptnStr = "<div\\s+class=\"post-item\">.*?</div>";
 		Pattern p = Pattern.compile(ptnStr,Pattern.CASE_INSENSITIVE | Pattern.DOTALL );
 		Matcher m = p.matcher(s);
-		List<String> list = new ArrayList<String>();
+		List list = new ArrayList();
 		while(m.find()) {
 			list.add(m.group());
 		}
@@ -423,7 +381,7 @@ class u {
 	    	String code = jsonObj.get("result_code").toString();
 	    	String name = (String) jsonObj.get("message");
 	    	if(code.equals("1") && _head.equals("당일")){
-	    		Map<String, Object> uMap = new HashMap<String, Object>();
+	    		Map uMap = new HashMap();
 				uMap.put("SCH_IDX", d.get("SCH_IDX"));
 				ss.update("M.updateScheduleSendSmsYn", uMap);
 	    	}
@@ -445,4 +403,30 @@ class u {
 		}
         return sb.toString();
 	}	
+	
+	public static void setSuccessMsg(Map resultMap) {
+		resultMap.put("status", "S");
+		resultMap.put("Message", "정상적으로 처리 되었습니다.");
+	};
+	
+	public static Map selectListEdit(Map searchMap,String selectQuery,SqlSession ss) {
+		Map resultMap = new HashMap();
+		List list = ss.selectList(selectQuery, searchMap);
+		resultMap.put("dlt_list", list);
+		return resultMap;
+	};
+	public static Map selectMap(Map param,SqlSession ss) {
+		Map searchMap = (Map) param.get("dma_search");
+		Map resultMap = new HashMap();
+		Map map = ss.selectOne((String)searchMap.get("QUERY"), searchMap);
+		resultMap.put("dma_map", map);
+		return resultMap;
+	};
+	public static Map selectList(Map param,SqlSession ss) {
+		Map searchMap = (Map) param.get("dma_search");
+		Map resultMap = new HashMap();
+		List list = ss.selectList((String)searchMap.get("QUERY"), searchMap);
+		resultMap.put("dlt_list", list);
+		return resultMap;
+	};
 }
