@@ -4,11 +4,15 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<meta name="referrer" content="no-referrer-when-downgrade" >
+		<meta name="google-signin-scope" content="https://www.googleapis.com/auth/drive,https://www.googleapis.com/auth/drive.appdata,https://www.googleapis.com/auth/drive.file" />
+		<meta name="google-signin-client_id" content="191058282154-kmn71d0j1fqnstu9joe2od2rvbhm7hot.apps.googleusercontent.com" />
+
 		<title>	mocaerp2024 </title>
 		<meta name="viewport" content="user-scaleable=0, maxiumum-scale=1.0, width=device-width">
+		
+
 		<script type="text/javascript" src="./_websquare_/javascriptLoader.wq"></script>
 		<script type="text/javascript" src="app.js"></script>
-		<script src="https://apis.google.com/js/api.js" onload="gapiLoaded()" async defer></script>
 		<script>
 		const URL = 'https://www.googleapis.com/drive/v3/files';
 		const FIELDS = 'name, mimeType, modifiedTime';
@@ -31,12 +35,99 @@
 		   * discovery doc to initialize the API.
 		   */
 	  async function initializeGapiClient() {
+		  alert('initializeGapiClient:'+API_KEY);
 	    await gapi.client.init({
 	      apiKey: API_KEY,
 	      discoveryDocs: [DISCOVERY_DOC],
 	    });
 	    gapiInited = true;
 	  }
+	  
+	  
+	  
+	  
+	  
+	  
+ /**
+   * Callback after Google Identity Services are loaded.
+   */
+  function gisLoaded() {
+	  		  alert('gisLoaded CLIENT_ID:'+CLIENT_ID);
+    tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: SCOPES,
+      callback: '', // defined later
+    });
+    gisInited = true;
+    maybeEnableButtons();
+  }
+
+  /**
+   * Enables user interaction after all libraries are loaded.
+   */
+  function maybeEnableButtons() {
+    if (gapiInited && gisInited) {
+      //document.getElementById('authorize_button').style.visibility = 'visible';
+    }
+  }
+  /**
+   *  Sign out the user upon button click.
+   */
+  function handleSignoutClick() {
+    const token = gapi.client.getToken();
+    if (token !== null) {
+      google.accounts.oauth2.revoke(token.access_token);
+      gapi.client.setToken('');
+      //document.getElementById('authorize_button').innerText = 'Authorize';
+      //document.getElementById('signout_button').style.visibility = 'hidden';
+    }
+  }
+
+  
+  /**
+   *  Sign in the user upon button click.
+   */
+  function handleAuthClick(_callback) {
+	  alert('handleAuthClick tokenClient:'+tokenClient);
+       tokenClient.callback = async (resp) => {
+          if (resp.error !== undefined) {
+            throw (resp);
+          }
+          //document.getElementById('signout_button').style.visibility = 'visible';
+         // document.getElementById('authorize_button').innerText = 'Refresh';
+        	  if(gapi.client.getToken() != null && _callback != null){
+        	  	_callback();
+        	  }
+    	};
+       if (gapi.client.getToken() === null) {
+         // Prompt the user to select a Google Account and ask for consent to share their data
+         // when establishing a new session.
+         tokenClient.requestAccessToken({prompt: 'consent'});
+       } else {
+         // Skip display of account chooser and consent dialog for an existing session.
+         //tokenClient.requestAccessToken({prompt: ''});
+   		if(gapi.client.getToken() != null && _callback != null){
+        		_callback();
+        	}
+       }
+  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 		function parseJwt (_token) {
 		    const base64Url = _token.split('.')[1];
 		    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -68,6 +159,8 @@
             
         };
         </script>
+        		<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+		<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 <body>
         <div id="g_id_onload"
 		 data-client_id="191058282154-kmn71d0j1fqnstu9joe2od2rvbhm7hot.apps.googleusercontent.com"

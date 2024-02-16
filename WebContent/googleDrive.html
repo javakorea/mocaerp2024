@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>People API Quickstart</title>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <p>People API Quickstart</p>
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+
+    <script type="text/javascript">
+      /* exported gapiLoaded */
+      /* exported gisLoaded */
+      /* exported handleAuthClick */
+      /* exported handleSignoutClick */
+
+      // TODO(developer): Set to client ID and API key from the Developer Console
+	const CLIENT_ID = '191058282154-kmn71d0j1fqnstu9joe2od2rvbhm7hot.apps.googleusercontent.com';
+	const API_KEY = 'AIzaSyBj3llqgZdqRN9zKVvMr1kyxfnslmqxEJY';
+
+
+      // Discovery doc URL for APIs used by the quickstart
+      //const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/people/v1/rest';
+      const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      const SCOPES = 'https://www.googleapis.com/auth/contacts.readonly https://www.googleapis.com/auth/contacts https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.metadata.readonly';
+
+      let tokenClient;
+      let gapiInited = false;
+      let gisInited = false;
+
+      document.getElementById('authorize_button').style.visibility = 'hidden';
+      document.getElementById('signout_button').style.visibility = 'hidden';
+
+      /**
+       * Callback after api.js is loaded.
+       */
+      function gapiLoaded() {
+        console.log('################################################## api.js, gapiLoaded');
+        gapi.load('client', initializeGapiClient);
+      }
+
+      /**
+       * Callback after the API client is loaded. Loads the
+       * discovery doc to initialize the API.
+       */
+      async function initializeGapiClient() {
+		 
+        await gapi.client.init({
+          apiKey: API_KEY,
+          discoveryDocs: [DISCOVERY_DOC],
+        });
+        console.log('API_KEY:'+API_KEY);
+        console.log('initializeGapiClient()-'+'API_KEY를 초기화하였습니다.');
+              
+              
+              
+        gapiInited = true;
+        maybeEnableButtons();
+        setTimeout(
+        handleAuthClick(),1000
+        );
+      }
+
+      /**
+       * Callback after Google Identity Services are loaded.
+       */
+      function gisLoaded() {
+        console.log('################################################## Google Identity Services ,gisLoaded');
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          callback: '', // defined later
+        });
+        
+        console.log('CLIENT_ID:'+CLIENT_ID);
+        console.log('SCOPES:'+SCOPES);
+        console.log('gisLoaded()-'+'tokenClient를 생성하였습니다');
+        gisInited = true;
+        maybeEnableButtons();
+      }
+
+      /**
+       * Enables user interaction after all libraries are loaded.
+       */
+      function maybeEnableButtons() {
+        if (gapiInited && gisInited) {
+          document.getElementById('authorize_button').style.visibility = 'visible';
+        }
+      }
+
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick() {
+        const token = gapi.client.getToken();
+        if (token !== null) {
+          google.accounts.oauth2.revoke(token.access_token);
+          gapi.client.setToken('');
+          document.getElementById('content').innerText = '';
+          document.getElementById('authorize_button').innerText = 'Authorize';
+          document.getElementById('signout_button').style.visibility = 'hidden';
+        }
+      }
+
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+	/**
+	*  Sign in the user upon button click.
+	*/
+	function handleAuthClick() {
+		
+		console.log('gapi.client.getToken',gapi.client.getToken());
+		tokenClient.callback = async (resp) => {
+			console.log('tokenClient.callback');alert('tokenClient.callback');
+			if (resp.error !== undefined) {throw (resp);}
+			document.getElementById('signout_button').style.visibility = 'visible';
+			document.getElementById('authorize_button').innerText = 'Refresh';
+			await listFiles();
+			googleDownload('12FUqsZIPNjBO6s_wx5WX337uWgXPsvkZ');
+			
+			
+		};
+		if (gapi.client.getToken() === null) {
+			tokenClient.requestAccessToken({prompt: 'consent'});
+		} else {
+			tokenClient.requestAccessToken({prompt: ''});
+		}
+	};
+      
+	var googleDownload = async function(_id){
+	      try {
+	      	  await gapi.client.load('drive','v3');
+		      const request = gapi.client.drive.files.get({fileId: _id,fields: 'webContentLink,id,name'});
+		      request.execute(function (resp) {
+			      if (resp.webContentLink) {
+			        
+			        //let paramo = {param:{id:'12FUqsZIPNjBO6s_wx5WX337uWgXPsvkZ',authuser:'0'}};
+			        //fileDownloadAjax(paramo);
+			        
+			        var _imgUrlHead = "https://drive.google.com/thumbnail?sz=s1000&id=";
+			        testImage.src = _imgUrlHead+resp.id;
+			        //convertImageBase64('https://drive.usercontent.google.com/download?id=12FUqsZIPNjBO6s_wx5WX337uWgXPsvkZ&export=download&authuser=0',console.log);
+			      	//window.location.assign(resp.webContentLink);
+			      } else {
+			      	var formattedJson = JSON.stringify(resp.result, null, 2);
+			      	console.log('googleDownload formattedJson',formattedJson);
+			      	alert(formattedJson);
+			      }
+		      });
+	      } catch (e) {
+	      	console.log('googleDownload Error', e);
+	      }
+	};
+      
+	function convertImageBase64(imgUrl, callback){
+		const image = new Image();
+		image.crossOrigin='anonymous';
+		image.onload = ()=>{
+			const canvas = document.createElement('canvas');
+			const ctx = canvas.getContext('2d');
+			canvas.height = image.naturalHeight;
+			canvas.width = image.naturalWidth;
+			ctx.drawImage(image,0,0);
+			const dataUrl = canvas.toDataURL();
+			callback && callback(dataUrl)
+		}
+		image.src = imgUrl;
+	};
+	
+var fileDownloadAjax = function(_opt) {
+    ['Ajax버전의 파일다운로드 함수'];
+    
+    var _parammap = _opt['param'];
+    var downloadUrl = _opt['url'];
+    var _errorMessage = _opt['errorMessage'];
+    var _messageTag = _opt['progressTag'];
+    var _pageId = _opt.pageId;
+    var _srcId = _opt.srcId;
+    
+    if(downloadUrl == null){
+        downloadUrl = "https://drive.usercontent.google.com/download?id=12FUqsZIPNjBO6s_wx5WX337uWgXPsvkZ&authuser=0";
+    }
+    var xhttp = new XMLHttpRequest();
+	xhttp.withCredentials = true;
+	
+    xhttp.onreadystatechange = function(){
+    
+        if(xhttp.readyState == 4 && xhttp.status == 200){
+        
+            
+            var cd = xhttp.getResponseHeader('content-disposition');
+            var ar = cd.split(';');
+            var fNameParam = ar[1];
+            var ar2 = fNameParam.split('=');
+            var fileName = ar2[1];
+            var _fileName = decodeURIComponent(fileName);
+            fileName = _fileName.replace(/\"/g,'');
+            var a = document.createElement('a');
+            a.id = 'tmpDownload';
+            a.href = window.URL.createObjectURL(xhttp.response);
+            a.download = fileName;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+
+        }else if(xhttp.readyState == 4 && xhttp.status == 500){
+            
+        }
+    };
+    xhttp.onerror = function(){
+        
+    };
+    xhttp.open("GET",downloadUrl);
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhttp.responseType = 'blob';
+	xhttp.send(_parammap);
+
+};
+
+
+ /**
+       * Print metadata for first 10 files.
+       */
+      async function listFiles() {
+        let response;
+        try {
+          response = await gapi.client.drive.files.list({
+            'pageSize': 10,
+            'fields': 'files(id, name)',
+          });
+        } catch (err) {
+          document.getElementById('content').innerText = err.message;
+          return;
+        }
+        const files = response.result.files;
+        if (!files || files.length == 0) {
+          document.getElementById('content').innerText = 'No files found.';
+          return;
+        }
+        // Flatten to string to display
+        const output = files.reduce(
+            (str, file) => `${str}${file.name} (${file.id})\n`,
+            'Files:\n');
+        document.getElementById('content').innerText = output;
+      }
+      
+      
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    
+    
+    <img id="testImage" alt=""  src="" style="border-width: 1px; border-style: solid;" />
+    
+  </body>
+</html>

@@ -176,7 +176,7 @@ gcm.win.showToastMessage = function (messageType, message) {
         key: 'MessageFadeOut' + messageIdx
     });
 };
-gcm.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option,customParam) {
+gcm.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option) {
     if (com.util.isEmpty($p, url)) {
         com.win.alert($p, '메뉴에 프로그램이 등록되지 않았습니다.');
         return false;
@@ -194,7 +194,6 @@ gcm.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option,customP
         var data = {};
         var closable = true;
         var fixed = false;
-        var customParam = {};
         if (url.indexOf('/') !== 0) {
             url = '/' + url;
         }
@@ -202,10 +201,6 @@ gcm.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option,customP
         if (typeof paramObj !== 'undefined' && paramObj !== null) {
             data = paramObj;
         }
-        if (typeof customParam !== 'undefined' && customParam !== null) {
-            customData = customParam;
-        }
-        
         data.menuInfo = {
             menuNm: menuNm,
             menuCode: menuCode,
@@ -236,9 +231,8 @@ gcm.win.openMenu = function ($p, menuNm, url, menuCode, paramObj, option,customP
                 dataObject: {
                     type: 'json',
                     name: 'paramData',
-                    data: data,
-                },
-                customData : customData 
+                    data: data
+                }
             };
             return Promise.resolve().then(function () {
                 return $p.main().tac_layout.addTab(menuCode, tabObj, contObj);
@@ -352,7 +346,7 @@ gcm.win.openPopup = function ($p, url, opt, data) {
     }
     opt.type = opt.type || 'wframePopup';
     opt.frameModal = opt.frameModal || '';
-    opt.className = opt.frameModal == 'frame' ? opt.className ? opt.className + ' f_pop' : 'f_pop' : opt.className;
+    opt.className = opt.frameModal == 'frame' ? opt.className ? opt.className + ' f_pop' : 'f_pop' : '';
     if (opt.type == 'browserPopup') {
         var top = Math.floor((window.screen.availHeight - 50 - com.num.parseInt($p, height)) / 2) + (window.screen.availTop || 0) + 'px';
         var left = Math.floor((window.screen.availWidth - com.num.parseInt($p, width)) / 2) + (window.screen.availLeft || 0) + 'px';

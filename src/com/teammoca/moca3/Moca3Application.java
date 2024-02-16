@@ -59,9 +59,8 @@ public class Moca3Application {
 	private SqlSession ss;
 
 	
-	@CrossOrigin("*") //2023-11-28
-	
-
+	//@CrossOrigin("*") //2023-11-28 @CrossOrigin(origins = "*", allowedHeaders = "*")
+	//@CrossOrigin(origins = "*", allowedHeaders  = "*")
 	
 	/*목록조회*/@RequestMapping("/selectList.do")public Map selectList(@RequestBody Map param) {return u.selectList(param,ss);}
 	/*단건조회*/@RequestMapping("/selectMap.do")public Map selectMap(@RequestBody Map param) {return u.selectMap(param,ss);}
