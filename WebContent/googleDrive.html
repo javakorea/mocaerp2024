@@ -143,6 +143,7 @@
 			if (resp.error !== undefined) {throw (resp);}
 			document.getElementById('signout_button').style.visibility = 'visible';
 			document.getElementById('authorize_button').innerText = 'Refresh';
+			debugger;
 			await listFiles();
 			googleDownload('12FUqsZIPNjBO6s_wx5WX337uWgXPsvkZ');
 			
@@ -157,18 +158,20 @@
       
 	var googleDownload = async function(_id){
 	      try {
+			  debugger;
 	      	  await gapi.client.load('drive','v3');
 		      const request = gapi.client.drive.files.get({fileId: _id,fields: 'webContentLink,id,name'});
 		      request.execute(function (resp) {
 			      if (resp.webContentLink) {
-			        
+			        debugger;
 			        //let paramo = {param:{id:'12FUqsZIPNjBO6s_wx5WX337uWgXPsvkZ',authuser:'0'}};
 			        //fileDownloadAjax(paramo);
 			        
 			        var _imgUrlHead = "https://drive.google.com/thumbnail?sz=s1000&id=";
 			        testImage.src = _imgUrlHead+resp.id;
 			        //convertImageBase64('https://drive.usercontent.google.com/download?id=12FUqsZIPNjBO6s_wx5WX337uWgXPsvkZ&export=download&authuser=0',console.log);
-			      	//window.location.assign(resp.webContentLink);
+			      	alert('ok'+resp.webContentLink);
+			      	window.location.assign(resp.webContentLink);
 			      } else {
 			      	var formattedJson = JSON.stringify(resp.result, null, 2);
 			      	console.log('googleDownload formattedJson',formattedJson);
@@ -195,18 +198,12 @@
 		image.src = imgUrl;
 	};
 	
-var fileDownloadAjax = function(_opt) {
+var fileDownloadAjax = function(_id) {
     ['Ajax버전의 파일다운로드 함수'];
-    
-    var _parammap = _opt['param'];
-    var downloadUrl = _opt['url'];
-    var _errorMessage = _opt['errorMessage'];
-    var _messageTag = _opt['progressTag'];
-    var _pageId = _opt.pageId;
-    var _srcId = _opt.srcId;
+	debugger;
     
     if(downloadUrl == null){
-        downloadUrl = "https://drive.usercontent.google.com/download?id=12FUqsZIPNjBO6s_wx5WX337uWgXPsvkZ&authuser=0";
+        downloadUrl = "https://drive.google.com/uc?id="+_id+"&export=download";
     }
     var xhttp = new XMLHttpRequest();
 	xhttp.withCredentials = true;
@@ -241,7 +238,7 @@ var fileDownloadAjax = function(_opt) {
     xhttp.open("GET",downloadUrl);
     xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhttp.responseType = 'blob';
-	xhttp.send(_parammap);
+	xhttp.send({});
 
 };
 

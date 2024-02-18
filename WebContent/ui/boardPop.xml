@@ -71,7 +71,21 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
+ 	var googleLoginURL = "https://apis.google.com/js/api.js";
+   	var googleLoginScript  = document.createElement('script');
+	googleLoginScript.setAttribute('src',googleLoginURL);
+	googleLoginScript.onload = function(e){
+      gapiLoaded();
+	}
+	document.body.insertBefore(googleLoginScript,document.body.firstChild);
 
+	var googleLoginURL2 = "https://accounts.google.com/gsi/client";
+   	var googleLoginScript2  = document.createElement('script');
+	googleLoginScript2.setAttribute('src',googleLoginURL2);
+	googleLoginScript2.onload = function(e){
+      gisLoaded();
+	}
+	document.body.insertBefore(googleLoginScript2,document.body.firstChild);
 };
 
 /**
@@ -187,31 +201,14 @@ scwin.sbm_updateBoardInfo_submitdone = function(e) {
 };
 
 scwin.grd_program_oncelldblclick = async function(row,col,colId) {
-	var id=dlt_boardFile.getCellData(row,"BOARDFILE_NAMESERVER");
-	try {
-		await gapi.client.load('drive','v3');
-		const request = gapi.client.drive.files.get({
-			fileId: id,
-			fields: 'webContentLink,id,name'
-		});
-		console.log("--->",request);
-		request.execute(function (resp) {
-			console.log("2--->",resp);
-			if (resp.webContentLink) {
-			window.location.assign(resp.webContentLink);
-			} else {
-			var formattedJson = JSON.stringify(resp.result, null, 2);
-			}
-		});
 
-	} catch (e) {
-	console.log('Error getting files', e);
-	}
-
+	let _id = dlt_boardFile.getCellData(row,"BOARDFILE_NAMESERVER");
+	handleAuthClick(_id);
 };
 
 scwin.edi_1_onload = function() {
 	scwin.param = com.data.getParameter();
+	debugger;
 	dma_search.setJSON(scwin.param.data.rowJson);
 	dma_search.set("BOARD_TYPE",scwin.param.data.boardInfo.boardType)
 	if(scwin.param.data.boardInfo.erpYn == "Y"){
@@ -232,6 +229,7 @@ scwin.edi_1_onload = function() {
 		ibx_boardWriter.setValue('superadmin');
 	}
 };
+
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
@@ -331,7 +329,7 @@ scwin.edi_1_onload = function() {
 								value="" width="30" readOnly="true">
 							</w2:column>
 							<w2:column blockSelect="false" displayMode="label" id="BOARDFILE_NAME" inputType="text" removeBorderStyle="false" style=""
-								value="" width="150" readOnly="true">
+								value="" width="150" readOnly="true" textAlign="left">
 							</w2:column>
 							<w2:column removeBorderStyle="false" width="169" inputType="text" style="" id="BOARDFILE_NAMESERVER" value=""
 								blockSelect="false" displayMode="label" readOnly="true">
