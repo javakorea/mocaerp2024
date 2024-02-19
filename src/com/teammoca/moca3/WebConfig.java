@@ -21,10 +21,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(final CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://drive.usercontent.google.com","https://drive.google.com,*")
+                .allowedOrigins("*")
                 .allowedMethods("GET","HEAD","POST","PUT","DELETE","TRACE","OPTIONS","PATCH")
                 .allowedHeaders("*")
-        		.allowCredentials(true)
+        		//.allowCredentials(true)
                 .maxAge(3000);
     }
     
