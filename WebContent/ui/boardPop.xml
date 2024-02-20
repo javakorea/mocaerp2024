@@ -236,7 +236,7 @@ scwin.thumbnail = (_id)=>{
 }]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="pop_contents flex_m">
+		<xf:group id="" class="pop_contents flex_gvw  flex_m">
 			<xf:group id="">
 				<xf:group style="" id="dfbox" class="dfbox">
 					<xf:group style="" id="" class="fr">
