@@ -227,8 +227,8 @@ scwin.sbm_updateSchedule_submitdone = function(e) {
 					</xf:group>
 				</xf:group>
 			</xf:group>
-			<xf:group id="" class="edbox">
-				<w2:editor style="height:200px;" id="edi_1" menubar="board"></w2:editor>
+			<xf:group id="" class="edbox sch">
+				<w2:editor style="" id="edi_1" menubar="board"></w2:editor>
 				<xf:input id="ipt_color"  style="" type="color" class="ipt_color" initValue="#3788d8"></xf:input>
 			</xf:group>
 		</xf:group>

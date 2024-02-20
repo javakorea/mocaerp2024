@@ -161,7 +161,7 @@ scwin.grd1_oncelldblclick = function(row,col,colId) {
 		className : "h100",
 		modal: true,
 		useMaximize : true,
-		width: 680, height: 513
+		width: 680, height: 518
 	};
 	com.win.openPopup("/ui/boardPop.xml", options, data);
 };
@@ -178,7 +178,7 @@ scwin.btn_write_onclick = function(e) {
 		className : "h100",
 		modal: true,
 		useMaximize : true,
-		width: 680, height: 513
+		width: 680, height: 518
 	};
 	com.win.openPopup("/ui/boardPop.xml", options, data);
 };

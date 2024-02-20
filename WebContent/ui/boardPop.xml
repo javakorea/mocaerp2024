@@ -108,6 +108,7 @@ scwin.fn_searchFile = function () {
 	com.sbm.execute(sbm_boardFileList);
 	//callback
 	scwin.sbm_boardFileList_submitdone = function(e) {
+		debugger;
 		txt_cnt.setValue(dlt_boardFile.getRowCount()+"건");
 	};
 };
@@ -209,7 +210,6 @@ scwin.grd_program_oncelldblclick = async function(row,col,colId) {
 
 scwin.edi_1_onload = function() {
 	scwin.param = com.data.getParameter();
-	debugger;
 	dma_search.setJSON(scwin.param.data.rowJson);
 	dma_search.set("BOARD_TYPE",scwin.param.data.boardInfo.boardType)
 	if(scwin.param.data.boardInfo.erpYn == "Y"){
@@ -293,7 +293,7 @@ scwin.thumbnail = (_id)=>{
 		<xf:input class="" id="ibx_boardWriter" placeholder="" readOnly="true" ref="data:dma_search.BOARD_WRITER" style="width:100%;"></xf:input>
 	</xf:group></xf:group></xf:group>
 			</xf:group>
-			<xf:group id="" class="edbox" style="margin-bottom: 16px;">
+			<xf:group id="" class="edbox" style="margin-bottom: 16px;height:auto;">
 				<w2:editor style="" id="edi_1" menubar="board" ev:onload="scwin.edi_1_onload"></w2:editor>
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
@@ -305,7 +305,7 @@ scwin.thumbnail = (_id)=>{
 					</xf:trigger>
 				</xf:group>
 			</xf:group>
-			<xf:group adaptiveThreshold="" class="wq_flx" id="" style="padding-bottom:20px;">
+			<xf:group adaptiveThreshold="" class="wq_flx" id="" style="">
 
 				<w2:gridView autoFit="lastColumn" captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_boardFile"
 					defaultCellHeight="26" id="grd_program" rowStatusHeaderValue="상태" rowStatusVisible="false" rowStatusWidth="" scrollByColumn="false"

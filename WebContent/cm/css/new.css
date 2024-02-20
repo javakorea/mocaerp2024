@@ -25,7 +25,7 @@
 .w2inputCalendar_divInput{text-indent:-15px;}
 
 .edbox{position:relative; margin:0px; flex:auto}
-.edbox .w2editor, .edbox{height:100% !important;} 
+.sch.edbox .w2editor, .sch.edbox{height:100% !important;} 
 .w2editor .cke[role="application"]{width:100% !important; height:100% !important;}
 .w2editor .cke_contents{flex:auto; height:100% !important;}
 .edbox .cke_inner.cke_reset{display: flex;   flex-direction: column; height:100%}
