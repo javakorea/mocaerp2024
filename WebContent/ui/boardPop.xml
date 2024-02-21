@@ -236,7 +236,7 @@ scwin.thumbnail = (_id)=>{
 }]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="pop_contents flex_gvw  flex_m">
+		<xf:group id="" class="pop_contents flex_gvw  flex_m" style="padding-bottom:0">
 			<xf:group id="">
 				<xf:group style="" id="dfbox" class="dfbox">
 					<xf:group style="" id="" class="fr">
@@ -293,7 +293,7 @@ scwin.thumbnail = (_id)=>{
 		<xf:input class="" id="ibx_boardWriter" placeholder="" readOnly="true" ref="data:dma_search.BOARD_WRITER" style="width:100%;"></xf:input>
 	</xf:group></xf:group></xf:group>
 			</xf:group>
-			<xf:group id="" class="edbox" style="margin-bottom: 16px;height:auto;">
+			<xf:group id="" class="edbox" style="margin-bottom: 16px;">
 				<w2:editor style="" id="edi_1" menubar="board" ev:onload="scwin.edi_1_onload"></w2:editor>
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
@@ -305,12 +305,12 @@ scwin.thumbnail = (_id)=>{
 					</xf:trigger>
 				</xf:group>
 			</xf:group>
-			<xf:group adaptiveThreshold="" class="wq_flx" id="" style="padding-bottom:20px;">
+			<xf:group adaptiveThreshold="" class="wq_flx" id="" style="padding-bottom:20px;display:block">
 
 				<w2:gridView autoFit="lastColumn" captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_boardFile"
 					defaultCellHeight="26" id="grd_program" rowStatusHeaderValue="상태" rowStatusVisible="false" rowStatusWidth="" scrollByColumn="false"
 					scrollByColumnAdaptive="false" style="min-height:80px;height:auto" ev:onrowindexchange="scwin.grd_program_onrowindexchange"
-					ev:oncelldblclick="scwin.grd_program_oncelldblclick" focusMode="row" rowNumVisible="true" visibleRowNum="all">
+					ev:oncelldblclick="scwin.grd_program_oncelldblclick" focusMode="row" rowNumVisible="true" visibleRowNum="all" rowNumWidth="30">
 					<w2:caption id="caption1" style="" value="this is a grid caption."></w2:caption>
 					<w2:header id="header1" style="">
 						<w2:row id="row1" style="">
