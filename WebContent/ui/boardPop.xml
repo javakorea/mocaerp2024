@@ -318,7 +318,7 @@ scwin.thumbnail = (_id)=>{
 								removeBorderStyle="false" style="" value="ID" width="50">
 							</w2:column>
 							<w2:column width="26" inputType="text" style="" id="column53" value="" displayMode="label"></w2:column>
-							<w2:column width="60" inputType="text" style="" id="column52" value="파일크기" displayMode="label"></w2:column>
+							<w2:column width="70" inputType="text" style="" id="column52" value="파일크기" displayMode="label"></w2:column>
 							<w2:column blockSelect="false" displayMode="label" id="column16" inputType="text" removeBorderStyle="false"
 								style="" value="파일명" width="150">
 							</w2:column>
@@ -332,7 +332,7 @@ scwin.thumbnail = (_id)=>{
 							<w2:column width="26" inputType="text" style="" id="BOARDFILE_NAMESERVER" value="" displayMode="label"
 								displayFormatter="scwin.thumbnail">
 							</w2:column>
-							<w2:column width="60" inputType="text" style="" id="BOARDFILE_SIZE" value="" displayMode="label"
+							<w2:column width="70" inputType="text" style="" id="BOARDFILE_SIZE" value="" displayMode="label"
 								displayFormatter="scwin.fn_bytesToLabel" textAlign="right">
 							</w2:column>
 							<w2:column blockSelect="false" displayMode="label" id="BOARDFILE_NAME" inputType="text"
