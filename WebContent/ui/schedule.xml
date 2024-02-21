@@ -46,6 +46,13 @@
 
 		<script lazy="false" type="text/javascript"><![CDATA[scvar = {};
 scwin.onpageload = function() {
+	//세션없을경우 logout임시처리
+	let _loginInfo = sessionStorage.getItem("loginInfo");
+	if(_loginInfo == null || _loginInfo == ''){
+		sessionStorage.removeItem("loginInfo");
+		com.win.goHome();
+		return;
+	}
 	$(".btn_fav").click(function(){
 		$(".btn_fav").toggleClass("on");
 	});
@@ -100,7 +107,6 @@ scwin.sch_cal1_onclick = function(retObj,b) {
 		_popupName = "일정등록";
 		_param.mode = "write";
 		_param.writer = JSON.parse(sessionStorage.getItem("loginInfo")).name;
-		
 	}
 	var data = { data: _param, callbackFn: "scwin.schedulePop_callback" };
 	var options = {
