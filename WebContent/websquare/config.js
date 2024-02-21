@@ -138,6 +138,14 @@ export default {
             //com.hkey.setShortKey($p);
             //gcm.win.setProgramAuthority($p);
             //gcm.data.initChangeCheckedDc($p);
+            //세션없을경우 logout임시처리
+			if(!location.search.includes('login.xml')){
+				let _loginInfo = sessionStorage.getItem("loginInfo");
+				if(_loginInfo == null || _loginInfo == ''){
+					com.win.goHome();
+					return;
+				}
+			}
 		 
         },
         "@value": "true"

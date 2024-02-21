@@ -46,13 +46,6 @@
 
 		<script lazy="false" type="text/javascript"><![CDATA[scvar = {};
 scwin.onpageload = function() {
-	//세션없을경우 logout임시처리
-	let _loginInfo = sessionStorage.getItem("loginInfo");
-	if(_loginInfo == null || _loginInfo == ''){
-		sessionStorage.removeItem("loginInfo");
-		com.win.goHome();
-		return;
-	}
 	$(".btn_fav").click(function(){
 		$(".btn_fav").toggleClass("on");
 	});
@@ -72,7 +65,8 @@ scwin.fn_search = function(){
 	dma_search.set("SCH_CURRENTMONTH",_yyyymm);
 	com.sbm.execute(sbm_schdList);
 	scwin.sbm_schdList_submitdone = function(e) {
-	
+		debugger;
+		sch_cal1.show('');
 	};
 };
 
@@ -216,7 +210,7 @@ scwin.dateToString = function(date){
     			<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
     				eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal1" idColumn="groupId"
     				includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false" startColumn="SCH_START_UTC"
-    				style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar" ev:onclick="scwin.sch_cal1_onclick">
+    				style="width: 100%;display:none" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar" ev:onclick="scwin.sch_cal1_onclick">
     			</w2:scheduleCalendar>
     		</xf:group>
 
