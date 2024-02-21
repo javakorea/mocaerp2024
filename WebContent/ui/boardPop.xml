@@ -305,7 +305,7 @@ scwin.thumbnail = (_id)=>{
 					</xf:trigger>
 				</xf:group>
 			</xf:group>
-			<xf:group adaptiveThreshold="" class="wq_flx" id="" style="">
+			<xf:group adaptiveThreshold="" class="wq_flx" id="" style="padding-bottom:20px;">
 
 				<w2:gridView autoFit="lastColumn" captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_boardFile"
 					defaultCellHeight="26" id="grd_program" rowStatusHeaderValue="상태" rowStatusVisible="false" rowStatusWidth="" scrollByColumn="false"
