@@ -87,7 +87,7 @@ scwin.btn_confirm_onclick = function(e) {
 			
 			let _current = dma_schdInfo.getJSON().SCH_START.substr(0,6);
 			dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
-			dma_schdInfo.set("SCH_TITLE", dma_schdInfo.get("SCH_CONT"));
+			dma_schdInfo.set("SCH_TITLE", dma_schdInfo.get("SCH_CONT").substr(0,10));
 			dma_schdInfo.set("SCH_CURRENTMONTH",_current);
 			dma_schdInfo.set("SCH_COLOR", ipt_color.getValue());
 			com.sbm.execute(sbm_insertSchedule);
@@ -137,7 +137,7 @@ scwin.btn_update_onclick = function(e) {
 			dma_schdInfo.set("STATUS", "U");
 			dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
 			dma_schdInfo.set("SCH_COLOR", ipt_color.getValue());
-			dma_schdInfo.set("SCH_TITLE", dma_schdInfo.get("SCH_CONT"));
+			dma_schdInfo.set("SCH_TITLE", dma_schdInfo.get("SCH_CONT").substr(0,10));
 			com.sbm.execute(sbm_updateSchedule);
 		}
 	});

@@ -213,17 +213,29 @@ scwin.btn_adminDel_onclick = function(e) {
 		com.win.alert('선택된 항목이 없습니다.');
 		return;
 	}
-	com.win.confirm($p, `삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 선택된 ${_chkIdxArr.length}건의 게시물을 삭제하시겠습니까?`, function(e){
-		if(e.clickValue){
-			for(let i=0; i<_chkIdxArr.length; i++){
-				dlt_list._setRowStatus(_chkIdxArr[i],'D');
-			}
-			com.sbm.execute(sbm_deleteBoardList);
-			
-		}
-	});
+	var data = {callbackFn: "scwin.delPop_callback" };
+	var options = {
+		id: "delPop",
+		popupName: "게시물삭제",
+		modal: true,
+		useMaximize : true,
+		width: 420, height: 116
+	};
+	com.win.openPopup("/ui/delPop.xml", options, data);
 };
-
+scwin.delPop_callback = function(e){
+	if(e.delYn){
+		let _chkIdxArr = dlt_list.getMatchedIndex('CHK','1');
+		com.win.confirm($p, `삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 선택된 ${_chkIdxArr.length}건의 게시물을 삭제하시겠습니까?`, function(e){
+			if(e.clickValue){
+				for(let i=0; i<_chkIdxArr.length; i++){
+					dlt_list._setRowStatus(_chkIdxArr[i],'D');
+				}
+				com.sbm.execute(sbm_deleteBoardList);
+			}
+		});
+	}
+}
 /* 삭제callback */
 scwin.sbm_deleteBoardList_submitdone = function(e) {
 	if(e.responseJSON.status == "S"){
@@ -326,6 +338,11 @@ scwin.setProviderData = function (service, method, paramMap) {
 				</xf:group>
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
+				<xf:group class="fl" id="" style="">
+					<xf:trigger class="btn_cm red" id="btn_adminDel" style="" type="button" ev:onclick="scwin.btn_adminDel_onclick">
+						<xf:label><![CDATA[폐기]]></xf:label>
+					</xf:trigger>
+				</xf:group>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
 					<xf:trigger class="btn_cm" id="btn_excelSplitProvider" style="" type="button" ev:onclick="scwin.btn_excelSplitProvider_onclick">
@@ -333,9 +350,6 @@ scwin.setProviderData = function (service, method, paramMap) {
 					</xf:trigger>
 					<xf:trigger class="btn_cm" id="btn_del" style="" type="button" ev:onclick="scwin.btn_del_onclick">
 						<xf:label><![CDATA[삭제]]></xf:label>
-					</xf:trigger>
-					<xf:trigger class="btn_cm red" id="btn_adminDel" style="" type="button" ev:onclick="scwin.btn_adminDel_onclick">
-						<xf:label><![CDATA[폐기]]></xf:label>
 					</xf:trigger>
 					<xf:trigger class="btn_cm blue" id="btn_write" style="" type="button" ev:onclick="scwin.btn_write_onclick">
 						<xf:label><![CDATA[등록]]></xf:label>

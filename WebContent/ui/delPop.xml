@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<w2:MSA />
+		<xf:model>
+			<w2:dataCollection baseNode="map">
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+		</xf:model>
+		<w2:layoutInfo>
+		</w2:layoutInfo>
+		<w2:publicInfo method="" />
+		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
+};
+scwin.btn_adminDel_onclick = function(e) {
+    debugger;
+    let _pw = ibx_password.getValue();
+    if(_pw == "moca123!"){
+        var param = {
+            "delYn":true
+        };
+        com.win.closePopup(param);
+    }else{
+        com.win.alert("비밀번호가 일치하지 않습니다. 다시 입력해주세요.")
+    }
+};
+
+/* 삭제callback */
+scwin.sbm_deleteBoardList_submitdone = function(e) {
+	if(e.responseJSON.status == "S"){
+		com.win.alert('삭제가 완료되었습니다.');
+		scwin.btn_search_onclick();
+	}
+};]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="sub_contents flex_gvw flex_m" id="" style="">
+			<xf:group class="pgtbox" id="" style="display:none;">
+				<xf:trigger class="btn_fav" id="" style="" type="button">
+					<xf:label />
+				</xf:trigger>
+				<w2:textbox class="pgt_tit" id="pgt_tit" label="기술데이터" style="" tagname="" />
+				<xf:group class="breadcrumb" id="" style="">
+					<xf:group id="" style="" tagname="ul">
+						<xf:group class="home" id="" style="" tagname="li">
+							<w2:anchor id="" outerDiv="false" style="">
+								<xf:label><![CDATA[Home]]></xf:label>
+							</w2:anchor>
+						</xf:group>
+						<xf:group id="" style="" tagname="li">
+							<w2:anchor id="txt_pMenu" outerDiv="false" style="">
+								<xf:label><![CDATA[]]>
+								</xf:label>
+							</w2:anchor>
+						</xf:group>
+						<xf:group id="" style="" tagname="li">
+							<w2:span id="txt_menu" label="" style="" />
+						</xf:group>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+		<xf:group class="tbbox" id="" style="">
+			<xf:group adaptive="layout" adaptiveThreshold="600" class="w2tb tbl" id="" style="width:100%" tagname="table">
+				<w2:attributes>
+					<w2:summary></w2:summary>
+				</w2:attributes>
+				<xf:group tagname="colgroup">
+					<xf:group style="width:100px;" tagname="col"></xf:group>
+					<xf:group style="" tagname="col"></xf:group>
+				</xf:group>
+				<xf:group style="" tagname="tr">
+					<xf:group class="w2tb_th" style="" tagname="th"><w2:textbox class="req" id="" label="삭제 비밀번호" ref="" style="" userData2=""></w2:textbox></xf:group>
+					<xf:group class="w2tb_td" style="" tagname="td">
+						<xf:secret id="ibx_password" style="width:calc(100% - 60px) !important;" placeholder="비밀번호를 입력해주세요."></xf:secret>
+						<xf:trigger class="btn_cm red" ev:onclick="scwin.btn_adminDel_onclick" id="btn_adminDel" style="margin-left:5px;"
+							type="button">
+							<xf:label><![CDATA[폐기]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+		</xf:group></xf:group>
+		
+	</body>
+</html>

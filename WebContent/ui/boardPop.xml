@@ -108,7 +108,6 @@ scwin.fn_searchFile = function () {
 	com.sbm.execute(sbm_boardFileList);
 	//callback
 	scwin.sbm_boardFileList_submitdone = function(e) {
-		debugger;
 		txt_cnt.setValue(dlt_boardFile.getRowCount()+"건");
 	};
 };
@@ -134,6 +133,7 @@ scwin.btn_confirm_onclick = function(e) {
 	com.win.confirm($p, '해당 게시물을 등록하시겠습니까?', function(e){
 		if(e.clickValue){
 			dma_search.set("BOARD_CONT", edi_1.getHTML());
+			dma_search.set("BOARD_TITLE", dma_search.get("BOARD_CONT").substr(0,10));
 			com.sbm.execute(sbm_insertBoardInfo);
 		}
 	});
@@ -166,20 +166,33 @@ scwin.btn_del_onclick = function(e) {
 
 /* 게시물 물리삭제 */
 scwin.btn_adminDel_onclick = function(e) {
-	com.win.confirm($p, '삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 해당 게시물을 삭제하시겠습니까?', function(e){
-		if(e.clickValue){
-			dma_search.set("STATUS", "D");
-			com.sbm.execute(sbm_updateBoardInfo);
-		}
-	});
+	var data = {callbackFn: "scwin.delPop_callback" };
+	var options = {
+		id: "delPop",
+		popupName: "게시물삭제",
+		modal: true,
+		useMaximize : true,
+		width: 420, height: 116
+	};
+	com.win.openPopup("/ui/delPop.xml", options, data);
 };
-
+scwin.delPop_callback = function(e){
+	if(e.delYn){
+		com.win.confirm($p, '삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 해당 게시물을 삭제하시겠습니까?', function(e){
+			if(e.clickValue){
+				dma_search.set("STATUS", "D");
+				com.sbm.execute(sbm_updateBoardInfo);
+			}
+		})
+	}
+}
 /* 게시물 수정 */
 scwin.btn_update_onclick = function(e) {
 	com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
 		if(e.clickValue){
 			dma_search.set("STATUS", "U");
 			dma_search.set("BOARD_CONT", edi_1.getHTML());
+			dma_search.set("BOARD_TITLE", dma_search.get("BOARD_CONT").substr(0,10));
 			com.sbm.execute(sbm_updateBoardInfo);
 		}
 	});
@@ -239,12 +252,14 @@ scwin.thumbnail = (_id)=>{
 		<xf:group id="" class="pop_contents flex_gvw  flex_m" style="padding-bottom:0">
 			<xf:group id="">
 				<xf:group style="" id="dfbox" class="dfbox">
+				<xf:group style="" id="" class="fl">
+					<xf:trigger style="display:none;" id="btn_adminDel" type="button" class="btn_cm red" ev:onclick="scwin.btn_adminDel_onclick">
+							<xf:label><![CDATA[폐기]]></xf:label>
+						</xf:trigger>
+				</xf:group>
 					<xf:group style="" id="" class="fr">
 						<xf:trigger style="display:none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
-						</xf:trigger>
-						<xf:trigger style="display:none;" id="btn_adminDel" type="button" class="btn_cm red" ev:onclick="scwin.btn_adminDel_onclick">
-							<xf:label><![CDATA[폐기]]></xf:label>
 						</xf:trigger>
 						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style=""
 							type="button">
@@ -276,7 +291,7 @@ scwin.thumbnail = (_id)=>{
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr">
-						<xf:group tagname="td" class="w2tb_td" style="padding: 4px; border:1px solid  #ced4da;">
+						<xf:group tagname="td" class="w2tb_td" style="padding: 4px; border:1px solid  #ced4da;display:none;">
 							<w2:attributes></w2:attributes>
 							<xf:input class="" id="ibx_boardTitle" placeholder="" ref="data:dma_search.BOARD_TITLE" style="width:100%;"></xf:input>
 						</xf:group>
