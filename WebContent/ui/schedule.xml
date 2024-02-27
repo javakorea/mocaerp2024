@@ -48,30 +48,26 @@
 
 		<w2:publicInfo method="" />
 
-		<script lazy="false" type="text/javascript"><![CDATA[scvar = {};
-scwin.onpageload = function() {
-	
-	//$('#mf_wdc_main_subWindow0_wframe_sch_cal1').addClass('swiper').addClass('mySwiper');
-	
+		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
 	var swiperURL = "/cm/js/swiper-bundle.js";
     var swiperScript  = document.createElement('script');
 	swiperScript.setAttribute('src',swiperURL);
 	swiperScript.onload = function(e){
-		//$('.fc-view-container').addClass('swiper-pagination');
 		var swiper = new Swiper(".mySwiper", {
-
+			rewind: true
 		});
-
+		swiper.on('slideChange', function (a,b,c) {
+			let month = $p.getComponentById(a.slides[a.activeIndex].id).getUserData('month');
+			SCH_CURRENTMONTH.setValue(month);
+		});
+		scwin.swiper = swiper;
+		scwin.fn_search();
 	}
 	document.body.insertBefore(swiperScript,document.body.firstChild);
-
-
-
-
 	$(".btn_fav").click(function(){
 		$(".btn_fav").toggleClass("on");
 	});
-	scwin.fn_search();
+	
 };
 
 /* 일정목록조회 */
@@ -85,6 +81,9 @@ scwin.fn_search = function(){
 		_yyyymm = _yyyymm.substr(0,4)+'0'+_yyyymm.substr(4,1);
 	}
 	dma_search.set("SCH_CURRENTMONTH",_yyyymm);
+	SCH_CURRENTMONTH.setValue(_yyyymm);
+
+
 	let _yyyymm_next = WebSquare.date.dateTimeAdd( _yyyymm,  1, "month" );
 	let _yyyymm_prev = WebSquare.date.dateTimeAdd( _yyyymm, -1, "month" );
 	dma_search.set("SCH_CURRENTMONTH_PREV",_yyyymm_prev);
@@ -99,10 +98,28 @@ scwin.fn_search = function(){
 
 
 	com.sbm.execute(sbm_schdList);
+
 	scwin.sbm_schdList_submitdone = function(e) {
-		debugger;
-		sch_cal.show('');
+		let _yyyymm = SCH_CURRENTMONTH.getValue();	
+		scwin.setMonth(sch_cal,_yyyymm);
+
+		let _yyyymm_next = WebSquare.date.dateTimeAdd( _yyyymm,  1, "month" );
+		let _yyyymm_prev = WebSquare.date.dateTimeAdd( _yyyymm, -1, "month" );
+		scwin.setMonth(sch_cal_next,_yyyymm_next);
+		scwin.setMonth(sch_cal_prev,_yyyymm_prev);
+
+		let _yyyymm_nnext = WebSquare.date.dateTimeAdd( _yyyymm,  2, "month" );
+		let _yyyymm_pprev = WebSquare.date.dateTimeAdd( _yyyymm, -2, "month" );
+		scwin.setMonth(sch_cal_nnext,_yyyymm_nnext);
+		scwin.setMonth(sch_cal_pprev,_yyyymm_pprev);
+
+
+		scwin.swiper.slideTo(2,1);
 	};
+};
+scwin.setMonth = (_schObj,_month)=>{
+	_schObj.setUserData('month',_month);
+	$("#" + _schObj.id).fullCalendar("gotoDate", _month+'01');
 };
 
 /* 스케줄러 상단버튼 클릭 */
@@ -188,6 +205,14 @@ scwin.dateToString = function(date){
 	returnObj["시:분"] = hour+":"+minites;
     return returnObj;
 }
+
+scwin.btn_prev_onclick = function(e) {
+	SCH_CURRENTMONTH.setValue(WebSquare.date.dateTimeAdd( SCH_CURRENTMONTH.getValue(), -1, "month" ));
+};
+
+scwin.btn_next_onclick = function(e) {
+	SCH_CURRENTMONTH.setValue(WebSquare.date.dateTimeAdd( SCH_CURRENTMONTH.getValue(), +1, "month" ));
+};
 ]]></script>
 <style>
 .fc-toolbar.fc-header-toolbar {display:none;}
@@ -229,13 +254,13 @@ scwin.dateToString = function(date){
 					<xf:label></xf:label>
 
 				</xf:trigger>
-					<xf:trigger style="width: 80px;height: 23px;" id="" type="button">
+					<xf:trigger style="width: 80px;height: 23px;" id="btn_prev" type="button" ev:onclick="scwin.btn_prev_onclick">
 						<xf:label><![CDATA[<]]></xf:label>
 					</xf:trigger>
-					<xf:trigger style="width: 80px;height: 23px;" id="" type="button">
+					<xf:trigger style="width: 80px;height: 23px;" id="btn_next" type="button" ev:onclick="scwin.btn_next_onclick">
 						<xf:label><![CDATA[>]]></xf:label>
 					</xf:trigger>
-					<w2:inputCalendar style="width: 150px;height: 23px;" id="" calendarValueType="yearMonth"></w2:inputCalendar>
+					<w2:inputCalendar style="width: 150px;height: 23px;" id="SCH_CURRENTMONTH" calendarValueType="yearMonth"></w2:inputCalendar>
 				<w2:textbox tagname="" style="" id="pgt_tit" label="스케줄러" class="pgt_tit"></w2:textbox>
 
 				<xf:group style="" id="" class="breadcrumb">
