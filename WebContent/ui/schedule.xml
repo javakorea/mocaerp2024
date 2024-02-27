@@ -57,7 +57,6 @@ scwin.onpageload = function() {
     var swiperScript  = document.createElement('script');
 	swiperScript.setAttribute('src',swiperURL);
 	swiperScript.onload = function(e){
-      	debugger;
 		//$('.fc-view-container').addClass('swiper-pagination');
 		var swiper = new Swiper(".mySwiper", {
 
@@ -205,6 +204,8 @@ scwin.dateToString = function(date){
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-shrink:0;
+      height:100%;
     }
 
     .swiper-slide img {
@@ -213,36 +214,37 @@ scwin.dateToString = function(date){
       height: 100%;
       object-fit: cover;
     }
+    .fc-view-container{
+    }
 </style>
 	</head>
 
 	<body ev:onpageload="scwin.onpageload">
 
-		<xf:group class="sub_contents flex_gvw" id="" style="position:relative;">
 
-			<xf:group class="pgtbox" id="" style="">
+	<xf:group id="" class="sub_contents flex_gvw"><xf:group style="" id="" class="pgtbox">
 
-				<xf:trigger class="btn_fav" id="" style="" type="button">
+				<xf:trigger style="" id="" type="button" class="btn_fav">
 
-					<xf:label />
+					<xf:label></xf:label>
 
 				</xf:trigger>
-					<xf:trigger type="button" id="" style="width: 80px;height: 23px;">
+					<xf:trigger style="width: 80px;height: 23px;" id="" type="button">
 						<xf:label><![CDATA[<]]></xf:label>
 					</xf:trigger>
-					<xf:trigger type="button" id="" style="width: 80px;height: 23px;">
+					<xf:trigger style="width: 80px;height: 23px;" id="" type="button">
 						<xf:label><![CDATA[>]]></xf:label>
 					</xf:trigger>
-					<w2:inputCalendar id="" style="width: 150px;height: 23px;" calendarValueType="yearMonth"></w2:inputCalendar>
-				<w2:textbox class="pgt_tit" id="pgt_tit" label="스케줄러" style="" tagname="" />
+					<w2:inputCalendar style="width: 150px;height: 23px;" id="" calendarValueType="yearMonth"></w2:inputCalendar>
+				<w2:textbox tagname="" style="" id="pgt_tit" label="스케줄러" class="pgt_tit"></w2:textbox>
 
-				<xf:group class="breadcrumb" id="" style="">
+				<xf:group style="" id="" class="breadcrumb">
 
-					<xf:group id="" style="" tagname="ul">
+					<xf:group tagname="ul" style="" id="">
 
-						<xf:group class="home" id="" style="" tagname="li">
+						<xf:group tagname="li" style="" id="" class="home">
 
-							<w2:anchor id="" outerDiv="false" style="">
+							<w2:anchor outerDiv="false" style="" id="">
 
 								<xf:label><![CDATA[Home]]></xf:label>
 
@@ -250,9 +252,9 @@ scwin.dateToString = function(date){
 
 						</xf:group>
 
-						<xf:group id="" style="" tagname="li">
+						<xf:group tagname="li" style="" id="">
 
-							<w2:anchor id="" outerDiv="false" style="">
+							<w2:anchor outerDiv="false" style="" id="">
 
 								<xf:label><![CDATA[업무관리]]></xf:label>
 
@@ -260,9 +262,9 @@ scwin.dateToString = function(date){
 
 						</xf:group>
 
-						<xf:group id="" style="" tagname="li">
+						<xf:group tagname="li" style="" id="">
 
-							<w2:span id="" label="스케줄러" style="" />
+							<w2:span style="" id="" label="스케줄러"></w2:span>
 
 						</xf:group>
 
@@ -270,52 +272,19 @@ scwin.dateToString = function(date){
 
 				</xf:group>
 
-			</xf:group>
-			<xf:group class="swiper mySwiper">
-				<xf:group class="calendarbox flex swiper-wrapper" id="" style="height:100%;">
-					<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
-						eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal_pprev" idColumn="groupId"
-						includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false"
-						startColumn="SCH_START_UTC" style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6"
-						ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar swiper-slide"
-						ev:onclick="scwin.sch_cal1_onclick">
+			</xf:group><xf:group class="swiper mySwiper">
+				<xf:group style="height:100%;flex-flow:nowrap;" id="" class="calendarbox flex swiper-wrapper">
+					<w2:scheduleCalendar endColumn="SCH_END_UTC" selectable="false" locale="ko" ioFormat="yyyyMMdd" eventLimit="true" id="sch_cal_pprev" lang="ko" class="fullcalendar swiper-slide" defaultDate="" editable="false" headerRightBtn="false" includeScheduleEnd="false" version="3.6" themeColumn="SCH_COLOR" titleColumn="SCH_TITLE" tooltipDisplay="" eventOrderColumn="" startColumn="SCH_START_UTC" dataList="data:dlt_list" nextDayThreshold="00:00:00" timeFormat="HH:mm" ev:onclick="scwin.sch_cal1_onclick" style="width: 100%;" headerLeftBtn="true" headerTitle="true" idColumn="groupId" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick">
 					</w2:scheduleCalendar>
-					<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
-						eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal_prev" idColumn="groupId"
-						includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false"
-						startColumn="SCH_START_UTC" style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6"
-						ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar swiper-slide"
-						ev:onclick="scwin.sch_cal1_onclick">
+					<w2:scheduleCalendar endColumn="SCH_END_UTC" selectable="false" locale="ko" ioFormat="yyyyMMdd" eventLimit="true" id="sch_cal_prev" lang="ko" class="fullcalendar swiper-slide" defaultDate="" editable="false" headerRightBtn="false" includeScheduleEnd="false" version="3.6" themeColumn="SCH_COLOR" titleColumn="SCH_TITLE" tooltipDisplay="" eventOrderColumn="" startColumn="SCH_START_UTC" dataList="data:dlt_list" nextDayThreshold="00:00:00" timeFormat="HH:mm" ev:onclick="scwin.sch_cal1_onclick" style="width: 100%;" headerLeftBtn="true" headerTitle="true" idColumn="groupId" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick">
 					</w2:scheduleCalendar>
-					<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
-						eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal" idColumn="groupId"
-						includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false"
-						startColumn="SCH_START_UTC" style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6"
-						ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar swiper-slide"
-						ev:onclick="scwin.sch_cal1_onclick">
+					<w2:scheduleCalendar endColumn="SCH_END_UTC" selectable="false" locale="ko" ioFormat="yyyyMMdd" eventLimit="true" id="sch_cal" lang="ko" class="fullcalendar swiper-slide" defaultDate="" editable="false" headerRightBtn="false" includeScheduleEnd="false" version="3.6" themeColumn="SCH_COLOR" titleColumn="SCH_TITLE" tooltipDisplay="" eventOrderColumn="" startColumn="SCH_START_UTC" dataList="data:dlt_list" nextDayThreshold="00:00:00" timeFormat="HH:mm" ev:onclick="scwin.sch_cal1_onclick" style="width: 100%;" headerLeftBtn="true" headerTitle="true" idColumn="groupId" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick">
 					</w2:scheduleCalendar>
-					<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
-						eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal_next" idColumn="groupId"
-						includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false"
-						startColumn="SCH_START_UTC" style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6"
-						ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar swiper-slide"
-						ev:onclick="scwin.sch_cal1_onclick">
+					<w2:scheduleCalendar endColumn="SCH_END_UTC" selectable="false" locale="ko" ioFormat="yyyyMMdd" eventLimit="true" id="sch_cal_next" lang="ko" class="fullcalendar swiper-slide" defaultDate="" editable="false" headerRightBtn="false" includeScheduleEnd="false" version="3.6" themeColumn="SCH_COLOR" titleColumn="SCH_TITLE" tooltipDisplay="" eventOrderColumn="" startColumn="SCH_START_UTC" dataList="data:dlt_list" nextDayThreshold="00:00:00" timeFormat="HH:mm" ev:onclick="scwin.sch_cal1_onclick" style="width: 100%;" headerLeftBtn="true" headerTitle="true" idColumn="groupId" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick">
 					</w2:scheduleCalendar>
-					<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
-						eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal_nnext" idColumn="groupId"
-						includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false"
-						startColumn="SCH_START_UTC" style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6"
-						ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar swiper-slide"
-						ev:onclick="scwin.sch_cal1_onclick">
+					<w2:scheduleCalendar endColumn="SCH_END_UTC" selectable="false" locale="ko" ioFormat="yyyyMMdd" eventLimit="true" id="sch_cal_nnext" lang="ko" class="fullcalendar swiper-slide" defaultDate="" editable="false" headerRightBtn="false" includeScheduleEnd="false" version="3.6" themeColumn="SCH_COLOR" titleColumn="SCH_TITLE" tooltipDisplay="" eventOrderColumn="" startColumn="SCH_START_UTC" dataList="data:dlt_list" nextDayThreshold="00:00:00" timeFormat="HH:mm" ev:onclick="scwin.sch_cal1_onclick" style="width: 100%;" headerLeftBtn="true" headerTitle="true" idColumn="groupId" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick">
 					</w2:scheduleCalendar>
 				</xf:group>
-			</xf:group>
-
-
-
-		</xf:group>
-
-
-	</body>
+			</xf:group></xf:group></body>
 
 </html>
