@@ -557,7 +557,7 @@
 	.pop_contents.flex_gvw.flex_m .edbox > .w2editor {height:100% !important}
 	.pop_contents.flex_gvw.flex_m .edbox .cke_button__source_label, .cke_button__sourcedialog_label{display:none}
 	
-	.calendarbox.flex{height: calc(100% - 44px) !important;  display: block;}
+	.calendarbox.flex{height: calc(100% - 44px) !important;  }
 
 }
 @media screen and (max-width: 446px) { 
