@@ -2309,7 +2309,49 @@ gcm.hkey.setEventPause = function(_targetComp, _flag, _eventList) {
 	}
 };
 
+gcm.getCurrentTimeMiles = (date)=>{
+	['yyyyMMddhhmmss, 월:MM,일:dd 시분:hh:mm'];
+	    var year = date.getFullYear().toString();
 
+	    var month = date.getMonth() + 1;
+	    month = month < 10 ? '0' + month.toString() : month.toString();
+
+	    var day = date.getDate();
+	    day = day < 10 ? '0' + day.toString() : day.toString();
+
+	    var hour = date.getHours();
+	    hour = hour < 10 ? '0' + hour.toString() : hour.toString();
+
+	    var minites = date.getMinutes();
+	    minites = minites < 10 ? '0' + minites.toString() : minites.toString();
+
+	    var seconds = date.getSeconds();
+	    seconds = seconds < 10 ? '0' + seconds.toString() : seconds.toString();
+
+		var returnObj = {};
+		returnObj["year"] = year;
+		returnObj["month"] = month;
+		returnObj["day"] = day;
+		returnObj["hour"] = hour;
+		returnObj["minites"] = minites;
+		returnObj["seconds"] = seconds;
+		returnObj["seconds"] = seconds;
+		returnObj["full"] = year + month + day+ hour+ minites+ seconds;
+		returnObj["fullFormat"] = year +'-'+ month +'-'+ day+' ' + hour+':' + minites+':' + seconds;
+		
+		returnObj["년"] = year;
+		returnObj["월"] = month;
+		returnObj["일"] = day;
+		returnObj["시"] = hour;
+		returnObj["분"] = minites;
+		returnObj["초"] = seconds;
+		returnObj["시:분"] = hour+":"+minites;
+		
+		
+		
+	    return returnObj;
+	
+};
 // =============================================================================
 /**
  * 외부 솔루션 연동과 관련된 함수를 작성한다.

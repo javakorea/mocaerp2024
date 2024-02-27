@@ -28,7 +28,11 @@
 				</w2:dataList>
 				<w2:dataMap baseNode="map" id="dma_search">
 					<w2:keyInfo>
+						<w2:key id="SCH_CURRENTMONTH_PPREV" name="SCH_CURRENTMONTH_PPREV" dataType="text"></w2:key>
+						<w2:key id="SCH_CURRENTMONTH_PREV" name="SCH_CURRENTMONTH_PREV" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
+						<w2:key id="SCH_CURRENTMONTH_NEXT" name="SCH_CURRENTMONTH_NEXT" dataType="text"></w2:key>
+						<w2:key id="SCH_CURRENTMONTH_NNEXT" name="SCH_CURRENTMONTH_NNEXT" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
 			</w2:dataCollection>
@@ -46,6 +50,25 @@
 
 		<script lazy="false" type="text/javascript"><![CDATA[scvar = {};
 scwin.onpageload = function() {
+	
+	//$('#mf_wdc_main_subWindow0_wframe_sch_cal1').addClass('swiper').addClass('mySwiper');
+	
+	var swiperURL = "/cm/js/swiper-bundle.js";
+    var swiperScript  = document.createElement('script');
+	swiperScript.setAttribute('src',swiperURL);
+	swiperScript.onload = function(e){
+      	debugger;
+		//$('.fc-view-container').addClass('swiper-pagination');
+		var swiper = new Swiper(".mySwiper", {
+
+		});
+
+	}
+	document.body.insertBefore(swiperScript,document.body.firstChild);
+
+
+
+
 	$(".btn_fav").click(function(){
 		$(".btn_fav").toggleClass("on");
 	});
@@ -54,7 +77,7 @@ scwin.onpageload = function() {
 
 /* 일정목록조회 */
 scwin.fn_search = function(){
-	let _yyyymm = sch_cal1.getView().title.replace(/년|월|\s/g,'');
+	let _yyyymm = sch_cal.getView().title.replace(/년|월|\s/g,'');
 
 	if(_yyyymm == ''){
 		_yyyymm = WebSquare.date.getCurrentServerDate('YYYYMM');
@@ -63,10 +86,23 @@ scwin.fn_search = function(){
 		_yyyymm = _yyyymm.substr(0,4)+'0'+_yyyymm.substr(4,1);
 	}
 	dma_search.set("SCH_CURRENTMONTH",_yyyymm);
+	let _yyyymm_next = WebSquare.date.dateTimeAdd( _yyyymm,  1, "month" );
+	let _yyyymm_prev = WebSquare.date.dateTimeAdd( _yyyymm, -1, "month" );
+	dma_search.set("SCH_CURRENTMONTH_PREV",_yyyymm_prev);
+	dma_search.set("SCH_CURRENTMONTH_NEXT",_yyyymm_next);
+
+	let _yyyymm_nnext = WebSquare.date.dateTimeAdd( _yyyymm,  2, "month" );
+	let _yyyymm_pprev = WebSquare.date.dateTimeAdd( _yyyymm, -2, "month" );
+	dma_search.set("SCH_CURRENTMONTH_PPREV",_yyyymm_pprev);
+	dma_search.set("SCH_CURRENTMONTH_NNEXT",_yyyymm_nnext);
+
+
+
+
 	com.sbm.execute(sbm_schdList);
 	scwin.sbm_schdList_submitdone = function(e) {
 		debugger;
-		sch_cal1.show('');
+		sch_cal.show('');
 	};
 };
 
@@ -154,7 +190,30 @@ scwin.dateToString = function(date){
     return returnObj;
 }
 ]]></script>
+<style>
+.fc-toolbar.fc-header-toolbar {display:none;}
 
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+</style>
 	</head>
 
 	<body ev:onpageload="scwin.onpageload">
@@ -168,7 +227,13 @@ scwin.dateToString = function(date){
 					<xf:label />
 
 				</xf:trigger>
-
+					<xf:trigger type="button" id="" style="width: 80px;height: 23px;">
+						<xf:label><![CDATA[<]]></xf:label>
+					</xf:trigger>
+					<xf:trigger type="button" id="" style="width: 80px;height: 23px;">
+						<xf:label><![CDATA[>]]></xf:label>
+					</xf:trigger>
+					<w2:inputCalendar id="" style="width: 150px;height: 23px;" calendarValueType="yearMonth"></w2:inputCalendar>
 				<w2:textbox class="pgt_tit" id="pgt_tit" label="스케줄러" style="" tagname="" />
 
 				<xf:group class="breadcrumb" id="" style="">
@@ -206,15 +271,51 @@ scwin.dateToString = function(date){
 				</xf:group>
 
 			</xf:group>
-			<xf:group class="calendarbox flex" id="" style="height:100%;">
-    			<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
-    				eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal1" idColumn="groupId"
-    				includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false" startColumn="SCH_START_UTC"
-    				style="width: 100%;display:none" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6" ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar" ev:onclick="scwin.sch_cal1_onclick">
-    			</w2:scheduleCalendar>
-    		</xf:group>
+			<xf:group class="swiper mySwiper">
+				<xf:group class="calendarbox flex swiper-wrapper" id="" style="height:100%;">
+					<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
+						eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal_pprev" idColumn="groupId"
+						includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false"
+						startColumn="SCH_START_UTC" style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6"
+						ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar swiper-slide"
+						ev:onclick="scwin.sch_cal1_onclick">
+					</w2:scheduleCalendar>
+					<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
+						eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal_prev" idColumn="groupId"
+						includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false"
+						startColumn="SCH_START_UTC" style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6"
+						ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar swiper-slide"
+						ev:onclick="scwin.sch_cal1_onclick">
+					</w2:scheduleCalendar>
+					<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
+						eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal" idColumn="groupId"
+						includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false"
+						startColumn="SCH_START_UTC" style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6"
+						ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar swiper-slide"
+						ev:onclick="scwin.sch_cal1_onclick">
+					</w2:scheduleCalendar>
+					<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
+						eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal_next" idColumn="groupId"
+						includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false"
+						startColumn="SCH_START_UTC" style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6"
+						ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar swiper-slide"
+						ev:onclick="scwin.sch_cal1_onclick">
+					</w2:scheduleCalendar>
+					<w2:scheduleCalendar dataList="data:dlt_list" defaultDate="" editable="false" endColumn="SCH_END_UTC" eventLimit="true"
+						eventOrderColumn="" headerLeftBtn="true" headerRightBtn="false" headerTitle="true" id="sch_cal_nnext" idColumn="groupId"
+						includeScheduleEnd="false" ioFormat="yyyyMMdd" lang="ko" locale="ko" nextDayThreshold="00:00:00" selectable="false"
+						startColumn="SCH_START_UTC" style="width: 100%;" timeFormat="HH:mm" titleColumn="SCH_TITLE" tooltipDisplay="" version="3.6"
+						ev:onheaderbtnclick="scwin.scheduleCalendar1_onheaderbtnclick" themeColumn="SCH_COLOR" class="fullcalendar swiper-slide"
+						ev:onclick="scwin.sch_cal1_onclick">
+					</w2:scheduleCalendar>
+				</xf:group>
+			</xf:group>
+
+
 
 		</xf:group>
+
+
 	</body>
 
 </html>
