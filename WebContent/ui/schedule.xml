@@ -213,12 +213,22 @@ scwin.btn_prev_onclick = function(e) {
 scwin.btn_next_onclick = function(e) {
 	SCH_CURRENTMONTH.setValue(WebSquare.date.dateTimeAdd( SCH_CURRENTMONTH.getValue(), +1, "month" ));
 };
-]]></script>
+
+scwin.fn_dis = function(e){
+	debugger;
+}]]></script>
 		<style>
+			.ica_sch .w2inputCalendar_divInput{border:0; font-size:25px; font-weight:500}
+			.ica_sch .w2inputCalendar_div_img{left: 0; right: 0; width: 100%;}
+			.ica_sch .w2inputCalendar_div_img button, .ica_sch .w2inputCalendar_div_img button:not(.w2inputCalendar_img_readOnly):hover{background:unset !important;}
+			
+			
+			.sub_contents {overflow:hidden}
 			.fc-toolbar.fc-header-toolbar {display:none;}
-			.swiper {width: 100%;	height: 100%;	}
-			.swiper-slide {	text-align: center;	font-size: 18px;	background: #fff;	display: flex;	justify-content: center;	align-items: center;	flex-shrink:0;	height:100%;	padding:10px 20px; box-sizing:border-box;}
-			.swiper-slide img {	display: block;	width: 100%;	height: 100%;	object-fit: cover;}
+			.swiper {width: 100%; height: calc(100% - 75px); overflow:hidden;}
+			.swiper-slide { text-align: center; font-size: 18px; background: #fff; display: flex; justify-content: center; align-items: center;
+			flex-shrink:0; height:100%; box-sizing:border-box;}
+			.swiper-slide img { display: block; width: 100%; height: 100%; object-fit: cover;}
 		</style>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
@@ -227,13 +237,6 @@ scwin.btn_next_onclick = function(e) {
 				<xf:trigger style="" id="" type="button" class="btn_fav">
 					<xf:label></xf:label>
 				</xf:trigger>
-				<xf:trigger style="width: 80px;height: 23px;" id="btn_prev" type="button" ev:onclick="scwin.btn_prev_onclick">
-					<xf:label><![CDATA[<]]></xf:label>
-				</xf:trigger>
-				<xf:trigger style="width: 80px;height: 23px;" id="btn_next" type="button" ev:onclick="scwin.btn_next_onclick">
-					<xf:label><![CDATA[>]]></xf:label>
-				</xf:trigger>
-				<w2:inputCalendar style="width: 150px;height: 23px;" id="SCH_CURRENTMONTH" calendarValueType="yearMonth"></w2:inputCalendar>
 				<w2:textbox tagname="" style="" id="pgt_tit" label="스케줄러" class="pgt_tit"></w2:textbox>
 				<xf:group style="" id="" class="breadcrumb">
 					<xf:group tagname="ul" style="" id="">
@@ -253,6 +256,14 @@ scwin.btn_next_onclick = function(e) {
 					</xf:group>
 				</xf:group>
 			</xf:group>
+			<xf:group id="" class="dfbox">
+				<xf:group id="" class="fl"><xf:trigger ev:onclick="scwin.btn_prev_onclick" style="width: 80px;height: 23px;" id="btn_prev" type="button" class="btn_cm btn_left">
+					<xf:label><![CDATA[<]]></xf:label>
+				</xf:trigger></xf:group>
+				<xf:group id="" class="fr"><xf:trigger ev:onclick="scwin.btn_next_onclick" style="width: 80px;height: 23px;" id="btn_next" type="button" class="btn_cm btn_right">
+					<xf:label><![CDATA[>]]></xf:label>
+				</xf:trigger></xf:group>
+			<xf:group id="" style="text-align: center;width:100%;"><w2:inputCalendar style="" id="SCH_CURRENTMONTH" class="ica_sch" calendarValueType="yearMonth" pickerType="dynamic" displayFormatFunc="scwin.fn_dis" dynamicHeaderOrder="year"></w2:inputCalendar></xf:group></xf:group>
 			<xf:group class="swiper mySwiper">
 				<xf:group style="height:100%;flex-flow:nowrap;" id="" class="calendarbox flex swiper-wrapper">
 					<w2:scheduleCalendar endColumn="SCH_END_UTC" selectable="false" locale="ko" ioFormat="yyyyMMdd" eventLimit="true"

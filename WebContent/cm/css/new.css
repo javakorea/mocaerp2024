@@ -43,7 +43,7 @@
 .fullcalendar .fc-daygrid-body{width:100% !important; height:100% !important;}
 .fullcalendar table[role="presentation"].fc-scrollgrid-sync-table{width:100% !important; height:100% !important;}
 .fullcalendar.fc .fc-toolbar.fc-header-toolbar{margin:5px 0}
-.fullcalendar .fc-view-container{height: calc(100% - 30px)}
+.fullcalendar .fc-view-container{height:100% }
 .fullcalendar .fc-view, .fullcalendar .fc-view > table{height:100%}
 .fullcalendar .fc-day-grid-container{height:100% !important;}
 .fc-day-grid{height:100%;}
@@ -51,3 +51,5 @@
 .fullcalendar .fc-basic-view .fc-body .fc-row {min-height: unset;}
 .fullcalendar .fc-day-grid-event{height:16px !important; overflow:hidden;}
 .fullcalendar .fc-day-grid-event .fc-time{display:none}
+.w2calendar_picker_content table td div{width:calc(33% - 3px)}
+.w2calendar.w2calendar_classYearMonth_dynamic.w2inputCalendar_calendar{height:232px;}
