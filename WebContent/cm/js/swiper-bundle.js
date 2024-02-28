@@ -3815,11 +3815,16 @@ var Swiper = function() {
                 let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
                 let end_d = _yyyymmdd_next.substring(6,8);
                 let d_end_dt = new Date(end_y, end_m, end_d, '9', '0', '0', '0');
+                let tt = '';
+                if(jQuery(s.target).hasClass('fc-title')){
+                	tt = s.target.innerText;
+                }
+                
                 //2024-02-06
                 t.onClickChild({
                 	start:d_start_dt,
                 	end:d_end_dt,
-                	title: s.target.innerText
+                	title: tt
                 },null,true);
         		
         		
