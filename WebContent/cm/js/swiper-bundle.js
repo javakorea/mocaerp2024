@@ -3673,7 +3673,7 @@ var Swiper = function() {
                     c = h.height * e.scale;
                 h.minX = Math.min(m.slideWidth / 2 - d / 2, 0), h.maxX = -h.minX, h.minY = Math.min(m.slideHeight / 2 - c / 2, 0), h.maxY = -h.minY, h.currentX = Math.max(Math.min(h.currentX, h.maxX), h.minX), h.currentY = Math.max(Math.min(h.currentY, h.maxY), h.minY), m.imageWrapEl.style.transitionDuration = `${o}ms`, m.imageWrapEl.style.transform = `translate3d(${h.currentX}px, ${h.currentY}px,0)`
             }();
-            
+            debugger;
             let data_date = s.target.getAttribute('data-date');
             //debugger;
             let isExe = true;
@@ -3728,11 +3728,16 @@ var Swiper = function() {
                 let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
                 let end_d = _yyyymmdd_next.substring(6,8);
                 let d_end_dt = new Date(end_y, end_m, end_d, '9', '0', '0', '0');
+                
+                let tt = '';
+                if(jQuery(s.target).hasClass('fc-title')){
+                	tt = s.target.innerText;
+                }
                 //2024-02-06
                 t.onClickChild({
                 	start:d_start_dt,
                 	end:d_end_dt,
-                	title: s.target.innerText
+                	title: tt
                 },null,true);
         		
                 event.stopPropagation();
@@ -3758,6 +3763,20 @@ var Swiper = function() {
         	//alert('커런트타깃3:'+event.currentTarget.contentType);
         	debugger;
         	*/
+        	debugger;
+            let data_date = s.target.getAttribute('data-date');
+            //debugger;
+            let isExe = true;
+            if(jQuery(s.target).hasClass('fc-title') && jQuery(s.target).text()){
+            	isExe = false;
+            }else if(jQuery(s.target).hasClass('fc-content') && jQuery(s.target).find('.fc-title').text()){
+            	isExe = false;       	
+            }else{
+            	isExe = true; 
+            }
+            
+            
+            
         	if(com.util.isMobile($p)){
         		
         		
