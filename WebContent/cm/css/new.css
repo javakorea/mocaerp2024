@@ -52,5 +52,13 @@
 .fullcalendar .fc-basic-view .fc-body .fc-row {min-height: unset;}
 .fullcalendar .fc-day-grid-event{height:16px !important; overflow:hidden;}
 .fullcalendar .fc-day-grid-event .fc-time{display:none}
+
+.fullcalendar.fc .fc-day-header.fc-sun:after{content: "일"}
+.fullcalendar.fc .fc-day-header.fc-mon:after{content: "월"}
+.fullcalendar.fc .fc-day-header.fc-tue:after{content: "화"}
+.fullcalendar.fc .fc-day-header.fc-wed:after{content: "수"}
+.fullcalendar.fc .fc-day-header.fc-thu:after{content: "목"}
+.fullcalendar.fc .fc-day-header.fc-fri:after{content: "금"}
+.fullcalendar.fc .fc-day-header.fc-sat:after{content: "토"}
 .w2calendar_picker_content table td div{width:calc(33% - 3px)}
 .w2calendar.w2calendar_classYearMonth_dynamic.w2inputCalendar_calendar{height:232px;}
