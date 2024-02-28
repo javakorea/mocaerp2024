@@ -11,9 +11,8 @@
 		</xf:model>
 		<w2:layoutInfo />
 		<w2:publicInfo method="" />
-		<script lazy="false" type="text/javascript"><![CDATA[
-scwin.onpageload = function() {
-	
+		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
+	$p.parent().$p.getComponentById('colorPop').addClass('fix')
 };
 
 scwin.li_onclick = function(e) {
@@ -21,7 +20,7 @@ scwin.li_onclick = function(e) {
 };
 ]]></script>
 	</head>
-	<body ev:onpageload="scwin.onpageload">
+	<body ev:onpageload="scwin.onpageload" style="">
 		<xf:group id="" class="sub_contents flex_gvw flex_m">
 		<xf:group tagname="ul" style="" id="" class="ul_color">
 					<xf:group tagname="li" ev:onclick="scwin.li_onclick" style="background-color:#5ab4f3" id="li_01" userData1="#5ab4f3"
@@ -32,16 +31,16 @@ scwin.li_onclick = function(e) {
 						class="li_color">
 						<w2:span id="" label="운동" style=""></w2:span>
 					</xf:group>
-					<xf:group tagname="li" ev:onclick="scwin.li_onclick" id="li_03" userData1="#ffb225" class="li_color"
-						style="background-color:#ffb225">
+					<xf:group tagname="li" ev:onclick="scwin.li_onclick" id="li_03" userData1="#7d4500" class="li_color"
+						style="background-color:#7d4500;">
 						<w2:span id="" label="세금,정산" style=""></w2:span>
 					</xf:group>
 					<xf:group tagname="li" ev:onclick="scwin.li_onclick" id="li_04" userData1="#e54c3f" class="li_color"
 						style="background-color:#e54c3f">
 						<w2:span id="" label="휴무" style=""></w2:span>
 					</xf:group>
-					<xf:group tagname="li" ev:onclick="scwin.li_onclick" id="li_05" userData1="#42cfb5" class="li_color"
-						style="background-color:#42cfb5">
+					<xf:group tagname="li" ev:onclick="scwin.li_onclick" id="li_05" userData1="#009378" class="li_color"
+						style="background-color:#009378;">
 						<w2:span id="" label="개인일정" style=""></w2:span>
 					</xf:group>
 					<xf:group tagname="li" ev:onclick="scwin.li_onclick" id="li_06" userData1="#aaa" class="li_color"

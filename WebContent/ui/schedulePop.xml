@@ -185,6 +185,7 @@ scwin.btn_color_onclick = function(e) {
 	var data = {callbackFn: "scwin.colorPop_callback" };
 	var options = {
 		id: "colorPop",
+		className: "fixfix",
 		popupName: "색상변경",
 		modal: true,
 		useMaximize : true,
