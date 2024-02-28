@@ -49,10 +49,68 @@
 		<w2:publicInfo method="" />
 
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
-	var swiperURL = "/cm/js/swiper-bundle.js";
+	var swiperURL = "/cm/js/swiper-bundle.js?pdate="+gcm.getCurrentTimeMiles(new Date()).full;
     var swiperScript  = document.createElement('script');
 	swiperScript.setAttribute('src',swiperURL);
 	swiperScript.onload = function(e){
+
+
+		/* 스케줄러 클릭 */
+		scwin.sch_cal1_onclick = function(retObj,b,c) {
+
+			/*
+			alert('click isMobile:'+com.util.isMobile());
+
+
+			alert('이벤트단계:'+event.eventPhase);
+			alert('이벤트타깃 class:'+event.target.getAttribute('class'));
+			alert('이벤트타깃 tagName:'+event.target.tagName);
+			alert('이벤트타깃 innerText:'+event.target.innerText);
+			
+					alert('커런트타깃1:'+event.currentTarget.nodeType);
+					alert('커런트타깃2:'+event.currentTarget.DOCUMENT_TYPE_NODE);
+					alert('커런트타깃3:'+event.currentTarget.contentType);
+			*/
+
+			//mf_wfm_header_txt_empNm.setValue('sch_cal1_onclick');
+			//mf_wdc_main_subWindow0_wframe_pgt_tit.setValue('onclick');
+
+			if(!com.util.isMobile() || c){
+				let _param = {};
+				let _popupName = '';
+				let _height = '';
+				retObj.start.setHours(retObj.start.getHours() - 9);
+				retObj.end.setHours(retObj.end.getHours() - 9);
+				retObj.end.setSeconds(retObj.end.getSeconds() -1)
+				_param.schInfo = {
+					"START":scwin.dateToString(retObj.start).full,
+					"END":scwin.dateToString(retObj.end).full
+				};
+				if(retObj.id){
+					_param.schInfo.SCH_IDX = retObj.id;
+					_popupName= "일정상세";
+					_param.mode = "read";
+				}else{
+					_popupName = "일정등록";
+					_param.mode = "write";
+					_param.writer = JSON.parse(sessionStorage.getItem("loginInfo")).name;
+				}
+				var data = { data: _param, callbackFn: "scwin.schedulePop_callback" };
+				var options = {
+					id: "schedulePop",
+					popupName: _popupName,
+					modal: true,
+					useMaximize : true,
+					width: 500, height: 402,
+					className : "h100"
+				};
+				
+				com.win.openPopup("/ui/schedulePop.xml", options, data);
+
+			}
+
+		};
+		
 		var swiper = new Swiper(".mySwiper", {
 			rewind: true
 		});
@@ -60,7 +118,9 @@
 			let month = $p.getComponentById(a.slides[a.activeIndex].id).getUserData('month');
 			SCH_CURRENTMONTH.setValue(month);
 		});
+		swiper.onClickChild = scwin.sch_cal1_onclick;
 		scwin.swiper = swiper;
+		
 		scwin.fn_search();
 	}
 	document.body.insertBefore(swiperScript,document.body.firstChild);
@@ -133,39 +193,7 @@ scwin.fn_format = function(rowJson, row, col) {
 	return _valJson;
 };
 
-/* 스케줄러 클릭 */
-scwin.sch_cal1_onclick = function(retObj,b) {
-	let _param = {};
-	let _popupName = '';
-	let _height = '';
-	retObj.start.setHours(retObj.start.getHours() - 9);
-	retObj.end.setHours(retObj.end.getHours() - 9);
-	retObj.end.setSeconds(retObj.end.getSeconds() -1)
-	_param.schInfo = {
-		"START":scwin.dateToString(retObj.start).full,
-		"END":scwin.dateToString(retObj.end).full
-	};
-	if(retObj.id){
-		_param.schInfo.SCH_IDX = retObj.id;
-		_popupName= "일정상세";
-		_param.mode = "read";
-	}else{
-		_popupName = "일정등록";
-		_param.mode = "write";
-		_param.writer = JSON.parse(sessionStorage.getItem("loginInfo")).name;
-	}
-	var data = { data: _param, callbackFn: "scwin.schedulePop_callback" };
-	var options = {
-		id: "schedulePop",
-		popupName: _popupName,
-		modal: true,
-		useMaximize : true,
-		width: 500, height: 402,
-		className : "h100"
-	};
-	
-	com.win.openPopup("/ui/schedulePop.xml", options, data);
-};
+
 /* 팝업 callback */
 scwin.schedulePop_callback = function(e) {
 	com.win.alert(e.message);

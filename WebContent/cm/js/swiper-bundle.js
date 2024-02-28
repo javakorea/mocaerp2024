@@ -3638,6 +3638,23 @@ var Swiper = function() {
                 h.touchesStart.x = a.pageX, h.touchesStart.y = a.pageY
             }(s)
         })), a("touchEnd", ((e, s) => {
+        	/*
+        	alert('end com.util.isMobile:'+com.util.isMobile());
+        	alert('이벤트단계:'+event.eventPhase);
+        	
+        	alert('이벤트타깃 class:'+event.target.getAttribute('class'));
+        	alert('이벤트타깃 tagName:'+event.target.tagName);
+        	
+        	alert('이벤트타깃s innerText:'+s.target.innerText);
+        	
+        	
+        	//alert('커런트타깃1:'+event.currentTarget.nodeType);
+        	//alert('커런트타깃2:'+event.currentTarget.DOCUMENT_TYPE_NODE);
+        	//alert('커런트타깃3:'+event.currentTarget.contentType);
+        	debugger;
+        	*/
+        	//mf_wfm_header_txt_empNm.setValue('touchEnd');
+        	//mf_wdc_main_subWindow0_wframe_pgt_tit.setValue('touchEnd');
             t.zoom.enabled && function() {
                 const e = t.zoom;
                 if (!m.imageEl) return;
@@ -3655,10 +3672,65 @@ var Swiper = function() {
                 const d = h.width * e.scale,
                     c = h.height * e.scale;
                 h.minX = Math.min(m.slideWidth / 2 - d / 2, 0), h.maxX = -h.minX, h.minY = Math.min(m.slideHeight / 2 - c / 2, 0), h.maxY = -h.minY, h.currentX = Math.max(Math.min(h.currentX, h.maxX), h.minX), h.currentY = Math.max(Math.min(h.currentY, h.maxY), h.minY), m.imageWrapEl.style.transitionDuration = `${o}ms`, m.imageWrapEl.style.transform = `translate3d(${h.currentX}px, ${h.currentY}px,0)`
-            }()
+            }();
+            
+            //start new Date('2023', '11', '6', '9', '0', '0', '0');
+            //end new Date('2023', '11', '7', '9', '0', '0', '0');
+            /*
+            let data_date = s.target.getAttribute('data-date');
+            if(!data_date){
+            	let idx = jQuery(s.target).index();
+            	data_date = jQuery(s.target).closest('.fc-row').find('.fc-bg tr td:nth('+idx+')').attr('data-date');
+            }
+            let _yyyymmdd_next = WebSquare.date.dateTimeAdd( data_date,  1, "day" );
+            let ymdArr = data_date.split('-');
+            let m = Number(ymdArr[1])-1;
+            let d_start = Number(ymdArr[2])
+            let d_end = Number(ymdArr[2])+1;
+            let d_start_dt = new Date(ymdArr[0], m, d_start, '9', '0', '0', '0');
+            
+            let end_y = _yyyymmdd_next.substring(0,4);
+            let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
+            let end_d = _yyyymmdd_next.substring(6,8);
+            let d_end_dt = new Date(end_y, end_m, end_d, '9', '0', '0', '0');
+            //2024-02-06
+            t.onClickChild({
+            	start:d_start_dt,
+            	end:d_end_dt
+            });
+            console.log('data_date',data_date);
+            */
+            
+            
+            //t.onClickChild();
+            //event.stopPropagation();
+            //event.stopImmediatePropagation();
+            //return false;
         })), a("doubleTap", ((e, s) => {
+            let data_date = s.target.getAttribute('data-date');
+            if(!data_date){
+            	let idx = jQuery(s.target).index();
+            	data_date = jQuery(s.target).closest('.fc-row').find('.fc-bg tr td:nth('+idx+')').attr('data-date');
+            }
+            let _yyyymmdd_next = WebSquare.date.dateTimeAdd( data_date,  1, "day" );
+            let ymdArr = data_date.split('-');
+            let m = Number(ymdArr[1])-1;
+            let d_start = Number(ymdArr[2])
+            let d_end = Number(ymdArr[2])+1;
+            let d_start_dt = new Date(ymdArr[0], m, d_start, '9', '0', '0', '0');
+            
+            let end_y = _yyyymmdd_next.substring(0,4);
+            let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
+            let end_d = _yyyymmdd_next.substring(6,8);
+            let d_end_dt = new Date(end_y, end_m, end_d, '9', '0', '0', '0');
+            //2024-02-06
+            t.onClickChild({
+            	start:d_start_dt,
+            	end:d_end_dt
+            },null,true);
             !t.animating && t.params.zoom.enabled && t.zoom.enabled && t.params.zoom.toggle && I(s)
         })), a("transitionEnd", (() => {
+        	
             t.zoom.enabled && t.params.zoom.enabled && C()
         })), a("slideChange", (() => {
             t.zoom.enabled && t.params.zoom.enabled && t.params.cssMode && C()
