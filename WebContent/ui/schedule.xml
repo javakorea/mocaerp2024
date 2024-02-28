@@ -247,9 +247,10 @@ scwin.btn_next_onclick = function(e) {
 	SCH_CURRENTMONTH.setValue(WebSquare.date.dateTimeAdd( SCH_CURRENTMONTH.getValue(), +1, "month" ));
 };
 
-scwin.fn_dis = function(e){
-	debugger;
-}]]></script>
+scwin.btn_today_onclick = function(e) {
+
+};
+]]></script>
 		<style>
 			.ica_sch .w2inputCalendar_divInput{border:0; font-size:25px; font-weight:500}
 			.ica_sch .w2inputCalendar_div_img{left: 0; right: 0; width: 100%;}
@@ -290,13 +291,18 @@ scwin.fn_dis = function(e){
 				</xf:group>
 			</xf:group>
 			<xf:group id="" class="dfbox">
-				<xf:group id="" class="fl"><xf:trigger ev:onclick="scwin.btn_prev_onclick" style="width: 80px;height: 23px;" id="btn_prev" type="button" class="btn_cm btn_left">
+				<xf:group id="" class="fl"><xf:trigger ev:onclick="scwin.btn_prev_onclick" style="width: 70px" id="btn_prev" type="button" class="btn_cm btn_left">
 					<xf:label><![CDATA[<]]></xf:label>
 				</xf:trigger></xf:group>
-				<xf:group id="" class="fr"><xf:trigger ev:onclick="scwin.btn_next_onclick" style="width: 80px;height: 23px;" id="btn_next" type="button" class="btn_cm btn_right">
-					<xf:label><![CDATA[>]]></xf:label>
-				</xf:trigger></xf:group>
-			<xf:group id="" style="text-align: center;width:100%;"><w2:inputCalendar style="" id="SCH_CURRENTMONTH" class="ica_sch" calendarValueType="yearMonth" pickerType="dynamic" displayFormatFunc="scwin.fn_dis" dynamicHeaderOrder="year"></w2:inputCalendar></xf:group></xf:group>
+				<xf:group id="" class="fr">
+				<xf:trigger class="btn_cm" id="btn_today" style="" type="button" ev:onclick="scwin.btn_today_onclick">
+					<xf:label><![CDATA[오늘]]></xf:label>
+					</xf:trigger>
+					<xf:trigger ev:onclick="scwin.btn_next_onclick" style="width: 70px;" id="btn_next" type="button" class="btn_cm btn_right">
+						<xf:label><![CDATA[>]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			<xf:group id="" style="text-align: center;width:100%;"><w2:inputCalendar style="width:145px;text-align:center;" id="SCH_CURRENTMONTH" class="ica_sch" calendarValueType="yearMonth" pickerType="dynamic" dynamicHeaderOrder="year" displayFormat="yyyy년MM월"></w2:inputCalendar></xf:group></xf:group>
 			<xf:group class="swiper mySwiper">
 				<xf:group style="height:100%;flex-flow:nowrap;" id="" class="calendarbox flex swiper-wrapper">
 					<w2:scheduleCalendar endColumn="SCH_END_UTC" selectable="false" locale="ko" ioFormat="yyyyMMdd" eventLimit="true"
