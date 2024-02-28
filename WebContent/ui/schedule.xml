@@ -57,7 +57,7 @@
 
 		/* 스케줄러 클릭 */
 		scwin.sch_cal1_onclick = function(retObj,b,c) {
-			
+			debugger;
 			//debugger;
 			//alert('click isMobile:'+com.util.isMobile());
 /*
@@ -180,6 +180,11 @@ scwin.fn_search = function(){
 
 
 		scwin.swiper.slideTo(2,1);
+
+		let _currentTd = $(sch_cal.render).find(`td.fc-day[data-date=${WebSquare.date.getCurrentServerDate('yyyy-MM-dd')}]`);
+		let _curIdx = _currentTd.index();
+		let _todaySch = _currentTd.closest('.fc-row').find('.fc-content-skeleton').find('.fc-more-cell')[_curIdx-1];
+		$(_todaySch).addClass('sch_today');
 	};
 };
 scwin.setMonth = (_schObj,_month)=>{
@@ -250,6 +255,17 @@ scwin.btn_next_onclick = function(e) {
 scwin.btn_today_onclick = function(e) {
 
 };
+
+scwin.SCH_CURRENTMONTH_onchange = function(e) {
+	_currentM = WebSquare.date.getCurrentServerDate('yyyyMM');
+	if(SCH_CURRENTMONTH.getValue() ==  _currentM){
+		SCH_CURRENTMONTH.addClass("current");
+		sch_cal.addClass("current");
+	}else{
+		SCH_CURRENTMONTH.removeClass("current");
+		sch_cal.removeClass("current");
+	}
+};
 ]]></script>
 		<style>
 			.ica_sch .w2inputCalendar_divInput{border:0; font-size:25px; font-weight:500}
@@ -302,7 +318,7 @@ scwin.btn_today_onclick = function(e) {
 						<xf:label><![CDATA[>]]></xf:label>
 					</xf:trigger>
 				</xf:group>
-			<xf:group id="" style="text-align: center;width:100%;"><w2:inputCalendar style="width:145px;text-align:center;" id="SCH_CURRENTMONTH" class="ica_sch" calendarValueType="yearMonth" pickerType="dynamic" dynamicHeaderOrder="year" displayFormat="yyyy년MM월"></w2:inputCalendar></xf:group></xf:group>
+			<xf:group id="" style="text-align: center;width:100%;"><w2:inputCalendar style="width:145px;text-align:center;" id="SCH_CURRENTMONTH" class="ica_sch" calendarValueType="yearMonth" pickerType="dynamic" dynamicHeaderOrder="year" displayFormat="yyyy년MM월" ev:onchange="scwin.SCH_CURRENTMONTH_onchange"></w2:inputCalendar></xf:group></xf:group>
 			<xf:group class="swiper mySwiper">
 				<xf:group style="height:100%;flex-flow:nowrap;" id="" class="calendarbox flex swiper-wrapper">
 					<w2:scheduleCalendar endColumn="SCH_END_UTC" selectable="false" locale="ko" ioFormat="yyyyMMdd" eventLimit="true"

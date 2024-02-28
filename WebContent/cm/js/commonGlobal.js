@@ -2363,3 +2363,54 @@ gcm.getCurrentTimeMiles = (date)=>{
 // =============================================================================
 
 gcm.ext = {};
+
+gcm.ext.swiper = {};
+gcm.ext.swiper.openPopup = (_t,t)=>{
+    let data_date = _t.getAttribute('data-date');
+    //alert('1:'+data_date);
+    if(!data_date){
+    	data_date = _t.parentNode.getAttribute('data-date');
+    	//alert('2:'+data_date);
+    }
+    if(!data_date){
+    	let idx = jQuery(_t).index();
+    	data_date = jQuery(_t).closest('.fc-row').find('.fc-bg tr td:nth('+idx+')').attr('data-date');
+    	if(!data_date){
+    		let idx = jQuery(_t.closest('a')).index();
+    		data_date = jQuery(_t.closest('a')).closest('.fc-popover').find('.fc-header>.fc-title').text().replace(/(년|월|일)\s*/g,'-').replace(/\-$/g,'');
+    		let arr = data_date.split('-');
+    		let y = arr[0];
+    		let m = com.str.lpad($p,arr[1], 2, "0");
+    		let d = com.str.lpad($p,arr[2], 2, "0");
+    		data_date = y+'-'+m+'-'+d;
+    	}
+    }
+    
+    if(!data_date){
+    	alert('error! data_date없음');
+    }else{
+    	console.log('data_date',data_date);
+    }
+    let _yyyymmdd_next = WebSquare.date.dateTimeAdd( data_date,  1, "day" );
+    let ymdArr = data_date.split('-');
+    let m = Number(ymdArr[1])-1;
+    let d_start = Number(ymdArr[2])
+    let d_end = Number(ymdArr[2])+1;
+    let d_start_dt = new Date(ymdArr[0], m, d_start, '9', '0', '0', '0');
+    
+    let end_y = _yyyymmdd_next.substring(0,4);
+    let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
+    let end_d = _yyyymmdd_next.substring(6,8);
+    let d_end_dt = new Date(end_y, end_m, end_d, '9', '0', '0', '0');
+    let tt = '';
+    if(jQuery(_t).hasClass('fc-title')){
+    	tt = _t.innerText;
+    }
+    
+    //2024-02-06
+    t.onClickChild({
+    	start:d_start_dt,
+    	end:d_end_dt,
+    	title: tt
+    },null,true);
+};
