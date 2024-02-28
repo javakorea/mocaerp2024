@@ -1396,7 +1396,7 @@ var Swiper = function() {
             m = u - s.touchStartTime;
         if (t.allowClick) {
             const e = i.path || i.composedPath && i.composedPath();
-            t.updateClickedSlide(e && e[0] || i.target, e), t.emit("tap click", i), m < 300 && u - s.lastClickTime < 300 && t.emit("doubleTap doubleClick", i)
+            t.updateClickedSlide(e && e[0] || i.target, e), t.emit("tap click", i), m < 2000 && u - s.lastClickTime < 2000 && t.emit("doubleTap doubleClick", i)
         }
         if (s.lastClickTime = o(), l((() => {
                 t.destroyed || (t.allowClick = !0)
