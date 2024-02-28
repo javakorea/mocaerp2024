@@ -61,7 +61,7 @@
 		btn_confirm.hide();
 		scwin.fn_searchScheduleInfo();
 	}else{
-		dma_schdInfo.set("SCH_COLOR","#5ab4f3");
+		dma_schdInfo.set("SCH_COLOR","#076aff");
 		dma_schdInfo.set("SCH_WRITER",scwin.param.data.writer);
 	}
 	
@@ -276,7 +276,7 @@ scwin.colorPop_callback = function(e){
 			<xf:group id="" class="edbox sch">
 				<w2:editor style="" id="edi_1" menubar="board"></w2:editor>
 				<xf:group id="" style="position: absolute; top: 7px; right: -2px; margin-left: 2px;">
-					<xf:trigger style="background:#5ab4f3;width:27px;" id="btn_colorPicker" type="button" class="btn_color"
+					<xf:trigger style="background:#076aff;width:27px;" id="btn_colorPicker" type="button" class="btn_color"
 						ev:onclick="scwin.btn_color_onclick" userData2="#5ab4f3">
 						<xf:label><![CDATA[]]>
 						</xf:label>
