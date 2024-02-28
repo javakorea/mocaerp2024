@@ -32,8 +32,8 @@
 .edbox .cke_inner.cke_reset{display: flex;   flex-direction: column; height:100%}
 .w2editor .cke_top{padding: 6px 8px 6px !important;}
 .w2editor.read .cke_top, .w2editor.read .cke_bottom{display:none}
-.ipt_color{border-radius: 0; height: 24px !important; border: 1px solid #bbc3ce; width: 40px; margin-left: 2px;  position: absolute; top: 9px;  right: 9px;}
-   
+.ipt_color{ position: absolute; top: 5px;  right: -20px; margin-left: 2px;  width: 63px; height: 30px; -webkit-appearance: none;  -moz-appearance: none;  appearance: none;  background-color: transparent;  border: 0;}
+.ipt_color::-webkit-color-swatch { border-radius: 5px;  border:0;}
 .btn_cm.blue, .btn_cm.blue:active, .btn_cm.blue:active:hover{ background-color: #2d5277;  color: #Fff;  border: 1px solid #2d5277;}
 
 .fullcalendar{height:100%;}

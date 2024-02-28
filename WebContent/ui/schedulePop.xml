@@ -49,6 +49,7 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
+	ipt_color.render.setAttribute("list","colorlist");
 	scwin.param = com.data.getParameter();
 	dma_schdInfo.set("SCH_START",scwin.param.data.schInfo.START);
 	dma_schdInfo.set("SCH_END",scwin.param.data.schInfo.END);
@@ -175,17 +176,18 @@ scwin.btn_success_onclick = function(e) {
 		<xf:group id="" class="pop_contents flex_gvw flex_m">
 			<xf:group id="">
 				<xf:group style="" id="dfbox" class="dfbox">
+					<xf:group style="" id="" class="fl">
+						<xf:trigger style="display: none;" id="btn_adminDel" type="button" class="btn_cm red"
+							ev:onclick="scwin.btn_adminDel_onclick">
+							<xf:label><![CDATA[폐기]]></xf:label>
+						</xf:trigger>
+					</xf:group>
 					<xf:group style="" id="" class="fr">
 						<xf:trigger class="btn_cm" id="btn_success" nextTabID="" style="display:none" type="button" ev:onclick="scwin.btn_success_onclick">
 							<xf:label><![CDATA[완료]]></xf:label>
 						</xf:trigger><xf:trigger style="display: none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
 						</xf:trigger>
-						<xf:trigger style="display: none;" id="btn_adminDel" type="button" class="btn_cm red"
-							ev:onclick="scwin.btn_adminDel_onclick">
-							<xf:label><![CDATA[폐기]]></xf:label>
-						</xf:trigger>
-						
 						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style=""
 							type="button">
 							<xf:label><![CDATA[저장]]></xf:label>
@@ -245,7 +247,8 @@ scwin.btn_success_onclick = function(e) {
 			</xf:group>
 			<xf:group id="" class="edbox sch">
 				<w2:editor style="" id="edi_1" menubar="board"></w2:editor>
-				<xf:input id="ipt_color"  style="" type="color" class="ipt_color" initValue="#3788d8"></xf:input>
+				<datalist id="colorlist"><option>#0cd3ed</option> <option>#6f9ec6</option> <option>#6f37d7</option><option>#ff70a9</option><option>#8fb14e</option><option>#efa62f</option><option>#e54c3f</option><option>#666666</option></datalist>
+				<xf:input id="ipt_color"  style="" type="color" class="ipt_color" initValue="#3788d8" list="colorlist" ref="data:dlt_colorList.col1"></xf:input>
 			</xf:group>
 		</xf:group>
 
