@@ -1396,7 +1396,7 @@ var Swiper = function() {
             m = u - s.touchStartTime;
         if (t.allowClick) {
             const e = i.path || i.composedPath && i.composedPath();
-            t.updateClickedSlide(e && e[0] || i.target, e), t.emit("tap click", i), m < 2000 && u - s.lastClickTime < 2000 && t.emit("doubleTap doubleClick", i)
+            t.updateClickedSlide(e && e[0] || i.target, e), t.emit("tap click", i), m < 300 && u - s.lastClickTime < 1000 && t.emit("doubleTap doubleClick", i)
         }
         if (s.lastClickTime = o(), l((() => {
                 t.destroyed || (t.allowClick = !0)
@@ -3674,60 +3674,138 @@ var Swiper = function() {
                 h.minX = Math.min(m.slideWidth / 2 - d / 2, 0), h.maxX = -h.minX, h.minY = Math.min(m.slideHeight / 2 - c / 2, 0), h.maxY = -h.minY, h.currentX = Math.max(Math.min(h.currentX, h.maxX), h.minX), h.currentY = Math.max(Math.min(h.currentY, h.maxY), h.minY), m.imageWrapEl.style.transitionDuration = `${o}ms`, m.imageWrapEl.style.transform = `translate3d(${h.currentX}px, ${h.currentY}px,0)`
             }();
             
-            //start new Date('2023', '11', '6', '9', '0', '0', '0');
-            //end new Date('2023', '11', '7', '9', '0', '0', '0');
-            /*
             let data_date = s.target.getAttribute('data-date');
-            if(!data_date){
-            	let idx = jQuery(s.target).index();
-            	data_date = jQuery(s.target).closest('.fc-row').find('.fc-bg tr td:nth('+idx+')').attr('data-date');
+            //debugger;
+            let isExe = true;
+            if(jQuery(s.target).hasClass('fc-title') && jQuery(s.target).text()){
+            	isExe = false;
+            }else if(jQuery(s.target).hasClass('fc-content') && jQuery(s.target).find('.fc-title').text()){
+            	isExe = false;       	
+            }else{
+            	isExe = true; 
             }
-            let _yyyymmdd_next = WebSquare.date.dateTimeAdd( data_date,  1, "day" );
-            let ymdArr = data_date.split('-');
-            let m = Number(ymdArr[1])-1;
-            let d_start = Number(ymdArr[2])
-            let d_end = Number(ymdArr[2])+1;
-            let d_start_dt = new Date(ymdArr[0], m, d_start, '9', '0', '0', '0');
-            
-            let end_y = _yyyymmdd_next.substring(0,4);
-            let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
-            let end_d = _yyyymmdd_next.substring(6,8);
-            let d_end_dt = new Date(end_y, end_m, end_d, '9', '0', '0', '0');
-            //2024-02-06
-            t.onClickChild({
-            	start:d_start_dt,
-            	end:d_end_dt
-            });
-            console.log('data_date',data_date);
-            */
             
             
-            //t.onClickChild();
-            //event.stopPropagation();
-            //event.stopImmediatePropagation();
-            //return false;
+            
+            
+            
+        	if(!com.util.isMobile($p) && isExe){//pc인데 click보다 end가 먼저발생하는경우만 수행, data_date가 있으면 신규일정등록을 클릭한것임
+        		//jQuery(s.target).find('.fc-title').text() 이것이 공백이면 좌우 일정있는 라인상의 신규등록클릭이다.
+        		//debugger;
+        		
+                
+                if(!data_date){
+                	data_date = s.target.parentNode.getAttribute('data-date');
+                }
+                if(!data_date){
+                	let idx = jQuery(s.target).index();
+                	data_date = jQuery(s.target).closest('.fc-row').find('.fc-bg tr td:nth('+idx+')').attr('data-date');
+                	if(!data_date){
+                		let idx = jQuery(s.target.closest('a')).index();
+                		data_date = jQuery(s.target.closest('a')).closest('.fc-popover').find('.fc-header>.fc-title').text().replace(/(년|월|일)\s*/g,'-').replace(/\-$/g,'');
+                		let arr = data_date.split('-');
+                		let y = arr[0];
+                		let m = com.str.lpad($p,arr[1], 2, "0");
+                		let d = com.str.lpad($p,arr[2], 2, "0");
+                		data_date = y+'-'+m+'-'+d;
+                		debugger;
+                	}
+                }
+                
+                if(!data_date){
+                	alert('error! data_date없음');
+                }else{
+                	console.log('data_date',data_date);
+                }
+                let _yyyymmdd_next = WebSquare.date.dateTimeAdd( data_date,  1, "day" );
+                let ymdArr = data_date.split('-');
+                let m = Number(ymdArr[1])-1;
+                let d_start = Number(ymdArr[2])
+                let d_end = Number(ymdArr[2])+1;
+                let d_start_dt = new Date(ymdArr[0], m, d_start, '9', '0', '0', '0');
+                
+                let end_y = _yyyymmdd_next.substring(0,4);
+                let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
+                let end_d = _yyyymmdd_next.substring(6,8);
+                let d_end_dt = new Date(end_y, end_m, end_d, '9', '0', '0', '0');
+                //2024-02-06
+                t.onClickChild({
+                	start:d_start_dt,
+                	end:d_end_dt,
+                	title: s.target.innerText
+                },null,true);
+        		
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+                return false;
+        	}
+            
+            
+
         })), a("doubleTap", ((e, s) => {
-            let data_date = s.target.getAttribute('data-date');
-            if(!data_date){
-            	let idx = jQuery(s.target).index();
-            	data_date = jQuery(s.target).closest('.fc-row').find('.fc-bg tr td:nth('+idx+')').attr('data-date');
-            }
-            let _yyyymmdd_next = WebSquare.date.dateTimeAdd( data_date,  1, "day" );
-            let ymdArr = data_date.split('-');
-            let m = Number(ymdArr[1])-1;
-            let d_start = Number(ymdArr[2])
-            let d_end = Number(ymdArr[2])+1;
-            let d_start_dt = new Date(ymdArr[0], m, d_start, '9', '0', '0', '0');
-            
-            let end_y = _yyyymmdd_next.substring(0,4);
-            let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
-            let end_d = _yyyymmdd_next.substring(6,8);
-            let d_end_dt = new Date(end_y, end_m, end_d, '9', '0', '0', '0');
-            //2024-02-06
-            t.onClickChild({
-            	start:d_start_dt,
-            	end:d_end_dt
-            },null,true);
+        	/*
+        	alert('end com.util.isMobile:'+com.util.isMobile());
+        	alert('이벤트단계:'+event.eventPhase);
+        	
+        	alert('이벤트타깃 class:'+event.target.getAttribute('class'));
+        	alert('이벤트타깃 tagName:'+event.target.tagName);
+        	
+        	alert('이벤트타깃s innerText:'+s.target.innerText);
+        	
+        	
+        	//alert('커런트타깃1:'+event.currentTarget.nodeType);
+        	//alert('커런트타깃2:'+event.currentTarget.DOCUMENT_TYPE_NODE);
+        	//alert('커런트타깃3:'+event.currentTarget.contentType);
+        	debugger;
+        	*/
+        	if(com.util.isMobile($p)){
+        		
+        		
+                let data_date = s.target.getAttribute('data-date');
+                if(!data_date){
+                	data_date = s.target.parentNode.getAttribute('data-date');
+                }
+                if(!data_date){
+                	let idx = jQuery(s.target).index();
+                	data_date = jQuery(s.target).closest('.fc-row').find('.fc-bg tr td:nth('+idx+')').attr('data-date');
+                	if(!data_date){
+                		let idx = jQuery(s.target.closest('a')).index();
+                		data_date = jQuery(s.target.closest('a')).closest('.fc-popover').find('.fc-header>.fc-title').text().replace(/(년|월|일)\s*/g,'-').replace(/\-$/g,'');
+                		let arr = data_date.split('-');
+                		let y = arr[0];
+                		let m = com.str.lpad($p,arr[1], 2, "0");
+                		let d = com.str.lpad($p,arr[2], 2, "0");
+                		data_date = y+'-'+m+'-'+d;
+                		debugger;
+                	}
+                }
+                
+                if(!data_date){
+                	alert('error! data_date없음');
+                }else{
+                	console.log('data_date',data_date);
+                }
+                let _yyyymmdd_next = WebSquare.date.dateTimeAdd( data_date,  1, "day" );
+                let ymdArr = data_date.split('-');
+                let m = Number(ymdArr[1])-1;
+                let d_start = Number(ymdArr[2])
+                let d_end = Number(ymdArr[2])+1;
+                let d_start_dt = new Date(ymdArr[0], m, d_start, '9', '0', '0', '0');
+                
+                let end_y = _yyyymmdd_next.substring(0,4);
+                let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
+                let end_d = _yyyymmdd_next.substring(6,8);
+                let d_end_dt = new Date(end_y, end_m, end_d, '9', '0', '0', '0');
+                //2024-02-06
+                t.onClickChild({
+                	start:d_start_dt,
+                	end:d_end_dt,
+                	title: s.target.innerText
+                },null,true);
+        		
+        		
+        	}
+
             !t.animating && t.params.zoom.enabled && t.zoom.enabled && t.params.zoom.toggle && I(s)
         })), a("transitionEnd", (() => {
         	
