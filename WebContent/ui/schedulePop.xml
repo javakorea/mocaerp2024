@@ -49,7 +49,6 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-	ipt_color.render.setAttribute("list","colorlist");
 	scwin.param = com.data.getParameter();
 	dma_schdInfo.set("SCH_START",scwin.param.data.schInfo.START);
 	dma_schdInfo.set("SCH_END",scwin.param.data.schInfo.END);
@@ -62,6 +61,7 @@
 		btn_confirm.hide();
 		scwin.fn_searchScheduleInfo();
 	}else{
+		dma_schdInfo.set("SCH_COLOR","#5ab4f3");
 		dma_schdInfo.set("SCH_WRITER",scwin.param.data.writer);
 	}
 	
@@ -75,7 +75,7 @@ scwin.fn_searchScheduleInfo = function () {
 	com.sbm.execute(sbm_schdInfo);
 	//callback
 	scwin.sbm_schdInfo_submitdone = function(e) {
-		ipt_color.setValue(dma_schdInfo.get('SCH_COLOR'));
+		btn_colorPicker.setStyle("background-color",dma_schdInfo.get('SCH_COLOR'));
 		edi_1.setHTML(dma_schdInfo.get('SCH_CONT'));
 	};
 
@@ -85,12 +85,10 @@ scwin.fn_searchScheduleInfo = function () {
 scwin.btn_confirm_onclick = function(e) {
 	com.win.confirm($p, '일정을 등록하시겠습니까?', function(e){
 		if(e.clickValue){
-			
 			let _current = dma_schdInfo.getJSON().SCH_START.substr(0,6);
 			dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
 			dma_schdInfo.set("SCH_TITLE", dma_schdInfo.get("SCH_CONT").substr(0,10));
 			dma_schdInfo.set("SCH_CURRENTMONTH",_current);
-			dma_schdInfo.set("SCH_COLOR", ipt_color.getValue());
 			com.sbm.execute(sbm_insertSchedule);
 		}
 	});
@@ -123,13 +121,26 @@ scwin.btn_del_onclick = function(e) {
 
 /* 일정 물리삭제 */
 scwin.btn_adminDel_onclick = function(e) {
-	com.win.confirm($p, '삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 해당 일정을 삭제하시겠습니까?', function(e){
-		if(e.clickValue){
-			dma_schdInfo.set("STATUS", "D");
-			com.sbm.execute(sbm_updateSchedule);
-		}
-	});
+	var data = {callbackFn: "scwin.delPop_callback" };
+	var options = {
+		id: "delPop",
+		popupName: "일정삭제",
+		modal: true,
+		useMaximize : true,
+		width: 420, height: 116
+	};
+	com.win.openPopup("/ui/delPop.xml", options, data);
 };
+scwin.delPop_callback = function(e){
+	if(e.delYn){
+		com.win.confirm($p, '삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 해당 게시물을 삭제하시겠습니까?', function(e){
+			if(e.clickValue){
+				dma_schdInfo.set("STATUS", "D");
+				com.sbm.execute(sbm_updateSchedule);
+			}
+		})
+	}
+}
 
 /* 일정 수정 */
 scwin.btn_update_onclick = function(e) {
@@ -137,7 +148,6 @@ scwin.btn_update_onclick = function(e) {
 		if(e.clickValue){
 			dma_schdInfo.set("STATUS", "U");
 			dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
-			dma_schdInfo.set("SCH_COLOR", ipt_color.getValue());
 			dma_schdInfo.set("SCH_TITLE", dma_schdInfo.get("SCH_CONT").substr(0,10));
 			com.sbm.execute(sbm_updateSchedule);
 		}
@@ -170,7 +180,24 @@ scwin.btn_success_onclick = function(e) {
 	}
 	scwin.btn_update_onclick();
 };
-]]></script>
+
+scwin.btn_color_onclick = function(e) {
+	var data = {callbackFn: "scwin.colorPop_callback" };
+	var options = {
+		id: "colorPop",
+		popupName: "색상변경",
+		modal: true,
+		useMaximize : true,
+		width: 420, height: 227
+	};
+	com.win.openPopup("/ui/colorPop.xml", options, data);
+};
+scwin.colorPop_callback = function(e){
+	if(e.color){
+		dma_schdInfo.set("SCH_COLOR", e.color);
+		btn_colorPicker.setStyle("background-color",e.color);
+	}
+};]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m">
@@ -247,8 +274,13 @@ scwin.btn_success_onclick = function(e) {
 			</xf:group>
 			<xf:group id="" class="edbox sch">
 				<w2:editor style="" id="edi_1" menubar="board"></w2:editor>
-				<datalist id="colorlist"><option>#0cd3ed</option> <option>#6f9ec6</option> <option>#6f37d7</option><option>#ff70a9</option><option>#8fb14e</option><option>#efa62f</option><option>#e54c3f</option><option>#666666</option></datalist>
-				<xf:input id="ipt_color"  style="" type="color" class="ipt_color" initValue="#3788d8" list="colorlist" ref="data:dlt_colorList.col1"></xf:input>
+				<xf:group id="" style="position: absolute; top: 7px; right: -2px; margin-left: 2px;">
+					<xf:trigger style="background:#5ab4f3;width:27px;" id="btn_colorPicker" type="button" class="btn_color"
+						ev:onclick="scwin.btn_color_onclick" userData2="#5ab4f3">
+						<xf:label><![CDATA[]]>
+						</xf:label>
+					</xf:trigger>
+				</xf:group>
 			</xf:group>
 		</xf:group>
 

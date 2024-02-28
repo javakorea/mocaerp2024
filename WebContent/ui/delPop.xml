@@ -15,7 +15,6 @@
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
 };
 scwin.btn_adminDel_onclick = function(e) {
-    debugger;
     let _pw = ibx_password.getValue();
     if(_pw == "moca123!"){
         var param = {

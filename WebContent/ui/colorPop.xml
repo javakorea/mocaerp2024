@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<w2:MSA />
+		<xf:model>
+			<w2:dataCollection baseNode="map" />
+			<w2:workflowCollection />
+		</xf:model>
+		<w2:layoutInfo />
+		<w2:publicInfo method="" />
+		<script lazy="false" type="text/javascript"><![CDATA[
+scwin.onpageload = function() {
+	
+};
+
+scwin.li_onclick = function(e) {
+    com.win.closePopup({"color":this.getUserData('userData1')})
+};
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group id="" class="sub_contents flex_gvw flex_m">
+		<xf:group tagname="ul" style="" id="" class="ul_color">
+					<xf:group tagname="li" ev:onclick="scwin.li_onclick" style="background-color:#5ab4f3" id="li_01" userData1="#5ab4f3"
+						class="li_color">
+						<w2:span label="회사업무" style="" id=""></w2:span>
+					</xf:group>
+					<xf:group tagname="li" ev:onclick="scwin.li_onclick" style='background-color:#a77de9;' id="li_02" userData1="#a77de9"
+						class="li_color">
+						<w2:span id="" label="운동" style=""></w2:span>
+					</xf:group>
+					<xf:group tagname="li" ev:onclick="scwin.li_onclick" id="li_03" userData1="#ffb225" class="li_color"
+						style="background-color:#ffb225">
+						<w2:span id="" label="세금,정산" style=""></w2:span>
+					</xf:group>
+					<xf:group tagname="li" ev:onclick="scwin.li_onclick" id="li_04" userData1="#e54c3f" class="li_color"
+						style="background-color:#e54c3f">
+						<w2:span id="" label="휴무" style=""></w2:span>
+					</xf:group>
+					<xf:group tagname="li" ev:onclick="scwin.li_onclick" id="li_05" userData1="#42cfb5" class="li_color"
+						style="background-color:#42cfb5">
+						<w2:span id="" label="개인일정" style=""></w2:span>
+					</xf:group>
+					<xf:group tagname="li" ev:onclick="scwin.li_onclick" id="li_06" userData1="#aaa" class="li_color"
+						style="background-color:#aaa;">
+						<w2:span id="" label="기타" style=""></w2:span>
+					</xf:group>
+		</xf:group></xf:group>
+	</body>
+</html>
