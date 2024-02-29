@@ -111,6 +111,7 @@ scwin.sch_cal1_onclick = function(retObj,b,c) {
 };
 /* 일정목록조회 */
 scwin.search = function(){
+
 	let selectedCalObj = $p.getComponentById(scwin.swiper.slides[scwin.swiper.activeIndex].id);
 	let selectedMonth = selectedCalObj.getUserData('month');
 	if(selectedMonth){

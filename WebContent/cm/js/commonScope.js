@@ -3923,7 +3923,6 @@ com.str.lpad = function(str, length, char) {
 		console.warn("[com.str.lpad] 오류 : 채우고자 하는 문자열이 요청 길이보다 큽니다");
 		return str + "";
 	}
-	
 	while (str.length < length) {
 		str = char + str;
 	}
