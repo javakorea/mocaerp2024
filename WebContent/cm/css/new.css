@@ -64,7 +64,7 @@
 .fullcalendar.fc .fc-day-header.fc-fri:after{content: "금"}
 .fullcalendar.fc .fc-day-header.fc-sat:after{content: "토"}
 .fullcalendar.current th{background-color:#1975f0; color:#fff;}
-.fc-unthemed td.fc-today{background-color:rgb(255, 128, 0) !important;border-style: dashed !important;border-width: 5px !important;border-color: darkorange !important;}
+.fc-unthemed .fc-row.fc-week tbody td.fc-today{background-color:rgb(255, 128, 0) !important;box-shadow:0 0 0 3px rgba(0,0,0,0.2) inset;}
 
 
 
