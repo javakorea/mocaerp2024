@@ -11,10 +11,8 @@
 		<loadingMode value="wpack"/>
 		<common name="com" value="true"/>
 		<commonPath>
-			<path src="/cm/js/commonGlobal.js"/>
-			<path src="/cm/js/commonScope.js"/>
-			<path src="/cm/js/main.js"/>
-			<path src="/cm/js/passport.js"/>
+			<path src="/cm/commonGlobal.js"/>
+			<path src="/cm/commonScope.js"/>
 		</commonPath>
 	</wpack>
 	<allValue value="all"/>
@@ -36,7 +34,7 @@
 	<processMsgHeight value="81"/>
 	<processMsgWidth value="295"/>
 	<processMsgType value="wframe"/>
-	<processMsgFrameURL value="/cm/xml/processMsg.xml"/>
+	<processMsgFrameURL value="/ui/processMsg.xml"/>
 	<processMsgBackground backgroundColor="#112233" value="true"/>
 	<byteCheckEncoding value="euc-kr"/>
 	<executeScript value="script"/>
@@ -69,7 +67,7 @@
 		<popupAutoClose value="true"/>
 	</wframe>
 	<clearMemory value="false"/>
-	<stylesheet earlyImportList="/cm/css/base.css,/cm/css/contents.css,/cm/css/new.css" enable="true" import="link" value="stylesheet_ext.css"/>
+	<stylesheet earlyImportList="/cm/base.css,/cm/contents.css,/cm/new.css" enable="true" import="link" value="stylesheet_ext.css"/>
 	<mediaInfo>
 		<media maxWidth="" minWidth="1025" name="desktop"/>
 		<media maxWidth="1024" minWidth="768" name="tablet"/>
@@ -79,12 +77,11 @@
 		<removeDefaultClass value="true"/>
 	</style>
 	<engine>
-		<module src="/cm/js/commonGlobal.js"/>
-		<module src="/cm/js/commonScope.js"/>
+		<module src="/cm/commonGlobal.js"/>
+		<module src="/cm/commonScope.js"/>
 	</engine>
 	<udc>
 		<requires>
-			<require as="udc_fileMultiUpload" src="/cm/udc/fileMultiUpload.xml" type="page"/>
 		</requires>
 	</udc>
 	<ModelUtil>

@@ -36,16 +36,10 @@ export default {
       "commonPath": {
         "path": [
           {
-            "@src": "/cm/js/commonGlobal.js"
+            "@src": "/cm/commonGlobal.js"
           },
           {
-            "@src": "/cm/js/commonScope.js"
-          },
-          {
-            "@src": "/cm/js/main.js"
-          },
-          {
-            "@src": "/cm/js/passport.js"
+            "@src": "/cm/commonScope.js"
           }
         ]
       }
@@ -101,7 +95,7 @@ export default {
       "@value": "wframe"
     },
     "processMsgFrameURL": {
-      "@value": "/cm/xml/processMsg.xml"
+      "@value": "/ui/processMsg.xml"
     },
     "processMsgBackground": {
       "@backgroundColor": "#112233",
@@ -165,7 +159,7 @@ export default {
       "@value": "false"
     },
     "stylesheet": {
-      "@earlyImportList": "/cm/css/base.css,/cm/css/contents.css,/cm/css/new.css",
+      "@earlyImportList": "/cm/base.css,/cm/contents.css,/cm/new.css",
       "@enable": "true",
       "@import": "link",
       "@value": "stylesheet_ext.css"
@@ -197,21 +191,15 @@ export default {
     "engine": {
       "module": [
         {
-          "@src": "/cm/js/commonGlobal.js"
+          "@src": "/cm/commonGlobal.js"
         },
         {
-          "@src": "/cm/js/commonScope.js"
+          "@src": "/cm/commonScope.js"
         }
       ]
     },
     "udc": {
-      "requires": {
-        "require": {
-          "@as": "udc_fileMultiUpload",
-          "@src": "/cm/udc/fileMultiUpload.xml",
-          "@type": "page"
-        }
-      }
+      "requires": {}
     },
     "ModelUtil": {
       "copyChildrenNodes": {
