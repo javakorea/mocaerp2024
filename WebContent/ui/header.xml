@@ -238,7 +238,7 @@ scwin.btn_logo_onclick = function () {
 		<xf:group class="option_box" id="" style="">
 			<xf:group class="" id="" style="" tagname="ul">
 				<xf:group class="on mypage" id="" style="" tagname="li">
-					<xf:image src="/cm/images/contents/ico_mypage.png" style="" id="img_profile" class="img_profile"></xf:image>
+					<xf:image src="/cm/images/ico_mypage.png" style="" id="img_profile" class="img_profile"></xf:image>
 					<w2:anchor class="btn_mypage" disabled="" ev:onclick="" id="txt_empNm" outerDiv="false" style="" target="" title="aa">
 						<xf:label><![CDATA[]]>
 						</xf:label>

@@ -46,10 +46,10 @@ scwin.onpageload = function() {
 };]]></script>
     </head>
     <body ev:onpageload="scwin.onpageload">
-    	<xf:group class="login_wrap type2" id="" style="background: url(/cm/images/base/bg_w.png) no-repeat #2D4874;">
+    	<xf:group class="login_wrap type2" id="" style="background: url(/cm/images/bg_w.png) no-repeat #2D4874;">
     		<xf:group class="login_container" id="">
     			<xf:group id="" tagname="h1" style="text-align:center;">
-    				<xf:image alt="모카ERP2024" id="" src="/cm/images/erp/ci_merp_w.png" style=""></xf:image>
+    				<xf:image alt="모카ERP2024" id="" src="/cm/images/ci_merp_w.png" style=""></xf:image>
     			</xf:group>
     			<xf:group class="login_contents" id="" style="">
     				<xf:group id="" tagname="ul" style="width:220px;margin:0 auto;">
