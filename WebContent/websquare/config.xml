@@ -67,7 +67,7 @@
 		<popupAutoClose value="true"/>
 	</wframe>
 	<clearMemory value="false"/>
-	<stylesheet earlyImportList="/cm/base.css,/cm/contents.css,/cm/new.css" enable="true" import="link" value="stylesheet_ext.css"/>
+	<stylesheet earlyImportList="/cm/base.css" enable="true" import="link" value="stylesheet_ext.css"/>
 	<mediaInfo>
 		<media maxWidth="" minWidth="1025" name="desktop"/>
 		<media maxWidth="1024" minWidth="768" name="tablet"/>
