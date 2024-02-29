@@ -1,4 +1,4 @@
-package com.teammoca.moca3;
+package M;
 
 
 import javax.sql.DataSource;
