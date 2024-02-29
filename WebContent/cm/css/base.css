@@ -432,7 +432,7 @@ input[type="file"]{cursor:pointer;}
 .bar_btndiv:after{content:'';display:inline-block;position:absolute;top:50%;left:0;margin-top:-10px;width:1px;height:15px;background: #ced4da;}
 .btn_cm.pt {background:#E0FCF9}
 .btn_cm.skyblue {background:#348FE2; border:1px solid #348FE2; color:#fff}
-.btn_cm.red {background:#f25b3b; border:1px solid #f25b3b; color:#fff; opacity:0.8]}
+.btn_cm.red {background:#f25b3b; border:1px solid #f25b3b; color:#fff; opacity:0.8}
 /* 셔틀 버튼 */
 .btn_cm.btn_left,.btn_cm.btn_right,.btn_cm.btn_up,.btn_cm.btn_down{width:26px;height:26px;text-indent:-9999px; border: 0;}
 .btn_cm.btn_left{background:url(../..//cm/images/base/btn_left.png) no-repeat 50% 50%; background-color: #ebf3f5;}

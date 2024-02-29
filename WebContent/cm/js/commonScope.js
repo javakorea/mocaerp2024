@@ -3914,6 +3914,7 @@ com.str.lpad("24", 4, "0"); // "0024"
 com.str.lpad("11321", 8, "A"); // "AAA11321"
  */
 com.str.lpad = function(str, length, char) {
+	str = str.replace(/[^\d]/g,'');
 	if (typeof str === "number") {
 		str = str.toString();
 	}

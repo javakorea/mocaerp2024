@@ -3657,14 +3657,8 @@ var Swiper = function() {
                 h.minX = Math.min(m.slideWidth / 2 - d / 2, 0), h.maxX = -h.minX, h.minY = Math.min(m.slideHeight / 2 - c / 2, 0), h.maxY = -h.minY, h.currentX = Math.max(Math.min(h.currentX, h.maxX), h.minX), h.currentY = Math.max(Math.min(h.currentY, h.maxY), h.minY), m.imageWrapEl.style.transitionDuration = `${o}ms`, m.imageWrapEl.style.transform = `translate3d(${h.currentX}px, ${h.currentY}px,0)`
             }();
         })), a("doubleTap", ((e, s) => {
-        	if(com.util.isMobile($p)){//더블클릭은 모바일만
-        		gcm.ext.swiper.openPopup(s.target,t);
-        	}else{
-        		gcm.ext.swiper.openPopup(s.target,t);
-        	}
             !t.animating && t.params.zoom.enabled && t.zoom.enabled && t.params.zoom.toggle && I(s)
         })), a("transitionEnd", (() => {
-        	
             t.zoom.enabled && t.params.zoom.enabled && C()
         })), a("slideChange", (() => {
             t.zoom.enabled && t.params.zoom.enabled && t.params.cssMode && C()

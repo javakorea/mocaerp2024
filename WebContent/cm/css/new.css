@@ -65,7 +65,8 @@
 .fullcalendar.fc .fc-day-header.fc-sat:after{content: "토"}
 .fullcalendar.current th{background-color:#1975f0; color:#fff;}
 .fc-unthemed td.fc-today{background-color:#000 !important;}
-.fullcalendar.current .fc-more-cell.sch_today{color:#fff;}
-fc-more
+.sch_today{background-color:#FFF !important;}
+.sch_today_bg{background-color:#FFF !important;}
+
 .w2calendar_picker_content table td div{width:calc(33% - 3px)}
 .w2calendar.w2calendar_classYearMonth_dynamic.w2inputCalendar_calendar{height:232px;}

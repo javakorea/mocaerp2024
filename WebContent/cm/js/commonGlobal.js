@@ -2363,14 +2363,29 @@ gcm.getCurrentTimeMiles = (date)=>{
 // =============================================================================
 
 gcm.ext = {};
-
+gcm.ext.scriptImport = (_jsPath,_onLoadFuction)=>{
+	var _URL = _jsPath+"?pdate="+gcm.getCurrentTimeMiles(new Date()).full;
+    var s  = document.createElement('script');
+	s.setAttribute('src',_URL);
+	s.onload = _onLoadFuction;
+	document.body.insertBefore(s,document.body.firstChild);
+};
+// '2024-02-29' or '20240229' 두가지모두가능함
+gcm.ext.dayCalcStrToObj = (data_date,_plusMinusNum)=>{
+    let _yyyymmdd_next = WebSquare.date.dateTimeAdd( data_date, _plusMinusNum, "day" );
+    let end_y = _yyyymmdd_next.substring(0,4);
+    let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
+    let end_d = _yyyymmdd_next.substring(6,8);
+    return new Date(end_y, end_m, end_d, '9', '0', '0', '0');
+};
 gcm.ext.swiper = {};
-gcm.ext.swiper.openPopup = (_t,t)=>{
+gcm.ext.swiper.scriptImport = (_onLoadFuction)=>{
+	gcm.ext.scriptImport('/cm/js/swiper-bundle.js',_onLoadFuction);
+};
+gcm.ext.swiper.capturingEvt = (_t,t)=>{
     let data_date = _t.getAttribute('data-date');
-    //alert('1:'+data_date);
     if(!data_date){
     	data_date = _t.parentNode.getAttribute('data-date');
-    	//alert('2:'+data_date);
     }
     if(!data_date){
     	let idx = jQuery(_t).index();
@@ -2385,32 +2400,37 @@ gcm.ext.swiper.openPopup = (_t,t)=>{
     		data_date = y+'-'+m+'-'+d;
     	}
     }
-    
-    if(!data_date){
-    	alert('error! data_date없음');
-    }else{
-    	console.log('data_date',data_date);
-    }
-    let _yyyymmdd_next = WebSquare.date.dateTimeAdd( data_date,  1, "day" );
-    let ymdArr = data_date.split('-');
-    let m = Number(ymdArr[1])-1;
-    let d_start = Number(ymdArr[2])
-    let d_end = Number(ymdArr[2])+1;
-    let d_start_dt = new Date(ymdArr[0], m, d_start, '9', '0', '0', '0');
-    
-    let end_y = _yyyymmdd_next.substring(0,4);
-    let end_m = Number(_yyyymmdd_next.substring(4,6))-1;
-    let end_d = _yyyymmdd_next.substring(6,8);
-    let d_end_dt = new Date(end_y, end_m, end_d, '9', '0', '0', '0');
     let tt = '';
     if(jQuery(_t).hasClass('fc-title')){
     	tt = _t.innerText;
     }
-    
-    //2024-02-06
     t.onClickChild({
-    	start:d_start_dt,
-    	end:d_end_dt,
+    	start:gcm.ext.dayCalcStrToObj(data_date,0),
+    	end  :gcm.ext.dayCalcStrToObj(data_date,1),
     	title: tt
     },null,true);
 };
+gcm.ext.fullCalendar = {};
+gcm.ext.fullCalendar.setTodayStyle = (_fullCalObj)=>{
+	let _currentTd = $(_fullCalObj.render).find(`td.fc-day[data-date=${WebSquare.date.getCurrentServerDate('yyyy-MM-dd')}]`);
+	let basis = _currentTd.closest('.fc-row').find('.fc-content-skeleton');
+	let tdArr = basis.find('tr').find('td');
+	let _todaySch_header = tdArr.find('.fc-day-number');
+	let _todaySch_body = tdArr.find('.fc-more-cell .fc-more');//인덱스와 일치되는 td일때
+	let _todaySch_body2 = basis.find('tr').find('.fc-more-cell .fc-more');//인덱스와 상관없는 td일때 (rowspan되어...)
+	_todaySch_header.addClass('sch_today');	
+	_todaySch_body.addClass('sch_today');	
+	_todaySch_body2.addClass('sch_today_bg');
+};
+gcm.ext.fullCalendar.setMonth = (_schObj,_month)=>{
+	_schObj.setUserData('month',_month);
+	$("#" + _schObj.id).fullCalendar("gotoDate", _month+'01');
+};
+gcm.ext.fullCalendar.executeMonthBySwiper = (SCH_CURRENTMONTH,_swiper,_search)=>{
+	let mon = SCH_CURRENTMONTH.getValue();
+	let selectedCalObj = $p.getComponentById(_swiper.slides[_swiper.activeIndex].id);
+	gcm.ext.fullCalendar.setMonth(selectedCalObj,mon);
+	_search();	
+};
+
+
