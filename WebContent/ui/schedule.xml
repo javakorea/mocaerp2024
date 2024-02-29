@@ -241,12 +241,15 @@ scwin.btn_next_onclick = function(e) {
 
 scwin.SCH_CURRENTMONTH_onchange = function(e) {
 	let _currentM = WebSquare.date.getCurrentServerDate('yyyyMM');
+	let calObj = gcm.ext.fullCalendar.getCalObjBySwiper(scwin.swiper);
 	if(SCH_CURRENTMONTH.getValue() ==  _currentM){
 		SCH_CURRENTMONTH.addClass("current");
-		sch_cal.addClass("current");
+		calObj.addClass("current");
 	}else{
 		SCH_CURRENTMONTH.removeClass("current");
+		sch_cal_prev.removeClass("current");
 		sch_cal.removeClass("current");
+		sch_cal_next.removeClass("current");
 	}
 };]]></script>
 		<style>

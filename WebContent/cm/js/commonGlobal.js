@@ -2432,5 +2432,4 @@ gcm.ext.fullCalendar.executeMonthBySwiper = (SCH_CURRENTMONTH,_swiper,_search)=>
 	gcm.ext.fullCalendar.setMonth(selectedCalObj,mon);
 	_search();	
 };
-
-
+gcm.ext.fullCalendar.getCalObjBySwiper = (_swiper)=>$p.getComponentById(_swiper.slides[_swiper.activeIndex].id);
