@@ -28,14 +28,14 @@
 				</w2:dataMap>
 				<w2:dataList baseNode="list" repeatNode="map" id="dlt_boardFile" saveRemovedData="true">
 					<w2:columnInfo>
-						<w2:column id="BOARDFILE_IDX" name="BOARDFILE_IDX" dataType="text"></w2:column>
-						<w2:column id="BOARD_IDX" name="BOARD_IDX" dataType="text"></w2:column>
-						<w2:column id="BOARDFILE_NAME" name="BOARDFILE_NAME" dataType="text"></w2:column>
-						<w2:column id="BOARDFILE_NAMESERVER" name="BOARDFILE_NAMESERVER" dataType="text"></w2:column>
-						<w2:column id="BOARDFILE_PATH" name="BOARDFILE_PATH" dataType="text"></w2:column>
-						<w2:column id="BOARDFILE_SIZE" name="BOARDFILE_SIZE" dataType="text"></w2:column>
-						<w2:column id="BOARDFILE_ID" name="BOARDFILE_ID" dataType="text"></w2:column>
-						<w2:column id="THUMBNAIL" name="THUMBNAIL" dataType="text"></w2:column>
+						<w2:column id="BOARDFILE_IDX" 			name="파일아이디" 			dataType="text"></w2:column>
+						<w2:column id="BOARD_IDX" 				name="컨텐츠아이디" 		dataType="text"></w2:column>
+						<w2:column id="BOARDFILE_NAME" 			name="원본파일명" 			dataType="text"></w2:column>
+						<w2:column id="BOARDFILE_NAMESERVER" 	name="구글파일아이디" 		dataType="text"></w2:column>
+						<w2:column id="BOARDFILE_PATH" 			name="구글폴더아이디" 		dataType="text"></w2:column>
+						<w2:column id="BOARDFILE_SIZE" 			name="파일용량" 			dataType="text"></w2:column>
+						<w2:column id="BOARDFILE_ID" 			name="구글파일아이디" 		dataType="text"></w2:column>
+						<w2:column id="THUMBNAIL" 				name="가상썸네일이미지태그" 	dataType="text"></w2:column>
 					</w2:columnInfo>
 				</w2:dataList>
 				<w2:dataMap baseNode="map" id="dma_map">
@@ -247,9 +247,42 @@ scwin.btn_fileUpload_onclick = function(e) {
 scwin.filePop_callback = function(resultArr){
 	debugger;
 	//dlt_boardFile"
-	
-	//callback
-}]]></script>
+	/*
+		fileLength: "15"
+		fileSize: "15"
+		id: "1BgqoKb4X5IrCChYDoR7AbXJiSfu6SNDR"
+		originalFilename: "20230405_173032 (8).jpg"
+		physicalFilename: "1BgqoKb4X5IrCChYDoR7AbXJiSfu6SNDR"
+		physicalFilepath: "17zolc486M-P5IdrioullpMSxdybixHYc"
+		subDir: "board"
+		uploadDir: "drive#file"
+	*/
+	/*
+		<w2:column id="BOARDFILE_IDX" 			name="파일아이디" 			dataType="text"></w2:column>
+		<w2:column id="BOARD_IDX" 				name="컨텐츠아이디" 		dataType="text"></w2:column>
+		<w2:column id="BOARDFILE_NAME" 			name="원본파일명" 			dataType="text"></w2:column>
+		<w2:column id="BOARDFILE_NAMESERVER" 	name="구글파일아이디" 		dataType="text"></w2:column>
+		<w2:column id="BOARDFILE_PATH" 			name="구글폴더아이디" 		dataType="text"></w2:column>
+		<w2:column id="BOARDFILE_SIZE" 			name="파일용량" 			dataType="text"></w2:column>
+		<w2:column id="BOARDFILE_ID" 			name="구글파일아이디" 		dataType="text"></w2:column>
+		<w2:column id="THUMBNAIL" 				name="가상썸네일이미지태그" 	dataType="text"></w2:column>
+	*/
+	if(resultArr){
+		let arr = [];
+		for(let i=0; i < resultArr.length; i++){
+			let aFile = resultArr[i];
+			let reFile = {};
+			reFile.BOARDFILE_NAME = aFile.originalFilename;
+			reFile.BOARDFILE_NAMESERVER = aFile.physicalFilename;
+			reFile.BOARDFILE_ID = aFile.physicalFilename;
+			reFile.BOARDFILE_PATH = aFile.physicalFilepath;
+			reFile.BOARDFILE_SIZE = aFile.fileSize;
+			arr.push(reFile);
+			debugger;
+		}
+		dlt_boardFile.insertJSON(dlt_boardFile.getRowCount(), arr);
+	}
+};]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw  flex_m" style="padding-bottom:0">

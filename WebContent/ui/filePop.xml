@@ -22,6 +22,7 @@
     grp_dropArea.render.addEventListener('dragover',function(e){
        scwin.fn_upload_filedropover(e);
     });
+    
 };
 scwin.selectCallback = async (_args)=>{
     let arr = [];
@@ -38,8 +39,9 @@ scwin.selectCallback = async (_args)=>{
         }
     }
     setTimeout(function(){
+    	debugger;
     	handleAuthClickForUpload(scwin.googleUpload,arr);
-    },1000);
+    },2000);
 };
 scwin.fn_upload_filedrop = async function(e){
     e.preventDefault();
@@ -141,6 +143,7 @@ scwin.circlePromgressinit = function()
 
 
 scwin.googleUpload = async function(arr){
+	debugger;
     let COMP_UPLD = scwin;
     var arr_leng = arr.length;
     let j = 0;
@@ -155,6 +158,7 @@ scwin.googleUpload = async function(arr){
             });
             p2 = p2.then(function(file){
                 return new Promise(function(resolve, reject){
+                	debugger;
                     var metadata = {'name': file.name,'mimeType': file.type,"parents": ["17zolc486M-P5IdrioullpMSxdybixHYc"]};
                     var accessToken = gapi.auth.getToken().access_token;
                     var form = new FormData();
@@ -167,6 +171,7 @@ scwin.googleUpload = async function(arr){
                     xhr.onload = () => {
                         if(xhr.response.error){alert(xhr.response.error.message);reject();return;}
                         var result = {};
+                        debugger;
                         result.id = xhr.response.id;
                         result.fileSize = xhr.response.size;
                         result.fileLength = xhr.response.size;
