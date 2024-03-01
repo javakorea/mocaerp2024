@@ -1,0 +1,259 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<w2:MSA />
+		<xf:model>
+			<w2:dataCollection baseNode="map">
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+		</xf:model>
+		<w2:layoutInfo>
+		</w2:layoutInfo>
+		<w2:publicInfo method="" />
+		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
+    gcm.ext.scriptImport("https://apis.google.com/js/api.js",gapiLoaded);
+    gcm.ext.scriptImport("https://accounts.google.com/gsi/client",gisLoaded);
+    grp_dropArea.render.setAttribute('droppable',true);
+    grp_dropArea.render.addEventListener('drop',function(e){
+		scwin.fn_upload_filedrop(e);
+    });
+    grp_dropArea.render.addEventListener('dragover',function(e){
+       scwin.fn_upload_filedropover(e);
+    });
+};
+scwin.selectCallback = async (_args)=>{
+    let arr = [];
+    if(_args){
+        let _id = event.target.id;
+        for(let i=0; i < _args.length; i++){
+            let fobj = _args[i];
+            console.log(fobj.name,fobj.size);
+            if(_id.endsWith('mfileLow_file_input')){
+                arr.push(await gcm.ext.moca.resizeFile(fobj));
+            }else{
+                arr.push(fobj);
+            }
+        }
+    }
+    setTimeout(function(){
+    	handleAuthClickForUpload(scwin.googleUpload,arr);
+    },1000);
+};
+scwin.fn_upload_filedrop = async function(e){
+    e.preventDefault();
+    await scwin.selectCallback(e.dataTransfer.files);
+};
+scwin.fn_upload_filedropover = function(e){
+    e.preventDefault();
+};	
+scwin.progressBar = function pingpoliCircleProgressBar( ctx , options ){
+    this.ctx = ctx;
+    if ( options ) this.options = options;
+    else this.options = {};
+    if ( !this.options.hasOwnProperty("enableBackground") ) this.options.enableBackground = true;
+    if ( !this.options.hasOwnProperty("backgroundColor") ) this.options.backgroundColor = "#555555";
+    if ( !this.options.hasOwnProperty("color") ) this.options.color = "#ffa604";
+    if ( !this.options.hasOwnProperty("radius") ) this.options.radius = 50;
+    if ( !this.options.hasOwnProperty("backgroundLineWidth") ) this.options.backgroundLineWidth = 10;
+    if ( !this.options.hasOwnProperty("lineWidth") ) this.options.lineWidth = 8;
+    if ( !this.options.hasOwnProperty("xPos") ) this.options.xPos = 100;
+    if ( !this.options.hasOwnProperty("yPos") ) this.options.yPos = 100;
+    if ( !this.options.hasOwnProperty("enableRoundLineCaps") ) this.options.enableRoundLineCaps = false;
+    this.percent = 0.0;
+    this.targetPercent = 0.0;
+    this.deltaPercent = 0.0;
+    this.stepSize = 0.0;
+    this.b_animating = false;
+    this.onchange = null;
+    this.animateTo = function( percent , seconds )
+    {
+        if ( !this.b_animating )
+        {
+            if ( this.targetPercent != percent )
+            {
+                this.targetPercent = percent;
+                this.deltaPercent = (this.targetPercent-this.percent)/seconds;
+                this.stepSize = this.deltaPercent/50;
+                this.b_animating = true;
+                this.step();
+            }
+        }
+    };
+    this.step = function()
+    {
+        this.percent += this.stepSize;
+    
+        if ( Math.abs( this.targetPercent - this.percent ) < Math.abs( this.stepSize ) )
+        {
+            this.percent = this.targetPercent;
+            this.b_animating = false;
+        }
+        else 
+        {
+            setTimeout( () => {
+                this.step();
+            } , 20 );
+        }
+    
+        if ( this.onchange !== null ) this.onchange();
+    };
+    this.setPercent = function( percent )
+    {
+        this.percent = percent;
+        if ( this.percent < 0 ) this.percent = 0;
+        if ( this.percent > 1 ) this.percent = 1;
+        if ( this.onchange !== null ) this.onchange();
+    };
+    this.draw = function()
+    {
+        if ( this.options.enableBackground )
+        {
+            this.ctx.beginPath();
+            this.ctx.arc( this.options.xPos , this.options.yPos , this.options.radius , Math.PI*3/2 , Math.PI*3/2+Math.PI*2 );
+            this.ctx.strokeStyle = this.options.backgroundColor;
+            this.ctx.lineWidth = this.options.backgroundLineWidth;
+            this.ctx.stroke();
+        }
+        if( this.options.enableRoundLineCaps )
+        {
+            this.ctx.lineCap = 'round';
+        }
+        this.ctx.beginPath();
+        this.ctx.arc( this.options.xPos , this.options.yPos , this.options.radius , Math.PI*3/2 , Math.PI*3/2+this.percent*Math.PI*2 );
+        this.ctx.strokeStyle = this.options.color;
+        this.ctx.lineWidth = this.options.lineWidth;
+        this.ctx.stroke();
+    };
+};
+scwin.circlePromgressinit = function()
+{
+    var canvas = document.getElementById("canvas");
+    scwin.ctx = canvas.getContext( "2d" );
+    scwin.circleProgressBar = new scwin.progressBar( scwin.ctx , {xPos:canvas.width/2,yPos:canvas.height/2,radius:(canvas.width/2-10),backgroundLineWidth:20,lineWidth:16} );
+    scwin.circleProgressBar.onchange = function(){
+    	scwin.ctx.clearRect( 0 , 0 , canvas.width , canvas.height );
+        scwin.circleProgressBar.draw();
+    };
+    scwin.circleProgressBar.draw();
+};
+
+
+scwin.googleUpload = async function(arr){
+    let COMP_UPLD = scwin;
+    var arr_leng = arr.length;
+    let j = 0;
+    var promise = Promise.resolve();
+    for(var i=0; i < arr_leng; i++){
+        promise = promise.then(function(ret){
+            var p2 = Promise.resolve();
+            p2 = p2.then(async function(ret){
+                COMP_UPLD.circlePromgressinit();
+                let file = arr[j++];
+                return file;
+            });
+            p2 = p2.then(function(file){
+                return new Promise(function(resolve, reject){
+                    var metadata = {'name': file.name,'mimeType': file.type,"parents": ["17zolc486M-P5IdrioullpMSxdybixHYc"]};
+                    var accessToken = gapi.auth.getToken().access_token;
+                    var form = new FormData();
+                    form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+                    form.append('file', file);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('post', 'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=*');
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+                    xhr.responseType = 'json';
+                    xhr.onload = () => {
+                        if(xhr.response.error){alert(xhr.response.error.message);reject();return;}
+                        var result = {};
+                        result.id = xhr.response.id;
+                        result.fileSize = xhr.response.size;
+                        result.fileLength = xhr.response.size;
+                        result.originalFilename = xhr.response.name;
+                        result.physicalFilename = xhr.response.id;
+                        if(xhr.response.parents){
+                            result.physicalFilepath= xhr.response.parents[0];
+                        }else{
+                            result.physicalFilepath= "memta:"+metadata.parents[0];
+                        } 
+                        result.subDir= 'board';
+                        result.uploadDir= xhr.response.kind;
+                        if(COMP_UPLD.resultArr == null){
+                            COMP_UPLD.resultArr = [];
+                        }
+                        COMP_UPLD.resultArr.push(result);
+                        resolve();
+                    };
+                    xhr.upload.onprogress = function(e){
+                        $('#canvas').show();
+                        white_dim_txt.show('');
+                        var per = e.loaded * 100 / e.total;
+                        COMP_UPLD.circleProgressBar.animateTo( per/100 , 0.5 );
+                        white_dim_txt.setValue(j+"/"+arr_leng+" "+parseInt(per)+"%");
+                    };
+                    xhr.send(form);
+                });
+                
+            });
+            return p2;
+        });
+    }
+    promise = promise.then(function(ret){
+        com.win.closePopup(COMP_UPLD.resultArr);
+    });
+    return promise;
+};		]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="sub_contents flex_gvw flex_m" id="" style="">
+			<xf:group class="pgtbox" id="" style="display:none;">
+				<xf:trigger class="btn_fav" id="" style="" type="button">
+					<xf:label />
+				</xf:trigger>
+				<w2:textbox class="pgt_tit" id="pgt_tit" label="기술데이터" style="" tagname="" />
+				<xf:group class="breadcrumb" id="" style="">
+					<xf:group id="" style="" tagname="ul">
+						<xf:group class="home" id="" style="" tagname="li">
+							<w2:anchor id="" outerDiv="false" style="">
+								<xf:label><![CDATA[Home]]></xf:label>
+							</w2:anchor>
+						</xf:group>
+						<xf:group id="" style="" tagname="li">
+							<w2:anchor id="txt_pMenu" outerDiv="false" style="">
+								<xf:label><![CDATA[]]>
+								</xf:label>
+							</w2:anchor>
+						</xf:group>
+						<xf:group id="" style="" tagname="li">
+							<w2:span id="txt_menu" label="" style="" />
+						</xf:group>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="dfbox" id="" style="">
+				<xf:group id="" style="" class="grp_fileupload">
+					<w2:textbox class="btn_cm" id="btn_mfile" label="파일추가" style="width:calc(100% - 2.5px)"></w2:textbox>
+					<w2:multiupload mode="html5_transparent" style="" id="mfile" uploadButton="" selectCallback="scwin.selectCallback"></w2:multiupload>
+				</xf:group>
+				<xf:group id="" style="" class="grp_fileupload">
+					<w2:textbox class="btn_cm red" id="btn_mfileLow" label="저용량변환추가" style="width:100%; margin:0;"></w2:textbox>
+					<w2:multiupload mode="html5_transparent" style="width:100%;height:100%;overflow:hidden;" id="mfileLow" uploadButton=""
+						selectCallback="scwin.selectCallback">
+					</w2:multiupload>
+				</xf:group>
+			</xf:group>
+
+			<xf:group id="grp_dropArea" style="height:100%;" class="grp_fileArea" >
+			<!-- droppable = "true" ondrop="scwin.fn_upload_filedrop(event);" ondragover="scwin.fn_upload_filedropover(event);" -->
+				<w2:textbox style="margin-top:10%" id="" label="파일을 이곳에 끌어다놓으세요." class="txt_fileArea tac"></w2:textbox>
+				<xf:group id="" style="" class="fileProgress">
+					<w2:span label="" style="display:none" id="white_dim_txt" class="white_dim_txt"></w2:span>
+					<canvas id="canvas" class="file_progressbar" width="100%" height="100px"></canvas>
+				</xf:group>
+			</xf:group>
+		</xf:group>
+
+		
+	</body>
+</html>

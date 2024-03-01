@@ -45,7 +45,6 @@
         
         
         
-        
         /* 구글 드라이버 start */
 		const CLIENT_ID = '191058282154-kmn71d0j1fqnstu9joe2od2rvbhm7hot.apps.googleusercontent.com';
 		const API_KEY = 'AIzaSyBj3llqgZdqRN9zKVvMr1kyxfnslmqxEJY';
@@ -86,11 +85,12 @@
       	}
 
       	function maybeEnableButtons() {
-		  /*
+		  
 	        if (gapiInited && gisInited) {
-	          document.getElementById('authorize_button').style.visibility = 'visible';
+	          //document.getElementById('authorize_button').style.visibility = 'visible';
+	          //handleAuthClickForUpload();
 	        }
-          */
+          
       	}
       	function handleSignoutClick() {
 	        const token = gapi.client.getToken();
@@ -108,21 +108,7 @@
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-		var aaa = function(){
-			console.log('ok aaa');
-		
-		}
+      	
 		function handleAuthClick(_id) {
 			console.log('gapi.client.getToken',gapi.client.getToken());
 			tokenClient.callback = (resp) => {
@@ -130,10 +116,25 @@
 			};
 			if (gapi.client.getToken() === null) {
 				tokenClient.requestAccessToken({prompt: 'consent'});
+				//Cross-Origin-Opener-Policy policy would block the window.closed call.
 			} else {
 				tokenClient.requestAccessToken({prompt: ''});
 			}
 		};
+		function handleAuthClickForUpload(_callback,_arr) {
+			console.log('_uploadFuction gapi.client.getToken',gapi.client.getToken());
+			tokenClient.callback = (resp) => {
+				_callback(_arr);
+			};
+			if (gapi.client.getToken() === null) {
+				tokenClient.requestAccessToken({prompt: 'consent'});
+			} else {
+				tokenClient.requestAccessToken({prompt: ''});
+			}
+		};
+      
+      
+      
       
 		var googleDownload = async function(_id){
 	      try {
@@ -176,7 +177,7 @@
 	      	console.log('googleDownload Error', e);
 	      }
 		};
-		
+
 		
 		var fileDownloadAjax = function(_id) {
     ['Ajax버전의 파일다운로드 함수'];
@@ -222,6 +223,18 @@
 
 };
       /* 구글 드라이버 end */
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      /*CK editor 컨텐츠속에 이미지로딩중이미지가 먼저표시되고 로딩이 끝나는시점에 호출됨 */var aaa = function(){}
+      
+      
 	</script>
 <body>
 		<!--구글로그인 start-->

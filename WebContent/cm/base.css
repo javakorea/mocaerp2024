@@ -1618,12 +1618,19 @@ input[type="file"]{cursor:pointer;}
 .fullcalendar.current th{background-color:#1975f0; color:#fff;}
 .fc-unthemed .fc-row.fc-week tbody td.fc-today{background-color:rgb(255, 128, 0) !important;box-shadow:0 0 0 3px rgba(0,0,0,0.2) inset;}
 
-
-
-    
-    
 /*.sch_today{background-color:#FFF !important;}*/
 /*.sch_today_bg{background-color:#FFF !important;}*/
 
 .w2calendar_picker_content table td div{width:calc(33% - 3px)}
 .w2calendar.w2calendar_classYearMonth_dynamic.w2inputCalendar_calendar{height:232px;}
+
+/*file upload*/
+.grp_fileArea{background:#fff; border:1px solid #ccc; position:relative;}
+.grp_fileupload{width:50%;display:inline-block;position:relative;}
+.grp_fileupload .w2multiupload_uploader{width:100%;height:100%;}
+.grp_fileupload .w2multiupload_uploader input[type="file"]{position:absolute; top:0;}
+.ico_filePlus{opacity:0.6;display: block; width: 60px; height: 60px; background: url(images/ico_fileUpload.svg)no-repeat; margin: 30px auto;}
+.txt_fileArea{font-weight:bold}
+.fileProgress{position:relative;width: 100px;  height: 100px; margin: 0 auto; top: 5%;}
+.file_progressbar{touch-action: none;display:none;position: absolute;margin: 0 auto;left: calc(50% - 50px);}
+.white_dim_txt{display: block; width:100px; text-align: center; position: absolute; z-index: 555; color: #000; top: calc(50% - 10px); font-weight: bold;}

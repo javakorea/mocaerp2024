@@ -72,21 +72,6 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
- 	var googleLoginURL = "https://apis.google.com/js/api.js";
-   	var googleLoginScript  = document.createElement('script');
-	googleLoginScript.setAttribute('src',googleLoginURL);
-	googleLoginScript.onload = function(e){
-      gapiLoaded();
-	}
-	document.body.insertBefore(googleLoginScript,document.body.firstChild);
-
-	var googleLoginURL2 = "https://accounts.google.com/gsi/client";
-   	var googleLoginScript2  = document.createElement('script');
-	googleLoginScript2.setAttribute('src',googleLoginURL2);
-	googleLoginScript2.onload = function(e){
-      gisLoaded();
-	}
-	document.body.insertBefore(googleLoginScript2,document.body.firstChild);
 };
 
 /**
@@ -216,9 +201,8 @@ scwin.sbm_updateBoardInfo_submitdone = function(e) {
 };
 
 scwin.grd_program_oncelldblclick = async function(row,col,colId) {
-
 	let _id = dlt_boardFile.getCellData(row,"BOARDFILE_NAMESERVER");
-	handleAuthClick(_id);
+	googleDownload2(_id);
 };
 
 scwin.edi_1_onload = function() {
@@ -246,6 +230,25 @@ scwin.edi_1_onload = function() {
 
 scwin.thumbnail = (_id)=>{
 	return "<img src='https://drive.google.com/thumbnail?sz=s24&id="+_id+ "'/>";
+}
+
+scwin.btn_fileUpload_onclick = function(e) {
+	var data = {callbackFn: "scwin.filePop_callback" };
+	var options = {
+		id: "filePop",
+		popupName: "파일업로드",
+		modal: true,
+		useMaximize : false,
+		width: 300, height: 282
+	};
+	com.win.openPopup("/ui/filePop.xml", options, data);
+};
+
+scwin.filePop_callback = function(resultArr){
+	debugger;
+	//dlt_boardFile"
+	
+	//callback
 }]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
@@ -315,7 +318,7 @@ scwin.thumbnail = (_id)=>{
 				<w2:textbox class="" id="" label="첨부파일" style="" tagname="h3"></w2:textbox>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
-					<xf:trigger class="btn_cm" id="btn_fileUpload" style="" type="button">
+					<xf:trigger class="btn_cm" id="btn_fileUpload" style="" type="button" ev:onclick="scwin.btn_fileUpload_onclick">
 						<xf:label><![CDATA[파일찾기]]></xf:label>
 					</xf:trigger>
 				</xf:group>
