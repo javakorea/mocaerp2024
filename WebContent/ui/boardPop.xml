@@ -96,7 +96,7 @@ scwin.fn_searchFile = function () {
 	com.sbm.execute(sbm_boardFileList);
 	//callback
 	scwin.sbm_boardFileList_submitdone = function(e) {
-		txt_cnt.setValue(dlt_boardFile.getRowCount()+"건");
+		txt_cnt.setValue(dlt_FILE.getRowCount()+"건");
 	};
 };
 
@@ -205,7 +205,8 @@ scwin.sbm_updateBoardInfo_submitdone = function(e) {
 
 scwin.grd_program_oncelldblclick = async function(row,col,colId) {
 	if(colId != 'FILE_DESC'){
-		let _id = dlt_boardFile.getCellData(row,"BOARDFILE_NAMESERVER");
+		debugger;
+		let _id = dlt_FILE.getCellData(row,"FILE_ID");
 		googleDownload2(_id);
 	}
 };
@@ -235,7 +236,6 @@ scwin.edi_1_onload = function() {
 
 scwin.thumbnail = (_id, formattedData, rowIndex, colIndex)=>{
 	let _fileNm = grd_program.getCellData(rowIndex,'FILE_NAME');
-	debugger;
 	let _ext = gcm.ext.moca.getFileExtension(_fileNm);
 	let _icoUrl = gcm.ext.moca.getExtIconUri(_ext);
 	let _img = '';
@@ -260,7 +260,6 @@ scwin.btn_fileUpload_onclick = function(e) {
 };
 
 scwin.filePop_callback = function(resultArr){
-	//dlt_boardFile"
 	/*
 		fileLength: "15"
 		fileSize: "15"
@@ -270,16 +269,6 @@ scwin.filePop_callback = function(resultArr){
 		physicalFilepath: "17zolc486M-P5IdrioullpMSxdybixHYc"
 		subDir: "board"
 		uploadDir: "drive#file"
-	*/
-	/*
-		<w2:column id="BOARDFILE_IDX" 			name="파일아이디" 			dataType="text"></w2:column>
-		<w2:column id="BOARD_IDX" 				name="컨텐츠아이디" 		dataType="text"></w2:column>
-		<w2:column id="BOARDFILE_NAME" 			name="원본파일명" 			dataType="text"></w2:column>
-		<w2:column id="BOARDFILE_NAMESERVER" 	name="구글파일아이디" 		dataType="text"></w2:column>
-		<w2:column id="BOARDFILE_PATH" 			name="구글폴더아이디" 		dataType="text"></w2:column>
-		<w2:column id="BOARDFILE_SIZE" 			name="파일용량" 			dataType="text"></w2:column>
-		<w2:column id="BOARDFILE_ID" 			name="구글파일아이디" 		dataType="text"></w2:column>
-		<w2:column id="THUMBNAIL" 				name="가상썸네일이미지태그" 	dataType="text"></w2:column>
 	*/
 	if(resultArr){
 		let arr = [];
@@ -293,7 +282,7 @@ scwin.filePop_callback = function(resultArr){
 			reFile.BOARDFILE_SIZE = aFile.fileSize;
 			arr.push(reFile);
 		}
-		dlt_boardFile.insertJSON(dlt_boardFile.getRowCount(), arr);
+		dlt_FILE.insertJSON(dlt_FILE.getRowCount(), arr);
 	}
 };
 scwin.grd_program_oncellclick = function(row,col,colId) {
