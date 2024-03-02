@@ -73,6 +73,7 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
+	gcm.ext.scriptImport("https://apis.google.com/js/api.js",gapiLoaded);
 };
 
 /**
@@ -94,7 +95,6 @@ scwin.fn_searchFile = function () {
 	com.sbm.execute(sbm_boardFileList);
 	//callback
 	scwin.sbm_boardFileList_submitdone = function(e) {
-		debugger;
 		txt_cnt.setValue(dlt_boardFile.getRowCount()+"건");
 	};
 };
@@ -203,8 +203,10 @@ scwin.sbm_updateBoardInfo_submitdone = function(e) {
 };
 
 scwin.grd_program_oncelldblclick = async function(row,col,colId) {
-	let _id = dlt_boardFile.getCellData(row,"BOARDFILE_NAMESERVER");
-	googleDownload2(_id);
+	if(colId != 'FILE_DESC'){
+		let _id = dlt_boardFile.getCellData(row,"BOARDFILE_NAMESERVER");
+		googleDownload2(_id);
+	}
 };
 
 scwin.edi_1_onload = function() {
