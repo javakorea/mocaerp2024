@@ -9,3 +9,7 @@ multiupload컴포넌트render아래input files에 진짜 파일이 들어있음.
 
 3. 구글클라우드api에 원본출처에 작업URL등록
 로컬에서작업하면 반드시 로컬url을 등록해야 구글에서 cross orgin에 우리url를 받아들여 인증팝업이 뜨게된다.
+
+4. 구글의 업로드 경로는
+공유>링크복사 를 선택하면 나온다.
+예) "parents": ["17zolc486M-P5IdrioullpMSxdybixHYc"]

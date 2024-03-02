@@ -2501,4 +2501,13 @@ gcm.ext.moca.resizeFile = function(f){
 	return p;
 };
 
-
+gcm.ext.moca.setDragAndDrop = (_html5Comp,_dropFunction)=>{
+	_html5Comp.setAttribute('droppable',true);
+	_html5Comp.addEventListener('drop',function(e){
+    	e.preventDefault();
+    	_dropFunction(e.dataTransfer.files);
+    });
+	_html5Comp.addEventListener('dragover',function(e){
+    	e.preventDefault();
+    });
+};
