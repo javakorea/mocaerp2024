@@ -26,7 +26,6 @@
 				
 				WHERE 1=1
 				AND A.BOARD_DELYN = 'N'
-				AND A.BOARD_PIDX = A.BOARD_IDX
 				AND A.BOARD_TYPE = #{BOARD_TYPE}
 				<if test="BOARD_WRITER != null and BOARD_WRITER != ''">
 		            AND A.BOARD_WRITER like CONCAT('%', #{BOARD_WRITER}, '%')
@@ -99,7 +98,33 @@
             CURRENT_TIMESTAMP,
             CURRENT_TIMESTAMP
            )
-        </insert>
+    </insert>
+        
+    <insert id="insertT_FILE" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="FILE_IDX">
+   		 /*"insertT_FILE" 파일등록*/
+           INSERT INTO `T_FILE` 
+           (
+           `FILE_IDX`, `CONTENT_ID`, `FILE_NAME`, `FILE_PATH_SUB`, `FILE_PATH_PARENT`, `FILE_SIZE`, 
+           `FILE_ID`, `FILE_DESC`, `THUMBNAIL`, `UPLOAD_SYS`
+           ) 
+           VALUES
+			(
+			#{FILE_IDX}, #{CONTENT_ID}, #{FILE_NAME}, #{FILE_PATH_SUB}, #{FILE_PATH_PARENT}, #{FILE_SIZE}, 
+			#{FILE_ID}, #{FILE_DESC}, #{THUMBNAIL}, #{UPLOAD_SYS}
+			)
+		<selectKey keyProperty="FILE_IDX" resultType="string" order="BEFORE">
+			select max(FILE_IDX)+1 from T_FILE
+		</selectKey>
+    </insert>    
+    <delete id="deleteT_FILE" parameterType="map">
+        /*delete T_FILE 물리삭제*/
+        		DELETE FROM T_FILE
+				WHERE 1=1
+  				AND FILE_IDX	=#{FILE_IDX}
+  				AND CONTENT_ID	=#{CONTENT_ID}
+    </delete>
+				
+	
         
     <update id="updateBoardInfo" parameterType="java.util.Map">
          /*updateBoardInfo 게시물수정*/
@@ -108,7 +133,7 @@
             <if test="BOARD_DELYN != null and BOARD_DELYN != ''">
             	BOARD_DELYN = #{BOARD_DELYN},
             </if>
-            BOARD_PIDX = #{BOARD_PIDX},
+
             BOARD_TITLE = #{BOARD_TITLE},
             BOARD_CONT = #{BOARD_CONT},
             BOARD_WRITER = #{BOARD_WRITER},
@@ -124,6 +149,31 @@
   				AND BOARD_PIDX=#{BOARD_PIDX}
   				AND BOARD_IDX=#{BOARD_IDX}
     </delete>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
      <select id="selectScheduleList" parameterType="java.util.Map" resultType="java.util.HashMap">
     	/*selectScheduleList 스케줄러 조회*/
@@ -149,7 +199,7 @@
             AND SCH_START like CONCAT('%', #{SCH_TODAY}, '%')
         </if>
     </select>
-     <select id="selectScheduleInfo" parameterType="java.util.Map" resultType="java.util.HashMap">
+   	<select id="selectScheduleInfo" parameterType="java.util.Map" resultType="java.util.HashMap">
     	/*selectScheduleInfo 스케줄러 단건조회*/
         SELECT
             SCH_IDX, 

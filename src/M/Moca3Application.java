@@ -72,15 +72,27 @@ public class Moca3Application {
 	@RequestMapping("/insertBoardInfo.do")
 	public Map insertBoardInfo(@RequestBody Map param) throws Exception{
 		Map resultMap = new HashMap();
-		Map searchMap = (Map) param.get("dma_search");
-		int map = ss.insert("M.insertBoardInfo", searchMap);
-		resultMap.put("cnt", map);
-		u.setSuccessMsg(resultMap);
-		
-		if(searchMap.get("BOARD_PIDX") == null || searchMap.get("BOARD_PIDX") == "" ) {
-			searchMap.put("BOARD_PIDX", searchMap.get("BOARD_IDX"));
-			ss.update("M.updateBoardInfo", searchMap);
+		Map dma_content = (Map) param.get("dma_content");
+		int re1 = ss.insert("M.insertBoardInfo", dma_content);
+		resultMap.put("cnt", re1);
+		LogUtil.info("dma_content>>>"+dma_content);
+		List dlt_FILE = (List) param.get("dlt_FILE");
+		Map result = new HashMap();
+		for(int i=0; i < dlt_FILE.size(); i++) {
+			Map row = (Map)dlt_FILE.get(i);
+			row.put("CONTENT_ID", dma_content.get("BOARD_IDX").toString());
+			String rowStatus = (String)row.get("rowStatus");
+			int re = 0;
+			if("C".equals(rowStatus) ) {
+				re = ss.insert("M.insertT_FILE", row);
+			}else if("D".equals(rowStatus) ) {
+				re = ss.insert("M.deleteT_FILE", row);
+			}
+			result.put(row, re);
 		}
+		resultMap.put("result_list", result);
+		
+		u.setSuccessMsg(resultMap);
 		return resultMap;
 	}
 	
@@ -89,14 +101,38 @@ public class Moca3Application {
 	public Map updateBoardInfo(@RequestBody Map param) throws Exception{
 		Map resultMap = new HashMap();
 		int cnt = 0;
-		Map searchMap = (Map) param.get("dma_search");
-		String status = (String) searchMap.get("STATUS");
+		Map dma_content = (Map) param.get("dma_content");
+		String status = (String) dma_content.get("STATUS");
 		if (status.equals("U")) {
-			cnt = ss.update("M.updateBoardInfo", searchMap);
+			cnt = ss.update("M.updateBoardInfo", dma_content);
 		}else if(status.equals("D")) {
-			cnt = ss.delete("M.deleteBoard", searchMap);
+			cnt = ss.delete("M.deleteBoard", dma_content);
 		}
 		resultMap.put("cnt", cnt);
+		
+		
+		
+		List dlt_FILE = (List) param.get("dlt_FILE");
+		Map result = new HashMap();
+		for(int i=0; i < dlt_FILE.size(); i++) {
+			Map row = (Map)dlt_FILE.get(i);
+			row.put("CONTENT_ID", dma_content.get("BOARD_IDX").toString());
+			String rowStatus = (String)row.get("rowStatus");
+			int re = 0;
+			if("C".equals(rowStatus) ) {
+				re = ss.insert("M.insertT_FILE", row);
+			}else if("D".equals(rowStatus) ) {
+				re = ss.insert("M.deleteT_FILE", row);
+			}
+			result.put(row, re);
+		}
+		resultMap.put("result_list", result);
+		
+		
+		
+		
+		
+		
 		u.setSuccessMsg(resultMap);
 		return resultMap;
 	}

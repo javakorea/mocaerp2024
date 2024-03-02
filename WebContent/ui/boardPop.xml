@@ -10,7 +10,7 @@
 				<data xmlns="" />
 			</xf:instance>
 			<w2:dataCollection baseNode="map">
-				<w2:dataMap baseNode="map" id="dma_search">
+				<w2:dataMap baseNode="map" id="dma_content">
 					<w2:keyInfo>
 						<w2:key id="BOARD_IDX" name="게시물번호" dataType="text"></w2:key>
 						<w2:key id="BOARD_PIDX" name="게시물부모번호" dataType="text"></w2:key>
@@ -51,21 +51,21 @@
 				</w2:dataMap>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
-			<xf:submission id="sbm_boardFileList" ref="data:json,dma_search" target='data:json,{"id":"dlt_FILE","key":"dlt_list"}'
+			<xf:submission id="sbm_boardFileList" ref='data:json,{"id":"dma_content","key":"dma_search"}' target='data:json,{"id":"dlt_FILE","key":"dlt_list"}'
 				action="/selectList.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
 				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_boardFileList_submitdone" ev:submiterror=""
 				abortTrigger="">
 			</xf:submission>
-			<xf:submission id="sbm_boardInfo" ref="data:json,dma_search" target="data:json,dma_map" action="/selectMap.do"
+			<xf:submission id="sbm_boardInfo" ref='data:json,{"id":"dma_content","key":"dma_search"}' target="data:json,dma_map" action="/selectMap.do"
 				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
 				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_searchBoardInfo_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
-			<xf:submission id="sbm_insertBoardInfo" ref="data:json,dma_search" target="data:json,dma_map"
+			<xf:submission id="sbm_insertBoardInfo" ref='data:json,["dma_content","dlt_FILE"]' target="data:json,dma_map"
 				action="/insertBoardInfo.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
 				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_insertBoardInfo_submitdone" ev:submiterror=""
 				abortTrigger="">
 			</xf:submission>
-			<xf:submission id="sbm_updateBoardInfo" ref="data:json,dma_search" target="data:json,dma_map"
+			<xf:submission id="sbm_updateBoardInfo" ref='data:json,["dlt_FILE","dma_content"]' target="data:json,dma_map"
 				action="/updateBoardInfo.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
 				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_updateBoardInfo_submitdone" ev:submiterror=""
 				abortTrigger="">
@@ -81,7 +81,7 @@
  * 게시물 단건조회
  */
 scwin.fn_searchBoardInfo = function () {
-	dma_search.set('QUERY',"M.selectBoardInfo");
+	dma_content.set('QUERY',"M.selectBoardInfo");
 	com.sbm.execute(sbm_boardInfo);
 	//callback
 	scwin.sbm_searchBoardInfo_submitdone = function(e) {
@@ -92,7 +92,7 @@ scwin.fn_searchBoardInfo = function () {
 
 /* 게시물 단건 첨부파일 목록조회 */
 scwin.fn_searchFile = function () {
-	dma_search.set('QUERY',"M.selectBoardFileList");
+	dma_content.set('QUERY',"M.selectBoardFileList");
 	com.sbm.execute(sbm_boardFileList);
 	//callback
 	scwin.sbm_boardFileList_submitdone = function(e) {
@@ -120,8 +120,8 @@ scwin.fn_bytesToLabel = function(_byte){
 scwin.btn_confirm_onclick = function(e) {
 	com.win.confirm($p, '해당 게시물을 등록하시겠습니까?', function(e){
 		if(e.clickValue){
-			dma_search.set("BOARD_CONT", edi_1.getHTML());
-			dma_search.set("BOARD_TITLE", dma_search.get("BOARD_CONT").substr(0,10));
+			dma_content.set("BOARD_CONT", edi_1.getHTML());
+			dma_content.set("BOARD_TITLE", dma_content.get("BOARD_CONT").substr(0,10));
 			com.sbm.execute(sbm_insertBoardInfo);
 		}
 	});
@@ -145,8 +145,8 @@ scwin.btn_cancel_onclick = function(e) {
 scwin.btn_del_onclick = function(e) {
     com.win.confirm($p, '해당 게시물을 삭제하시겠습니까?', function(e){
 		if(e.clickValue){
-			dma_search.set("STATUS", "U");
-			dma_search.set("BOARD_DELYN","Y");
+			dma_content.set("STATUS", "U");
+			dma_content.set("BOARD_DELYN","Y");
 			com.sbm.execute(sbm_updateBoardInfo);
 		}
 	});
@@ -168,7 +168,7 @@ scwin.delPop_callback = function(e){
 	if(e.delYn){
 		com.win.confirm($p, '삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 해당 게시물을 삭제하시겠습니까?', function(e){
 			if(e.clickValue){
-				dma_search.set("STATUS", "D");
+				dma_content.set("STATUS", "D");
 				com.sbm.execute(sbm_updateBoardInfo);
 			}
 		})
@@ -178,9 +178,9 @@ scwin.delPop_callback = function(e){
 scwin.btn_update_onclick = function(e) {
 	com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
 		if(e.clickValue){
-			dma_search.set("STATUS", "U");
-			dma_search.set("BOARD_CONT", edi_1.getHTML());
-			dma_search.set("BOARD_TITLE", dma_search.get("BOARD_CONT").substr(0,10));
+			dma_content.set("STATUS", "U");
+			dma_content.set("BOARD_CONT", edi_1.getHTML());
+			dma_content.set("BOARD_TITLE", dma_content.get("BOARD_CONT").substr(0,10));
 			com.sbm.execute(sbm_updateBoardInfo);
 		}
 	});
@@ -189,7 +189,7 @@ scwin.btn_update_onclick = function(e) {
 /* 게시물 수정,삭제 callback */
 scwin.sbm_updateBoardInfo_submitdone = function(e) {
 	if(e.responseJSON.status == "S"){
-		if(dma_search.get('STATUS') == "D" || dma_search.get('BOARD_DELYN') == "Y"){
+		if(dma_content.get('STATUS') == "D" || dma_content.get('BOARD_DELYN') == "Y"){
 			var param = {
 				"message":"삭제가 완료되었습니다."
 			};
@@ -205,7 +205,6 @@ scwin.sbm_updateBoardInfo_submitdone = function(e) {
 
 scwin.grd_program_oncelldblclick = async function(row,col,colId) {
 	if(colId != 'FILE_DESC'){
-		debugger;
 		let _id = dlt_FILE.getCellData(row,"FILE_ID");
 		googleDownload2(_id);
 	}
@@ -213,14 +212,14 @@ scwin.grd_program_oncelldblclick = async function(row,col,colId) {
 
 scwin.edi_1_onload = function() {
 	scwin.param = com.data.getParameter();
-	dma_search.setJSON(scwin.param.data.rowJson);
-	dma_search.set("BOARD_TYPE",scwin.param.data.boardInfo.boardType)
+	dma_content.setJSON(scwin.param.data.rowJson);
+	dma_content.set("BOARD_TYPE",scwin.param.data.boardInfo.boardType)
 	if(scwin.param.data.boardInfo.erpYn == "Y"){
-		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
-		dma_search.set("BOARD_FILE_TABLE","T_FILE")
+		dma_content.set("BOARD_TABLE","MT_BOARD_ERP");
+		dma_content.set("BOARD_FILE_TABLE","T_FILE")
 	}else{
-		dma_search.set("BOARD_TABLE","MT_BOARD");
-		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE")
+		dma_content.set("BOARD_TABLE","MT_BOARD");
+		dma_content.set("BOARD_FILE_TABLE","MT_BOARDFILE")
 	}
 	if(scwin.param.data.mode == "read"){
 		btn_update.show('');
@@ -275,11 +274,13 @@ scwin.filePop_callback = function(resultArr){
 		for(let i=0; i < resultArr.length; i++){
 			let aFile = resultArr[i];
 			let reFile = {};
-			reFile.BOARDFILE_NAME = aFile.originalFilename;
-			reFile.BOARDFILE_NAMESERVER = aFile.physicalFilename;
-			reFile.BOARDFILE_ID = aFile.physicalFilename;
-			reFile.BOARDFILE_PATH = aFile.physicalFilepath;
-			reFile.BOARDFILE_SIZE = aFile.fileSize;
+			reFile.FILE_NAME = aFile.originalFilename;
+			reFile.FILE_ID = aFile.physicalFilename;
+			reFile.THUMBNAIL = aFile.physicalFilename;
+			reFile.FILE_PATH_PARENT = aFile.physicalFilepath;
+			reFile.FILE_PATH_SUB = aFile.subDir;
+			reFile.FILE_SIZE = aFile.fileSize;
+			reFile.UPLOAD_SYS = 'GOOGLE';
 			arr.push(reFile);
 		}
 		dlt_FILE.insertJSON(dlt_FILE.getRowCount(), arr);
@@ -338,7 +339,7 @@ scwin.img_thum_onclick = function(e) {
 					<xf:group style="display:none;" tagname="tr" id="tr_read">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_boardIdx" placeholder="" style="width:100%;" ref="data:dma_search.BOARD_IDX"
+							<xf:input class="" id="ibx_boardIdx" placeholder="" style="width:100%;" ref="data:dma_content.BOARD_IDX"
 								readOnly="true">
 							</xf:input>
 						</xf:group>
@@ -346,13 +347,13 @@ scwin.img_thum_onclick = function(e) {
 					<xf:group tagname="tr">
 						<xf:group tagname="td" class="w2tb_td" style="padding: 4px; border:1px solid  #ced4da;display:none;">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_boardTitle" placeholder="" ref="data:dma_search.BOARD_TITLE" style="width:100%;"></xf:input>
+							<xf:input class="" id="ibx_boardTitle" placeholder="" ref="data:dma_content.BOARD_TITLE" style="width:100%;"></xf:input>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_read2" style="display:none;">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_boardDate" placeholder="" readOnly="true" ref="data:dma_search.BOARD_DATE"
+							<xf:input class="" id="ibx_boardDate" placeholder="" readOnly="true" ref="data:dma_content.BOARD_DATE"
 								style="width:100%;">
 							</xf:input>
 						</xf:group>
@@ -360,7 +361,7 @@ scwin.img_thum_onclick = function(e) {
 					<xf:group tagname="tr" id="tr_read3" style="display:none">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_boardWriter" placeholder="" readOnly="true" ref="data:dma_search.BOARD_WRITER"
+							<xf:input class="" id="ibx_boardWriter" placeholder="" readOnly="true" ref="data:dma_content.BOARD_WRITER"
 								style="width:100%;">
 							</xf:input>
 						</xf:group>
