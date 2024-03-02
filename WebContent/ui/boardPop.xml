@@ -26,17 +26,18 @@
 						<w2:key id="QUERY" name="QUERY" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
-				<w2:dataList baseNode="list" repeatNode="map" id="dlt_boardFile" saveRemovedData="true">
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_FILE" saveRemovedData="true">
 					<w2:columnInfo>
-						<w2:column id="BOARDFILE_IDX" 			name="파일아이디" 			dataType="text"></w2:column>
-						<w2:column id="BOARD_IDX" 				name="컨텐츠아이디" 		dataType="text"></w2:column>
-						<w2:column id="BOARDFILE_NAME" 			name="원본파일명" 			dataType="text"></w2:column>
-						<w2:column id="BOARDFILE_NAMESERVER" 	name="구글파일아이디" 		dataType="text"></w2:column>
-						<w2:column id="BOARDFILE_PATH" 			name="구글폴더아이디" 		dataType="text"></w2:column>
-						<w2:column id="BOARDFILE_SIZE" 			name="파일용량" 			dataType="text"></w2:column>
-						<w2:column id="BOARDFILE_ID" 			name="구글파일아이디" 		dataType="text"></w2:column>
-						<w2:column id="THUMBNAIL" 				name="가상썸네일이미지태그" 	dataType="text"></w2:column>
+						<w2:column id="FILE_IDX" 				name="파일아이디" 			dataType="text"></w2:column>
+						<w2:column id="CONTENT_ID" 				name="컨텐츠아이디" 		dataType="text"></w2:column>
+						<w2:column id="FILE_NAME" 				name="원본파일명" 			dataType="text"></w2:column>
+						<w2:column id="FILE_PATH_SUB" 			name="구글폴더서브아이디" 	dataType="text"></w2:column>
+						<w2:column id="FILE_PATH_PARENT" 		name="구글폴더메인아이디" 	dataType="text"></w2:column>
+						<w2:column id="FILE_SIZE" 				name="파일용량" 			dataType="text"></w2:column>
+						<w2:column id="FILE_ID" 				name="구글파일아이디" 		dataType="text"></w2:column>
 						<w2:column id="FILE_DESC" 				name="설명" 				dataType="text"></w2:column>
+						<w2:column id="THUMBNAIL" 				name="가상썸네일이미지태그" 	dataType="text"></w2:column>
+						<w2:column id="UPLOAD_SYS" 				name="시스템명,구글" 		dataType="text"></w2:column>
 					</w2:columnInfo>
 				</w2:dataList>
 				<w2:dataMap baseNode="map" id="dma_map">
@@ -50,7 +51,7 @@
 				</w2:dataMap>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
-			<xf:submission id="sbm_boardFileList" ref="data:json,dma_search" target='data:json,{"id":"dlt_boardFile","key":"dlt_list"}'
+			<xf:submission id="sbm_boardFileList" ref="data:json,dma_search" target='data:json,{"id":"dlt_FILE","key":"dlt_list"}'
 				action="/selectList.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
 				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_boardFileList_submitdone" ev:submiterror=""
 				abortTrigger="">
@@ -215,7 +216,7 @@ scwin.edi_1_onload = function() {
 	dma_search.set("BOARD_TYPE",scwin.param.data.boardInfo.boardType)
 	if(scwin.param.data.boardInfo.erpYn == "Y"){
 		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
-		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP")
+		dma_search.set("BOARD_FILE_TABLE","T_FILE")
 	}else{
 		dma_search.set("BOARD_TABLE","MT_BOARD");
 		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE")
@@ -233,7 +234,7 @@ scwin.edi_1_onload = function() {
 };
 
 scwin.thumbnail = (_id, formattedData, rowIndex, colIndex)=>{
-	let _fileNm = grd_program.getCellData(rowIndex,'BOARDFILE_NAME');
+	let _fileNm = grd_program.getCellData(rowIndex,'FILE_NAME');
 	debugger;
 	let _ext = gcm.ext.moca.getFileExtension(_fileNm);
 	let _icoUrl = gcm.ext.moca.getExtIconUri(_ext);
@@ -296,7 +297,7 @@ scwin.filePop_callback = function(resultArr){
 	}
 };
 scwin.grd_program_oncellclick = function(row,col,colId) {
-	if(colId == "BOARDFILE_NAMESERVER"){
+	if(colId == "THUMBNAIL"){
 		thumnailArea.show('');
 		let _id = grd_program.getCellData(row,col);
 		img_thum.setSrc(`https://drive.google.com/thumbnail?id=${_id}&sz=s1000`);
@@ -391,7 +392,7 @@ scwin.img_thum_onclick = function(e) {
 			</xf:group>
 			<xf:group adaptiveThreshold="" class="wq_flx" id="" style="padding-bottom:20px;display:block">
 
-				<w2:gridView captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_boardFile"
+				<w2:gridView captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_FILE"
 					defaultCellHeight="26" id="grd_program" rowStatusHeaderValue="상태" rowStatusVisible="false" rowStatusWidth="" scrollByColumn="false"
 					scrollByColumnAdaptive="false" style="min-height:80px;height:auto" ev:onrowindexchange="scwin.grd_program_onrowindexchange"
 					ev:oncelldblclick="scwin.grd_program_oncelldblclick" focusMode="row" rowNumVisible="true" visibleRowNum="all" rowNumWidth="30"
@@ -412,15 +413,15 @@ scwin.img_thum_onclick = function(e) {
 					</w2:header>
 					<w2:gBody id="gBody1" style="">
 						<w2:row id="row2" style="">
-							<w2:column blockSelect="false" displayMode="label" id="BOARDFILE_IDX" inputType="text" removeBorderStyle="false"
+							<w2:column blockSelect="false" displayMode="label" id="FILE_IDX" inputType="text" removeBorderStyle="false"
 								style="" value="" width="50" readOnly="true" minWidth="0">
 							</w2:column>
-							<w2:column width="26" inputType="text" style="text-overflow:clip;" id="BOARDFILE_NAMESERVER" value="" displayMode="label" customFormatter="scwin.thumbnail">
+							<w2:column width="26" inputType="text" style="text-overflow:clip;" id="THUMBNAIL" value="" displayMode="label" customFormatter="scwin.thumbnail">
 							</w2:column>
-							<w2:column width="70" inputType="text" style="" id="BOARDFILE_SIZE" value="" displayMode="label"
+							<w2:column width="70" inputType="text" style="" id="FILE_SIZE" value="" displayMode="label"
 								displayFormatter="scwin.fn_bytesToLabel" textAlign="right">
 							</w2:column>
-							<w2:column blockSelect="false" displayMode="label" id="BOARDFILE_NAME" inputType="text"
+							<w2:column blockSelect="false" displayMode="label" id="FILE_NAME" inputType="text"
 								removeBorderStyle="false" style="" value="" width="50" readOnly="true" textAlign="left">
 							</w2:column>
 							<w2:column width="70" inputType="text" style="" id="FILE_DESC" value="" displayMode="label" readOnly="false"

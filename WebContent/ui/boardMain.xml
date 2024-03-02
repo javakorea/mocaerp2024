@@ -118,7 +118,7 @@ scwin.btn_search_onclick = function(e) {
 	}
 	if(scwin.paramObj.erpYn == "Y"){
 		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
-		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE_ERP");
+		dma_search.set("BOARD_FILE_TABLE","T_FILE");
 	}else{
 		dma_search.set("BOARD_TABLE","MT_BOARD");
 		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE");

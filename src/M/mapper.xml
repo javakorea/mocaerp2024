@@ -19,10 +19,10 @@
 		        	DATE_FORMAT(A.BOARD_DATE, '%Y-%m-%d %H:%i:%s') as BOARD_DATE ,
 		        	DATE_FORMAT(A.UPDATE_DATE,  '%Y-%m-%d %H:%i:%s') as UPDATE_DATE ,
 		        	A.BOARD_TYPE,
-		        	COUNT(F.BOARD_IDX) AS CNT,
+		        	COUNT(F.CONTENT_ID) AS CNT,
 		        	A.BOARD_REPLYCNT
 				FROM ${BOARD_TABLE} A 
-				LEFT OUTER JOIN ${BOARD_FILE_TABLE} F ON A.BOARD_IDX = F.BOARD_IDX
+				LEFT OUTER JOIN ${BOARD_FILE_TABLE} F ON A.BOARD_IDX = F.CONTENT_ID
 				
 				WHERE 1=1
 				AND A.BOARD_DELYN = 'N'
@@ -75,9 +75,9 @@
         FROM ${BOARD_FILE_TABLE} A
         WHERE 1=1
         <if test="BOARD_IDX != null and BOARD_IDX != ''">
-            AND A.BOARD_IDX = #{BOARD_IDX}
+            AND A.CONTENT_ID = #{BOARD_IDX}
         </if>
-        ORDER BY A.BOARDFILE_IDX DESC
+        ORDER BY A.FILE_IDX DESC
     </select>
 
     <insert id="insertBoardInfo" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="BOARD_IDX">
