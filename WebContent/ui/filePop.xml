@@ -221,12 +221,12 @@ scwin.googleUpload = async function(arr){
 			<xf:group class="dfbox" id="" style="">
 				<xf:group id="" style="" class="grp_fileupload">
 					<w2:textbox class="btn_cm" id="btn_mfile" label="파일추가" style="width:calc(100% - 2.5px)"></w2:textbox>
-					<w2:multiupload mode="html5_transparent" style="" id="mfile" uploadButton="" selectCallback="scwin.selectCallback"></w2:multiupload>
+					<w2:multiupload mode="html5_transparent" style="" id="mfile" uploadButton="" selectCallback="scwin.selectCallback" maxcount="1000" maxsize="1000000000" filter="*:*.*"></w2:multiupload>
 				</xf:group>
 				<xf:group id="" style="" class="grp_fileupload">
 					<w2:textbox class="btn_cm red" id="btn_mfileLow" label="저용량변환추가" style="width:100%; margin:0;"></w2:textbox>
 					<w2:multiupload mode="html5_transparent" style="width:100%;height:100%;overflow:hidden;" id="mfileLow" uploadButton=""
-						selectCallback="scwin.selectCallback">
+						selectCallback="scwin.selectCallback" maxcount="1000" maxsize="1000000000" filter="*:*.*">
 					</w2:multiupload>
 				</xf:group>
 			</xf:group>

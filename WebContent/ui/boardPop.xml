@@ -94,6 +94,7 @@ scwin.fn_searchFile = function () {
 	com.sbm.execute(sbm_boardFileList);
 	//callback
 	scwin.sbm_boardFileList_submitdone = function(e) {
+		debugger;
 		txt_cnt.setValue(dlt_boardFile.getRowCount()+"건");
 	};
 };
@@ -229,8 +230,18 @@ scwin.edi_1_onload = function() {
 	}
 };
 
-scwin.thumbnail = (_id)=>{
-	return "<img src='https://drive.google.com/thumbnail?sz=s24&id="+_id+ "'/>";
+scwin.thumbnail = (_id, formattedData, rowIndex, colIndex)=>{
+	let _fileNm = grd_program.getCellData(rowIndex,'BOARDFILE_NAME');
+	debugger;
+	let _ext = gcm.ext.moca.getFileExtension(_fileNm);
+	let _icoUrl = gcm.ext.moca.getExtIconUri(_ext);
+	let _img = '';
+	if(_icoUrl){
+		_img = `<img width="18" src='${_icoUrl}'/>`;
+	}else{
+		_img = "<img width='18' src='https://drive.google.com/thumbnail?sz=s24&id="+_id+ "'/>";
+	}
+	return _img;
 }
 
 scwin.btn_fileUpload_onclick = function(e) {
@@ -281,17 +292,30 @@ scwin.filePop_callback = function(resultArr){
 		}
 		dlt_boardFile.insertJSON(dlt_boardFile.getRowCount(), arr);
 	}
-};]]></script>
+};
+scwin.grd_program_oncellclick = function(row,col,colId) {
+	if(colId == "BOARDFILE_NAMESERVER"){
+		thumnailArea.show('');
+		let _id = grd_program.getCellData(row,col);
+		img_thum.setSrc(`https://drive.google.com/thumbnail?id=${_id}&sz=s1000`);
+	}
+};
+
+scwin.img_thum_onclick = function(e) {
+	thumnailArea.hide();
+};
+]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw  flex_m" style="padding-bottom:0">
 			<xf:group id="">
 				<xf:group style="" id="dfbox" class="dfbox">
-				<xf:group style="" id="" class="fl">
-					<xf:trigger style="display:none;" id="btn_adminDel" type="button" class="btn_cm red" ev:onclick="scwin.btn_adminDel_onclick">
+					<xf:group style="" id="" class="fl">
+						<xf:trigger style="display:none;" id="btn_adminDel" type="button" class="btn_cm red"
+							ev:onclick="scwin.btn_adminDel_onclick">
 							<xf:label><![CDATA[폐기]]></xf:label>
 						</xf:trigger>
-				</xf:group>
+					</xf:group>
 					<xf:group style="" id="" class="fr">
 						<xf:trigger style="display:none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
@@ -322,7 +346,9 @@ scwin.filePop_callback = function(resultArr){
 					<xf:group style="display:none;" tagname="tr" id="tr_read">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_boardIdx" placeholder="" style="width:100%;" ref="data:dma_search.BOARD_IDX" readOnly="true"></xf:input>
+							<xf:input class="" id="ibx_boardIdx" placeholder="" style="width:100%;" ref="data:dma_search.BOARD_IDX"
+								readOnly="true">
+							</xf:input>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr">
@@ -331,17 +357,23 @@ scwin.filePop_callback = function(resultArr){
 							<xf:input class="" id="ibx_boardTitle" placeholder="" ref="data:dma_search.BOARD_TITLE" style="width:100%;"></xf:input>
 						</xf:group>
 					</xf:group>
-				<xf:group tagname="tr" id="tr_read2" style="display:none;">
-					<xf:group tagname="td" class="w2tb_td">
-						<w2:attributes></w2:attributes>
-						<xf:input class="" id="ibx_boardDate" placeholder="" readOnly="true" ref="data:dma_search.BOARD_DATE"
-							style="width:100%;">
-						</xf:input>
-					</xf:group></xf:group><xf:group tagname="tr" id="tr_read3" style="display:none">
-	<xf:group tagname="td" class="w2tb_td">
-		<w2:attributes></w2:attributes>
-		<xf:input class="" id="ibx_boardWriter" placeholder="" readOnly="true" ref="data:dma_search.BOARD_WRITER" style="width:100%;"></xf:input>
-	</xf:group></xf:group></xf:group>
+					<xf:group tagname="tr" id="tr_read2" style="display:none;">
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes></w2:attributes>
+							<xf:input class="" id="ibx_boardDate" placeholder="" readOnly="true" ref="data:dma_search.BOARD_DATE"
+								style="width:100%;">
+							</xf:input>
+						</xf:group>
+					</xf:group>
+					<xf:group tagname="tr" id="tr_read3" style="display:none">
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes></w2:attributes>
+							<xf:input class="" id="ibx_boardWriter" placeholder="" readOnly="true" ref="data:dma_search.BOARD_WRITER"
+								style="width:100%;">
+							</xf:input>
+						</xf:group>
+					</xf:group>
+				</xf:group>
 			</xf:group>
 			<xf:group id="" class="edbox" style="margin-bottom: 16px;">
 				<w2:editor style="" id="edi_1" menubar="board" ev:onload="scwin.edi_1_onload"></w2:editor>
@@ -357,10 +389,11 @@ scwin.filePop_callback = function(resultArr){
 			</xf:group>
 			<xf:group adaptiveThreshold="" class="wq_flx" id="" style="padding-bottom:20px;display:block">
 
-				<w2:gridView autoFit="lastColumn" captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_boardFile"
+				<w2:gridView captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_boardFile"
 					defaultCellHeight="26" id="grd_program" rowStatusHeaderValue="상태" rowStatusVisible="false" rowStatusWidth="" scrollByColumn="false"
 					scrollByColumnAdaptive="false" style="min-height:80px;height:auto" ev:onrowindexchange="scwin.grd_program_onrowindexchange"
-					ev:oncelldblclick="scwin.grd_program_oncelldblclick" focusMode="row" rowNumVisible="true" visibleRowNum="all" rowNumWidth="30" readOnly="true">
+					ev:oncelldblclick="scwin.grd_program_oncelldblclick" focusMode="row" rowNumVisible="true" visibleRowNum="all" rowNumWidth="30"
+					readOnly="true" ev:oncellclick="scwin.grd_program_oncellclick" autoFit="lastColumn" tooltipDisplayColumn="BOARDFILE_NAME" tooltipDisplay="true">
 					<w2:caption id="caption1" style="" value="this is a grid caption."></w2:caption>
 					<w2:header id="header1" style="">
 						<w2:row id="row1" style="">
@@ -370,7 +403,7 @@ scwin.filePop_callback = function(resultArr){
 							<w2:column width="26" inputType="text" style="" id="column53" value="" displayMode="label"></w2:column>
 							<w2:column width="70" inputType="text" style="" id="column52" value="파일크기" displayMode="label"></w2:column>
 							<w2:column blockSelect="false" displayMode="label" id="column16" inputType="text" removeBorderStyle="false"
-								style="" value="파일명" width="150">
+								style="" value="파일명" width="50">
 							</w2:column>
 							<w2:column width="70" inputType="text" style="" id="column54" value="설명" displayMode="label"></w2:column>
 						</w2:row>
@@ -380,21 +413,24 @@ scwin.filePop_callback = function(resultArr){
 							<w2:column blockSelect="false" displayMode="label" id="BOARDFILE_IDX" inputType="text" removeBorderStyle="false"
 								style="" value="" width="50" readOnly="true" minWidth="0">
 							</w2:column>
-							<w2:column width="26" inputType="text" style="" id="BOARDFILE_NAMESERVER" value="" displayMode="label"
-								displayFormatter="scwin.thumbnail">
+							<w2:column width="26" inputType="text" style="text-overflow:clip;" id="BOARDFILE_NAMESERVER" value="" displayMode="label" customFormatter="scwin.thumbnail">
 							</w2:column>
 							<w2:column width="70" inputType="text" style="" id="BOARDFILE_SIZE" value="" displayMode="label"
 								displayFormatter="scwin.fn_bytesToLabel" textAlign="right">
 							</w2:column>
 							<w2:column blockSelect="false" displayMode="label" id="BOARDFILE_NAME" inputType="text"
-								removeBorderStyle="false" style="" value="" width="150" readOnly="true" textAlign="left">
+								removeBorderStyle="false" style="" value="" width="50" readOnly="true" textAlign="left">
 							</w2:column>
-							<w2:column width="70" inputType="text" style="" id="FILE_DESC" value="" displayMode="label" readOnly="false" textAlign="left"></w2:column>
+							<w2:column width="70" inputType="text" style="" id="FILE_DESC" value="" displayMode="label" readOnly="false"
+								textAlign="left">
+							</w2:column>
 						</w2:row>
 					</w2:gBody>
 				</w2:gridView>
 			</xf:group>
 		</xf:group>
-
+		<xf:group class="thumnailArea" id="thumnailArea" style="display: none;">
+			<xf:image src="" style="" id="img_thum" ev:onclick="scwin.img_thum_onclick"></xf:image>
+		</xf:group>
 	</body>
 </html>
