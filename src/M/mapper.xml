@@ -73,7 +73,7 @@
         <if test="BOARD_IDX != null and BOARD_IDX != ''">
             AND A.CONTENT_ID = #{BOARD_IDX}
         </if>
-        ORDER BY A.FILE_IDX DESC
+        ORDER BY A.FILE_IDX ASC
     </select>
 
     <insert id="insertBoardInfo" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="BOARD_IDX">
@@ -120,7 +120,14 @@
   				AND FILE_IDX	=#{FILE_IDX}
   				AND CONTENT_ID	=#{CONTENT_ID}
     </delete>
-				
+    <update id="updateT_FILE" parameterType="java.util.Map">
+         /*updateT_FILE 파일설명수정*/
+         UPDATE T_FILE SET 
+            FILE_DESC = #{FILE_DESC}
+         WHERE 1=1
+         AND FILE_IDX=#{FILE_IDX}
+         AND CONTENT_ID=#{CONTENT_ID}
+    </update>			
 	
         
     <update id="updateBoardInfo" parameterType="java.util.Map">
@@ -143,7 +150,6 @@
         /*deleteBoard 게시물 물리삭제*/
         		DELETE FROM ${BOARD_TABLE}
 				WHERE 1=1
-  				AND BOARD_PIDX=#{BOARD_PIDX}
   				AND BOARD_IDX=#{BOARD_IDX}
     </delete>
 				

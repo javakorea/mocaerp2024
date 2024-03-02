@@ -121,6 +121,8 @@ public class Moca3Application {
 			int re = 0;
 			if("C".equals(rowStatus) ) {
 				re = ss.insert("M.insertT_FILE", row);
+			}else if("U".equals(rowStatus) ) {
+				re = ss.insert("M.updateT_FILE", row);			
 			}else if("D".equals(rowStatus) ) {
 				re = ss.insert("M.deleteT_FILE", row);
 			}
