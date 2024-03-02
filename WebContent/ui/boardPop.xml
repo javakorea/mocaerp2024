@@ -245,7 +245,6 @@ scwin.btn_fileUpload_onclick = function(e) {
 };
 
 scwin.filePop_callback = function(resultArr){
-	debugger;
 	//dlt_boardFile"
 	/*
 		fileLength: "15"
@@ -278,7 +277,6 @@ scwin.filePop_callback = function(resultArr){
 			reFile.BOARDFILE_PATH = aFile.physicalFilepath;
 			reFile.BOARDFILE_SIZE = aFile.fileSize;
 			arr.push(reFile);
-			debugger;
 		}
 		dlt_boardFile.insertJSON(dlt_boardFile.getRowCount(), arr);
 	}

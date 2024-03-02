@@ -121,10 +121,9 @@
 				tokenClient.requestAccessToken({prompt: ''});
 			}
 		};
-		function handleAuthClickForUpload(_callback,_arr) {
+		function handleAuthClickForUpload() {
 			console.log('_uploadFuction gapi.client.getToken',gapi.client.getToken());
 			tokenClient.callback = (resp) => {
-				_callback(_arr);
 			};
 			if (gapi.client.getToken() === null) {
 				tokenClient.requestAccessToken({prompt: 'consent'});
@@ -181,7 +180,6 @@
 		
 		var fileDownloadAjax = function(_id) {
     ['Ajax버전의 파일다운로드 함수'];
-	debugger;
     var downloadUrl;
     if(downloadUrl == null){
         downloadUrl = "https://drive.google.com/uc?id="+_id+"&export=download";
