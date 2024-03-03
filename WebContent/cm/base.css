@@ -1617,7 +1617,7 @@ input[type="file"]{cursor:pointer;}
 .fullcalendar.fc .fc-day-header.fc-fri:after{content: "금"}
 .fullcalendar.fc .fc-day-header.fc-sat:after{content: "토"}
 .fullcalendar.current th{background-color:#1975f0; color:#fff;}
-.fc-unthemed .fc-row.fc-week tbody td.fc-today{background-color:rgb(255, 128, 0) !important;box-shadow:0 0 0 3px rgba(0,0,0,0.2) inset;}
+.fc-unthemed .fc-row.fc-week tbody td.fc-today{opacity:1 !important;background-color:rgb(255, 128, 0) !important;box-shadow:0 0 0 3px rgba(0,0,0,0.2) inset;}
 
 /*.sch_today{background-color:#FFF !important;}*/
 /*.sch_today_bg{background-color:#FFF !important;}*/
