@@ -2539,3 +2539,11 @@ gcm.ext.moca.e = {
 gcm.ext.moca.getExtIconUri = (_ext)=>{
 	return gcm.ext.moca.e[_ext];
 };
+gcm.ext.moca.getTitleFromEditor = (edi_1)=>{
+	let txt = edi_1.getText();
+	let title = '';
+	if(txt){
+		title = txt.substring(0,10);
+	}
+	return title.trim();
+};

@@ -113,6 +113,7 @@ scwin.fn_setMenu = function(menuInfo){
 
 /* 조회 */
 scwin.btn_search_onclick = function(e) {
+	
 	if(scwin.paramObj.boardType){
 		dma_search.set("BOARD_TYPE",scwin.paramObj.boardType);
 	}
@@ -131,6 +132,7 @@ scwin.btn_search_onclick = function(e) {
 	com.sbm.execute (sbm_searchBoardList);
 };
 scwin.sbm_searchBoardList_submitdone = function(e) {
+	
 	/*
 	let data = dlt_list.getAllJSON();
 	let allData = [];
@@ -185,6 +187,7 @@ scwin.btn_write_onclick = function(e) {
 
 /* 팝업 callback */
 scwin.boardPop_callback = function(e){
+	
 	com.win.alert(e.message);
 	scwin.btn_search_onclick();
 }
@@ -325,7 +328,7 @@ scwin.setProviderData = function (service, method, paramMap) {
 							</xf:group>
 							<xf:group tagname="td" id="" class="w2tb_td w50">
 								<w2:attributes></w2:attributes>
-								<xf:input id="" ref="data:dma_search.BOARD_WRITER" style="" placeholder="작성자를 입력해주세요."></xf:input>
+								<xf:input id="ipt_writer" ref="data:dma_search.BOARD_WRITER" style="" placeholder="작성자를 입력해주세요."></xf:input>
 							</xf:group>
 						</xf:group>
 					</xf:group>

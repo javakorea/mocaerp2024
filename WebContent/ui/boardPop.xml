@@ -121,7 +121,7 @@ scwin.btn_confirm_onclick = function(e) {
 	com.win.confirm($p, '해당 게시물을 등록하시겠습니까?', function(e){
 		if(e.clickValue){
 			dma_content.set("BOARD_CONT", edi_1.getHTML());
-			dma_content.set("BOARD_TITLE", dma_content.get("BOARD_CONT").substr(0,10));
+			dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
 			com.sbm.execute(sbm_insertBoardInfo);
 		}
 	});
@@ -154,6 +154,7 @@ scwin.btn_del_onclick = function(e) {
 
 /* 게시물 물리삭제 */
 scwin.btn_adminDel_onclick = function(e) {
+	
 	var data = {callbackFn: "scwin.delPop_callback" };
 	var options = {
 		id: "delPop",
@@ -180,7 +181,7 @@ scwin.btn_update_onclick = function(e) {
 		if(e.clickValue){
 			dma_content.set("STATUS", "U");
 			dma_content.set("BOARD_CONT", edi_1.getHTML());
-			dma_content.set("BOARD_TITLE", dma_content.get("BOARD_CONT").substr(0,10));
+			dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
 			com.sbm.execute(sbm_updateBoardInfo);
 		}
 	});
@@ -188,6 +189,8 @@ scwin.btn_update_onclick = function(e) {
 
 /* 게시물 수정,삭제 callback */
 scwin.sbm_updateBoardInfo_submitdone = function(e) {
+	
+	
 	if(e.responseJSON.status == "S"){
 		if(dma_content.get('STATUS') == "D" || dma_content.get('BOARD_DELYN') == "Y"){
 			var param = {
@@ -201,6 +204,7 @@ scwin.sbm_updateBoardInfo_submitdone = function(e) {
 			com.win.closePopup(param);
 		}
 	}
+	
 };
 
 scwin.grd_program_oncelldblclick = async function(row,col,colId) {
