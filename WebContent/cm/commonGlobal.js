@@ -2543,7 +2543,7 @@ gcm.ext.moca.getTitleFromEditor = (edi_1)=>{
 	let txt = edi_1.getText();
 	let title = '';
 	if(txt){
-		title = txt.substring(0,10);
+		title = txt.substring(0,20);
 	}
 	return title.trim();
 };
