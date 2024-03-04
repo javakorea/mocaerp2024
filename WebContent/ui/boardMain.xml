@@ -122,7 +122,7 @@ scwin.btn_search_onclick = function(e) {
 		dma_search.set("BOARD_FILE_TABLE","T_FILE");
 	}else{
 		dma_search.set("BOARD_TABLE","MT_BOARD");
-		dma_search.set("BOARD_FILE_TABLE","MT_BOARDFILE");
+		dma_search.set("BOARD_FILE_TABLE","T_FILE");
 	}
 	let _boardContArr = ibx_boardCont.getValue().split(/\s+/g);
 	if(_boardContArr.length > 0){

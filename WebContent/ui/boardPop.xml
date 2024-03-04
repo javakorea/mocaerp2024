@@ -223,7 +223,7 @@ scwin.edi_1_onload = function() {
 		dma_content.set("BOARD_FILE_TABLE","T_FILE")
 	}else{
 		dma_content.set("BOARD_TABLE","MT_BOARD");
-		dma_content.set("BOARD_FILE_TABLE","MT_BOARDFILE")
+		dma_content.set("BOARD_FILE_TABLE","T_FILE")
 	}
 	if(scwin.param.data.mode == "read"){
 		btn_update.show('');
