@@ -79,7 +79,7 @@ scwin.sch_cal1_onclick = function(retObj,b,c) {
 		//c 는 swiper가 실행하는경우 (모바일만해당됨)
 		//event.currentTarget.contentType is null이면 '+'눌러서나온 레이어에서 클릭한것임 => 이경우는 swiper타지않음 (모바일만해당됨)
 		if(!retObj.id && retObj.title){
-			retObj.id = dlt_list.getMatchedJSON('SCH_TITLE',retObj.title)[0].groupId;
+			retObj.id = dlt_list.getMatchedJSON('SCH_TITLE2',retObj.title)[0].groupId;
 		}
 		let _param = {};
 		let _popupName = '';
