@@ -239,7 +239,7 @@
 	            SCH_COLOR,
 	            SCH_DELYN,
 	            SCH_SENDYN,
-	            SCH_SUCCESSYN,
+	            SCH_SUCCESSYN
             )VALUES (
             	#{SCH_IDX},
            		CONCAT(#{SCH_TITLE},'---',CAST(#{SCH_IDX} AS CHAR)),
