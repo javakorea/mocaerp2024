@@ -182,6 +182,10 @@
     	/*selectScheduleList 스케줄러 조회*/
 		SELECT
 			SCH_IDX as groupId,
+			case
+			    when SCH_SUCCESSYN= 'Y' then CONCAT('✔',SCH_TITLE)		
+			    else SCH_TITLE
+			END AS SCH_TITLE2,
 			SCH_TITLE,
 			SCH_CONT,
 			SCH_WRITER,
@@ -193,7 +197,8 @@
 			DATE_ADD(SCH_END, INTERVAL 9 HOUR) AS SCH_END_UTC,
 			SCH_COLOR ,
 			SCH_DELYN,
-			SCH_SENDYN
+			SCH_SENDYN,
+			SCH_SUCCESSYN
 		FROM MT_SCHEDULE
 		WHERE 1=1
 		AND SCH_DELYN = 'N'
@@ -211,6 +216,7 @@
             SCH_WRITER,
             SCH_CURRENTMONTH,
             SCH_COLOR,
+            SCH_SUCCESSYN,
             DATE_FORMAT(SCH_CREATE_DTTM, '%Y-%m-%d  %H:%i:%s') AS SCH_CREATE_DTTM,
             DATE_FORMAT(SCH_START, '%Y-%m-%d  %H:%i:%s') AS SCH_START,
             DATE_FORMAT(SCH_END, '%Y-%m-%d  %H:%i:%s') AS SCH_END
@@ -232,7 +238,8 @@
 	            SCH_END,
 	            SCH_COLOR,
 	            SCH_DELYN,
-	            SCH_SENDYN
+	            SCH_SENDYN,
+	            SCH_SUCCESSYN,
             )VALUES (
             	#{SCH_IDX},
            		CONCAT(#{SCH_TITLE},'---',CAST(#{SCH_IDX} AS CHAR)),
@@ -244,7 +251,9 @@
 	            #{SCH_END},
 	            #{SCH_COLOR},
 	            'N',
+	            'N',
 	            'N'
+	          
             )
         <selectKey keyProperty="SCH_IDX" resultType="string" order="BEFORE">
 			select max(SCH_IDX)+1 from MT_SCHEDULE
@@ -262,6 +271,7 @@
              <if test="SCH_DELYN != null and SCH_DELYN != ''">
             	SCH_DELYN = #{SCH_DELYN},
             </if>
+            SCH_SUCCESSYN = #{SCH_SUCCESSYN},
             SCH_COLOR = #{SCH_COLOR}
          WHERE 1=1
          AND SCH_IDX=#{SCH_IDX}

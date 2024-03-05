@@ -26,6 +26,7 @@
 						<w2:key id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:key>
 						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
 						<w2:key id="STATUS" name="STATUS" dataType="text"></w2:key>
+						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
 			</w2:dataCollection>
@@ -154,12 +155,11 @@ scwin.btn_update_onclick = function(e) {
 scwin.btn_done_onclick = function(e) {
 	com.win.confirm($p, '완료변경처리 하시겠습니까?', function(e){
 		if(e.clickValue){
-			let _cont = edi_1.getHTML();
-			_cont = _cont.replace(/^(&nbsp;\s*)*/g, '');
-			if(!_cont.startsWith('[완료]')){
-				edi_1.setHTML('[완료]'+_cont);
+			let _successYn = dma_schdInfo.get('SCH_SUCCESSYN');
+			if(_successYn == 'Y'){
+				dma_schdInfo.set("SCH_SUCCESSYN", "N");
 			}else{
-				edi_1.setHTML(_cont.replace(/^(\[완료\])/g,''));
+				dma_schdInfo.set("SCH_SUCCESSYN", "Y");
 			}
 			scwin.btn_update_exe();
 		}
