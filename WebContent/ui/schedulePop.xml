@@ -169,7 +169,9 @@ scwin.btn_done_onclick = function(e) {
 scwin.btn_update_exe = function(e) {
 	dma_schdInfo.set("STATUS", "U");
 	dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
-	dma_schdInfo.set("SCH_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
+	let _title =  gcm.ext.moca.getTitleFromEditor(edi_1);
+	_title = _title.split('---')[0]+'---'+dma_schdInfo.get('SCH_IDX');
+	dma_schdInfo.set("SCH_TITLE",_title);
 	com.sbm.execute(sbm_updateSchedule);
 };
 

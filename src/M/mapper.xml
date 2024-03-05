@@ -222,6 +222,7 @@
     <insert id="insertSchedule" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="SCH_IDX">
         /*insertSchedule 스케줄러 작성*/
             INSERT INTO MT_SCHEDULE(
+            	SCH_IDX,
             	SCH_TITLE,
            		SCH_CONT,
 	            SCH_WRITER,
@@ -233,7 +234,8 @@
 	            SCH_DELYN,
 	            SCH_SENDYN
             )VALUES (
-           		#{SCH_TITLE},
+            	#{SCH_IDX},
+           		CONCAT(#{SCH_TITLE},'---',CAST(#{SCH_IDX} AS CHAR)),
            		#{SCH_CONT},
 				#{SCH_WRITER},
 	           	CURRENT_TIMESTAMP,
@@ -244,6 +246,9 @@
 	            'N',
 	            'N'
             )
+        <selectKey keyProperty="SCH_IDX" resultType="string" order="BEFORE">
+			select max(SCH_IDX)+1 from MT_SCHEDULE
+		</selectKey>
     </insert>
     
     <update id="updateSchedule" parameterType="java.util.Map">
