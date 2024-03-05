@@ -14,6 +14,9 @@
 		<w2:publicInfo method="" />
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
     com.win.setEnterKeyEvent(tbl_search, scwin.btn_adminDel_onclick);
+    setTimeout(function(){
+        ibx_password.focus();
+    },500);
 };
 scwin.btn_adminDel_onclick = function(e) {
     let _pw = ibx_password.getValue();

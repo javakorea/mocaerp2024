@@ -21,7 +21,6 @@
     }
 
     function onPaste(event) {
-        debugger;
         var editor = event.listenerData && event.listenerData.editor;
         var $event = event.data.$;
         var clipboardData = $event.clipboardData;

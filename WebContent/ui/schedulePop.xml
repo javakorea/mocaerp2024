@@ -146,13 +146,33 @@ scwin.delPop_callback = function(e){
 scwin.btn_update_onclick = function(e) {
 	com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
 		if(e.clickValue){
-			dma_schdInfo.set("STATUS", "U");
-			dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
-			dma_schdInfo.set("SCH_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
-			com.sbm.execute(sbm_updateSchedule);
+			scwin.btn_update_exe();
 		}
 	});
 };
+
+scwin.btn_done_onclick = function(e) {
+	com.win.confirm($p, '완료변경처리 하시겠습니까?', function(e){
+		if(e.clickValue){
+			let _cont = edi_1.getHTML();
+			_cont = _cont.replace(/^(&nbsp;\s*)*/g, '');
+			if(!_cont.startsWith('[완료]')){
+				edi_1.setHTML('[완료]'+_cont);
+			}else{
+				edi_1.setHTML(_cont.replace(/^(\[완료\])/g,''));
+			}
+			scwin.btn_update_exe();
+		}
+	});
+};
+
+scwin.btn_update_exe = function(e) {
+	dma_schdInfo.set("STATUS", "U");
+	dma_schdInfo.set("SCH_CONT", edi_1.getHTML());
+	dma_schdInfo.set("SCH_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
+	com.sbm.execute(sbm_updateSchedule);
+};
+
 
 /* 일정 수정,삭제 callback */
 scwin.sbm_updateSchedule_submitdone = function(e) {
@@ -169,16 +189,6 @@ scwin.sbm_updateSchedule_submitdone = function(e) {
 			com.win.closePopup(param);
 		}
 	}
-};
-scwin.btn_success_onclick = function(e) {
-	let _cont = edi_1.getHTML();
-	_cont = _cont.replace(/^(&nbsp;\s*)*/g, '');
-	if(!_cont.startsWith('[완료]')){
-		edi_1.setHTML('[완료]'+_cont);
-	}else{
-		edi_1.setHTML(_cont.replace(/^(\[완료\])/g,''));
-	}
-	scwin.btn_update_onclick();
 };
 
 scwin.btn_color_onclick = function(e) {
@@ -211,7 +221,7 @@ scwin.colorPop_callback = function(e){
 						</xf:trigger>
 					</xf:group>
 					<xf:group style="" id="" class="fr">
-						<xf:trigger class="btn_cm" id="btn_success" nextTabID="" style="display:none" type="button" ev:onclick="scwin.btn_success_onclick">
+						<xf:trigger class="btn_cm" id="btn_success" nextTabID="" style="display:none" type="button" ev:onclick="scwin.btn_done_onclick">
 							<xf:label><![CDATA[완료]]></xf:label>
 						</xf:trigger><xf:trigger style="display: none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>

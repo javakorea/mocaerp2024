@@ -731,7 +731,7 @@ gcm.win.messagBox = function($p, messageType, messageStr, closeCallbackFncName, 
 
 	var options = {
 		id: popId,
-		popupName: messageType == "alert" ? com.data.getMessage("MSG_CM_00046") : com.data.getMessage("MSG_CM_00047"),
+		popupName: messageType == "alert" ? '알림' : '질의',
 		width: 380,
 		height: 223,
 		frameModal: "top",
@@ -2386,16 +2386,19 @@ gcm.ext.swiper.scriptImport = (_onLoadFuction)=>{
 	gcm.ext.scriptImport('/cm/swiper-bundle.js',_onLoadFuction);
 };
 gcm.ext.swiper.capturingEvt = (_t,t)=>{
+	//alert(_t.outerHTML);
     let data_date = _t.getAttribute('data-date');
     if(!data_date){
     	data_date = _t.parentNode.getAttribute('data-date');
     }
     if(!data_date){
-    	let idx = jQuery(_t).index();
+    	//let idx = jQuery(_t).index();
+    	let idx = $(_t).closest('td').index();
     	data_date = jQuery(_t).closest('.fc-row').find('.fc-bg tr td:nth('+idx+')').attr('data-date');
     	if(!data_date){
     		let idx = jQuery(_t.closest('a')).index();
     		data_date = jQuery(_t.closest('a')).closest('.fc-popover').find('.fc-header>.fc-title').text().replace(/(년|월|일)\s*/g,'-').replace(/\-$/g,'');
+    		alert(data_date);
     		let arr = data_date.split('-');
     		let y = arr[0];
     		let m = com.str.lpad($p,arr[1], 2, "0");
@@ -2544,6 +2547,7 @@ gcm.ext.moca.getTitleFromEditor = (edi_1)=>{
 	let title = '';
 	if(txt){
 		title = txt.substring(0,20);
+		title = txt.replace(/\s/g,'');
 	}
 	return title.trim();
 };

@@ -21,10 +21,16 @@ scwin.onpageload = function () {
 		if (messageType === "alert") {
 			btn_cancel.hide();
 			btn_yes.hide();
+			setTimeout(function(){
+				btn_confirm.focus();
+			},500);				
 		} else if (messageType === "confirm") {
 			btn_confirm.hide("");
 			btn_yes.show("");
 			btn_cancel.show("");
+			setTimeout(function(){
+				btn_yes.focus();
+			},500);			
 		}
 	} catch (ex) {
 		console.error(ex);
