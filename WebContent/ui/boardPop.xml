@@ -237,42 +237,21 @@ scwin.edi_1_onload = function() {
 	}
 };
 
-scwin.thumbnail = async (_id, formattedData, rowIndex, colIndex)=>{
+scwin.thumbnail = function(_id, formattedData, rowIndex, colIndex){
 	let _fileNm = grd_program.getCellData(rowIndex,'FILE_NAME');
 	let _ext = gcm.ext.moca.getFileExtension(_fileNm);
 	let __icoUrl = gcm.ext.moca.getExtIconUri(_ext);
-	debugger;
 	let _img = '';
 	if(__icoUrl){
 		_img = `<img width="18" height="18" src='${__icoUrl}'/>`;
 	}else{
-		let _iconUrl = await scwin.getImage(`https://drive.google.com/thumbnail?sz=s24&id=${_id}`);
+		//let _iconUrl = await scwin.getImage(`https://drive.google.com/thumbnail?sz=s24&id=${_id}`);
+		let _iconUrl = `/googleDownload.do?googleFileId=${_id}&sz=s24`;
+		
+		
 		_img = `<img width='18' height='18' src='${_iconUrl}'/>`;
 	}
 	return _img;
-}
-
-scwin.getImage = (_url)=>{
-    return new Promise((resolve) => {
-		debugger;
-        const img = new Image()
-        img.src = _url;
-        img.crossOrigin = "Anonymous"
-        img.onload = () => {
-            const canvas = document.createElement("canvas")
-            canvas.height = img.height
-            canvas.width = img.width
-
-            const ctx = canvas.getContext("2d")
-            if (ctx) {
-                ctx.drawImage(img, 0, 0)
-
-                const base64 = canvas.toDataURL()
-
-                resolve(base64)
-            }
-        }
-    });
 }
 
 scwin.btn_fileUpload_onclick = function(e) {
@@ -319,7 +298,7 @@ scwin.grd_program_oncellclick = function(row,col,colId) {
 	if(colId == "THUMBNAIL"){
 		thumnailArea.show('');
 		let _id = grd_program.getCellData(row,col);
-		img_thum.setSrc(`https://drive.google.com/thumbnail?id=${_id}&sz=s1000`);
+		img_thum.setSrc(`/googleDownload.do?googleFileId=${_id}&sz=s1000`);
 	}
 };
 

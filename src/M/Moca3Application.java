@@ -1,5 +1,7 @@
 package M;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -46,7 +49,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.View;
 
 import websquare.logging.util.LogUtil;
 
@@ -216,11 +218,106 @@ public class Moca3Application {
 	
 	
 	
-	
-	
-	
-	
-	
+	public static final int BUFF_SIZE = 2048;
+	//스케줄러 수정
+	@RequestMapping("/googleDownload.do")
+	public void googleDownload(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		String googleFileId = request.getParameter("googleFileId");
+		String sz = request.getParameter("sz");
+		String url = "https://drive.google.com/thumbnail?sz="+sz+"&id="+googleFileId;
+		String OUTPUT_FILE_PATH = "c:\\Temp\\a.jpg";
+		String FILE_URL = url;
+		BufferedInputStream in = null;
+		BufferedOutputStream outs = null;
+		try  {
+			in = new BufferedInputStream(new URL(FILE_URL).openStream());
+		    //String fName = (new String(orgFileName.getBytes(), "UTF-8")).replaceAll("\r\n","");
+			String fName = "a.jpg";
+			response.setContentType("application/octet-stream; charset=utf-8");
+			//response.setContentLength((int) file.length());
+			String browser = getBrowser(request);
+			String disposition = getDisposition(fName, browser);
+			response.setHeader("Content-Disposition", disposition);
+			
+			
+			
+			//response.setHeader("Content-Disposition:", "attachment; filename=" + fName);
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			response.setHeader("Pragma", "no-cache");
+			response.setHeader("Expires", "0");
+		
+			outs = new BufferedOutputStream(response.getOutputStream());
+		    byte dataBuffer[] = new byte[1024];
+		    int bytesRead;
+		    while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+		    	outs.write(dataBuffer, 0, bytesRead);
+		    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(in != null) {
+				in.close();
+			}
+			outs.flush();
+			outs.close();
+		}
+			
+		/*	
+		File file = new File( (String)fileInfoMap.get("PATH"));
+		response.setContentType("application/octet-stream; charset=utf-8");
+		response.setContentLength((int) file.length());
+		String browser = getBrowser(request);
+		String disposition = getDisposition((String)fileInfoMap.get("FILE_NM"), browser);
+		response.setHeader("Content-Disposition", disposition);
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		OutputStream out = response.getOutputStream();
+		FileInputStream fis = null;
+		fis = new FileInputStream(file);
+		FileCopyUtils.copy(fis, out);
+		mocaEFLService.insertList_EFL_CAFL_DOWN_H(map);
+		if (fis != null)
+			fis.close();
+		out.flush();
+		out.close();
+		*/
+	};
+	public static String getBrowser(HttpServletRequest request) {
+		String header = request.getHeader("User-Agent");
+		if (header.indexOf("MSIE") > -1 || header.indexOf("Trident") > -1)
+			return "MSIE";
+		else if (header.indexOf("Chrome") > -1)
+			return "Chrome";
+		else if (header.indexOf("Opera") > -1)
+			return "Opera";
+		return "Firefox";
+	}
+	private String getDisposition(String filename, String browser)
+			throws UnsupportedEncodingException {
+		String dispositionPrefix = "attachment;filename=";
+		String encodedFilename = null;
+		if (browser.equals("MSIE")) {
+			encodedFilename = URLEncoder.encode(filename, "UTF-8").replaceAll(
+					"\\+", "%20");
+		} else if (browser.equals("Firefox")) {
+			encodedFilename = "\""
+					+ new String(filename.getBytes("UTF-8"), "8859_1") + "\"";
+		} else if (browser.equals("Opera")) {
+			encodedFilename = "\""
+					+ new String(filename.getBytes("UTF-8"), "8859_1") + "\"";
+		} else if (browser.equals("Chrome")) {
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < filename.length(); i++) {
+				char c = filename.charAt(i);
+				if (c > '~') {
+					sb.append(URLEncoder.encode("" + c, "UTF-8"));
+				} else {
+					sb.append(c);
+				}
+			}
+			encodedFilename = sb.toString();
+		}
+		return dispositionPrefix + encodedFilename;
+	}
 	
 	
 	
