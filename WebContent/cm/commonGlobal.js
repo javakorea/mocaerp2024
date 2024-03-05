@@ -2386,19 +2386,33 @@ gcm.ext.swiper.scriptImport = (_onLoadFuction)=>{
 	gcm.ext.scriptImport('/cm/swiper-bundle.js',_onLoadFuction);
 };
 gcm.ext.swiper.capturingEvt = (_t,t)=>{
-	//alert(_t.outerHTML);
+	//alert('swiper');
     let data_date = _t.getAttribute('data-date');
     if(!data_date){
     	data_date = _t.parentNode.getAttribute('data-date');
     }
+    //alert('1중요:'+data_date);
+    let idx = 0;
     if(!data_date){
-    	//let idx = jQuery(_t).index();
-    	let idx = $(_t).closest('td').index();
+    	let touchx = 0;
+    	if(event.clientX){
+    		touchx = event.clientX;
+    	}else{
+    		touchx = event.changedTouches[0].pageX; 		
+    	}
+    	//alert('touchx:'+touchx);
+    	let cellWidth = $($('.fc-day-header.fc-widget-header.fc-sat')[0]).width();
+    	//alert('cellWidth:'+cellWidth);
+    	let startx = touchx - t.offsetLeft;//미리가져온값을 사용해야함 cal위치가 자꾸 변경되기때문
+    	//alert('startx:'+startx);
+    	idx = Math.floor(startx/cellWidth);
+    	//alert('3idx:'+idx);
+    	////debugger;
     	data_date = jQuery(_t).closest('.fc-row').find('.fc-bg tr td:nth('+idx+')').attr('data-date');
+    	//alert('4중요:'+data_date);
     	if(!data_date){
     		let idx = jQuery(_t.closest('a')).index();
     		data_date = jQuery(_t.closest('a')).closest('.fc-popover').find('.fc-header>.fc-title').text().replace(/(년|월|일)\s*/g,'-').replace(/\-$/g,'');
-    		alert(data_date);
     		let arr = data_date.split('-');
     		let y = arr[0];
     		let m = com.str.lpad($p,arr[1], 2, "0");
@@ -2407,9 +2421,25 @@ gcm.ext.swiper.capturingEvt = (_t,t)=>{
     	}
     }
     let tt = '';
-    if(jQuery(_t).hasClass('fc-title')){
+    
+    if(jQuery(_t).hasClass('fc-title') ){//단일 일정일때
     	tt = _t.innerText;
+    }else if(!jQuery(_t).hasClass('fc-content-skeleton') ){//멀티일 일정일때
+    	let to = jQuery(_t).find('.fc-title');
+    	//alert('여기서 타이틀얻기:'+t.outerHTML);
+    	if(to.length > 0){
+    		tt = to[0].innerText;
+    	}
     }
+  
+    if(jQuery(_t).hasClass('fc-content-skeleton') ){//일은 맨아래클릭시
+    	//alert('fc-content-skeleton:'+_t.outerHTML);
+    	data_date = jQuery(_t).find('td:nth('+idx+')').attr('data-date');
+    	//alert('A:'+data_date);
+    }
+    
+    //alert('5:'+tt);
+    //alert('6:'+_t.outerHTML);
     t.onClickChild({
     	start:gcm.ext.dayCalcStrToObj(data_date,0),
     	end  :gcm.ext.dayCalcStrToObj(data_date,1),

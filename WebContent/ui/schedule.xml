@@ -61,6 +61,8 @@
 			scwin.search();
 		});
 		scwin.swiper.slideTo(1,0);//index,speed
+		scwin.swiper.offsetLeft = $(sch_cal.render).offset().left;
+		//alert('scwin.swiper.offsetLeft:'+scwin.swiper.offsetLeft);
 	});
 };
 
@@ -69,7 +71,6 @@
 
 /* 스케줄러 클릭 */
 scwin.sch_cal1_onclick = function(retObj,b,c) {
-	
 	if(!com.util.isMobile() || c ){
 		//alert('sch_cal1_onclick'+event.currentTarget.contentType);
 		//!com.util.isMobile() 는 pc에서 실행하는경우
@@ -252,7 +253,14 @@ scwin.SCH_CURRENTMONTH_onchange = function(e) {
 		sch_cal.removeClass("current");
 		sch_cal_next.removeClass("current");
 	}
-};]]></script>
+	gcm.ext.fullCalendar.executeMonthBySwiper(SCH_CURRENTMONTH,scwin.swiper,scwin.search);	
+};
+scwin.SCH_CURRENTMONTH_onkeyup = function(e) {
+	if (e.keyCode === 13) {
+		gcm.ext.fullCalendar.executeMonthBySwiper(SCH_CURRENTMONTH,scwin.swiper,scwin.search);	
+	}
+};
+]]></script>
 		<style>
 			.ica_sch .w2inputCalendar_divInput{border:0; font-size:25px; font-weight:500}
 			.ica_sch .w2inputCalendar_div_img{left: 0; right: 0; width: 100%;}
@@ -304,7 +312,7 @@ scwin.SCH_CURRENTMONTH_onchange = function(e) {
 						<xf:label><![CDATA[>]]></xf:label>
 					</xf:trigger>
 				</xf:group>
-			<xf:group id="" style="text-align: center;width:100%;"><w2:inputCalendar style="width:145px;text-align:center;" id="SCH_CURRENTMONTH" class="ica_sch" calendarValueType="yearMonth" pickerType="dynamic" dynamicHeaderOrder="year" displayFormat="yyyy년MM월" ev:onchange="scwin.SCH_CURRENTMONTH_onchange"></w2:inputCalendar></xf:group></xf:group>
+			<xf:group id="" style="text-align: center;width:100%;"><w2:inputCalendar style="width:145px;text-align:center;" id="SCH_CURRENTMONTH" class="ica_sch" calendarValueType="yearMonth" pickerType="dynamic" dynamicHeaderOrder="year" displayFormat="yyyy년MM월" ev:onchange="scwin.SCH_CURRENTMONTH_onchange" ev:onkeyup="scwin.SCH_CURRENTMONTH_onkeyup"></w2:inputCalendar></xf:group></xf:group>
 			<xf:group class="swiper mySwiper">
 				<xf:group style="height:100%;flex-flow:nowrap;" id="" class="calendarbox flex swiper-wrapper">
 				
