@@ -181,7 +181,7 @@
      <select id="selectScheduleList" parameterType="java.util.Map" resultType="java.util.HashMap">
     	/*selectScheduleList 스케줄러 조회*/
 		SELECT
-			SCH_IDX as groupId,
+			SCH_IDX,
 			case
 			    when SCH_SUCCESSYN= 'Y' then CONCAT('✔',SCH_TITLE)		
 			    else SCH_TITLE
@@ -196,6 +196,7 @@
 			DATE_ADD(SCH_START, INTERVAL 9 HOUR) AS SCH_START_UTC,
 			DATE_ADD(SCH_END, INTERVAL 9 HOUR) AS SCH_END_UTC,
 			SCH_COLOR ,
+			SCH_COLOR AS FUL_COLOR,
 			SCH_DELYN,
 			SCH_SENDYN,
 			SCH_SUCCESSYN

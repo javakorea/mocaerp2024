@@ -51,12 +51,9 @@
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
 	scwin.param = com.data.getParameter();
-	let _parentDma = $p.parent().dlt_list.getMatchedJSON('groupId',scwin.param.data.schInfo.SCH_IDX)[0];
-	
+	let _parentDma = $p.parent().dlt_list.getMatchedJSON('SCH_IDX',scwin.param.data.schInfo.SCH_IDX)[0];
 	if(scwin.param.data.mode == "read"){
 		dma_schdInfo.setJSON(_parentDma);
-		dma_schdInfo.set("SCH_IDX",scwin.param.data.schInfo.SCH_IDX);
-		dma_schdInfo.set("SCH_COLOR",_parentDma.SCH_COLOR.color);
 		scwin.btn_visible();
 		btn_colorPicker.setStyle("background-color",dma_schdInfo.get('SCH_COLOR'));
 		edi_1.setHTML(dma_schdInfo.get('SCH_CONT'));

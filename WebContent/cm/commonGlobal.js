@@ -2462,11 +2462,11 @@ gcm.ext.fullCalendar.setMonth = (_schObj,_month)=>{
 	_schObj.setUserData('month',_month);
 	$("#" + _schObj.id).fullCalendar("gotoDate", _month+'01');
 };
-gcm.ext.fullCalendar.executeMonthBySwiper = (SCH_CURRENTMONTH,_swiper,_search)=>{
+gcm.ext.fullCalendar.executeMonthBySwiper = (SCH_CURRENTMONTH,_swiper)=>{
 	let mon = SCH_CURRENTMONTH.getValue();
 	let selectedCalObj = $p.getComponentById(_swiper.slides[_swiper.activeIndex].id);
 	gcm.ext.fullCalendar.setMonth(selectedCalObj,mon);
-	_search();	
+	//_search();	
 };
 gcm.ext.fullCalendar.getCalObjBySwiper = (_swiper)=>$p.getComponentById(_swiper.slides[_swiper.activeIndex].id);
 
