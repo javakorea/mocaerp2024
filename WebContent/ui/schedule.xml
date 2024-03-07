@@ -62,11 +62,15 @@
 		});
 		scwin.swiper.onClickChild = scwin.sch_cal1_onclick;
 		scwin.swiper.on('doubleTap', function (e, s) {gcm.ext.swiper.capturingEvt(s.target,scwin.swiper);});
-		scwin.swiper.on('slideChange', function (_swiperObj) {
-			if(_swiperObj.snapIndex == 0 || _swiperObj.snapIndex == 2){
-				scwin.search();
-			}
+		
+		scwin.swiper.on('realIndexChange', function (_swiperObj) {
+			scwin.search();
 		});
+		/*
+		scwin.swiper.on('slideChange', function (_swiperObj) {
+		});
+		*/
+		scwin.swiper.slideTo(1,0);//아이폰을위해서
 		scwin.swiper.offsetLeft = $(sch_cal.render).offset().left;
 	});
 };
@@ -75,7 +79,11 @@
 
 
 /* 스케줄러 클릭 */
+scwin.popup_opened = false;
 scwin.sch_cal1_onclick = function(retObj,b,c) {
+	if(scwin.popup_opened){
+		return;
+	}
 	if(!com.util.isMobile() || c ){
 		//alert('sch_cal1_onclick'+event.currentTarget.contentType);
 		//!com.util.isMobile() 는 pc에서 실행하는경우
@@ -109,12 +117,27 @@ scwin.sch_cal1_onclick = function(retObj,b,c) {
 			popupName: _popupName,
 			modal: true,
 			useMaximize : true,
+			closeAction : scwin.schedulePop_closeAction,
 			width: 500, height: 402,
 			className : "h100"
 		};
+		scwin.popup_opened = true;
 		com.win.openPopup("/ui/schedulePop.xml", options, data);
 	}
 };
+scwin.schedulePop_closeAction = ()=>{
+	scwin.popup_opened = false;
+	return true;
+}
+/* 팝업 callback */
+scwin.schedulePop_callback = function(e) {
+	debugger;
+	scwin.popup_opened = false;
+	com.win.alert(e.message);
+	scwin.search();
+}
+
+
 
 scwin.setThisMonth = ()=>{
 	let selectedCalObj = $p.getComponentById(scwin.swiper.slides[scwin.swiper.activeIndex].id);
@@ -184,11 +207,7 @@ scwin.fn_format = function(rowJson, row, col) {
 };
 
 
-/* 팝업 callback */
-scwin.schedulePop_callback = function(e) {
-	com.win.alert(e.message);
-	scwin.search();
-}
+
 
 //util
 scwin.dateToString = function(date){

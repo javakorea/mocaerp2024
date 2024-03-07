@@ -595,6 +595,10 @@ gcm.win.openPopup = function($p, url, opt, data) {
 		scrollbars : true,
 		windowDragMove : opt.windowDragMove || true,
 		closeAction : function() {
+			if(opt.closeAction){
+				opt.closeAction();
+			}
+		
 			var popupWindow = $p.getPopupWindow(this.id);
 			var isClose = true;
 			
@@ -629,6 +633,7 @@ gcm.win.openPopup = function($p, url, opt, data) {
 					}
 				}
 			}
+
 			return true;
 		},
 		popupUrl : "../popup"
