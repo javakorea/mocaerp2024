@@ -51,37 +51,39 @@
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
 	scwin.param = com.data.getParameter();
-	dma_schdInfo.set("SCH_START",scwin.param.data.schInfo.START);
-	dma_schdInfo.set("SCH_END",scwin.param.data.schInfo.END);
+	let _parentDma = $p.parent().dlt_list.getMatchedJSON('groupId',scwin.param.data.schInfo.SCH_IDX)[0];
+	
 	if(scwin.param.data.mode == "read"){
-		dfbox.show('');
-		btn_update.show('');
-		btn_del.show('');
-		btn_success.show('');
-		btn_adminDel.show('');
-		btn_confirm.hide();
-		scwin.fn_searchScheduleInfo();
+		dma_schdInfo.setJSON(_parentDma);
+		dma_schdInfo.set("SCH_IDX",scwin.param.data.schInfo.SCH_IDX);
+		dma_schdInfo.set("SCH_COLOR",_parentDma.SCH_COLOR.color);
+		scwin.btn_visible();
+		btn_colorPicker.setStyle("background-color",dma_schdInfo.get('SCH_COLOR'));
+		edi_1.setHTML(dma_schdInfo.get('SCH_CONT'));
 	}else{
+		dfbox.show('');
 		dma_schdInfo.set("SCH_COLOR","#076aff");
 		dma_schdInfo.set("SCH_WRITER",scwin.param.data.writer);
 	}
-	
+	dma_schdInfo.set("SCH_START",scwin.param.data.schInfo.START);
+	dma_schdInfo.set("SCH_END",scwin.param.data.schInfo.END);
 };
 
-/**
- * 일정 단건조회
- */
-scwin.fn_searchScheduleInfo = function () {
-	dma_schdInfo.set("SCH_IDX",scwin.param.data.schInfo.SCH_IDX);
-	com.sbm.execute(sbm_schdInfo);
-	//callback
-	scwin.sbm_schdInfo_submitdone = function(e) {
-		btn_colorPicker.setStyle("background-color",dma_schdInfo.get('SCH_COLOR'));
-		edi_1.setHTML(dma_schdInfo.get('SCH_CONT'));
-	};
-
-};
-
+scwin.btn_visible = function(){
+	btn_update.show('');
+	btn_del.show('');
+	btn_success.removeClass("skyblue");
+	if(dma_schdInfo.get('SCH_SUCCESSYN') == 'Y'){
+		btn_success.setLabel('완료취소');
+	}else{
+		btn_success.addClass("skyblue");
+		btn_success.setLabel('완료처리');
+	}
+	btn_success.show('');
+	btn_adminDel.show('');
+	btn_confirm.hide();
+	dfbox.show('');
+}
 /* 일정등록 */
 scwin.btn_confirm_onclick = function(e) {
 	com.win.confirm($p, '일정을 등록하시겠습니까?', function(e){
@@ -153,7 +155,8 @@ scwin.btn_update_onclick = function(e) {
 };
 
 scwin.btn_done_onclick = function(e) {
-	com.win.confirm($p, '완료변경처리 하시겠습니까?', function(e){
+	let _label = btn_success.getLabel();
+	com.win.confirm($p, `${_label} 하시겠습니까?`, function(e){
 		if(e.clickValue){
 			let _successYn = dma_schdInfo.get('SCH_SUCCESSYN');
 			if(_successYn == 'Y'){
@@ -215,16 +218,16 @@ scwin.colorPop_callback = function(e){
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m">
 			<xf:group id="">
-				<xf:group style="" id="dfbox" class="dfbox">
+				<xf:group style="display:none;" id="dfbox" class="dfbox">
 					<xf:group style="" id="" class="fl">
 						<xf:trigger style="display: none;" id="btn_adminDel" type="button" class="btn_cm red"
 							ev:onclick="scwin.btn_adminDel_onclick">
 							<xf:label><![CDATA[폐기]]></xf:label>
 						</xf:trigger>
 					</xf:group>
-					<xf:group style="" id="" class="fr">
+					<xf:group style="" id="grp_btn" class="fr">
 						<xf:trigger class="btn_cm" id="btn_success" nextTabID="" style="display:none" type="button" ev:onclick="scwin.btn_done_onclick">
-							<xf:label><![CDATA[완료]]></xf:label>
+							<xf:label><![CDATA[완료처리]]></xf:label>
 						</xf:trigger><xf:trigger style="display: none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
 						</xf:trigger>
