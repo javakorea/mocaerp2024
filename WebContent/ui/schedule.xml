@@ -171,6 +171,7 @@ scwin.setThisMonth = ()=>{
 scwin.search = function(){
 	let _yyyymm = scwin.setThisMonth();
 	SCH_CURRENTMONTH.setValue(_yyyymm);
+	scwin.setCalTitle();
 	com.sbm.execute(sbm_schdList);
 	scwin.sbm_schdList_submitdone = function(e) {
 		let _yyyymm = SCH_CURRENTMONTH.getValue();	
@@ -268,7 +269,7 @@ scwin.SCH_CURRENTMONTH_onkeyup = function(e) {
 	}
 };
 
-scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
+scwin.setCalTitle = function(){
 	let _currentM = WebSquare.date.getCurrentServerDate('yyyyMM');
 	let calObj = gcm.ext.fullCalendar.getCalObjBySwiper(scwin.swiper);
 	if(SCH_CURRENTMONTH.getValue() ==  _currentM){
@@ -280,6 +281,9 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 		sch_cal.removeClass("current");
 		sch_cal_next.removeClass("current");
 	}
+};
+
+scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 	gcm.ext.fullCalendar.executeMonthBySwiper(SCH_CURRENTMONTH,scwin.swiper);	
 	scwin.search();
 };
