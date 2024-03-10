@@ -305,6 +305,41 @@ scwin.grd_program_oncellclick = function(row,col,colId) {
 scwin.img_thum_onclick = function(e) {
 	thumnailArea.hide();
 };
+
+scwin.btn_copyAll_onclick = function(e) {
+	var fullTags = "";
+	let _leng =dlt_FILE.getRowCount();
+	if(_leng == 0){
+		com.win.alert('첨부파일이 없습니다.');
+	}else{
+		for(var i=0; i < dlt_FILE.getRowCount(); i++){
+			let _fid = dlt_FILE.getCellData(i,"FILE_ID");
+			let _imgTag = `<img alt=""  src="/googleDownload.do?googleFileId=${_fid}&sz=s1000" style="width: 100%;border-width: 1px; border-style: solid;" /><hr /><br><br>`;
+			fullTags += _imgTag;
+		}
+		ibx_clip.setValue(fullTags)
+		ibx_clip.focus();
+		ibx_clip.select();
+		document.execCommand("copy");
+		com.win.alert('전체이미지태그가 클립보드에 복사되었습니다.\n소스편집모드로 붙여넣기 하세요.');
+	}
+};
+
+scwin.btn_copy_onclick = function(e) {
+	let _aRow = dlt_FILE.getRowPosition();
+	if(_aRow == null){
+		com.win.alert('선택된 행이 없습니다.');
+	}else{
+		let _fid = dlt_FILE.getCellData(_aRow,"FILE_ID");
+		let _imgTag = `<img alt=""  src="/googleDownload.do?googleFileId=${_fid}&sz=s1000" style="width: 100%;border-width: 1px; border-style: solid;" /><hr /><br><br>`;
+		ibx_clip.setValue(_imgTag);
+		ibx_clip.focus();
+		ibx_clip.select();
+		document.execCommand("copy");
+		com.win.alert('클립보드에 복사되었습니다.\n소스편집모드로 붙여넣기 하세요.');
+	}
+};
+
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
@@ -383,7 +418,14 @@ scwin.img_thum_onclick = function(e) {
 				<w2:textbox class="" id="" label="첨부파일" style="" tagname="h3"></w2:textbox>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
-					<xf:trigger class="btn_cm" id="btn_fileUpload" style="" type="button" ev:onclick="scwin.btn_fileUpload_onclick">
+					<xf:input id="ibx_clip" style="width: 10px;border: 0;opacity: 0;position: absolute;left: 0;"></xf:input>
+					<xf:trigger class="btn_cm" id="btn_copy" style="" type="button" ev:onclick="scwin.btn_copy_onclick">
+						<xf:label><![CDATA[클립복사]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm" id="btn_copyAll" style="" type="button" ev:onclick="scwin.btn_copyAll_onclick">
+						<xf:label><![CDATA[전체클립]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm" ev:onclick="scwin.btn_fileUpload_onclick" id="trigger1" style="" type="button">
 						<xf:label><![CDATA[파일찾기]]></xf:label>
 					</xf:trigger>
 				</xf:group>

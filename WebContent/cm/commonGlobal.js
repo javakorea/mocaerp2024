@@ -2584,7 +2584,7 @@ gcm.ext.moca.getTitleFromEditor = (edi_1)=>{
 	let title = '';
 	if(txt){
 		title = txt.substring(0,20);
-		title = txt.replace(/\s/g,'');
+		title = title.replace(/\s/g,'');
 	}
 	return title.trim();
 };
