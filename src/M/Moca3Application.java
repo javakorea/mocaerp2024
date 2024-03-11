@@ -69,8 +69,8 @@ public class Moca3Application {
 	
 	
 	public static String COMMON_MASTER_QUERY = "COMMON_MASTER_QUERY";
-	public static String MASTER_KEY = "MASTER_KEY";
-	public static String DETAIL_KEY = "DETAIL_KEY";
+	public static String COMMON_MASTER_KEY = "COMMON_MASTER_KEY";
+	public static String COMMON_DETAIL_KEY = "COMMON_DETAIL_KEY";
 	public static String COMMON_MASTER_RESULT = "COMMON_MASTER_RESULT";
 	public static String COMMON_DETAIL_RESULT = "COMMON_DETAIL_RESULT";
 	public static String COMMON_PARAM_MAP = "COMMON_PARAM_MAP";
@@ -95,12 +95,12 @@ public class Moca3Application {
 	
 	/* 단건-다건 입력수정*/
 	@RequestMapping("/commonTran.do")
-	public Map insertMap(@RequestBody Map param) throws Exception{
+	public Map commonTran(@RequestBody Map param) throws Exception{
 		Map dma_common = (Map) param.get(this.MASTER_MAP);
 		List dlt_common = (List) param.get(this.DETAIL_LiST);
 		String COMMON_MASTER_QUERY = dma_common.get(this.COMMON_MASTER_QUERY).toString();
-		String MASTER_KEY_NM = dma_common.get(this.MASTER_KEY).toString();
-		String DETAIL_KEY_NM = dma_common.get(this.DETAIL_KEY).toString();
+		String MASTER_KEY_NM = dma_common.get(this.COMMON_MASTER_KEY).toString();
+		String DETAIL_KEY_NM = dma_common.get(this.COMMON_DETAIL_KEY).toString();
 		String COMMON_DETAIL_INSERTQUERY = dma_common.get(this.COMMON_DETAIL_INSERTQUERY).toString();
 		String COMMON_DETAIL_UPDATEQUERY = dma_common.get(this.COMMON_DETAIL_UPDATEQUERY).toString();
 		String COMMON_DETAIL_DELETEQUERY = dma_common.get(this.COMMON_DETAIL_DELETEQUERY).toString();
@@ -528,14 +528,14 @@ class u {
 	public static Map selectMap(Map param,SqlSession ss) {
 		Map searchMap = (Map) param.get("dma_search");
 		Map resultMap = new HashMap();
-		Map map = ss.selectOne((String)searchMap.get("QUERY"), searchMap);
+		Map map = ss.selectOne((String)searchMap.get("COMMON_QUERY"), searchMap);
 		resultMap.put("dma_map", map);
 		return resultMap;
 	};
 	public static Map selectList(Map param,SqlSession ss) {
 		Map searchMap = (Map) param.get("dma_search");
 		Map resultMap = new HashMap();
-		List list = ss.selectList((String)searchMap.get("QUERY"), searchMap);
+		List list = ss.selectList((String)searchMap.get("COMMON_QUERY"), searchMap);
 		resultMap.put("dlt_list", list);
 		return resultMap;
 	};

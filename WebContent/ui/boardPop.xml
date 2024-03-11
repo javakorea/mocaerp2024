@@ -22,14 +22,15 @@
 						<w2:key id="BOARD_TABLE" name="게시판테이블" dataType="text"></w2:key>
 						<w2:key id="BOARD_CONT" name="게시물컨텐츠" dataType="text"></w2:key>
 						<w2:key id="BOARD_DELYN" name="삭제여부" dataType="text"></w2:key>
-						<w2:key id="STATUS" name="상태" dataType="text"></w2:key>
-						<w2:key id="QUERY" name="QUERY" dataType="text"></w2:key>
+						
+						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
 						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
 						<w2:key id="COMMON_DETAIL_INSERTQUERY" name="SUBQUERY" dataType="text"></w2:key>
 						<w2:key id="COMMON_DETAIL_UPDATEQUERY" name="SUBQUERY" dataType="text"></w2:key>
 						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
-						<w2:key id="MASTER_KEY" name="MASTER_KEY" dataType="text"></w2:key>
-						<w2:key id="DETAIL_KEY" name="DETAIL_KEY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" name="COMMON_MASTER_KEY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
 				<w2:dataMap baseNode="map" id="COMMON_RESULT">
@@ -94,7 +95,7 @@
  * 게시물 단건조회
  */
 scwin.fn_searchBoardInfo = function () {
-	dma_content.set('QUERY',"M.selectBoardInfo");
+	dma_content.set('COMMON_QUERY',"M.selectBoardInfo");
 	com.sbm.execute(sbm_boardInfo);
 	//callback
 	scwin.sbm_searchBoardInfo_submitdone = function(e) {
@@ -105,7 +106,7 @@ scwin.fn_searchBoardInfo = function () {
 
 /* 게시물 단건 첨부파일 목록조회 */
 scwin.fn_searchFile = function () {
-	dma_content.set('QUERY',"M.selectBoardFileList");
+	dma_content.set('COMMON_QUERY',"M.selectBoardFileList");
 	com.sbm.execute(sbm_boardFileList);
 	//callback
 	scwin.sbm_boardFileList_submitdone = function(e) {
@@ -134,9 +135,9 @@ scwin.fn_bytesToLabel = function(_byte){
 		let _j = e.responseJSON;
 		if(_j.status == "S"){
 			let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
-			if(request.STATUS == "D" || request.BOARD_DELYN == "Y"){
+			if(request.COMMON_STATUS == "D" || request.BOARD_DELYN == "Y"){
 				com.win.closePopup({"message":"삭제가 완료되었습니다."});
-			}else if(request.STATUS == "I"){
+			}else if(request.COMMON_STATUS == "I"){
 				com.win.closePopup({"message":"등록이 완료되었습니다."});
 			}else{
 				com.win.closePopup({"message":"수정이 완료되었습니다."});
@@ -153,7 +154,7 @@ scwin.fn_bytesToLabel = function(_byte){
 				dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
 				dma_content.set("MASTER_KEY","BOARD_IDX");dma_content.set("DETAIL_KEY","CONTENT_ID");
 
-				dma_content.set("STATUS", "I");
+				dma_content.set("COMMON_STATUS", "I");
 				dma_content.set("BOARD_CONT", edi_1.getHTML());
 				dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
 				com.sbm.execute(sbm_commonTran);
@@ -170,7 +171,7 @@ scwin.fn_bytesToLabel = function(_byte){
 				dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
 				dma_content.set("MASTER_KEY","BOARD_IDX");dma_content.set("DETAIL_KEY","CONTENT_ID");
 
-				dma_content.set("STATUS", "U");
+				dma_content.set("COMMON_STATUS", "U");
 				dma_content.set("BOARD_CONT", edi_1.getHTML());
 				dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
 				com.sbm.execute(sbm_commonTran);
@@ -185,8 +186,7 @@ scwin.fn_bytesToLabel = function(_byte){
 				dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
 				dma_content.set("MASTER_KEY","BOARD_IDX");dma_content.set("DETAIL_KEY","CONTENT_ID");
 
-				dma_content.set("STATUS", "U");
-				dma_content.set("BOARD_DELYN","Y");
+				dma_content.set("COMMON_STATUS", "U");dma_content.set("BOARD_DELYN","Y");//논리삭제
 				com.sbm.execute(sbm_commonTran);
 			}
 		});
@@ -209,7 +209,7 @@ scwin.fn_bytesToLabel = function(_byte){
 						dma_content.set("COMMON_MASTER_QUERY"	, "M.deleteBoard");
 						dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
 						dma_content.set("MASTER_KEY","BOARD_IDX");dma_content.set("DETAIL_KEY","CONTENT_ID");
-						dma_content.set("STATUS", "D");
+						dma_content.set("COMMON_STATUS", "D");
 						com.sbm.execute(sbm_commonTran);
 					}
 				})

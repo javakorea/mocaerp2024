@@ -39,7 +39,7 @@
 						<w2:key id="START_IDX" name="START_IDX" dataType="text"></w2:key>
 						<w2:key id="END_IDX" name="END_IDX" dataType="text"></w2:key>
 						<w2:key id="BOARD_CONT_LIST" name="BOARD_CONT_LIST" dataType="text"></w2:key>
-						<w2:key id="QUERY" name="QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" name="COMMON_QUERY" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
 				<w2:dataMap baseNode="map" id="dma_search_excel" style="">
@@ -128,7 +128,7 @@ scwin.btn_search_onclick = function(e) {
 	if(_boardContArr.length > 0){
 		dma_search.set('BOARD_CONT_LIST',_boardContArr);
 	}
-	dma_search.set('QUERY',"M.selectBoardList");
+	dma_search.set('COMMON_QUERY',"M.selectBoardList");
 	com.sbm.execute (sbm_searchBoardList);
 };
 scwin.sbm_searchBoardList_submitdone = function(e) {
