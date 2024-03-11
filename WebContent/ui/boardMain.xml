@@ -349,7 +349,7 @@ scwin.setProviderData = function (service, method, paramMap) {
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
 					<xf:trigger class="btn_cm" id="btn_excelSplitProvider" style="" type="button" ev:onclick="scwin.btn_excelSplitProvider_onclick">
-						<xf:label><![CDATA[다운로드]]></xf:label>
+						<xf:label><![CDATA[엑셀]]></xf:label>
 					</xf:trigger>
 					<xf:trigger class="btn_cm" id="btn_del" style="" type="button" ev:onclick="scwin.btn_del_onclick">
 						<xf:label><![CDATA[삭제]]></xf:label>
