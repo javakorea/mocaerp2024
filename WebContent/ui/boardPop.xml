@@ -24,8 +24,23 @@
 						<w2:key id="BOARD_DELYN" name="삭제여부" dataType="text"></w2:key>
 						<w2:key id="STATUS" name="상태" dataType="text"></w2:key>
 						<w2:key id="QUERY" name="QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="MASTER_KEY" name="MASTER_KEY" dataType="text"></w2:key>
+						<w2:key id="DETAIL_KEY" name="DETAIL_KEY" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="COMMON_RESULT">
+					<w2:keyInfo>
+						<w2:key id="COMMON_MASTER_RESULT" name="COMMON_MASTER_RESULT" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_RESULT" name="COMMON_DETAIL_RESULT" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				
+				
+				
 				<w2:dataList baseNode="list" repeatNode="map" id="dlt_FILE" saveRemovedData="true">
 					<w2:columnInfo>
 						<w2:column id="FILE_IDX" 				name="파일아이디" 			dataType="text"></w2:column>
@@ -60,16 +75,14 @@
 				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
 				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_searchBoardInfo_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
-			<xf:submission id="sbm_insertBoardInfo" ref='data:json,["dma_content","dlt_FILE"]' target="data:json,dma_map"
-				action="/insertBoardInfo.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
-				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_insertBoardInfo_submitdone" ev:submiterror=""
+			
+			
+			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"},{"id":"dlt_FILE","key":"dlt_common"}]' target="data:json,COMMON_RESULT"
+				action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror=""
 				abortTrigger="">
 			</xf:submission>
-			<xf:submission id="sbm_updateBoardInfo" ref='data:json,["dlt_FILE","dma_content"]' target="data:json,dma_map"
-				action="/updateBoardInfo.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
-				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_updateBoardInfo_submitdone" ev:submiterror=""
-				abortTrigger="">
-			</xf:submission>
+			
 		</xf:model>
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
@@ -116,96 +129,96 @@ scwin.fn_bytesToLabel = function(_byte){
 	  return reValue;
 };
 
-/* 게시물등록 */
-scwin.btn_confirm_onclick = function(e) {
-	com.win.confirm($p, '해당 게시물을 등록하시겠습니까?', function(e){
-		if(e.clickValue){
-			dma_content.set("BOARD_CONT", edi_1.getHTML());
-			dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
-			com.sbm.execute(sbm_insertBoardInfo);
-		}
-	});
-	scwin.sbm_insertBoardInfo_submitdone = function(e) {
-		if(e.responseJSON.status == "S"){
-			var param = {
-				"message":"등록이 완료되었습니다."
-			};
-			com.win.closePopup(param);
-		}
-		
-	};
-};
-
-/* 팝업취소 */
-scwin.btn_cancel_onclick = function(e) {
-	com.win.closePopup();
-};
-
-/* 게시물 논리삭제 */
-scwin.btn_del_onclick = function(e) {
-    com.win.confirm($p, '해당 게시물을 삭제하시겠습니까?', function(e){
-		if(e.clickValue){
-			dma_content.set("STATUS", "U");
-			dma_content.set("BOARD_DELYN","Y");
-			com.sbm.execute(sbm_updateBoardInfo);
-		}
-	});
-};
-
-/* 게시물 물리삭제 */
-scwin.btn_adminDel_onclick = function(e) {
-	
-	var data = {callbackFn: "scwin.delPop_callback" };
-	var options = {
-		id: "delPop",
-		popupName: "게시물삭제",
-		modal: true,
-		useMaximize : true,
-		width: 420, height: 116
-	};
-	com.win.openPopup("/ui/delPop.xml", options, data);
-};
-scwin.delPop_callback = function(e){
-	if(e.delYn){
-		com.win.confirm($p, '삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 해당 게시물을 삭제하시겠습니까?', function(e){
-			if(e.clickValue){
-				dma_content.set("STATUS", "D");
-				com.sbm.execute(sbm_updateBoardInfo);
+	/* 게시물 수정,삭제 callback */
+	scwin.sbm_commonTran_submitdone = function(e) {
+		let _j = e.responseJSON;
+		if(_j.status == "S"){
+			let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
+			if(request.STATUS == "D" || request.BOARD_DELYN == "Y"){
+				com.win.closePopup({"message":"삭제가 완료되었습니다."});
+			}else if(request.STATUS == "I"){
+				com.win.closePopup({"message":"등록이 완료되었습니다."});
+			}else{
+				com.win.closePopup({"message":"수정이 완료되었습니다."});
 			}
-		})
-	}
-}
-/* 게시물 수정 */
-scwin.btn_update_onclick = function(e) {
-	com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
-		if(e.clickValue){
-			dma_content.set("STATUS", "U");
-			dma_content.set("BOARD_CONT", edi_1.getHTML());
-			dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
-			com.sbm.execute(sbm_updateBoardInfo);
 		}
-	});
-};
+	};		
+	/* 게시물등록 */
+	scwin.btn_confirm_onclick = function(e) {
+		com.win.confirm($p, '해당 게시물을 등록하시겠습니까?', function(e){
+			if(e.clickValue){
+				dma_content.set("COMMON_MASTER_QUERY"	, "M.insertBoardInfo");
+				dma_content.set("COMMON_DETAIL_UPDATEQUERY"	, "M.update__T_FILE");
+				dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.insert__T_FILE");
+				dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
+				dma_content.set("MASTER_KEY","BOARD_IDX");dma_content.set("DETAIL_KEY","CONTENT_ID");
 
-/* 게시물 수정,삭제 callback */
-scwin.sbm_updateBoardInfo_submitdone = function(e) {
-	
-	
-	if(e.responseJSON.status == "S"){
-		if(dma_content.get('STATUS') == "D" || dma_content.get('BOARD_DELYN') == "Y"){
-			var param = {
-				"message":"삭제가 완료되었습니다."
-			};
-			com.win.closePopup(param);
-		}else{
-			var param = {
-				"message":"수정이 완료되었습니다."
-			};
-			com.win.closePopup(param);
-		}
-	}
-	
-};
+				dma_content.set("STATUS", "I");
+				dma_content.set("BOARD_CONT", edi_1.getHTML());
+				dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
+				com.sbm.execute(sbm_commonTran);
+			}
+		});
+	};
+	/* 게시물 수정 */
+	scwin.btn_update_onclick = function(e) {
+		com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
+			if(e.clickValue){
+				dma_content.set("COMMON_MASTER_QUERY"	, "M.updateBoardInfo");
+				dma_content.set("COMMON_DETAIL_UPDATEQUERY"	, "M.update__T_FILE");
+				dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.insert__T_FILE");
+				dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
+				dma_content.set("MASTER_KEY","BOARD_IDX");dma_content.set("DETAIL_KEY","CONTENT_ID");
+
+				dma_content.set("STATUS", "U");
+				dma_content.set("BOARD_CONT", edi_1.getHTML());
+				dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
+				com.sbm.execute(sbm_commonTran);
+			}
+		});
+	};
+	/* 게시물 논리삭제 */
+	scwin.btn_del_onclick = function(e) {
+		com.win.confirm($p, '해당 게시물을 삭제하시겠습니까?', function(e){
+			if(e.clickValue){
+				dma_content.set("COMMON_MASTER_QUERY"	, "M.updateBoardInfo");
+				dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
+				dma_content.set("MASTER_KEY","BOARD_IDX");dma_content.set("DETAIL_KEY","CONTENT_ID");
+
+				dma_content.set("STATUS", "U");
+				dma_content.set("BOARD_DELYN","Y");
+				com.sbm.execute(sbm_commonTran);
+			}
+		});
+	};
+	/* 게시물 물리삭제 */
+	scwin.btn_adminDel_onclick = function(e) {
+		var data = {callbackFn: "scwin.delPop_callback" };
+		var options = {
+			id: "delPop",
+			popupName: "게시물삭제",
+			modal: true,
+			useMaximize : true,
+			width: 420, height: 116
+		};
+		com.win.openPopup("/ui/delPop.xml", options, data);
+		scwin.delPop_callback = function(e){
+			if(e.delYn){
+				com.win.confirm($p, '삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 해당 게시물을 삭제하시겠습니까?', function(e){
+					if(e.clickValue){
+						dma_content.set("COMMON_MASTER_QUERY"	, "M.deleteBoard");
+						dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
+						dma_content.set("MASTER_KEY","BOARD_IDX");dma_content.set("DETAIL_KEY","CONTENT_ID");
+						dma_content.set("STATUS", "D");
+						com.sbm.execute(sbm_commonTran);
+					}
+				})
+			}
+		};
+	};
+
+
+
 
 scwin.grd_program_oncelldblclick = async function(row,col,colId) {
 	if(colId != 'FILE_DESC'){
@@ -305,7 +318,6 @@ scwin.grd_program_oncellclick = function(row,col,colId) {
 scwin.img_thum_onclick = function(e) {
 	thumnailArea.hide();
 };
-
 scwin.btn_copyAll_onclick = function(e) {
 	var fullTags = "";
 	let _leng =dlt_FILE.getRowCount();
@@ -339,6 +351,7 @@ scwin.btn_copy_onclick = function(e) {
 		com.win.alert('클립보드에 복사되었습니다.\n소스편집모드로 붙여넣기 하세요.');
 	}
 };
+
 
 ]]></script>
 	</head>

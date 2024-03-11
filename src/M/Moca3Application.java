@@ -47,7 +47,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import websquare.logging.util.LogUtil;
@@ -57,6 +56,30 @@ import websquare.logging.util.LogUtil;
 @SpringBootApplication
 @Service("Moca3Application")
 public class Moca3Application {
+	public static String STATUS = "rowStatus";
+	public static String MASTER_MAP = "dma_common_request";public static String MASTER_MAP_RESPONSE = "dma_common_response";
+	public static String DETAIL_LiST = "dlt_common";
+	public static String UPT_HEAD = "M.update__";
+	public static String INS_HEAD = "M.insert__";
+	public static String DEL_HEAD = "M.delete__";
+	
+	public static String COMMON_DETAIL_UPDATEQUERY = "COMMON_DETAIL_UPDATEQUERY";
+	public static String COMMON_DETAIL_INSERTQUERY = "COMMON_DETAIL_INSERTQUERY";
+	public static String COMMON_DETAIL_DELETEQUERY = "COMMON_DETAIL_DELETEQUERY";	
+	
+	
+	public static String COMMON_MASTER_QUERY = "COMMON_MASTER_QUERY";
+	public static String MASTER_KEY = "MASTER_KEY";
+	public static String DETAIL_KEY = "DETAIL_KEY";
+	public static String COMMON_MASTER_RESULT = "COMMON_MASTER_RESULT";
+	public static String COMMON_DETAIL_RESULT = "COMMON_DETAIL_RESULT";
+	public static String COMMON_PARAM_MAP = "COMMON_PARAM_MAP";
+	public static String COMMON_PARAM_LIST = "COMMON_PARAM_LIST";
+	
+	public static String COMMON_RESULT = "COMMON_RESULT";
+	
+	
+	
 	@Autowired
 	private SqlSession ss;
 
@@ -70,102 +93,46 @@ public class Moca3Application {
 	/*사용자가 Google에서 인증을 받은 후 이 경로로 리디렉션됩니다. 이 경로는 뒤에 액세스용 승인 코드가 추가되며 프로토콜이 있어야 합니다. URL 조각, 상대 경로, 와일드 카드는 포함할 수 없으며 공개 IP 주소는 사용할 수 없습니다.*/
 	@RequestMapping("/googleapi/response.do")public void  response(HttpServletRequest request, ModelMap model) throws Exception{LogUtil.info("------------------------------> /googleapi/response.do ");}
 	
-	//게시판등록
-	@RequestMapping("/insertBoardInfo.do")
-	public Map insertBoardInfo(@RequestBody Map param) throws Exception{
-		Map resultMap = new HashMap();
-		Map dma_content = (Map) param.get("dma_content");
-		int re1 = ss.insert("M.insertBoardInfo", dma_content);
-		resultMap.put("cnt", re1);
-		LogUtil.info("dma_content>>>"+dma_content);
-		List dlt_FILE = (List) param.get("dlt_FILE");
-		Map result = new HashMap();
-		for(int i=0; i < dlt_FILE.size(); i++) {
-			Map row = (Map)dlt_FILE.get(i);
-			row.put("CONTENT_ID", dma_content.get("BOARD_IDX").toString());
-			String rowStatus = (String)row.get("rowStatus");
-			int re = 0;
-			if("C".equals(rowStatus) ) {
-				re = ss.insert("M.insertT_FILE", row);
-			}else if("D".equals(rowStatus) ) {
-				re = ss.insert("M.deleteT_FILE", row);
+	/* 단건-다건 입력수정*/
+	@RequestMapping("/commonTran.do")
+	public Map insertMap(@RequestBody Map param) throws Exception{
+		Map dma_common = (Map) param.get(this.MASTER_MAP);
+		List dlt_common = (List) param.get(this.DETAIL_LiST);
+		String COMMON_MASTER_QUERY = dma_common.get(this.COMMON_MASTER_QUERY).toString();
+		String MASTER_KEY_NM = dma_common.get(this.MASTER_KEY).toString();
+		String DETAIL_KEY_NM = dma_common.get(this.DETAIL_KEY).toString();
+		String COMMON_DETAIL_INSERTQUERY = dma_common.get(this.COMMON_DETAIL_INSERTQUERY).toString();
+		String COMMON_DETAIL_UPDATEQUERY = dma_common.get(this.COMMON_DETAIL_UPDATEQUERY).toString();
+		String COMMON_DETAIL_DELETEQUERY = dma_common.get(this.COMMON_DETAIL_DELETEQUERY).toString();
+		Map COMMON_RESULT_MAP = new HashMap(); 
+			Map resultMap = new HashMap();
+			if(!"".equals(COMMON_MASTER_QUERY)) {
+				int re1 = ss.insert(COMMON_MASTER_QUERY, dma_common);
+				resultMap.put(this.COMMON_MASTER_RESULT, re1);
 			}
-			result.put(row, re);
-		}
-		resultMap.put("result_list", result);
-		
-		u.setSuccessMsg(resultMap);
-		return resultMap;
-	}
-	
-	//게시판 단건 수정
-	@RequestMapping("/updateBoardInfo.do")
-	public Map updateBoardInfo(@RequestBody Map param) throws Exception{
-		Map resultMap = new HashMap();
-		int cnt = 0;
-		Map dma_content = (Map) param.get("dma_content");
-		String status = (String) dma_content.get("STATUS");
-		if (status.equals("U")) {
-			cnt = ss.update("M.updateBoardInfo", dma_content);
-		}else if(status.equals("D")) {
-			cnt = ss.delete("M.deleteBoard", dma_content);
-		}
-		resultMap.put("cnt", cnt);
-		
-		
-		
-		List dlt_FILE = (List) param.get("dlt_FILE");
-		Map result = new HashMap();
-		for(int i=0; i < dlt_FILE.size(); i++) {
-			Map row = (Map)dlt_FILE.get(i);
-			row.put("CONTENT_ID", dma_content.get("BOARD_IDX").toString());
-			String rowStatus = (String)row.get("rowStatus");
-			int re = 0;
-			if("C".equals(rowStatus) ) {
-				re = ss.insert("M.insertT_FILE", row);
-			}else if("U".equals(rowStatus) ) {
-				re = ss.insert("M.updateT_FILE", row);			
-			}else if("D".equals(rowStatus) ) {
-				re = ss.insert("M.deleteT_FILE", row);
+			Map result = new HashMap();
+			int sz = dlt_common.size();
+			for(int i=0; i < sz; i++) {
+				Map row = (Map)dlt_common.get(i);
+				row.put(DETAIL_KEY_NM, dma_common.get(MASTER_KEY_NM).toString());
+				String s = (String)row.get(this.STATUS);
+				int re = 0;
+				if("C".equals(s) ) {
+					re = ss.insert(COMMON_DETAIL_INSERTQUERY,row);
+				}else if("U".equals(s) ) {
+					re = ss.insert(COMMON_DETAIL_UPDATEQUERY,row);
+				}else if("D".equals(s) ) {
+					re = ss.delete(COMMON_DETAIL_DELETEQUERY,row);
+				}
+				result.put(i+"", re);
 			}
-			result.put(row, re);
-		}
-		resultMap.put("result_list", result);
-		
-		
-		
-		
-		
-		
-		u.setSuccessMsg(resultMap);
-		return resultMap;
-	}
-
-	
-	@RequestMapping("/updateBoardList.do")
-	public @ResponseBody Map updateBoardList(@RequestBody Map param) throws Exception{
-		Map resultMap = new HashMap();
-		List dltList = (List) param.get("dlt_list");
-		Map searchMap = (Map) param.get("dma_search");
-		int uCnt = 0;
-		int dCnt = 0;
-		for (int i = 0; i < dltList.size(); i++) {
-			Map data = (Map) dltList.get(i);
-			String rowStatus = (String) data.get("rowStatus");
-			if (rowStatus.equals("U")) {
-				data.put("BOARD_TABLE",searchMap.get("BOARD_TABLE"));
-				uCnt += ss.update("M.updateBoardInfo", data);
-				resultMap.put("UCNT", String.valueOf(uCnt));
-			}else if(rowStatus.equals("D")) {
-				data.put("BOARD_TABLE",searchMap.get("BOARD_TABLE"));
-				dCnt += ss.delete("M.deleteBoard", data);
-				resultMap.put("DCNT", String.valueOf(dCnt));
-			}
-		}
-		u.setSuccessMsg(resultMap);
-		return resultMap;
-	}
-	
+			resultMap.put(this.COMMON_DETAIL_RESULT, result);
+			resultMap.put(this.COMMON_PARAM_MAP, dma_common);
+			resultMap.put(this.COMMON_PARAM_LIST, dlt_common);
+		COMMON_RESULT_MAP.put(this.COMMON_RESULT, resultMap);
+		u.setSuccessMsg(COMMON_RESULT_MAP);
+		return COMMON_RESULT_MAP;
+	};
 	
 	
 	
