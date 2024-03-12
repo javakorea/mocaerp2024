@@ -1595,6 +1595,8 @@ input[type="file"]{cursor:pointer;}
 .w2editor .cke_top{padding: 6px 8px 6px !important;}
 .w2editor.read .cke_top, .w2editor.read .cke_bottom{display:none}
 .edi_btn{position: absolute;top: 7px;right: -2px;argin-left: 2px;}
+.expandWrap{width:100%;height:100%;}
+.expandWrap .cke_top, .expandWrap .cke_bottom{display:none}
 .btn_expand{background:url(images/ico_expand.svg) no-repeat center;border:0;width:100%;margin-right:7px}
 .btn_color{border-radius:5px;border:0;width:100%;margin-right:7px}
 .li_color{width: calc(50% - 2.5px);  display: inline-block;  cursor: pointer;  color: #fff;  height: 45px;  font-size: 20px;  text-align: center;  padding: 10px;  box-sizing: border-box;  border-radius: 10px; margin-bottom: 5px;  line-height: 24px;}
@@ -1648,4 +1650,4 @@ input[type="file"]{cursor:pointer;}
 
 div[id$=colorPop] > .w2window_header{display:none}
 
-.btn_esc{position: fixed; width: 150px; height: 150px; background-image: url(images/ico_esc.svg); text-indent: -9999px; left: calc(50% - 75px); border: 0; background-position: -2px; top: calc(50% - 75px); opacity: 0.3;}
+.btn_esc{position: fixed; width: 150px; height: 150px; background-image: url(images/ico_esc.svg); text-indent: -9999px; left: calc(50% - 75px); border: 0; background-position: -2px; top: calc(50% - 75px); opacity: 0.3;z-index:1;}

@@ -14,7 +14,8 @@
         <w2:publicInfo method=""/>
         <script lazy="false" type="text/javascript"><![CDATA[
 scwin.onpageload = function() {
-    $(expandWrap.render).html(opener.$p.getComponentById($p.getAllParameter().eid).getHTML());
+    //$(expandWrap.render).html(opener.$p.getComponentById($p.getAllParameter().eid).getHTML());
+    edi_2.setHTML(opener.$p.getComponentById($p.getAllParameter().eid).getHTML());
 };
 
 scwin.btn_close_onclick = function(e) {
@@ -22,10 +23,15 @@ scwin.btn_close_onclick = function(e) {
 };
 ]]></script>
     </head>
-    <body ev:onpageload="scwin.onpageload">
+    <body ev:onpageload="scwin.onpageload" style="overflow: hidden;">
     	<xf:trigger class="btn_esc" id="btn_close" style="" type="button" ev:onclick="scwin.btn_close_onclick">
-			<xf:label><![CDATA[닫기]]></xf:label>
-		</xf:trigger>
-    	<xf:group class="expandWrap" id="expandWrap" style=""></xf:group>
+    		<xf:label><![CDATA[닫기]]></xf:label>
+    	</xf:trigger>
+    	
+    	<xf:group class="expandWrap edbox" id="expandWrap" style="">
+    	<w2:editor style="height: 100%;" id="edi_2"></w2:editor>
+    	</xf:group>
+
+
     </body>
 </html>
