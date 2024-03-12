@@ -1594,6 +1594,8 @@ input[type="file"]{cursor:pointer;}
 .edbox .cke_inner.cke_reset{display: flex;   flex-direction: column; height:100%}
 .w2editor .cke_top{padding: 6px 8px 6px !important;}
 .w2editor.read .cke_top, .w2editor.read .cke_bottom{display:none}
+.edi_btn{position: absolute;top: 7px;right: -2px;argin-left: 2px;}
+.btn_expand{background:url(images/ico_expand.svg) no-repeat center;border:0;width:100%;margin-right:7px}
 .btn_color{border-radius:5px;border:0;width:100%;margin-right:7px}
 .li_color{width: calc(50% - 2.5px);  display: inline-block;  cursor: pointer;  color: #fff;  height: 45px;  font-size: 20px;  text-align: center;  padding: 10px;  box-sizing: border-box;  border-radius: 10px; margin-bottom: 5px;  line-height: 24px;}
 .li_color:nth-child(2n){margin-left:5px;}
@@ -1642,6 +1644,8 @@ input[type="file"]{cursor:pointer;}
 .file_progressbar{touch-action: none;display:none;position: absolute;margin: 0 auto;left: calc(50% - 50px);}
 .white_dim_txt{display: block; width:100px; text-align: center; position: absolute; z-index: 555; color: #000; top: calc(50% - 10px); font-weight: bold;}
 .thumnailArea{position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(0,0,0,0.5); text-align: center;z-index: 999;overflow:auto;}
-.thumnailArea > img {height:100%;}
+.thumnailArea > img {}
 
 div[id$=colorPop] > .w2window_header{display:none}
+
+.btn_esc{position: fixed; width: 150px; height: 150px; background-image: url(images/ico_esc.svg); text-indent: -9999px; left: calc(50% - 75px); border: 0; background-position: -2px; top: calc(50% - 75px); opacity: 0.3;}

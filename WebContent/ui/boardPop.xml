@@ -352,7 +352,10 @@ scwin.btn_copy_onclick = function(e) {
 	}
 };
 
-
+scwin.btn_expand_onclick = function(e) {
+	let _eid = edi_1.id;
+	window.open(`/websquare/websquare.html?w2xPath=/ui/boardExpand.xml&eid=${_eid}`);
+};
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
@@ -426,6 +429,12 @@ scwin.btn_copy_onclick = function(e) {
 			</xf:group>
 			<xf:group id="" class="edbox" style="margin-bottom: 16px;">
 				<w2:editor style="" id="edi_1" menubar="board" ev:onload="scwin.edi_1_onload"></w2:editor>
+				<xf:group id="" style="" class="edi_btn">
+					<xf:trigger class="btn_expand" id="btn_expand"
+						style="width:27px;" type="button" ev:onclick="scwin.btn_expand_onclick">
+						<xf:label><![CDATA[]]></xf:label>
+					</xf:trigger>
+				</xf:group>
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
 				<w2:textbox class="" id="" label="첨부파일" style="" tagname="h3"></w2:textbox>

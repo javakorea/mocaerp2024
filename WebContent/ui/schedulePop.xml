@@ -287,7 +287,7 @@ scwin.colorPop_callback = function(e){
 			</xf:group>
 			<xf:group id="" class="edbox sch">
 				<w2:editor style="" id="edi_1" menubar="board"></w2:editor>
-				<xf:group id="" style="position: absolute; top: 7px; right: -2px; margin-left: 2px;">
+				<xf:group id="" style="" class="edi_btn">
 					<xf:trigger style="background:#076aff;width:27px;" id="btn_colorPicker" type="button" class="btn_color"
 						ev:onclick="scwin.btn_color_onclick" userData2="#5ab4f3">
 						<xf:label><![CDATA[]]>
