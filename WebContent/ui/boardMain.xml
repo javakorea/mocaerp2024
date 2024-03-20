@@ -8,8 +8,11 @@
 			<w2:dataCollection baseNode="map">
 				<w2:dataList baseNode="list" id="dlt_list" repeatNode="map" saveRemovedData="true">
 					<w2:columnInfo>
+					
+						<w2:column dataType="text" id="BOARD_TABLE" name="ERP인지일반인지테이블명" />
+					
 						<w2:column dataType="text" id="BOARD_PIDX" name="BOARD_PIDX" />
-						<w2:column dataType="text" id="BOARD_IDX" name="BOARD_IDX" />
+						<w2:column dataType="text" id="BOARD_IDX" name="키(중요)" />
 						<w2:column dataType="text" id="BOARD_DELYN" name="BOARD_DELYN" />
 						<w2:column dataType="text" id="BOARD_TITLE" name="BOARD_TITLE" />
 						<w2:column dataType="text" id="BOARD_WRITER" name="BOARD_WRITER" />
@@ -18,28 +21,35 @@
 						<w2:column id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:column>
 						<w2:column id="CNT" name="CNT" dataType="text"></w2:column>
 						<w2:column id="BOARD_REPLYCNT" name="BOARD_REPLYCNT" dataType="text"></w2:column>
-						<w2:column id="CHK" name="CHK" dataType="text"></w2:column>
+						<w2:column id="CHK" name="CHK" dataType="text" ignoreStatus="true"></w2:column>
 					</w2:columnInfo>
 					<w2:data use="false"></w2:data>
 				</w2:dataList>
 				<w2:dataMap baseNode="map" id="dma_search">
 					<w2:keyInfo>
-						<w2:key id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:key>
-						<w2:key id="BOARD_TABLE" name="BOARD_TABLE" dataType="text"></w2:key>
-						<w2:key id="BOARD_WRITER" name="BOARD_WRITER" dataType="text"></w2:key>
-						<w2:key id="CORP_CD" name="CORP_CD" dataType="text"></w2:key>
-						<w2:key id="PAGE_TYPE" name="PAGE_TYPE" dataType="text"></w2:key>
-						<w2:key id="BOARD_CONT" name="BOARD_CONT" dataType="text"></w2:key>
-						<w2:key id="BOARD_RECEIPTIONER" name="BOARD_RECEIPTIONER" dataType="text"></w2:key>
-						<w2:key id="FROM" name="FROM" dataType="text"></w2:key>
-						<w2:key id="TO" name="TO" dataType="text"></w2:key>
+						<!-- 게시판조건부 -->
+						<w2:key id="BOARD_TYPE" name="업무,기술,게시판종류" dataType="text"></w2:key>
+						<w2:key id="BOARD_TABLE" name="내부(ERP)냐외부냐" dataType="text"></w2:key>
 						<w2:key id="BOARD_FILE_TABLE" name="BOARD_FILE_TABLE" dataType="text"></w2:key>
-						<w2:key id="BOARD_DELYN" name="BOARD_DELYN" dataType="text"></w2:key>
-
-						<w2:key id="START_IDX" name="START_IDX" dataType="text"></w2:key>
-						<w2:key id="END_IDX" name="END_IDX" dataType="text"></w2:key>
-						<w2:key id="BOARD_CONT_LIST" name="BOARD_CONT_LIST" dataType="text"></w2:key>
-						<w2:key id="COMMON_QUERY" name="COMMON_QUERY" dataType="text"></w2:key>
+						
+						<!-- 검색조건부 -->
+						<w2:key id="BOARD_WRITER" name="BOARD_WRITER" dataType="text"></w2:key>
+						<w2:key id="BOARD_CONT" name="BOARD_CONT" dataType="text"></w2:key>
+						<w2:key id="BOARD_CONT_LIST" name="BOARD_CONT를띄어쓰기로나눈검색어리스트" dataType="text"></w2:key>
+						<w2:key id="FROM" name="FROM" dataType="text"></w2:key>
+						<w2:key id="TO" name="TO" dataType="text"></w2:key>					
+						
+						<!-- 공통부 -->
+						<w2:key id="COMMON_TRAN_ID" 			name="TRAN_ID" 						dataType="text"></w2:key>
+						<w2:key id="COMMON_STATUS" 				name="CRUD_상태" 						dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" 				name="SELECT_QUERY" 				dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" 		name="COMMON_MASTER_QUERY" 			dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_DELETEQUERY" 	name="COMMON_MASTER_DELETEQUERY" 	dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" 			name="COMMON_MASTER_KEY" 			dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" 			name="COMMON_DETAIL_KEY" 			dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
 				<w2:dataMap baseNode="map" id="dma_search_excel" style="">
@@ -73,6 +83,12 @@
 				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
 				ev:submitdone="scwin.sbm_deleteBoardList_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
+			
+			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_search","key":"dma_common_request"},{"id":"dlt_list","key":"dlt_common"}  ]' target="data:json,COMMON_RESULT"
+				action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror=""
+				abortTrigger="">
+			</xf:submission>
 		</xf:model>
 
 		<w2:layoutInfo>
@@ -82,6 +98,15 @@
 
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
 	scwin.paramObj = $p.getAllParameter().paramData;
+	if(scwin.paramObj.erpYn == "Y"){
+		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
+		dma_search.set("BOARD_FILE_TABLE","T_FILE")
+	}else{
+		dma_search.set("BOARD_TABLE","MT_BOARD");
+		dma_search.set("BOARD_FILE_TABLE","T_FILE")
+	}
+	
+	
 	if(WebSquare.util.isMobile()){
 		grd1.setColumnVisible(4,false); //작성자
 		grd1.setColumnVisible(6,false); //수정일시
@@ -117,13 +142,7 @@ scwin.btn_search_onclick = function(e) {
 	if(scwin.paramObj.boardType){
 		dma_search.set("BOARD_TYPE",scwin.paramObj.boardType);
 	}
-	if(scwin.paramObj.erpYn == "Y"){
-		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
-		dma_search.set("BOARD_FILE_TABLE","T_FILE");
-	}else{
-		dma_search.set("BOARD_TABLE","MT_BOARD");
-		dma_search.set("BOARD_FILE_TABLE","T_FILE");
-	}
+
 	let _boardContArr = ibx_boardCont.getValue().split(/\s+/g);
 	if(_boardContArr.length > 0){
 		dma_search.set('BOARD_CONT_LIST',_boardContArr);
@@ -203,6 +222,8 @@ scwin.btn_del_onclick = function(e) {
 		if(e.clickValue){
 			for(let i=0; i<_chkIdxArr.length; i++){
 				dlt_list.setCellData(_chkIdxArr[i],"BOARD_DELYN","Y");
+				debugger;
+				dlt_list.setCellData(_chkIdxArr[i],"BOARD_TABLE",dma_search.get("BOARD_TABLE"));	
 			}
 			com.sbm.execute(sbm_deleteBoardList);
 		}
@@ -233,19 +254,26 @@ scwin.delPop_callback = function(e){
 			if(e.clickValue){
 				for(let i=0; i<_chkIdxArr.length; i++){
 					dlt_list._setRowStatus(_chkIdxArr[i],'D');
+					dlt_list.setCellData(_chkIdxArr[i],"BOARD_TABLE",dma_search.get("BOARD_TABLE"));	
 				}
-				com.sbm.execute(sbm_deleteBoardList);
+				dma_search.set("COMMON_TRAN_ID"	, "물리삭제");	
+				dma_search.set("COMMON_MASTER_DELETEQUERY"	, "M.deleteBoard");	
+				dma_search.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");	
+				dma_search.set("COMMON_MASTER_KEY","BOARD_IDX");dma_search.set("COMMON_DETAIL_KEY","CONTENT_ID");
+				dma_search.set("COMMON_STATUS", "D");
+				com.sbm.execute(sbm_commonTran);
 			}
 		});
 	}
-}
-/* 삭제callback */
-scwin.sbm_deleteBoardList_submitdone = function(e) {
-	if(e.responseJSON.status == "S"){
-		com.win.alert('삭제가 완료되었습니다.');
-		scwin.btn_search_onclick();
-	}
 };
+scwin.sbm_commonTran_submitdone =function(e) {
+	if(e.responseJSON.status == "S"){
+		if(e.responseJSON.COMMON_RESULT.COMMON_PARAM_MAP.COMMON_TRAN_ID == '물리삭제'){
+			com.win.alert('삭제가 완료되었습니다.',scwin.btn_search_onclick);
+		}
+	}
+}; 
+
 scwin.trigger1_onclick = function(e) {
 	var options = {};
     options.type = "1";

@@ -115,10 +115,12 @@
     </insert>    
     <delete id="delete__T_FILE" parameterType="map">
         /*delete T_FILE 물리삭제*/
-        		DELETE FROM T_FILE
-				WHERE 1=1
-  				AND FILE_IDX	=#{FILE_IDX}
-  				AND CONTENT_ID	=#{CONTENT_ID}
+      	DELETE FROM T_FILE
+		WHERE 1=1
+		AND CONTENT_ID = #{CONTENT_ID}
+		<if test="FILE_IDX != null and FILE_IDX != ''">
+			AND FILE_IDX = #{FILE_IDX}
+		</if>
     </delete>
     <update id="update__T_FILE" parameterType="java.util.Map">
          /*updateT_FILE 파일설명수정*/

@@ -58,10 +58,13 @@ import websquare.logging.util.LogUtil;
 public class Moca3Application {
 	public static String STATUS = "rowStatus";
 	public static String MASTER_MAP = "dma_common_request";public static String MASTER_MAP_RESPONSE = "dma_common_response";
+	public static String MASTER_LiST = "dlt_common_master";
 	public static String DETAIL_LiST = "dlt_common";
 	public static String UPT_HEAD = "M.update__";
 	public static String INS_HEAD = "M.insert__";
 	public static String DEL_HEAD = "M.delete__";
+	
+	public static String COMMON_MASTER_DELETEQUERY = "COMMON_MASTER_DELETEQUERY";
 	
 	public static String COMMON_DETAIL_UPDATEQUERY = "COMMON_DETAIL_UPDATEQUERY";
 	public static String COMMON_DETAIL_INSERTQUERY = "COMMON_DETAIL_INSERTQUERY";
@@ -98,12 +101,13 @@ public class Moca3Application {
 	public Map commonTran(@RequestBody Map param) throws Exception{
 		Map dma_common = (Map) param.get(this.MASTER_MAP);
 		List dlt_common = (List) param.get(this.DETAIL_LiST);
-		String COMMON_MASTER_QUERY = dma_common.get(this.COMMON_MASTER_QUERY).toString();
-		String MASTER_KEY_NM = dma_common.get(this.COMMON_MASTER_KEY).toString();
-		String DETAIL_KEY_NM = dma_common.get(this.COMMON_DETAIL_KEY).toString();
-		String COMMON_DETAIL_INSERTQUERY = dma_common.get(this.COMMON_DETAIL_INSERTQUERY).toString();
-		String COMMON_DETAIL_UPDATEQUERY = dma_common.get(this.COMMON_DETAIL_UPDATEQUERY).toString();
-		String COMMON_DETAIL_DELETEQUERY = dma_common.get(this.COMMON_DETAIL_DELETEQUERY).toString();
+		String COMMON_MASTER_QUERY 			= String.valueOf(dma_common.get(this.COMMON_MASTER_QUERY));
+		String MASTER_KEY_NM 				= String.valueOf(dma_common.get(this.COMMON_MASTER_KEY));
+		String DETAIL_KEY_NM 				= String.valueOf(dma_common.get(this.COMMON_DETAIL_KEY));
+		String COMMON_MASTER_DELETEQUERY 	= String.valueOf(dma_common.get(this.COMMON_MASTER_DELETEQUERY));
+		String COMMON_DETAIL_INSERTQUERY 	= String.valueOf(dma_common.get(this.COMMON_DETAIL_INSERTQUERY));
+		String COMMON_DETAIL_UPDATEQUERY 	= String.valueOf(dma_common.get(this.COMMON_DETAIL_UPDATEQUERY));
+		String COMMON_DETAIL_DELETEQUERY 	= String.valueOf(dma_common.get(this.COMMON_DETAIL_DELETEQUERY));
 		Map COMMON_RESULT_MAP = new HashMap(); 
 			Map resultMap = new HashMap();
 			if(!"".equals(COMMON_MASTER_QUERY)) {
@@ -114,17 +118,33 @@ public class Moca3Application {
 			int sz = dlt_common.size();
 			for(int i=0; i < sz; i++) {
 				Map row = (Map)dlt_common.get(i);
-				row.put(DETAIL_KEY_NM, dma_common.get(MASTER_KEY_NM).toString());
+				if(MASTER_KEY_NM != null) {
+					LogUtil.info("dma_common::"+dma_common);
+					LogUtil.info("MASTER_KEY_NM::"+MASTER_KEY_NM);
+					row.put(DETAIL_KEY_NM,	String.valueOf(dma_common.get(MASTER_KEY_NM)));
+				}
 				String s = (String)row.get(this.STATUS);
+				LogUtil.info("s::"+s);
 				int re = 0;
 				if("C".equals(s) ) {
 					re = ss.insert(COMMON_DETAIL_INSERTQUERY,row);
+					result.put(i+"", re);
 				}else if("U".equals(s) ) {
 					re = ss.insert(COMMON_DETAIL_UPDATEQUERY,row);
+					result.put(i+"", re);
 				}else if("D".equals(s) ) {
-					re = ss.delete(COMMON_DETAIL_DELETEQUERY,row);
+					if(MASTER_KEY_NM != null) {
+						row.put(DETAIL_KEY_NM,	String.valueOf(row.get(MASTER_KEY_NM)));
+					}
+					if(COMMON_MASTER_DELETEQUERY != null) {
+						re = ss.delete(COMMON_MASTER_DELETEQUERY,row);
+						result.put(i+"_m", re);
+					}
+					if(COMMON_DETAIL_DELETEQUERY != null) {
+						re = ss.delete(COMMON_DETAIL_DELETEQUERY,row);
+						result.put(i+"_d", re);
+					}
 				}
-				result.put(i+"", re);
 			}
 			resultMap.put(this.COMMON_DETAIL_RESULT, result);
 			resultMap.put(this.COMMON_PARAM_MAP, dma_common);

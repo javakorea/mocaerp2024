@@ -152,7 +152,7 @@ scwin.fn_bytesToLabel = function(_byte){
 				dma_content.set("COMMON_DETAIL_UPDATEQUERY"	, "M.update__T_FILE");
 				dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.insert__T_FILE");
 				dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
-				dma_content.set("MASTER_KEY","BOARD_IDX");dma_content.set("DETAIL_KEY","CONTENT_ID");
+				dma_content.set("COMMON_MASTER_KEY","BOARD_IDX");dma_content.set("COMMON_DETAIL_KEY","CONTENT_ID");
 
 				dma_content.set("COMMON_STATUS", "I");
 				dma_content.set("BOARD_CONT", edi_1.getHTML());
@@ -169,7 +169,7 @@ scwin.fn_bytesToLabel = function(_byte){
 				dma_content.set("COMMON_DETAIL_UPDATEQUERY"	, "M.update__T_FILE");
 				dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.insert__T_FILE");
 				dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
-				dma_content.set("MASTER_KEY","BOARD_IDX");dma_content.set("DETAIL_KEY","CONTENT_ID");
+				dma_content.set("COMMON_MASTER_KEY","BOARD_IDX");dma_content.set("COMMON_DETAIL_KEY","CONTENT_ID");
 
 				dma_content.set("COMMON_STATUS", "U");
 				dma_content.set("BOARD_CONT", edi_1.getHTML());
