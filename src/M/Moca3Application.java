@@ -119,12 +119,9 @@ public class Moca3Application {
 			for(int i=0; i < sz; i++) {
 				Map row = (Map)dlt_common.get(i);
 				if(MASTER_KEY_NM != null) {
-					LogUtil.info("dma_common::"+dma_common);
-					LogUtil.info("MASTER_KEY_NM::"+MASTER_KEY_NM);
 					row.put(DETAIL_KEY_NM,	String.valueOf(dma_common.get(MASTER_KEY_NM)));
 				}
 				String s = (String)row.get(this.STATUS);
-				LogUtil.info("s::"+s);
 				int re = 0;
 				if("C".equals(s) ) {
 					re = ss.insert(COMMON_DETAIL_INSERTQUERY,row);
