@@ -182,7 +182,7 @@ scwin.grd1_oncelldblclick = function(row,col,colId) {
 		className : "h100",
 		modal: true,
 		useMaximize : true,
-		width: 680, height: 518
+		width: (screen.availWidth * 0.8), height: (screen.availHeight * 0.8)
 	};
 	com.win.openPopup("/ui/boardPop.xml", options, data);
 };

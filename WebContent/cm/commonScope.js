@@ -5360,3 +5360,6 @@ console.timeEnd = (function() {
 	}
 })();
 
+com.util.isMobile = function () {
+	return WebSquare.util.isMobile();
+};

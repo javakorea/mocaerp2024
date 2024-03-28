@@ -1536,7 +1536,7 @@ input[type="file"]{cursor:pointer;}
 	
 	.flex_gvw, .flex_gvw .wq_flx {display:block;}
 	.flex_gvw.flex_m, .pop_contents.flex_gvw.flex_m{display:flex;}
-	.pop_contents.flex_gvw.flex_m .edbox {display: flex;  height: 100%;  width: 100%;  flex-direction: column; }
+	.pop_contents.flex_gvw.flex_m .edbox {display: flex;  width: 100%;  flex-direction: column; }
 	.pop_contents.flex_gvw.flex_m .edbox > .w2editor {height:100% !important}
 	.pop_contents.flex_gvw.flex_m .edbox .cke_button__source_label, .cke_button__sourcedialog_label{display:none}
 	
@@ -1591,7 +1591,7 @@ input[type="file"]{cursor:pointer;}
 .sch.edbox .w2editor, .sch.edbox{height:100% !important;} 
 .w2editor .cke[role="application"]{width:100% !important; height:100% !important;}
 .w2editor .cke_contents{flex:auto; height:100% !important;}
-.edbox .cke_inner.cke_reset{display: flex;   flex-direction: column; height:100%}
+.edbox .cke_inner.cke_reset{display: flex !important;   flex-direction: column; height:100%}
 .w2editor .cke_top{padding: 6px 8px 6px !important;}
 .w2editor.read .cke_top, .w2editor.read .cke_bottom{display:none}
 .edi_btn{position: absolute;top: 7px;right: -2px;argin-left: 2px;}

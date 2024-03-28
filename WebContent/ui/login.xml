@@ -36,13 +36,14 @@ scwin.onpageload = function() {
     g_id_signin2.render.setAttribute("data-size","large");
     g_id_signin2.render.setAttribute("data-width","");
     g_id_signin2.render.setAttribute("data-logo_alignment","left");
-    var googleLoginURL = "https://accounts.google.com/gsi/client";
-   var googleLoginScript  = document.createElement('script');
-	googleLoginScript.setAttribute('src',googleLoginURL);
-	googleLoginScript.onload = function(e){
-      
-	}
-	document.body.insertBefore(googleLoginScript,document.body.firstChild);
+    try{
+        var googleLoginURL = "https://accounts.google.com/gsi/client";
+        var googleLoginScript  = document.createElement('script');
+	    googleLoginScript.setAttribute('src',googleLoginURL);
+	    googleLoginScript.onload = function(e){}
+	    document.body.insertBefore(googleLoginScript,document.body.firstChild);
+    }catch(e){
+    }
 };]]></script>
     </head>
     <body ev:onpageload="scwin.onpageload">

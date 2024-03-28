@@ -130,14 +130,11 @@ public class Moca3Application {
 					re = ss.insert(COMMON_DETAIL_UPDATEQUERY,row);
 					result.put(i+"", re);
 				}else if("D".equals(s) ) {
-					if(MASTER_KEY_NM != null) {
-						row.put(DETAIL_KEY_NM,	String.valueOf(row.get(MASTER_KEY_NM)));
-					}
-					if(COMMON_MASTER_DELETEQUERY != null) {
+					if(!"null".equalsIgnoreCase(COMMON_MASTER_DELETEQUERY) && !"".equalsIgnoreCase(COMMON_MASTER_DELETEQUERY) ) {
 						re = ss.delete(COMMON_MASTER_DELETEQUERY,row);
 						result.put(i+"_m", re);
 					}
-					if(COMMON_DETAIL_DELETEQUERY != null) {
+					if(!"null".equalsIgnoreCase(COMMON_DETAIL_DELETEQUERY) && !"".equalsIgnoreCase(COMMON_DETAIL_DELETEQUERY)) {
 						re = ss.delete(COMMON_DETAIL_DELETEQUERY,row);
 						result.put(i+"_d", re);
 					}
@@ -242,8 +239,10 @@ public class Moca3Application {
 			if(in != null) {
 				in.close();
 			}
-			outs.flush();
-			outs.close();
+			if(outs != null) {
+				outs.flush();
+				outs.close();		
+			}
 		}
 			
 		/*	

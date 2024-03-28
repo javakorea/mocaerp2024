@@ -54,6 +54,7 @@
 						<w2:column id="FILE_DESC" 				name="설명" 				dataType="text"></w2:column>
 						<w2:column id="THUMBNAIL" 				name="가상썸네일이미지태그" 	dataType="text"></w2:column>
 						<w2:column id="UPLOAD_SYS" 				name="시스템명,구글" 		dataType="text"></w2:column>
+						<w2:column id="CHK" 					name="선택" 				dataType="text" ignoreStatus="true"></w2:column>
 					</w2:columnInfo>
 				</w2:dataList>
 				<w2:dataMap baseNode="map" id="dma_map">
@@ -99,7 +100,11 @@ scwin.fn_searchBoardInfo = function () {
 	com.sbm.execute(sbm_boardInfo);
 	//callback
 	scwin.sbm_searchBoardInfo_submitdone = function(e) {
-		edi_1.setHTML(dma_map.get('BOARD_CONT'));
+		let cont = dma_map.get('BOARD_CONT');
+		if(!com.util.isMobile()){
+			cont = cont.replace(/width\:\s*100\%/g,'width: 40%');//기존에 100%였던 데이터때문에 필요
+		}
+		edi_1.setHTML(cont);
 		scwin.fn_searchFile();
 	};
 };
@@ -221,7 +226,7 @@ scwin.fn_bytesToLabel = function(_byte){
 
 
 scwin.grd_program_oncelldblclick = async function(row,col,colId) {
-	if(colId != 'FILE_DESC'){
+	if(colId != 'FILE_DESC' && colId != 'CHK'){
 		let _id = dlt_FILE.getCellData(row,"FILE_ID");
 		googleDownload2(_id);
 	}
@@ -318,43 +323,55 @@ scwin.grd_program_oncellclick = function(row,col,colId) {
 scwin.img_thum_onclick = function(e) {
 	thumnailArea.hide();
 };
-scwin.btn_copyAll_onclick = function(e) {
-	var fullTags = "";
-	let _leng =dlt_FILE.getRowCount();
-	if(_leng == 0){
-		com.win.alert('첨부파일이 없습니다.');
-	}else{
-		for(var i=0; i < dlt_FILE.getRowCount(); i++){
-			let _fid = dlt_FILE.getCellData(i,"FILE_ID");
-			let _imgTag = `<img alt=""  src="/googleDownload.do?googleFileId=${_fid}&sz=s1000" style="width: 100%;border-width: 1px; border-style: solid;" /><hr /><br><br>`;
-			fullTags += _imgTag;
-		}
-		ibx_clip.setValue(fullTags)
-		ibx_clip.focus();
-		ibx_clip.select();
-		document.execCommand("copy");
-		com.win.alert('전체이미지태그가 클립보드에 복사되었습니다.\n소스편집모드로 붙여넣기 하세요.');
-	}
-};
 
 scwin.btn_copy_onclick = function(e) {
-	let _aRow = dlt_FILE.getRowPosition();
-	if(_aRow == null){
+	let chkArr = dlt_FILE.getMatchedJSON('CHK', '1');
+	if(chkArr.length == 0){
 		com.win.alert('선택된 행이 없습니다.');
 	}else{
-		let _fid = dlt_FILE.getCellData(_aRow,"FILE_ID");
-		let _imgTag = `<img alt=""  src="/googleDownload.do?googleFileId=${_fid}&sz=s1000" style="width: 100%;border-width: 1px; border-style: solid;" /><hr /><br><br>`;
-		ibx_clip.setValue(_imgTag);
-		ibx_clip.focus();
-		ibx_clip.select();
-		document.execCommand("copy");
-		com.win.alert('클립보드에 복사되었습니다.\n소스편집모드로 붙여넣기 하세요.');
+		scwin.fn_makeClip(chkArr);
 	}
 };
 
+scwin.fn_makeClip = function(_arr){
+	var fullTags = "";
+
+	let w = 'width: 40%;';
+	if(com.util.isMobile()){
+		w = 'width: 100%;';
+	}
+	for(var i=0; i < _arr.length; i++){
+		let _fid = _arr[i].FILE_ID;
+
+
+		let _imgTag = `<img alt=""  src="/googleDownload.do?googleFileId=${_fid}&sz=s1000" style="${w}border-width: 1px; border-style: solid;" /><hr /><br><br>`;
+		fullTags += _imgTag;
+	}
+	ibx_clip.setValue(fullTags);
+	ibx_clip.focus();
+	ibx_clip.select();
+	document.execCommand("copy");
+	com.win.alert('클립보드에 복사되었습니다.\n소스편집모드로 붙여넣기 하세요.');
+}
 scwin.btn_expand_onclick = function(e) {
 	let _eid = edi_1.id;
 	window.open(`/websquare/websquare.html?w2xPath=/ui/boardExpand.xml&eid=${_eid}`);
+};
+
+scwin.btn_fileDel_onclick = function(e) {
+	let chkArr = dlt_FILE.getMatchedIndex('CHK', '1');
+	if(chkArr.length == 0){
+		com.win.alert('선택된 행이 없습니다.');
+	}else{
+		for(let i=chkArr.length-1; i > -1; i--){
+			let aRow = chkArr[i];
+			if(dlt_FILE.getRowStatus(aRow) == 'C'){
+				dlt_FILE.removeRow(aRow);
+			}else if(dlt_FILE.getRowStatus(aRow) == 'R' || dlt_FILE.getRowStatus(aRow) == 'U'){
+				dlt_FILE.deleteRow(aRow);
+			}
+		}
+	}
 };
 ]]></script>
 	</head>
@@ -372,6 +389,10 @@ scwin.btn_expand_onclick = function(e) {
 						<xf:trigger style="display:none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
 						</xf:trigger>
+						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_expand_onclick" id="btn_expand" nextTabID="" style=""
+							type="button">
+							<xf:label><![CDATA[보기]]></xf:label>
+						</xf:trigger>
 						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style=""
 							type="button">
 							<xf:label><![CDATA[저장]]></xf:label>
@@ -379,9 +400,6 @@ scwin.btn_expand_onclick = function(e) {
 						<xf:trigger class="btn_cm" id="btn_update" nextTabID="" style="display:none;" type="button"
 							ev:onclick="scwin.btn_update_onclick">
 							<xf:label><![CDATA[수정]]></xf:label>
-						</xf:trigger>
-						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_cancel_onclick" id="btn_cancel" style="" type="button">
-							<xf:label><![CDATA[취소]]></xf:label>
 						</xf:trigger>
 
 					</xf:group>
@@ -430,61 +448,62 @@ scwin.btn_expand_onclick = function(e) {
 			<xf:group id="" class="edbox" style="margin-bottom: 16px;">
 				<w2:editor style="" id="edi_1" menubar="board" ev:onload="scwin.edi_1_onload"></w2:editor>
 				<xf:group id="" style="" class="edi_btn">
-					<xf:trigger class="btn_expand" id="btn_expand"
-						style="width:27px;" type="button" ev:onclick="scwin.btn_expand_onclick">
-						<xf:label><![CDATA[]]></xf:label>
-					</xf:trigger>
 				</xf:group>
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
-				<w2:textbox class="" id="" label="첨부파일" style="" tagname="h3"></w2:textbox>
+				<xf:trigger class="btn_cm red" id="btn_fileDel" style="" type="button" ev:onclick="scwin.btn_fileDel_onclick">
+					<xf:label><![CDATA[폐기]]></xf:label>
+				</xf:trigger>
+				<xf:trigger class="btn_cm" ev:onclick="scwin.btn_copy_onclick" id="btn_copy" style="" type="button">
+					<xf:label><![CDATA[클립복사]]></xf:label>
+				</xf:trigger>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
 					<xf:input id="ibx_clip" style="width: 10px;border: 0;opacity: 0;position: absolute;left: 0;"></xf:input>
-					<xf:trigger class="btn_cm" id="btn_copy" style="" type="button" ev:onclick="scwin.btn_copy_onclick">
-						<xf:label><![CDATA[클립복사]]></xf:label>
-					</xf:trigger>
-					<xf:trigger class="btn_cm" id="btn_copyAll" style="" type="button" ev:onclick="scwin.btn_copyAll_onclick">
-						<xf:label><![CDATA[전체클립]]></xf:label>
-					</xf:trigger>
 					<xf:trigger class="btn_cm" ev:onclick="scwin.btn_fileUpload_onclick" id="trigger1" style="" type="button">
 						<xf:label><![CDATA[파일찾기]]></xf:label>
 					</xf:trigger>
 				</xf:group>
 			</xf:group>
-			<xf:group adaptiveThreshold="" class="wq_flx" id="" style="padding-bottom:20px;display:block">
+			<xf:group adaptiveThreshold="" class="" id="" style="margin-bottom:20px;display:block;max-height:298px;overflow-y:auto;">
 
-				<w2:gridView captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_FILE"
-					defaultCellHeight="26" id="grd_program" rowStatusHeaderValue="상태" rowStatusVisible="false" rowStatusWidth="" scrollByColumn="false"
-					scrollByColumnAdaptive="false" style="min-height:80px;height:auto" ev:onrowindexchange="scwin.grd_program_onrowindexchange"
+				<w2:gridView captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_FILE" defaultCellHeight="26"
+					id="grd_program" rowStatusVisible="true" rowStatusWidth="16" scrollByColumn="false" scrollByColumnAdaptive="false"
+					style="min-height:80px;height:auto" ev:onrowindexchange="scwin.grd_program_onrowindexchange"
 					ev:oncelldblclick="scwin.grd_program_oncelldblclick" focusMode="row" rowNumVisible="true" visibleRowNum="all" rowNumWidth="30"
-					readOnly="true" ev:oncellclick="scwin.grd_program_oncellclick" autoFit="lastColumn" tooltipDisplayColumn="BOARDFILE_NAME" tooltipDisplay="true">
+					readOnly="true" ev:oncellclick="scwin.grd_program_oncellclick" autoFit="lastColumn" tooltipDisplayColumn="BOARDFILE_NAME"
+					tooltipDisplay="true">
 					<w2:caption id="caption1" style="" value="this is a grid caption."></w2:caption>
 					<w2:header id="header1" style="">
 						<w2:row id="row1" style="">
+							<w2:column width="18" inputType="checkbox" style="" id="column57" value="선택" displayMode="label"></w2:column>
 							<w2:column blockSelect="false" class="" displayMode="label" id="column17" inputType="text"
 								removeBorderStyle="false" style="" value="ID" width="50">
 							</w2:column>
 							<w2:column width="26" inputType="text" style="" id="column53" value="" displayMode="label"></w2:column>
 							<w2:column width="70" inputType="text" style="" id="column52" value="파일크기" displayMode="label"></w2:column>
 							<w2:column blockSelect="false" displayMode="label" id="column16" inputType="text" removeBorderStyle="false"
-								style="" value="파일명" width="50">
+								style="" value="파일명" width="80">
 							</w2:column>
 							<w2:column width="70" inputType="text" style="" id="column54" value="설명" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody1" style="">
 						<w2:row id="row2" style="">
+							<w2:column width="18" inputType="checkbox" style="" id="CHK" value="" displayMode="label" trueValue="1"
+								falseValue="0" valueType="other" readOnly="false">
+							</w2:column>
 							<w2:column blockSelect="false" displayMode="label" id="FILE_IDX" inputType="text" removeBorderStyle="false"
 								style="" value="" width="50" readOnly="true" minWidth="0">
 							</w2:column>
-							<w2:column width="26" inputType="text" style="text-overflow:clip;" id="THUMBNAIL" value="" displayMode="label" customFormatter="scwin.thumbnail">
+							<w2:column width="26" inputType="text" style="text-overflow:clip;" id="THUMBNAIL" value="" displayMode="label"
+								customFormatter="scwin.thumbnail">
 							</w2:column>
 							<w2:column width="70" inputType="text" style="" id="FILE_SIZE" value="" displayMode="label"
 								displayFormatter="scwin.fn_bytesToLabel" textAlign="right">
 							</w2:column>
-							<w2:column blockSelect="false" displayMode="label" id="FILE_NAME" inputType="text"
-								removeBorderStyle="false" style="" value="" width="50" readOnly="true" textAlign="left">
+							<w2:column blockSelect="false" displayMode="label" id="FILE_NAME" inputType="text" removeBorderStyle="false"
+								style="" value="" width="80" readOnly="true" textAlign="left">
 							</w2:column>
 							<w2:column width="70" inputType="text" style="" id="FILE_DESC" value="" displayMode="label" readOnly="false"
 								textAlign="left">

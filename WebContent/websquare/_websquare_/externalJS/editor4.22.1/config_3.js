@@ -19,7 +19,7 @@ CKEDITOR.editorConfig = function( config )
 	                                  	['Bold','Italic','Underline','TextColor']
 	                                  ];
 	config.toolbar_board = [
-	    	['Source','Font','FontSize','Bold','TextColor','Table']
+	    	['Source','FontSize','Bold','TextColor','Table','Indent','Outdent','HorizontalRule','Maximize']
 	];
 	config.toolbar_defaultImage = [
 	                                  	['Source','DocProps','-','NewPage','Preview','-'],

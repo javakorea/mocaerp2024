@@ -16,7 +16,7 @@
 scwin.onpageload = function() {
     edi_2.setReadOnly(true);
     //$(expandWrap.render).html(opener.$p.getComponentById($p.getAllParameter().eid).getHTML());
-    edi_2.setHTML(opener.$p.getComponentById($p.getAllParameter().eid).getHTML());
+    edi_2.setHTML(opener.$p.getComponentById($p.getAllParameter().eid).getHTML().replace(/width\:\s*40\%/g,'width: 100%'));
 };
 
 scwin.btn_close_onclick = function(e) {
