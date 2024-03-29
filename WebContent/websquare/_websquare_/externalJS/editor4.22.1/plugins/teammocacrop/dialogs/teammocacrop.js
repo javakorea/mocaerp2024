@@ -70,9 +70,7 @@ CKEDITOR.dialog.add('cropDialog', function (editor) {
     }
     
     
-    
-    
-    
+
     
     return {
         title: editor.lang.teammocacrop.title,
@@ -95,7 +93,9 @@ CKEDITOR.dialog.add('cropDialog', function (editor) {
                                 label: editor.lang.common.image,
                                 style: 'width: 100%; height: ' + parseInt(window.innerHeight * 80 / 100) + 'px; border-color:#CECECE',
                                 setup: function(element) {
-                                    cropper.reset().replace(element.getAttribute('src'));
+                                	alert('1');
+ 
+                                    
                                 }
                             },
                             {
@@ -107,8 +107,7 @@ CKEDITOR.dialog.add('cropDialog', function (editor) {
                                         id: 'upload',
                                         label: editor.lang.common.browseServer,
                                         onClick: function (e) {
-                                            e.sender.$.removeEventListener('change', uploadOnChange, false);
-                                            e.sender.$.addEventListener('change', uploadOnChange, false);
+                                        	alert('2');
                                         }
                                     }, {
                                         type: 'fileButton',
@@ -120,31 +119,7 @@ CKEDITOR.dialog.add('cropDialog', function (editor) {
                                             action: 'QuickUpload'
                                         },
                                         onClick: function () {
-                                            var dialog = this.getDialog(),
-                                                form = dialog.getContentElement('base', 'upload').getInputElement().$.form,
-                                                fileName = dialog.getContentElement('base', 'upload').getInputElement().$.value.replace(/^.*[\\\/]/, '') || 'upload.jpg',
-                                                formData,
-                                                xhr = new XMLHttpRequest();
-
-                                            editor._.filebrowserSe = this;
-
-                                            xhr.onreadystatechange = function (response) {
-                                                if (xhr.readyState == 4 && xhr.status == 200) {
-                                                    form.ownerDocument.write(response.target.responseText);
-                                                    cropper.destroy();
-                                                    CKEDITOR.document.getElementsByTag('img').$[0].removeAttribute('src');
-                                                }
-                                            };
-
-                                            if (form) {
-                                                cropper.getCroppedCanvas(editor.config.resultOption).toBlob(function (blob) {
-                                                    formData = new FormData();
-                                                    formData.append('upload', blob, fileName);
-                                                    xhr.open('POST', (form.action + '&CKEditorFuncNum=' + ref), true); // todo
-                                                    xhr.send(formData);
-                                                });
-                                            }
-                                            return false;
+                                        	alert('3');
                                         }
                                     }
                                 ]
@@ -155,6 +130,8 @@ CKEDITOR.dialog.add('cropDialog', function (editor) {
             }
         ],
         onShow: function () {
+        	alert('21');
+        	/*
             var selection = editor.getSelection();
             var element = selection.getStartElement();
 
@@ -171,11 +148,38 @@ CKEDITOR.dialog.add('cropDialog', function (editor) {
             this.element = element;
             if (!this.insertMode)
                 this.setupContent(this.element);
+            */    
+        	
+           	//debugger;
+        	//cke_413_uiElement
+        	//editor.getSelection().getStartElement().$.src
+            //cropper.reset().replace(element.getAttribute('src'));
+        	
+        	
+        	
+            let imgJq = $('img[id$=_uiElement]');
+            imgJq.attr('src',editor.getSelection().getStartElement().$.src);
+
+            	debugger;
+            	
+        		var image = imgJq[0];
+        	    if(image.tagName != 'IMG'){
+        	    	alert('이미지를 선택해주세요');
+        	    	return {};
+        	    }	
+        		var minAspectRatio = 0.5;
+        		var maxAspectRatio = 1.5;
+        		
+
+
+    	    
+    	    
         },
         onOk: function () {
-            var dialog = this,
-                uploadButton = dialog.getContentElement('base', 'uploadButton');
-            uploadButton.click();
+        	alert('22');
+            //var dialog = this,
+            //    uploadButton = dialog.getContentElement('base', 'uploadButton');
+            //uploadButton.click();
         }
     }    
 });

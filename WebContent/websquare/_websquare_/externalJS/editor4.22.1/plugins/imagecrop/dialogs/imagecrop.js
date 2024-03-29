@@ -69,6 +69,8 @@ CKEDITOR.dialog.add('cropDialog', function (editor) {
                                 label: editor.lang.common.image,
                                 style: 'width: 100%; height: ' + parseInt(window.innerHeight * 80 / 100) + 'px; border-color:#CECECE',
                                 setup: function(element) {
+                                	debugger;
+                                	//cke_413_uiElement
                                     cropper.reset().replace(element.getAttribute('src'));
                                 }
                             },

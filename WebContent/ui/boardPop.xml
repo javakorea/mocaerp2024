@@ -92,6 +92,12 @@
 	gcm.ext.scriptImport("https://apis.google.com/js/api.js",gapiLoaded);
 };
 
+scwin.onpageunload = function () {
+	if(scwin.timerId){
+		clearInterval(scwin.timerId);
+	}
+};
+
 /**
  * 게시물 단건조회
  */
@@ -415,7 +421,7 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 };
 ]]></script>
 	</head>
-	<body ev:onpageload="scwin.onpageload">
+	<body ev:onpageload="scwin.onpageload"  ev:onpageunload="scwin.onpageunload">
 		<xf:group id="" class="pop_contents flex_gvw  flex_m" style="padding-bottom:0">
 			<xf:group id="">
 				<xf:group style="" id="dfbox" class="dfbox">
@@ -430,10 +436,6 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 						<xf:select1 id="sbx_autoSec" chooseOption="" style="width:55px;display:none;" submenuSize="auto" allOption=""
 							disabled="false" direction="auto" appearance="minimal" disabledClass="w2selectbox_disabled" class="mr10" ref="" ev:onviewchange="scwin.sbx_autoSec_onviewchange">
 							<xf:choices>
-								<xf:item>
-									<xf:label><![CDATA[5초]]></xf:label>
-									<xf:value><![CDATA[5]]></xf:value>
-								</xf:item>
 								<xf:item>
 									<xf:label><![CDATA[10초]]></xf:label>
 									<xf:value><![CDATA[10]]></xf:value>

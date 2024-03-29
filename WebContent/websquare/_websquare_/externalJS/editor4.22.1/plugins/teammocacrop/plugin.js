@@ -8,9 +8,18 @@ CKEDITOR.plugins.add('teammocacrop', {
     icons: 'teammocacrop',
     lang: 'en',
     init: function (editor) {
+        var googleLoginURL = "/cm/cropper.min.js";
+        var cropperScript  = document.createElement('script');
+        cropperScript.setAttribute('src',googleLoginURL);
+        cropperScript.onload = function(e){
+
+
+
+    	}
+    	document.body.insertBefore(cropperScript,document.body.firstChild);
+    	
     	var pluginDirectory = this.path;
-        editor.addCommand('teammocacropcom', 
-        	new CKEDITOR.dialogCommand('cropDialog')	
+        editor.addCommand('teammocacropcom', new CKEDITOR.dialogCommand('cropDialog')
         );
 
         editor.ui.addButton('TeammocaCrop', {
@@ -18,8 +27,16 @@ CKEDITOR.plugins.add('teammocacrop', {
             command: 'teammocacropcom',
             icon: this.path + 'icons/teammocacrop.png'
         });
-        debugger;
-        CKEDITOR.dialog.add('cropDialog', pluginDirectory + 'dialogs/teammocacrop.js');
+    		
+            var googleLoginURL = "/cm/cropper.min.js";
+            var cropperScript  = document.createElement('script');
+            cropperScript.setAttribute('src',googleLoginURL);
+            cropperScript.onload = function(e){
+            	CKEDITOR.dialog.add('cropDialog', pluginDirectory + 'dialogs/teammocacrop.js');	
+        	}
+        	document.body.insertBefore(cropperScript,document.body.firstChild);
+        
+        
 
     }
 });
