@@ -338,7 +338,7 @@ scwin.grd_program_oncellclick = function(row,col,colId) {
 	if(colId == "THUMBNAIL"){
 		thumnailArea.show('');
 		let _id = grd_program.getCellData(row,col);
-		img_thum.setSrc(`/googleDownload.do?googleFileId=${_id}&sz=s1000`);
+		img_thum.setSrc(`/googleDownload.do?googleFileId=${_id}&sz=s2000`);
 	}
 };
 
@@ -366,7 +366,7 @@ scwin.fn_makeClip = function(_arr){
 		let _fid = _arr[i].FILE_ID;
 
 
-		let _imgTag = `<img alt=""  src="/googleDownload.do?googleFileId=${_fid}&sz=s1000" style="${w}border-width: 1px; border-style: solid;" /><hr /><br><br>`;
+		let _imgTag = `<img alt=""  src="/googleDownload.do?googleFileId=${_fid}&sz=s2000" style="${w}border-width: 1px; border-style: solid;" /><hr /><br><br>`;
 		fullTags += _imgTag;
 	}
 	ibx_clip.setValue(fullTags);

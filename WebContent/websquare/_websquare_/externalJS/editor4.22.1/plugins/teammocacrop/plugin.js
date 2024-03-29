@@ -8,7 +8,14 @@ CKEDITOR.plugins.add('teammocacrop', {
     icons: 'teammocacrop',
     lang: 'en',
     init: function (editor) {
-        var googleLoginURL = "/cm/cropper.min.js";
+    	style = document.createElement('link');
+        style.type = 'text/css';
+        style.rel = 'stylesheet';
+        style.href = editor.config.cropperCssUrl;
+        document.getElementsByTagName("head")[0].appendChild(style);
+        CKEDITOR.scriptLoader.load(editor.config.cropperJsUrl);
+        /*
+        var googleLoginURL = config.cropperJsUrl;
         var cropperScript  = document.createElement('script');
         cropperScript.setAttribute('src',googleLoginURL);
         cropperScript.onload = function(e){
@@ -16,8 +23,9 @@ CKEDITOR.plugins.add('teammocacrop', {
 
 
     	}
-    	document.body.insertBefore(cropperScript,document.body.firstChild);
     	
+    	document.body.insertBefore(cropperScript,document.body.firstChild);
+    	*/
     	var pluginDirectory = this.path;
         editor.addCommand('teammocacropcom', new CKEDITOR.dialogCommand('cropDialog')
         );
@@ -28,14 +36,7 @@ CKEDITOR.plugins.add('teammocacrop', {
             icon: this.path + 'icons/teammocacrop.png'
         });
     		
-            var googleLoginURL = "/cm/cropper.min.js";
-            var cropperScript  = document.createElement('script');
-            cropperScript.setAttribute('src',googleLoginURL);
-            cropperScript.onload = function(e){
-            	CKEDITOR.dialog.add('cropDialog', pluginDirectory + 'dialogs/teammocacrop.js');	
-        	}
-        	document.body.insertBefore(cropperScript,document.body.firstChild);
-        
+        CKEDITOR.dialog.add('cropDialog', pluginDirectory + 'dialogs/teammocacrop.js');	
         
 
     }

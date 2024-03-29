@@ -58,7 +58,7 @@ CKEDITOR.editorConfig = function( config )
 	
 	
 	config.cropperJsUrl = "/cm/cropper.min.js";
-    config.cropperCssUrl = "/cm/cropper.min.css"
+    config.cropperCssUrl = "/cm/cropper.css"
     	
     	
 
