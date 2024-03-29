@@ -147,7 +147,9 @@ scwin.fn_bytesToLabel = function(_byte){
 			}else if(request.COMMON_STATUS == "I"){
 				com.win.closePopup({"message":"등록이 완료되었습니다."});
 			}else{
-				com.win.closePopup({"message":"수정이 완료되었습니다."});
+				if(scwin.autoYn == "N"){
+					com.win.closePopup({"message":"수정이 완료되었습니다."});
+				}
 			}
 		}
 	};		
@@ -168,23 +170,33 @@ scwin.fn_bytesToLabel = function(_byte){
 			}
 		});
 	};
+
 	/* 게시물 수정 */
 	scwin.btn_update_onclick = function(e) {
 		com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
 			if(e.clickValue){
-				dma_content.set("COMMON_MASTER_QUERY"	, "M.updateBoardInfo");
-				dma_content.set("COMMON_DETAIL_UPDATEQUERY"	, "M.update__T_FILE");
-				dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.insert__T_FILE");
-				dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
-				dma_content.set("COMMON_MASTER_KEY","BOARD_IDX");dma_content.set("COMMON_DETAIL_KEY","CONTENT_ID");
-
-				dma_content.set("COMMON_STATUS", "U");
-				dma_content.set("BOARD_CONT", edi_1.getHTML());
-				dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
-				com.sbm.execute(sbm_commonTran);
+				scwin.autoYn = "N";
+				scwin.fn_update();
 			}
 		});
 	};
+	scwin.fn_update = function(_auto){
+		dma_content.set("COMMON_MASTER_QUERY"	, "M.updateBoardInfo");
+		dma_content.set("COMMON_DETAIL_UPDATEQUERY"	, "M.update__T_FILE");
+		dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.insert__T_FILE");
+		dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
+		dma_content.set("COMMON_MASTER_KEY","BOARD_IDX");dma_content.set("COMMON_DETAIL_KEY","CONTENT_ID");
+
+		dma_content.set("COMMON_STATUS", "U");
+		dma_content.set("BOARD_CONT", edi_1.getHTML());
+		dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
+		if(_auto){
+			let _current =WebSquare.date.getCurrentServerDate("yyyy-MM-dd HH:mm:ss");
+			txt_saveDt.setValue(_current);
+		}
+		com.sbm.execute(sbm_commonTran);
+	}
+
 	/* 게시물 논리삭제 */
 	scwin.btn_del_onclick = function(e) {
 		com.win.confirm($p, '해당 게시물을 삭제하시겠습니까?', function(e){
@@ -250,6 +262,8 @@ scwin.edi_1_onload = function() {
 		btn_del.show('');
 		btn_adminDel.show('');
 		btn_confirm.hide();
+		sbx_autoSec.show('');
+		cbx_autoSave.show('');
 		scwin.fn_searchBoardInfo();
 	}else{
 		tr_read.hide();
@@ -375,6 +389,22 @@ scwin.btn_fileDel_onclick = function(e) {
 		}
 	}
 };
+
+scwin.cbx_autoSave_onviewchange = function(info) {
+	if(info.checked){
+		txt_saveDt.show('');
+		scwin.autoYn = "Y";
+		let sec = Number(sbx_autoSec.getValue())*1000;
+		// 2초 간격으로 메시지를 보여줌
+		scwin.timerId = setInterval(() => {
+			scwin.fn_update("auto");
+		}, sec);
+	}else{
+		scwin.autoYn = "N";
+		clearInterval(scwin.timerId);
+		txt_saveDt.hide();
+	}
+};
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
@@ -386,8 +416,39 @@ scwin.btn_fileDel_onclick = function(e) {
 							ev:onclick="scwin.btn_adminDel_onclick">
 							<xf:label><![CDATA[폐기]]></xf:label>
 						</xf:trigger>
+						<w2:textbox class="txt_saveDt" id="txt_saveDt" label="" style="display:none;"></w2:textbox>
 					</xf:group>
 					<xf:group style="" id="" class="fr">
+						<xf:select1 id="sbx_autoSec" chooseOption="" style="width:80px;display:none;" submenuSize="auto" allOption="" disabled="false"
+							direction="auto" appearance="minimal" disabledClass="w2selectbox_disabled" class="mr10" ref="">
+							<xf:choices>
+								<xf:item>
+									<xf:label><![CDATA[5초마다]]></xf:label>
+									<xf:value><![CDATA[5]]></xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label><![CDATA[10초마다]]></xf:label>
+									<xf:value><![CDATA[10]]></xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label><![CDATA[30초마다]]></xf:label>
+									<xf:value><![CDATA[30]]></xf:value>
+								</xf:item>
+								<xf:item>
+									<xf:label><![CDATA[60초마다]]></xf:label>
+									<xf:value><![CDATA[60]]></xf:value>
+								</xf:item>
+							</xf:choices>
+						</xf:select1>
+						<xf:select selectedindex="-1" id="cbx_autoSave" appearance="full" style="display:none;" cols="" rows="" ref=""
+							class="custom mr10" ev:onviewchange="scwin.cbx_autoSave_onviewchange">
+							<xf:choices>
+								<xf:item>
+									<xf:label><![CDATA[자동저장]]></xf:label>
+									<xf:value><![CDATA[]]></xf:value>
+								</xf:item>
+							</xf:choices>
+						</xf:select>
 						<xf:trigger style="display:none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
 						</xf:trigger>

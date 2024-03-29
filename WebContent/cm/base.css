@@ -212,7 +212,8 @@ input[type="radio"]:disabled:checked + .w2radio_label:after{background-color:#ef
 .w2checkbox_td_label .w2checkbox_label:before,
 .w2radio_td_label .w2radio_label:before{display:none;}
 .w2checkbox_td_input .w2checkbox_input{width:16px;height:16px;margin:3px 3px 0;appearance:none;background:url(/cm/images/ico_checkbox.png) no-repeat}
-.w2checkbox_td_input .w2checkbox_input:checked{background-position:0 -16px}
+.w2checkbox_td_input .w2checkbox_input:checked{background:url(/cm/images/ico_checkbox_on.png) no-repeat}
+.custom .w2checkbox_td_input{line-height:16px;}
 .w2checkbox_td_input .w2checkbox_input:disabled{background-position:0 -32px}
 .w2checkbox_td_input .w2checkbox_input:checked:disabled{background-position:0 -40px}
           
@@ -1586,6 +1587,7 @@ input[type="file"]{cursor:pointer;}
 .ica_sch .w2inputCalendar_divInput{text-indent:0;}
 .ica_sch.current input{color:#1975f0;}
 
+.txt_saveDt{display: inline-block; position: relative;  top: 3px; left: 5px;}
 .edbox{position:relative; margin:0px; flex:auto; flex-grow: 20;}
 .edbox .w2editor{min-height:calc(100% - 100px);height:100%;}
 .sch.edbox .w2editor, .sch.edbox{height:100% !important;} 
