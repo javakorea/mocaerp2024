@@ -178,7 +178,7 @@ scwin.grd1_oncelldblclick = function(row,col,colId) {
 	var data = { data: _param, callbackFn: "scwin.boardPop_callback" };
 	var options = {
 		id: "boardPop",
-		popupName: "",
+		popupName: "상세",
 		className : "h100",
 		modal: true,
 		useMaximize : true,
