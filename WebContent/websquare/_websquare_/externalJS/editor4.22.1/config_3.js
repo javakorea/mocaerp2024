@@ -51,7 +51,7 @@ CKEDITOR.editorConfig = function( config )
 	config.pasteFromWordRemoveStyles = false;
 	
 	config.extraPlugins = 'resize, pastebase64,teammocacrop';
-	//config.removePlugins = 'exportpdf';
+    config.removePlugins = 'exportpdf';
 	//config.resize_dir = 'both'; both || vertical || horizontal
 
 	config.filebrowserUploadMethod = 'form';
