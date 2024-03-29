@@ -103,6 +103,8 @@ scwin.fn_searchBoardInfo = function () {
 		let cont = dma_map.get('BOARD_CONT');
 		if(!com.util.isMobile()){
 			cont = cont.replace(/width\:\s*100\%/g,'width: 40%');//기존에 100%였던 데이터때문에 필요
+		}else{
+			cont = cont.replace(/width\:\s*40\%/g,'width: 100%');	
 		}
 		edi_1.setHTML(cont);
 		scwin.fn_searchFile();
