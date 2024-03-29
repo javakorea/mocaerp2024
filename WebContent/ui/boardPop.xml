@@ -394,16 +394,24 @@ scwin.cbx_autoSave_onviewchange = function(info) {
 	if(info.checked){
 		txt_saveDt.show('');
 		scwin.autoYn = "Y";
-		let sec = Number(sbx_autoSec.getValue())*1000;
-		// 2초 간격으로 메시지를 보여줌
-		scwin.timerId = setInterval(() => {
-			scwin.fn_update("auto");
-		}, sec);
+		scwin.fn_auto();
 	}else{
 		scwin.autoYn = "N";
 		clearInterval(scwin.timerId);
 		txt_saveDt.hide();
 	}
+};
+
+scwin.fn_auto = function(){
+	clearInterval(scwin.timerId);
+	let sec = Number(sbx_autoSec.getValue())*1000;
+	// 2초 간격으로 메시지를 보여줌
+	scwin.timerId = setInterval(() => {
+		scwin.fn_update("auto");
+	}, sec);
+}
+scwin.sbx_autoSec_onviewchange = function(info) {
+	scwin.fn_auto();
 };
 ]]></script>
 	</head>
@@ -419,23 +427,23 @@ scwin.cbx_autoSave_onviewchange = function(info) {
 						<w2:textbox class="txt_saveDt" id="txt_saveDt" label="" style="display:none;"></w2:textbox>
 					</xf:group>
 					<xf:group style="" id="" class="fr">
-						<xf:select1 id="sbx_autoSec" chooseOption="" style="width:80px;display:none;" submenuSize="auto" allOption="" disabled="false"
-							direction="auto" appearance="minimal" disabledClass="w2selectbox_disabled" class="mr10" ref="">
+						<xf:select1 id="sbx_autoSec" chooseOption="" style="width:55px;display:none;" submenuSize="auto" allOption=""
+							disabled="false" direction="auto" appearance="minimal" disabledClass="w2selectbox_disabled" class="mr10" ref="" ev:onviewchange="scwin.sbx_autoSec_onviewchange">
 							<xf:choices>
 								<xf:item>
-									<xf:label><![CDATA[5초마다]]></xf:label>
+									<xf:label><![CDATA[5초]]></xf:label>
 									<xf:value><![CDATA[5]]></xf:value>
 								</xf:item>
 								<xf:item>
-									<xf:label><![CDATA[10초마다]]></xf:label>
+									<xf:label><![CDATA[10초]]></xf:label>
 									<xf:value><![CDATA[10]]></xf:value>
 								</xf:item>
 								<xf:item>
-									<xf:label><![CDATA[30초마다]]></xf:label>
+									<xf:label><![CDATA[30초]]></xf:label>
 									<xf:value><![CDATA[30]]></xf:value>
 								</xf:item>
 								<xf:item>
-									<xf:label><![CDATA[60초마다]]></xf:label>
+									<xf:label><![CDATA[60초]]></xf:label>
 									<xf:value><![CDATA[60]]></xf:value>
 								</xf:item>
 							</xf:choices>
@@ -454,7 +462,7 @@ scwin.cbx_autoSave_onviewchange = function(info) {
 						</xf:trigger>
 						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_expand_onclick" id="btn_expand" nextTabID="" style=""
 							type="button">
-							<xf:label><![CDATA[전체화면보기]]></xf:label>
+							<xf:label><![CDATA[전체보기]]></xf:label>
 						</xf:trigger>
 						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style=""
 							type="button">

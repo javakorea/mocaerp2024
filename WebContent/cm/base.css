@@ -132,7 +132,7 @@ input[type="password"],
 .w2input{height:26px;padding:0 4px;}
 .w2tb_td .w2textarea{padding:4px;}
 .w2table_sb_col{font-size:12px;}
-
+.txt_saveDt{display: inline-block; position: relative;  top: 3px; left: 5px;}
 /* focus */
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -1542,6 +1542,7 @@ input[type="file"]{cursor:pointer;}
 	.pop_contents.flex_gvw.flex_m .edbox .cke_button__source_label, .cke_button__sourcedialog_label{display:none}
 	
 	.ipt_color{right:3px !important;}
+	.txt_saveDt{display: inline-block; left: 0; position: absolute; z-index: 2; top: -18px;}
 
 }
 @media screen and (max-width: 446px) { 
@@ -1587,7 +1588,6 @@ input[type="file"]{cursor:pointer;}
 .ica_sch .w2inputCalendar_divInput{text-indent:0;}
 .ica_sch.current input{color:#1975f0;}
 
-.txt_saveDt{display: inline-block; position: relative;  top: 3px; left: 5px;}
 .edbox{position:relative; margin:0px; flex:auto; flex-grow: 20;}
 .edbox .w2editor{min-height:calc(100% - 100px);height:100%;}
 .sch.edbox .w2editor, .sch.edbox{height:100% !important;} 
