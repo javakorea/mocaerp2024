@@ -19,8 +19,12 @@ CKEDITOR.editorConfig = function( config )
 	                                  	['Bold','Italic','Underline','TextColor']
 	                                  ];
 	config.toolbar_board = [
-	    	['Source','FontSize','Bold','TextColor','Table','Indent','Outdent','HorizontalRule','Maximize']
+	    	['Source','FontSize','Bold','TextColor','Table','Indent','Outdent','HorizontalRule','Maximize','TeammocaCrop']
 	];
+	
+	
+	
+	
 	config.toolbar_defaultImage = [
 	                                  	['Source','DocProps','-','NewPage','Preview','-'],
 	                                  	['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print'],
@@ -46,13 +50,19 @@ CKEDITOR.editorConfig = function( config )
 	config.pasteFromWordRemoveFontStyles = false;
 	config.pasteFromWordRemoveStyles = false;
 	
-	config.extraPlugins = 'resize, pastebase64';
+	config.extraPlugins = 'resize, pastebase64,teammocacrop';
 	//config.removePlugins = 'exportpdf';
 	//config.resize_dir = 'both'; both || vertical || horizontal
 
 	config.filebrowserUploadMethod = 'form';
 	
 	
+	config.cropperJsUrl = "/cm/cropper.min.js";
+    config.cropperCssUrl = "/cm/cropper.min.css"
+    	
+    	
 
-	
 };
+
+
+
