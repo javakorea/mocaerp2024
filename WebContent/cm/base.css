@@ -1651,3 +1651,5 @@ input[type="file"]{cursor:pointer;}
 div[id$=colorPop] > .w2window_header{display:none}
 
 .btn_esc{position: fixed; width: 150px; height: 150px; background-image: url(images/ico_esc.svg); text-indent: -9999px; left: calc(50% - 75px); border: 0; background-position: -2px; top: calc(50% - 75px); opacity: 0.3;z-index:1;}
+.btn_print{position: fixed; background-image: url(../websquare/_websquare_/externalJS/editor4.22.1/plugins/print/icons/print.png);  left: calc(100% - 50px); border: 0; background-repeat: no-repeat;top: 20px; opacity: 1;z-index:1;}
+

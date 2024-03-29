@@ -22,15 +22,20 @@ scwin.onpageload = function() {
 scwin.btn_close_onclick = function(e) {
     self.close();
 };
+scwin.btn_print_onclick = function(e) {
+    window.frames[0].print();
+};
 ]]></script>
     </head>
     <body ev:onpageload="scwin.onpageload" style="overflow: hidden;">
     	<xf:trigger class="btn_esc" id="btn_close" style="" type="button" ev:onclick="scwin.btn_close_onclick">
     		<xf:label><![CDATA[닫기]]></xf:label>
     	</xf:trigger>
-    	
+     	<xf:trigger class="btn_print" id="btn_print" style="" type="button" ev:onclick="scwin.btn_print_onclick">
+    		<xf:label><![CDATA[......]]></xf:label>
+    	</xf:trigger>   	
     	<xf:group class="expandWrap edbox" id="expandWrap" style="">
-    	<w2:editor style="height: 100%;" id="edi_2"></w2:editor>
+    	<w2:editor style="" id="edi_2"></w2:editor>
     	</xf:group>
 
 
