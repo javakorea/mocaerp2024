@@ -1,4 +1,16 @@
-﻿﻿
+﻿﻿//캡쳐한이미지를 붙여넣기시 자동으로 서버업로드하는문제를 해결하기위해만믄 오버라이드
+CKEDITOR.plugins.clipboard.initPasteDataTransfer = function(a, b) {
+	debugger;
+    if (a && a.data && a.data.$) {
+        var c = a.data.$.clipboardData
+          , d = new this.dataTransfer(c,b);
+        "copy" !== a.name && "cut" !== a.name || d.storeId();
+        this.copyCutData && d.id == this.copyCutData.id ? (d = this.copyCutData,
+        d.$ = c) : this.copyCutData = d;
+        return d
+    }
+    return {};
+};
 CKEDITOR.editorConfig = function( config )
 {
 
@@ -18,6 +30,7 @@ CKEDITOR.editorConfig = function( config )
 	                                	['Font','FontSize','Table','Image'],
 	                                  	['Bold','Italic','Underline','TextColor']
 	                                  ];
+	//사용하는CK태그속성중에 menubar="board" 에 의해 앞에 'config.toolbar_'가 붙어 툴바설정이 결정됨
 	config.toolbar_board = [
 	    	['Source','FontSize','Bold','TextColor','Table','Indent','Outdent','HorizontalRule','Maximize','TeammocaCrop']
 	];
@@ -51,12 +64,12 @@ CKEDITOR.editorConfig = function( config )
 	config.pasteFromWordRemoveStyles = false;
 	
 	config.extraPlugins = 'resize, pastebase64,teammocacrop';
-    config.removePlugins = 'exportpdf';
+    config.removePlugins = 'exportpdf,magicline';//pdf는이미지라가안나와못씀,문단나누기는자동으로마음대로나와불편함
 	//config.resize_dir = 'both'; both || vertical || horizontal
 
 	config.filebrowserUploadMethod = 'form';
 	
-	
+	//Teammocacorp에서 사용하는 crop오픈소스라이브러리
 	config.cropperJsUrl = "/cm/cropper.min.js";
     config.cropperCssUrl = "/cm/cropper.css"
     	
