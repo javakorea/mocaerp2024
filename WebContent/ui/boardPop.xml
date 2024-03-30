@@ -192,13 +192,19 @@ scwin.fn_bytesToLabel = function(_byte){
 		dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.insert__T_FILE");
 		dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
 		dma_content.set("COMMON_MASTER_KEY","BOARD_IDX");dma_content.set("COMMON_DETAIL_KEY","CONTENT_ID");
-
 		dma_content.set("COMMON_STATUS", "U");
 		dma_content.set("BOARD_CONT", edi_1.getHTML());
 		dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
 		if(_auto){
+			//mf_wdc_main_subWindow2_wframe_boardPop_header_title
 			let _current =WebSquare.date.getCurrentServerDate("yyyy-MM-dd HH:mm:ss");
-			txt_saveDt.setValue(_current);
+			let _title = $p.getComponentById('mf_wdc_main_subWindow1_wframe_boardPop_header_title');
+			let _initTitle = '상세';
+			_title.innerHTML = _initTitle;
+			setTimeout(function(){
+				_title.innerHTML = _initTitle+' - saved : '+_current;
+			},2000);
+			//txt_saveDt.setValue(_current);
 		}
 		com.sbm.execute(sbm_commonTran);
 	}
@@ -398,13 +404,13 @@ scwin.btn_fileDel_onclick = function(e) {
 
 scwin.cbx_autoSave_onviewchange = function(info) {
 	if(info.checked){
-		txt_saveDt.show('');
+		//txt_saveDt.show('');
 		scwin.autoYn = "Y";
 		scwin.fn_auto();
 	}else{
 		scwin.autoYn = "N";
 		clearInterval(scwin.timerId);
-		txt_saveDt.hide();
+		//txt_saveDt.hide();
 	}
 };
 
@@ -430,7 +436,7 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 							ev:onclick="scwin.btn_adminDel_onclick">
 							<xf:label><![CDATA[폐기]]></xf:label>
 						</xf:trigger>
-						<w2:textbox class="txt_saveDt" id="txt_saveDt" label="" style="display:none;"></w2:textbox>
+						<!-- <w2:textbox class="txt_saveDt" id="txt_saveDt" label="" style="display:none;"></w2:textbox> -->
 					</xf:group>
 					<xf:group style="" id="" class="fr">
 						<xf:select1 id="sbx_autoSec" chooseOption="" style="width:55px;display:none;" submenuSize="auto" allOption=""
