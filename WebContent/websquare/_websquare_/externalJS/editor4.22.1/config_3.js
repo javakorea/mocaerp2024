@@ -1,17 +1,4 @@
-﻿﻿//캡쳐한이미지를 붙여넣기시 자동으로 서버업로드하는문제를 해결하기위해만믄 오버라이드
-CKEDITOR.plugins.clipboard.initPasteDataTransfer = function(a, b) {
-	debugger;
-    if (a && a.data && a.data.$) {
-        var c = a.data.$.clipboardData
-          , d = new this.dataTransfer(c,b);
-        "copy" !== a.name && "cut" !== a.name || d.storeId();
-        this.copyCutData && d.id == this.copyCutData.id ? (d = this.copyCutData,
-        d.$ = c) : this.copyCutData = d;
-        return d
-    }
-    return {};
-};
-CKEDITOR.editorConfig = function( config )
+﻿CKEDITOR.editorConfig = function( config )
 {
 
 	config.toolbar_default = [
