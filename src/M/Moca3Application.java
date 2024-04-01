@@ -340,8 +340,9 @@ public class Moca3Application {
 	//매일 아침 7시 조회 (당일 일정 조회)
 	@Scheduled(cron="0 0 7 * * ?")public void _0_0_7_A_A_Q() throws Exception{u.exeBatch("M.selectTodaySchedule","당일",ss);}
 	//매일 아침 9시 조회 (내일,3일전,7일전 일정 조회)
-	@Scheduled(cron="0 0 9 * * ?")public void _0_0_9_A_A_Q() throws Exception{u.exeBatch("M.selectTomorrowSchedule","1일전",ss);u.exeBatch("M.selectThreeDaysSchedule","3일전",ss);u.exeBatch("M.selectAWeekSchedule","7일전",ss);}
+	@Scheduled(cron="0 0 9 * * ?")public void _0_0_9_A_A_Q() throws Exception{u.exeBatch("M.selectTomorrowSchedule","1일전",ss);u.exeBatch("M.selectThreeDaysSchedule","3일전",ss);u.exeBatch("M.selectAWeekSchedule","7일전",ss);u.exeBatch("M.selectNotSuccessSchedule","미처리",ss);}
 	//월~금 아침 9시 (고정알림)
+	//
 	@Scheduled(cron = "0 0 9 ? * MON-FRI")public void _0_0_9_Q_A_MON_FRI() throws Exception{u.exeSms("안녕하세요! 오전9시 주식개장시간입니다",u.getSmsDefaultNumbers(null),"",null,ss,null);}
 	//[테스트용] 매시30분 (고정알림) 
 	//@Scheduled(cron = "0 30 * * * *")public void _0_30_A_A_A_A() throws Exception{u.exeSms("30분주기알림 테스트중입니다.",u.getSmsDefaultNumbers(null),"",null,ss);}	

@@ -287,6 +287,16 @@
   				AND SCH_IDX=#{SCH_IDX}
     </delete>
     
+    <select id="selectNotSuccessSchedule" parameterType="map" resultType="map">
+    	/*selectNotSuccessSchedule 스케줄 미처리건 조회*/
+    	SELECT A.*, B.MBTLNUM
+		FROM MT_SCHEDULE A LEFT JOIN MT_LETTNEMPLYRINFO 
+		B ON A.SCH_WRITER = B.EMPLYR_ID
+		WHERE 1=1 
+		AND A.SCH_SUCCESSYN = 'N'
+		AND DATE(A.SCH_START) <![CDATA[<]]> (SELECT CURDATE())
+    </select>
+    
     <select id="selectTodaySchedule" parameterType="map" resultType="map">
     	/*selectTodaySchedule 스케줄 당일일정 조회*/
        SELECT A.*, B.MBTLNUM
@@ -295,6 +305,7 @@
 		WHERE 1=1 
 		AND A.SCH_DELYN = 'N' 
 		AND A.SCH_SENDYN = 'N'
+		AND A.SCH_SUCCESSYN = 'N'
 		AND DATE(A.SCH_START) = (SELECT CURDATE())
     </select>
     
@@ -306,6 +317,7 @@
 		WHERE 1=1 
 		AND A.SCH_DELYN = 'N' 
 		AND A.SCH_SENDYN = 'N'
+		AND A.SCH_SUCCESSYN = 'N'
 		AND DATE(A.SCH_START) = (SELECT ADDDATE(CURDATE(), 1))
     </select>
     
@@ -317,6 +329,7 @@
 		WHERE 1=1 
 		AND A.SCH_DELYN = 'N' 
 		AND A.SCH_SENDYN = 'N'
+		AND A.SCH_SUCCESSYN = 'N'
 		AND DATE(A.SCH_START) = (SELECT ADDDATE(CURDATE(), 3))
     </select>
     
@@ -328,6 +341,7 @@
 		WHERE 1=1 
 		AND A.SCH_DELYN = 'N' 
 		AND A.SCH_SENDYN = 'N'
+		AND A.SCH_SUCCESSYN = 'N'
 		AND DATE(A.SCH_START) = (SELECT ADDDATE(CURDATE(), 7))
     </select>
     
