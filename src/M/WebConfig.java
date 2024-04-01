@@ -16,6 +16,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -65,5 +66,6 @@ public class WebConfig implements WebMvcConfigurer {
 		 //아래설정은 사용하지마시고 로컬사용자는 VM arguments에 다음옵션을 추가해야합니다. -DSERVER_GUBUN=L -DWEBSQUARE_HOME=C:\A_teammoca_repository\git\mocaerp2024\websquare_home
 		 //reg.addInitParameter("WEBSQUARE_HOME","C:\\A_teammoca_repository\\eclipse_20231025\\mocaerp2024\\websquare_home");
 		  return reg;
-	}    
+	}   
+    
 }
