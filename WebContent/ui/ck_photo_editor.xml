@@ -88,6 +88,14 @@ scwin.btn_right_onclick = function(e) {
 scwin.btn_rest_onclick = function(e) {
     scwin.cropper.reset();
 };
+
+scwin.btn_in_onclick = function(e) {
+    scwin.cropper.zoom(0.1);
+};
+
+scwin.btn_zoomout_onclick = function(e) {
+    scwin.cropper.zoom(-0.1);
+};
 ]]></script>
     </head>
     <body ev:onpageload="scwin.onpageload">
@@ -109,6 +117,12 @@ scwin.btn_rest_onclick = function(e) {
     	</xf:trigger>
     	<xf:trigger type="button" id="btn_rest" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_rest_onclick">
     		<xf:label><![CDATA[리셋]]></xf:label>
+    	</xf:trigger>
+    	<xf:trigger type="button" id="btn_in" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_in_onclick">
+    		<xf:label><![CDATA[확대]]></xf:label>
+    	</xf:trigger>
+    	<xf:trigger type="button" id="btn_zoomout" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_zoomout_onclick">
+    		<xf:label><![CDATA[축소]]></xf:label>
     	</xf:trigger>
     </body>
 </html>

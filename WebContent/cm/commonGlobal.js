@@ -1524,12 +1524,11 @@ gcm.sbm.callbackSubmitFunction = function(resObj, sbmObj) {
 		return false;
 	}
 
-	if (com.util.isEmpty(resObj.errorType) && typeof sbmObj._promise_submitDoneHandler === "function") {
+	if (com.util.isEmpty(resObj.errorType) && sbmObj._promise_submitDoneHandler) {
 		sbmObj._promise_submitDoneHandler(resObj);
-	} else if (!com.util.isEmpty(resObj.errorType) && typeof sbmObj._promise_submitErrorHandler === "function") {
+	}else if (!com.util.isEmpty(resObj.errorType) && sbmObj._promise_submitErrorHandler) {
 		sbmObj._promise_submitErrorHandler(resObj);
 	}
-
 	var rsJSON = resObj.responseJSON || null;
 	if (rsJSON && rsJSON.rsMsg) {
 		com.sbm.resultMsg(rsJSON.rsMsg);

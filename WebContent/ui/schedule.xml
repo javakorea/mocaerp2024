@@ -131,7 +131,6 @@ scwin.schedulePop_closeAction = ()=>{
 }
 /* 팝업 callback */
 scwin.schedulePop_callback = function(e) {
-	debugger;
 	scwin.popup_opened = false;
 	com.win.alert(e.message);
 	scwin.search();

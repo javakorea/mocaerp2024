@@ -100,7 +100,7 @@ public class Moca3Application {
 	@RequestMapping("/commonTran.do")
 	public Map commonTran(@RequestBody Map param) throws Exception{
 		Map dma_common = (Map) param.get(this.MASTER_MAP);
-		List dlt_common = (List) param.get(this.DETAIL_LiST);
+		
 		String COMMON_MASTER_QUERY 			= String.valueOf(dma_common.get(this.COMMON_MASTER_QUERY));
 		String MASTER_KEY_NM 				= String.valueOf(dma_common.get(this.COMMON_MASTER_KEY));
 		String DETAIL_KEY_NM 				= String.valueOf(dma_common.get(this.COMMON_DETAIL_KEY));
@@ -115,47 +115,43 @@ public class Moca3Application {
 				resultMap.put(this.COMMON_MASTER_RESULT, re1);
 			}
 			Map result = new HashMap();
-			int sz = dlt_common.size();
-			for(int i=0; i < sz; i++) {
-				Map row = (Map)dlt_common.get(i);
-				if(MASTER_KEY_NM != null) {
-					row.put(DETAIL_KEY_NM,	String.valueOf(dma_common.get(MASTER_KEY_NM)));
-				}
-				String s = (String)row.get(this.STATUS);
-				int re = 0;
-				if("C".equals(s) ) {
-					re = ss.insert(COMMON_DETAIL_INSERTQUERY,row);
-					result.put(i+"", re);
-				}else if("U".equals(s) ) {
-					re = ss.insert(COMMON_DETAIL_UPDATEQUERY,row);
-					result.put(i+"", re);
-				}else if("D".equals(s) ) {
-					if(!"null".equalsIgnoreCase(COMMON_MASTER_DELETEQUERY) && !"".equalsIgnoreCase(COMMON_MASTER_DELETEQUERY) ) {
-						re = ss.delete(COMMON_MASTER_DELETEQUERY,row);
-						result.put(i+"_m", re);
+			
+			
+			List dlt_common = (List) param.get(this.DETAIL_LiST);
+			if(dlt_common != null) {
+				int sz = dlt_common.size();
+				for(int i=0; i < sz; i++) {
+					Map row = (Map)dlt_common.get(i);
+					if(MASTER_KEY_NM != null) {
+						row.put(DETAIL_KEY_NM,	String.valueOf(dma_common.get(MASTER_KEY_NM)));
 					}
-					if(!"null".equalsIgnoreCase(COMMON_DETAIL_DELETEQUERY) && !"".equalsIgnoreCase(COMMON_DETAIL_DELETEQUERY)) {
-						re = ss.delete(COMMON_DETAIL_DELETEQUERY,row);
-						result.put(i+"_d", re);
+					String s = (String)row.get(this.STATUS);
+					int re = 0;
+					if("C".equals(s) ) {
+						re = ss.insert(COMMON_DETAIL_INSERTQUERY,row);
+						result.put(i+"", re);
+					}else if("U".equals(s) ) {
+						re = ss.insert(COMMON_DETAIL_UPDATEQUERY,row);
+						result.put(i+"", re);
+					}else if("D".equals(s) ) {
+						if(!"null".equalsIgnoreCase(COMMON_MASTER_DELETEQUERY) && !"".equalsIgnoreCase(COMMON_MASTER_DELETEQUERY) ) {
+							re = ss.delete(COMMON_MASTER_DELETEQUERY,row);
+							result.put(i+"_m", re);
+						}
+						if(!"null".equalsIgnoreCase(COMMON_DETAIL_DELETEQUERY) && !"".equalsIgnoreCase(COMMON_DETAIL_DELETEQUERY)) {
+							re = ss.delete(COMMON_DETAIL_DELETEQUERY,row);
+							result.put(i+"_d", re);
+						}
 					}
 				}
+				resultMap.put(this.COMMON_PARAM_LIST, dlt_common);
 			}
 			resultMap.put(this.COMMON_DETAIL_RESULT, result);
 			resultMap.put(this.COMMON_PARAM_MAP, dma_common);
-			resultMap.put(this.COMMON_PARAM_LIST, dlt_common);
 		COMMON_RESULT_MAP.put(this.COMMON_RESULT, resultMap);
 		u.setSuccessMsg(COMMON_RESULT_MAP);
 		return COMMON_RESULT_MAP;
 	};
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -166,41 +162,12 @@ public class Moca3Application {
 	@RequestMapping("/selectScheduleInfo.do")
 	public Map selectScheduleInfo(@RequestBody Map param) {Map searchMap = (Map) param.get("dma_schdInfo");Map resultMap = new HashMap();Map map = ss.selectOne("M.selectScheduleInfo", searchMap);resultMap.put("dma_schdInfo", map);return resultMap;}
 	
-	//스케줄러 등록
-	@RequestMapping("/insertSchedule.do")
-	public Map insertSchedule(@RequestBody Map param) throws Exception{
-		Map resultMap = new HashMap();
-		Map searchMap = (Map) param.get("dma_schdInfo");
-		int map = ss.insert("M.insertSchedule", searchMap);
-		resultMap.put("cnt", map);
-		u.setSuccessMsg(resultMap);
-		return resultMap;
-	}
-		
-	//스케줄러 수정
-	@RequestMapping("/updateSchedule.do")
-	public Map updateSchedule(@RequestBody Map param) throws Exception{
-		Map resultMap = new HashMap();
-		int cnt = 0;
-		Map searchMap = (Map) param.get("dma_schdInfo");
-		String status = (String) searchMap.get("STATUS");
-		if (status.equals("U")) {
-			cnt = ss.update("M.updateSchedule", searchMap);
-		}else if(status.equals("D")) {
-			cnt = ss.delete("M.deleteSchedule", searchMap);
-		}
-		resultMap.put("cnt", cnt);
-		u.setSuccessMsg(resultMap);
-		return resultMap;
-	};
-	
-	
+
 	
 	
 	
 	
 	public static final int BUFF_SIZE = 2048;
-	//스케줄러 수정
 	@RequestMapping("/googleDownload.do")
 	public void googleDownload(HttpServletRequest request,HttpServletResponse response) throws Exception{
 		String googleFileId = request.getParameter("googleFileId");
