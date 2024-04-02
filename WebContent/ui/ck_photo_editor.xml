@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:type>COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map"/>
+            <w2:workflowCollection/>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method=""/>
+        <script lazy="false" type="text/javascript"><![CDATA[
+scwin.onpageload = function() {
+	debugger;
+    let src = $p.getAllParameter().paramData.data.src;
+    img_work.setSrc(src);
+
+
+    var image = img_work.render;
+    var minAspectRatio = 0.1;
+    var maxAspectRatio = 5;
+    scwin.newsrc = '';
+    scwin.cropper = new Cropper(image, {
+        data: {
+            width: 150,
+            height: 150
+        },
+        ready: function () {
+            var cropper = this.cropper;
+            var containerData = cropper.getContainerData();
+            var cropBoxData = cropper.getCropBoxData();
+            var aspectRatio = cropBoxData.width / cropBoxData.height;
+            var newCropBoxWidth;
+
+            if (aspectRatio < minAspectRatio || aspectRatio > maxAspectRatio) {
+                newCropBoxWidth = cropBoxData.height * ((minAspectRatio + maxAspectRatio) / 2);
+                cropper.setCropBoxData({
+                left: (containerData.width - newCropBoxWidth) / 2,
+                width: newCropBoxWidth
+                });
+            }
+        },
+        cropend: function () {
+            var cropper = this.cropper;
+            var cropBoxData = cropper.getCropBoxData();
+            var aspectRatio = cropBoxData.width / cropBoxData.height;
+
+            if (aspectRatio < minAspectRatio) {
+                cropper.setCropBoxData({
+                width: cropBoxData.height * minAspectRatio
+                });
+            } else if (aspectRatio > maxAspectRatio) {
+                cropper.setCropBoxData({
+                width: cropBoxData.height * maxAspectRatio
+                });
+            }
+            scwin.newsrc = this.cropper.getCroppedCanvas().toDataURL();
+        },
+    });
+
+
+};
+
+scwin.btn_left_onclick = function(e) {
+    scwin.cropper.rotate(-45);
+};
+
+scwin.btn_cut_onclick = function(e) {
+    debugger;
+};
+
+scwin.btn_confirm_onclick = function(e) {
+    $(com.ckTarget.getSelection().getStartElement().$).attr('src',scwin.cropper.getCroppedCanvas().toDataURL());
+    $p.closePopup();
+};
+]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<xf:image src="" style="width:449px;height:377px;" id="img_work"></xf:image>
+    	<xf:trigger type="button" id="btn_cut" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_cut_onclick">
+    		<xf:label><![CDATA[자르기]]></xf:label>
+    	</xf:trigger>
+    	<xf:trigger type="button" id="btn_left" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_left_onclick">
+    		<xf:label><![CDATA[반시계방향]]></xf:label>
+    	</xf:trigger>
+    	<xf:trigger type="button" id="btn_right" style="width: 80px;height: 23px;">
+    		<xf:label><![CDATA[시계방향]]></xf:label>
+    	</xf:trigger>
+    	<xf:trigger type="button" id="btn_move" style="width: 80px;height: 23px;">
+    		<xf:label><![CDATA[이동]]></xf:label>
+    	</xf:trigger>
+    	<xf:trigger type="button" id="btn_confirm" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_confirm_onclick">
+    		<xf:label><![CDATA[적용]]></xf:label>
+    	</xf:trigger>
+    </body>
+</html>

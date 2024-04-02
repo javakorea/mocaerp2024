@@ -27,16 +27,29 @@ CKEDITOR.plugins.add('teammocacrop', {
     	document.body.insertBefore(cropperScript,document.body.firstChild);
     	*/
     	var pluginDirectory = this.path;
-        editor.addCommand('teammocacropcom', new CKEDITOR.dialogCommand('cropDialog')
-        );
+        editor.addCommand('teammocacropcom',{ 
+        	exec: (_editor) => {
+        		com.ckTarget = _editor;
+        		var _param = {src:_editor.getSelection().getStartElement().$.src};
+        		var data = { data: _param, callbackFn: "" };
+        		var options = {
+        			id: "ck_photo_editor",
+        			popupName: "이미지편집",
+        			className : "h100",
+        			modal: true,
+        			useMaximize : true,
+        			width: (screen.availWidth * 0.6), height: (screen.availHeight * 0.6)
+        		};
+        		com.win.openPopup($p,"/ui/ck_photo_editor.xml", options, data);
+	        }
+        });
 
         editor.ui.addButton('TeammocaCrop', {
             label: 'image cropper',
             command: 'teammocacropcom',
             icon: this.path + 'icons/teammocacrop.png'
         });
-    		
-        CKEDITOR.dialog.add('cropDialog', pluginDirectory + 'dialogs/teammocacrop.js');	
+        
         
 
     }
