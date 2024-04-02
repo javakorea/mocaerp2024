@@ -69,12 +69,24 @@ scwin.btn_left_onclick = function(e) {
 };
 
 scwin.btn_cut_onclick = function(e) {
-    debugger;
+    scwin.cropper.setDragMode("crop");
 };
 
 scwin.btn_confirm_onclick = function(e) {
     $(com.ckTarget.getSelection().getStartElement().$).attr('src',scwin.cropper.getCroppedCanvas().toDataURL());
     $p.closePopup();
+};
+
+scwin.btn_move_onclick = function(e) {
+    scwin.cropper.setDragMode("move");
+};
+
+scwin.btn_right_onclick = function(e) {
+    scwin.cropper.rotate(45);
+};
+
+scwin.btn_rest_onclick = function(e) {
+    scwin.cropper.reset();
 };
 ]]></script>
     </head>
@@ -86,14 +98,17 @@ scwin.btn_confirm_onclick = function(e) {
     	<xf:trigger type="button" id="btn_left" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_left_onclick">
     		<xf:label><![CDATA[반시계방향]]></xf:label>
     	</xf:trigger>
-    	<xf:trigger type="button" id="btn_right" style="width: 80px;height: 23px;">
+    	<xf:trigger type="button" id="btn_right" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_right_onclick">
     		<xf:label><![CDATA[시계방향]]></xf:label>
     	</xf:trigger>
-    	<xf:trigger type="button" id="btn_move" style="width: 80px;height: 23px;">
+    	<xf:trigger type="button" id="btn_move" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_move_onclick">
     		<xf:label><![CDATA[이동]]></xf:label>
     	</xf:trigger>
     	<xf:trigger type="button" id="btn_confirm" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_confirm_onclick">
     		<xf:label><![CDATA[적용]]></xf:label>
+    	</xf:trigger>
+    	<xf:trigger type="button" id="btn_rest" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_rest_onclick">
+    		<xf:label><![CDATA[리셋]]></xf:label>
     	</xf:trigger>
     </body>
 </html>
