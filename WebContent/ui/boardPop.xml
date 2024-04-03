@@ -89,7 +89,11 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-	
+	debugger;
+	 CKEDITOR.on('instanceReady', function(ev) {
+		 debugger;
+        scwin.editor = ev.editor;
+    });
 };
 
 scwin.onpageunload = function () {
@@ -359,20 +363,19 @@ scwin.btn_copy_onclick = function(e) {
 		com.win.alert('선택된 행이 없습니다.');
 	}else{
 		scwin.fn_makeClip(chkArr);
+		scwin.editor.insertHtml(ibx_clip.getValue());
 	}
+	
 };
 
 scwin.fn_makeClip = function(_arr){
 	var fullTags = "";
-
 	let w = 'width: 40%;';
 	if(com.util.isMobile()){
 		w = 'width: 100%;';
 	}
 	for(var i=0; i < _arr.length; i++){
 		let _fid = _arr[i].FILE_ID;
-
-
 		let _imgTag = `<img alt=""  src="/googleDownload.do?googleFileId=${_fid}&sz=s2000" style="${w}border-width: 1px; border-style: solid;" /><hr /><br><br>`;
 		fullTags += _imgTag;
 	}
@@ -380,7 +383,7 @@ scwin.fn_makeClip = function(_arr){
 	ibx_clip.focus();
 	ibx_clip.select();
 	document.execCommand("copy");
-	com.win.alert('클립보드에 복사되었습니다.\n소스편집모드로 붙여넣기 하세요.');
+	com.win.alert('포커스된 위치에 이미지가 자동입력되었습니다.');
 }
 scwin.btn_expand_onclick = function(e) {
 	let _eid = edi_1.id;
@@ -532,10 +535,10 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
 				<xf:trigger class="btn_cm" id="btn_fileDel" style="" type="button" ev:onclick="scwin.btn_fileDel_onclick">
-					<xf:label><![CDATA[삭제지정]]></xf:label>
+					<xf:label><![CDATA[선택삭제지정]]></xf:label>
 				</xf:trigger>
 				<xf:trigger class="btn_cm" ev:onclick="scwin.btn_copy_onclick" id="btn_copy" style="" type="button">
-					<xf:label><![CDATA[클립복사]]></xf:label>
+					<xf:label><![CDATA[선택항목입력]]></xf:label>
 				</xf:trigger>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
