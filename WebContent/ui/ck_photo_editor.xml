@@ -97,7 +97,7 @@ scwin.btn_zoomout_onclick = function(e) {
 };
 ]]></script>
 <style>
-	.toolbar{background-color: rgba(0, 0, 0, .5); bottom: 1rem; color: #fff; height: 2rem; left: 50%; margin-left: -8rem; position: absolute; width: 16rem; z-index: 2015;}
+	.toolbar{background-color: rgba(0, 0, 0, .5); bottom: 1rem; color: #fff; height: 2rem; left: 50%; margin-left: -8rem; position: absolute; width: 14rem; z-index: 2015;}
 	.toolbar_button{position:relative;border-width: 0; color: #fff; cursor: pointer; display: block; float: left; font-size: .875rem; height: 2rem; text-align: center; width: 2rem;}
 	.toolbar_button:hover{background:#0074d9}
 	.toolbar_button > span{position: relative; top: 6px;}
@@ -132,12 +132,6 @@ scwin.btn_zoomout_onclick = function(e) {
 				</xf:trigger>
 			</xf:group>
 			<xf:group class="toolbar_button">
-				<w2:span label="" style="" id=""  class="fa fa-check"></w2:span>
-				<xf:trigger ev:onclick="scwin.btn_confirm_onclick" style="" id="btn_confirm" type="button">
-					<xf:label><![CDATA[적용]]></xf:label>
-				</xf:trigger>
-			</xf:group>
-			<xf:group class="toolbar_button">
 				<w2:span label="" style="" id=""  class="fa fa-refresh"></w2:span>
 				<xf:trigger ev:onclick="scwin.btn_rest_onclick" style="" id="btn_rest" type="button">
 					<xf:label><![CDATA[리셋]]></xf:label>
@@ -153,6 +147,14 @@ scwin.btn_zoomout_onclick = function(e) {
 				<w2:span label="" style="" id=""  class="fa fa-search-minus"></w2:span>
 				<xf:trigger ev:onclick="scwin.btn_zoomout_onclick" style="" id="btn_zoomout" type="button">
 					<xf:label><![CDATA[축소]]></xf:label>
+				</xf:trigger>
+			</xf:group>
+		</xf:group>
+		<xf:group id="" class="toolbar" style="right: 1em;    left: unset;    width: 32px;">
+			<xf:group class="toolbar_button" style="background-color:#ff791a">
+				<w2:span label="" style="" id=""  class="fa fa-check"></w2:span>
+				<xf:trigger ev:onclick="scwin.btn_confirm_onclick" style="" id="btn_confirm" type="button">
+					<xf:label><![CDATA[적용]]></xf:label>
 				</xf:trigger>
 			</xf:group>
 		</xf:group>
