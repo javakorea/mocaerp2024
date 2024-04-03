@@ -89,7 +89,6 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-	debugger;
 	 CKEDITOR.on('instanceReady', function(ev) {
 		 debugger;
         scwin.editor = ev.editor;

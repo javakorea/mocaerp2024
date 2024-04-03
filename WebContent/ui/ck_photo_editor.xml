@@ -71,7 +71,9 @@ scwin.btn_cut_onclick = function(e) {
 };
 
 scwin.btn_confirm_onclick = function(e) {
+	
     $(com.ckTarget.getSelection().getStartElement().$).attr('src',scwin.cropper.getCroppedCanvas().toDataURL());
+    $(com.ckTarget.getSelection().getStartElement().$).removeAttr('data-cke-saved-src');
     $p.closePopup();
 };
 
