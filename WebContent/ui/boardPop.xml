@@ -124,6 +124,7 @@ scwin.fn_searchFile = function () {
 	//callback
 	scwin.sbm_boardFileList_submitdone = function(e) {
 		txt_cnt.setValue(dlt_FILE.getRowCount()+"건");
+		edi_1.focus();
 	};
 };
 

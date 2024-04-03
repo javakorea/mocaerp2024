@@ -31,13 +31,17 @@ CKEDITOR.plugins.add('teammocacrop', {
         	exec: (_editor) => {
         		com.ckTarget = _editor;
         		var _param = {src:_editor.getSelection().getStartElement().$.src};
+        		if(!_param.src){
+        			com.win.alert($p,'이미지를 선택하세요!');
+        			return;
+        		}
         		var data = { data: _param, callbackFn: "" };
         		var options = {
         			id: "ck_photo_editor",
         			popupName: "이미지편집",
         			className : "h100",
         			modal: true,
-        			useMaximize : true,
+        			useMaximize : false,
         			width: (screen.availWidth * 0.6), height: (screen.availHeight * 0.6)
         		};
         		com.win.openPopup($p,"/ui/ck_photo_editor.xml", options, data);
