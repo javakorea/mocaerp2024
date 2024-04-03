@@ -201,7 +201,7 @@ public class Moca3Application {
 		    	outs.write(dataBuffer, 0, bytesRead);
 		    }
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}finally {
 			if(in != null) {
 				in.close();
