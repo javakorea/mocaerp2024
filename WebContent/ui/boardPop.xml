@@ -89,7 +89,7 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-	gcm.ext.scriptImport("https://apis.google.com/js/api.js",gapiLoaded);
+	
 };
 
 scwin.onpageunload = function () {
