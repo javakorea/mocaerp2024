@@ -101,6 +101,21 @@ scwin.onpageunload = function () {
 	}
 };
 
+scwin.showHide = function () {
+	if($(grp_attach.render).css('display') == 'none'){
+		grp_attach.show('');
+		btn_fileDel.show('');
+		btn_copy.show('');
+		trigger1.show('');
+		trigger_hide.setLabel("접기");
+	}else{
+		grp_attach.hide('');
+		btn_fileDel.hide('');
+		btn_copy.hide('');
+		trigger1.hide('');
+		trigger_hide.setLabel("펼치기");		
+	}
+};
 /**
  * 게시물 단건조회
  */
@@ -359,7 +374,7 @@ scwin.img_thum_onclick = function(e) {
 scwin.btn_copy_onclick = function(e) {
 	let chkArr = dlt_FILE.getMatchedJSON('CHK', '1');
 	if(chkArr.length == 0){
-		com.win.alert('선택된 행이 없습니다.');
+		com.win.alert('체크된 항목들이 없습니다.');
 	}else{
 		scwin.fn_makeClip(chkArr);
 		scwin.editor.insertHtml(ibx_clip.getValue());
@@ -392,7 +407,7 @@ scwin.btn_expand_onclick = function(e) {
 scwin.btn_fileDel_onclick = function(e) {
 	let chkArr = dlt_FILE.getMatchedIndex('CHK', '1');
 	if(chkArr.length == 0){
-		com.win.alert('선택된 행이 없습니다.');
+		com.win.alert('체크된 항목들이 없습니다.');
 	}else{
 		for(let i=chkArr.length-1; i > -1; i--){
 			let aRow = chkArr[i];
@@ -533,21 +548,24 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 				</xf:group>
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
-				<xf:trigger class="btn_cm" id="btn_fileDel" style="" type="button" ev:onclick="scwin.btn_fileDel_onclick">
+				<xf:trigger class="btn_cm" id="btn_fileDel" style="display:none;" type="button" ev:onclick="scwin.btn_fileDel_onclick">
 					<xf:label><![CDATA[선택삭제지정]]></xf:label>
 				</xf:trigger>
-				<xf:trigger class="btn_cm" ev:onclick="scwin.btn_copy_onclick" id="btn_copy" style="" type="button">
+				<xf:trigger class="btn_cm" ev:onclick="scwin.btn_copy_onclick" id="btn_copy" style="display:none;" type="button">
 					<xf:label><![CDATA[선택항목입력]]></xf:label>
 				</xf:trigger>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
 					<xf:input id="ibx_clip" style="width: 10px;border: 0;opacity: 0;position: absolute;left: 0;"></xf:input>
-					<xf:trigger class="btn_cm" ev:onclick="scwin.btn_fileUpload_onclick" id="trigger1" style="" type="button">
+					<xf:trigger class="btn_cm" ev:onclick="scwin.btn_fileUpload_onclick" id="trigger1" style="display:none" type="button">
 						<xf:label><![CDATA[파일찾기]]></xf:label>
 					</xf:trigger>
+					<xf:trigger class="btn_cm" ev:onclick="scwin.showHide" id="trigger_hide" style="" type="button">
+						<xf:label><![CDATA[펼치기]]></xf:label>
+					</xf:trigger>					
 				</xf:group>
 			</xf:group>
-			<xf:group adaptiveThreshold="" class="" id="" style="margin-bottom:20px;display:block;max-height:298px;overflow-y:auto;">
+			<xf:group adaptiveThreshold="" class="" id="grp_attach" style="margin-bottom:20px;display:none;max-height:298px;overflow-y:auto;">
 
 				<w2:gridView captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_FILE" defaultCellHeight="26"
 					id="grd_program" rowStatusVisible="true" rowStatusWidth="16" scrollByColumn="false" scrollByColumnAdaptive="false"
