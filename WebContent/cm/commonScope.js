@@ -79,7 +79,7 @@ com.sbm.execute = function (sbmObj, requestData, compObj) {
 					reject(rtn);
 				}
 			}
-			
+			_sbmObj.processMsg = '';
 			$p.executeSubmission(_sbmObj, requestData, compObj);
 		}
 	});
