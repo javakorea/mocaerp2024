@@ -14,7 +14,6 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-
 	// Mobile일때 메뉴 동작	
 	if (WebSquare.util.isMobile()) {
 		grp_wrap.removeClass("show_menu");

@@ -212,6 +212,8 @@ scwin.search = function(){
 		gcm.ext.fullCalendar.setTodayStyle(comp_prev);
 		gcm.ext.fullCalendar.setTodayStyle(comp);
 		gcm.ext.fullCalendar.setTodayStyle(comp_next);
+		//여기
+		grp_root.show('');
 	};
 };
 
@@ -316,8 +318,8 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 			.swiper-slide img { display: block; width: 100%; height: 100%; object-fit: cover;}
 		</style>
 	</head>
-	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="sub_contents flex_gvw">
+	<body ev:onpageload="scwin.onpageload" >
+		<xf:group id="grp_root" class="sub_contents flex_gvw" style="display:none;">
 			<xf:group style="" id="" class="pgtbox">
 				<xf:trigger style="" id="" type="button" class="btn_fav">
 					<xf:label></xf:label>
