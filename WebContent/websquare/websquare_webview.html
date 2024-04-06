@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<script>
+		<!-- 시스템 공통함수-->
+		function isMobile (_type) {
+			if(_type){
+				if(navigator.userAgent.indexOf(_type) > -1){//'Ios'는 아직작업안됨
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				if(navigator.userAgent.indexOf('Android') > -1){
+					return true;
+				}else{
+					return WebSquare.util.isMobile();
+				}
+			}
+		};	
+		function go (_obj) {	
+			var newUser = {};
+			newUser.email = _obj.email;
+			newUser.displayName = _obj.displayName;
+			if(_obj.name){
+				newUser.displayName = _obj.name;
+			}
+			newUser.id = _obj.id;
+			if(_obj.sub){
+				newUser.id = _obj.sub;
+				newUser.admin = 'N';
+				if(_obj.sub ==  '108943482886035511239'){
+					//_obj.sub == '101079382101809037163' ||
+					newUser.admin = 'Y';
+				}				
+			}		
+			sessionStorage.setItem("loginInfo", JSON.stringify(newUser));
+			location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
+		};
+		function appToWeb(data){
+			if(data){
+				let arr = data.replace(/\s/g,'').replace(/GoogleSignInAccount:/g,'').replace(/\{|\}/g,'').split(',');
+				let userObj = {};
+				for(let i=0; i < arr.length; i++){
+					let arr2 = arr[i].split(':');
+					userObj[arr2[0]]=arr2[1];
+				}
+				global_user = userObj;
+				go (global_user);
+			}
+		}
+				
+		var global_user;
+		if (isMobile('Android') != -1 && window['webViewTeammoca']) {
+			webViewTeammoca.postMessage('webLoadDone');
+			localStorage.setItem('webLoadDone','true');
+		}
+	</script>
+<body>
+</body>
+</html>

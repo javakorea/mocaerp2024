@@ -22,50 +22,14 @@
 				}
 			}
 		};	
-				
-		function go (_obj) {	
-			var newUser = {};
-			newUser.email = _obj.email;
-			newUser.displayName = _obj.displayName;
-			if(_obj.name){
-				newUser.displayName = _obj.name;
-			}
-			newUser.id = _obj.id;
-			if(_obj.sub){
-				newUser.id = _obj.sub;
-				newUser.admin = 'N';
-				if(_obj.sub ==  '108943482886035511239'){
-					//_obj.sub == '101079382101809037163' ||
-					newUser.admin = 'Y';
-				}				
-			}		
-			sessionStorage.setItem("loginInfo", JSON.stringify(newUser));
-			location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
-		};
+
 		function appToWeb(data){
 			if(data){
-				let arr = data.replace(/\s/g,'').replace(/GoogleSignInAccount:/g,'').replace(/\{|\}/g,'').split(',');
-				let userObj = {};
-				for(let i=0; i < arr.length; i++){
-					let arr2 = arr[i].split(':');
-					userObj[arr2[0]]=arr2[1];
-				}
-				global_user = userObj;
-				go (global_user);
+				alert('appToWeb');
 			}
 		}
 				
-		var global_user;
-		if (isMobile('Android') != -1 && window['webViewTeammoca'] && location.search == '?w2xPath=/ui/login.xml') {
-			webViewTeammoca.postMessage('webLoadDone');
-			localStorage.setItem('webLoadDone','true');
-		}
 
-		
-		
-		
-		
-		
 		
 		
 		
@@ -308,8 +272,6 @@
       
       
       /*CK editor 컨텐츠속에 이미지로딩중이미지가 먼저표시되고 로딩이 끝나는시점에 호출됨 */var aaa = function(){}
-      
-      
 	</script>
 	<meta name="viewport" content="user-scalable=no, maxiumum-scale=1.0, width=device-width">
 	<script type="text/javascript" src="./_websquare_/javascriptLoader.wq"></script>
