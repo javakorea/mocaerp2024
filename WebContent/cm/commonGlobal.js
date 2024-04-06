@@ -640,6 +640,8 @@ gcm.win.openPopup = function($p, url, opt, data) {
 	};
 
 	if(url != '/ui/messageBox.xml'){
+		options.windowDragMove = false;
+		options.fixPosition = true;
 		options.resizable = false;
 		options.useMaximize = false;
 		options.width= window.screen.availWidth; 
