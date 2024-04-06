@@ -363,7 +363,6 @@ scwin.setProviderData = function (service, method, paramMap) {
 							</xf:group>
 							<xf:group tagname="td" id="" class="w2tb_td w50">
 								<w2:attributes></w2:attributes>
-								<xf:input id="ipt_writer" ref="data:dma_search.BOARD_WRITER" style="" placeholder="작성자를 입력해주세요."></xf:input>
 							</xf:group>
 						</xf:group>
 					</xf:group>

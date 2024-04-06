@@ -90,6 +90,8 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
+	scwin.param = com.data.getParameter();
+	scwin.fn_setAdmin();
     if(!window['gapi']){
         gcm.ext.scriptImport("https://apis.google.com/js/api.js",function(){
             gapiLoaded();
@@ -98,6 +100,7 @@
 	CKEDITOR.on('instanceReady', function(ev) {
         scwin.editor = ev.editor;
     });
+	
 };
 
 scwin.onpageunload = function () {
@@ -106,21 +109,45 @@ scwin.onpageunload = function () {
 	}
 };
 
+scwin.fn_setAdmin = function(){
+	if(isAdmin()){
+		if(scwin.param.data.mode == 'read'){
+			btn_update.show('');
+			btn_del.show('');
+			btn_adminDel.show('');
+			btn_confirm.hide();
+			sbx_autoSec.show('');
+			cbx_autoSave.show('');
+			grd_program.setColumnVisible('CHK',true);
+		}
+		grd_program.setRowStatusVisible(true);
+		grd_program.setColumnReadOnly("FILE_DESC", false);
+		edi_1.setReadOnly(false);
+		btn_confirm.show('');
+	}else{
+		grd_program.setRowStatusVisible(false);
+		edi_1.setReadOnly(true);
+	}
+}
+
 scwin.showHide = function () {
 	if($(grp_attach.render).css('display') == 'none'){
+		if(isAdmin()){
+			btn_fileDel.show('');
+			btn_copy.show('');
+			btn_searchFile.show('');
+		}
 		grp_attach.show('');
-		btn_fileDel.show('');
-		btn_copy.show('');
-		trigger1.show('');
-		trigger_hide.setLabel("접기");
+		btn_foldYn.setLabel("접기");
 	}else{
 		grp_attach.hide('');
 		btn_fileDel.hide('');
 		btn_copy.hide('');
-		trigger1.hide('');
-		trigger_hide.setLabel("펼치기");		
+		btn_searchFile.hide('');
+		btn_foldYn.setLabel("펼치기");		
 	}
 };
+
 /**
  * 게시물 단건조회
  */
@@ -283,7 +310,6 @@ scwin.grd_program_oncelldblclick = async function(row,col,colId) {
 };
 
 scwin.edi_1_onload = function() {
-	scwin.param = com.data.getParameter();
 	dma_content.setJSON(scwin.param.data.rowJson);
 	dma_content.set("BOARD_TYPE",scwin.param.data.boardInfo.boardType)
 	if(scwin.param.data.boardInfo.erpYn == "Y"){
@@ -294,12 +320,6 @@ scwin.edi_1_onload = function() {
 		dma_content.set("BOARD_FILE_TABLE","T_FILE")
 	}
 	if(scwin.param.data.mode == "read"){
-		btn_update.show('');
-		btn_del.show('');
-		btn_adminDel.show('');
-		btn_confirm.hide();
-		sbx_autoSec.show('');
-		cbx_autoSave.show('');
 		scwin.fn_searchBoardInfo();
 	}else{
 		tr_read.hide();
@@ -495,7 +515,7 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 							type="button">
 							<xf:label><![CDATA[전체보기]]></xf:label>
 						</xf:trigger>
-						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style=""
+						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style="display: none;"
 							type="button">
 							<xf:label><![CDATA[저장]]></xf:label>
 						</xf:trigger>
@@ -562,10 +582,10 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
 					<xf:input id="ibx_clip" style="width: 10px;border: 0;opacity: 0;position: absolute;left: 0;"></xf:input>
-					<xf:trigger class="btn_cm" ev:onclick="scwin.btn_fileUpload_onclick" id="trigger1" style="display:none" type="button">
+					<xf:trigger class="btn_cm" ev:onclick="scwin.btn_fileUpload_onclick" id="btn_searchFile" style="display:none" type="button">
 						<xf:label><![CDATA[파일찾기]]></xf:label>
 					</xf:trigger>
-					<xf:trigger class="btn_cm" ev:onclick="scwin.showHide" id="trigger_hide" style="" type="button">
+					<xf:trigger class="btn_cm" ev:onclick="scwin.showHide" id="btn_foldYn" style="" type="button">
 						<xf:label><![CDATA[펼치기]]></xf:label>
 					</xf:trigger>					
 				</xf:group>
@@ -573,15 +593,15 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 			<xf:group adaptiveThreshold="" class="" id="grp_attach" style="margin-bottom:20px;display:none;max-height:298px;overflow-y:auto;">
 
 				<w2:gridView captionTitle="" checkReadOnlyOnCut="" class="wq_gvw" dataList="data:dlt_FILE" defaultCellHeight="26"
-					id="grd_program" rowStatusVisible="true" rowStatusWidth="16" scrollByColumn="false" scrollByColumnAdaptive="false"
+					id="grd_program" rowStatusWidth="16" scrollByColumn="false" scrollByColumnAdaptive="false"
 					style="min-height:80px;height:auto" ev:onrowindexchange="scwin.grd_program_onrowindexchange"
 					ev:oncelldblclick="scwin.grd_program_oncelldblclick" focusMode="row" rowNumVisible="true" visibleRowNum="all" rowNumWidth="30"
 					readOnly="true" ev:oncellclick="scwin.grd_program_oncellclick" autoFit="lastColumn" tooltipDisplayColumn="BOARDFILE_NAME"
-					tooltipDisplay="true">
+					tooltipDisplay="true" rowStatusVisible="true">
 					<w2:caption id="caption1" style="" value="this is a grid caption."></w2:caption>
 					<w2:header id="header1" style="">
 						<w2:row id="row1" style="">
-							<w2:column width="18" inputType="checkbox" style="" id="column57" value="선택" displayMode="label"></w2:column>
+							<w2:column width="18" inputType="checkbox" style="" id="H_CHK" value="선택" displayMode="label" hidden="true"></w2:column>
 							<w2:column blockSelect="false" class="" displayMode="label" id="column17" inputType="text"
 								removeBorderStyle="false" style="" value="ID" width="50">
 							</w2:column>
@@ -610,7 +630,7 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 							<w2:column blockSelect="false" displayMode="label" id="FILE_NAME" inputType="text" removeBorderStyle="false"
 								style="" value="" width="80" readOnly="true" textAlign="left">
 							</w2:column>
-							<w2:column width="70" inputType="text" style="" id="FILE_DESC" value="" displayMode="label" readOnly="false"
+							<w2:column width="70" inputType="text" style="" id="FILE_DESC" value="" displayMode="label" readOnly="true"
 								textAlign="left">
 							</w2:column>
 						</w2:row>
