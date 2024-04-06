@@ -23,6 +23,7 @@
 						<w2:key id="BOARD_CONT" name="게시물컨텐츠" dataType="text"></w2:key>
 						<w2:key id="BOARD_DELYN" name="삭제여부" dataType="text"></w2:key>
 						
+						<!-- 공통부 -->
 						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
 						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
 						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>

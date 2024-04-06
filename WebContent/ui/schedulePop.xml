@@ -27,6 +27,7 @@
 						<w2:key id="STATUS" name="STATUS" dataType="text"></w2:key>
 						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
 						
+						<!-- 공통부 -->
 						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
 						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
 						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
@@ -43,31 +44,13 @@
 						<w2:key id="COMMON_DETAIL_RESULT" name="COMMON_DETAIL_RESULT" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
-				
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
-			<xf:submission id="sbm_schdInfo" ref="data:json,dma_content" target="data:json,dma_content"
-				action="/selectScheduleInfo.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
-				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_schdInfo_submitdone" ev:submiterror=""
-				abortTrigger="">
-			</xf:submission>
-			<xf:submission id="sbm_insertSchedule" ref="data:json,dma_content" target="data:json,dma_content"
-				action="/insertSchedule.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
-				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_insertSchedule_submitdone" ev:submiterror=""
-				abortTrigger="">
-			</xf:submission>
-			<xf:submission id="sbm_updateSchedule" ref="data:json,dma_content" target="data:json,dma_content"
-				action="/updateSchedule.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
-				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_updateSchedule_submitdone" ev:submiterror=""
-				abortTrigger="">
-			</xf:submission>
-			
 			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]' target="data:json,COMMON_RESULT"
 				action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
 				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror=""
 				abortTrigger="">
 			</xf:submission>
-						
 		</xf:model>
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
@@ -216,22 +199,7 @@ scwin.btn_update_exe = function(e) {
 };
 
 
-/* 일정 수정,삭제 callback */
-scwin.sbm_updateSchedule_submitdone = function(e) {
-	if(e.responseJSON.status == "S"){
-		if(dma_content.get('STATUS') == "D" || dma_content.get('SCH_DELYN') == "Y"){
-			var param = {
-				"message":"삭제가 완료되었습니다."
-			};
-			com.win.closePopup(param);
-		}else{
-			var param = {
-				"message":"수정이 완료되었습니다."
-			};
-			com.win.closePopup(param);
-		}
-	}
-};
+
 
 scwin.btn_color_onclick = function(e) {
 	var data = {callbackFn: "scwin.colorPop_callback" };

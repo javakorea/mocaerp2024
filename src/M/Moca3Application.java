@@ -155,16 +155,7 @@ public class Moca3Application {
 	
 	
 	
-	//스케줄러 목록조회
-	@RequestMapping("/selectScheduleList.do")
-	public Map selectScheduleList(@RequestBody Map param) {Map searchMap = (Map) param.get("dma_search");Map resultMap = new HashMap();List list = ss.selectList("M.selectScheduleList", searchMap);resultMap.put("dlt_list", list);return resultMap;}
-	//스케줄러 단건조회
-	@RequestMapping("/selectScheduleInfo.do")
-	public Map selectScheduleInfo(@RequestBody Map param) {Map searchMap = (Map) param.get("dma_schdInfo");Map resultMap = new HashMap();Map map = ss.selectOne("M.selectScheduleInfo", searchMap);resultMap.put("dma_schdInfo", map);return resultMap;}
-	
 
-	
-	
 	
 	
 	public static final int BUFF_SIZE = 2048;
