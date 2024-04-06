@@ -29,27 +29,44 @@
 				newUser.id = _obj.sub;
 			}		
 			sessionStorage.setItem("loginInfo", JSON.stringify(newUser));
-			location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
+			//location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
 		};
 					
 		var global_user;
-		if (navigator.userAgent.indexOf('Android') != -1) {
+		if (isMobile('Android') != -1) {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-ignore
 			webViewTeammoca.postMessage('webLoadDone');
 			localStorage.setItem('storageKey','{data:2}');
 		}
 		function appToWeb(data){
-			let arr = data.repace(/\s/g,'').replace(/GoogleSignInAccount:/g,'').replace(/\{|\}/g,'').split(',');
-			let userObj = {};
-			for(let i=0; i < arr.length; i++){
-				let arr2 = arr[i].split(':');
-				userObj[arr2[0]]=arr2[1];
+			if(data){
+				let arr = data.replace(/\s/g,'').replace(/GoogleSignInAccount:/g,'').replace(/\{|\}/g,'').split(',');
+				let userObj = {};
+				for(let i=0; i < arr.length; i++){
+					let arr2 = arr[i].split(':');
+					userObj[arr2[0]]=arr2[1];
+				}
+				global_user = userObj;
+				go (global_user);
 			}
-			global_user = userObj;
-			//alert(JSON.stringify(userObj));
-			go (global_user);
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		/* 구글로그인 start --------------------------------------------------------------------*/
 		function parseJwt (_token) {
