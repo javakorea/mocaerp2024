@@ -9,6 +9,16 @@
 		<script type="text/javascript" src="app.js"></script>
 			
 		<script>
+		function isMobile (_type) {
+			if(_type){
+				//if(navigator.userAgent.indexOf('Android')){
+				if(navigator.userAgent.indexOf(_type)){
+					return true;
+				}
+			}
+			return WebSquare.util.isMobile();
+		};
+
 		function go (_obj) {
 			sessionStorage.setItem("loginInfo", JSON.stringify(_obj));
 			location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
