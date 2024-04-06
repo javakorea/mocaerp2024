@@ -1591,7 +1591,7 @@ input[type="file"]{cursor:pointer;}
 .edbox{position:relative; margin:0px; flex:auto; flex-grow: 20;}
 .edbox .w2editor{min-height:calc(100% - 100px);height:100%;}
 .sch.edbox .w2editor, .sch.edbox{height:100% !important; }
-.sch.edbox .w2textarea {font-size:25px} 
+.sch.edbox .w2textarea {padding:15px; ]font-size:25px} 
 .w2editor .cke[role="application"]{width:100% !important; height:100% !important;}
 .w2editor .cke_contents{flex:auto; height:100% !important;}
 .edbox .cke_inner.cke_reset{display: flex !important;   flex-direction: column; height:100%}
@@ -1601,7 +1601,7 @@ input[type="file"]{cursor:pointer;}
 .expandWrap{width:100%;height:100%;}
 .expandWrap .cke_top, .expandWrap .cke_bottom{display:none}
 .btn_expand{background:url(images/ico_expand.svg) no-repeat center;border:0;width:100%;margin-right:7px}
-.btn_color{border-radius:5px;border:0;width:100%;margin-right:7px}
+.btn_color{border-radius:5px;border:0;width:100%;margin-right: 5px;  border: 3px solid #fff;  box-shadow: 0px 0px 3px rgba(0,0,0, 0.5); border-radius:50%;}
 .li_color{width: calc(50% - 2.5px);  display: inline-block;  cursor: pointer;  color: #fff;  height: 45px;  font-size: 20px;  text-align: center;  padding: 10px;  box-sizing: border-box;  border-radius: 10px; margin-bottom: 5px;  line-height: 24px;}
 .li_color:nth-child(2n){margin-left:5px;}
 .li_color:last-child{margin-bottom:0;}
