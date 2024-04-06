@@ -639,13 +639,14 @@ gcm.win.openPopup = function($p, url, opt, data) {
 		popupUrl : "../popup"
 	};
 
-	options.resizable = false;
-	options.useMaximize = false;
-	options.width= window.screen.availWidth; 
-	options.height= $(document).height(); 
-	options.top= "0px"; 
-	options.left= "0px"; 
-    
+	if(url != '/ui/messageBox.xml'){
+		options.resizable = false;
+		options.useMaximize = false;
+		options.width= window.screen.availWidth; 
+		options.height= $(document).height(); 
+		options.top= "0px"; 
+		options.left= "0px"; 
+	}
     
 	$p.openPopup(gcm.CONTEXT_PATH + url, options);
 };
