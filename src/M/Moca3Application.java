@@ -264,7 +264,7 @@ public class Moca3Application {
 	
 	
 
-	//메인 티스토리 조회  
+	//메인 티스토리 크롤링  
 	@RequestMapping(value = "/main/selectTistroyList.do")
 	public List selectTistroyList(@RequestParam Map mocaMap) throws Exception {
 		String s = u.getWebPageString("https://teammoca.tistory.com");
