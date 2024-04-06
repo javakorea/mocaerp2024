@@ -94,6 +94,7 @@ scwin.btn_confirm_onclick = function(e) {
 			dma_content.set("COMMON_STATUS", "I");
 
 			let _current = dma_content.getJSON().SCH_START.substr(0,6);
+			debugger;
 			dma_content.set("SCH_CONT", edi_1.getValue());
 			dma_content.set("SCH_TITLE",edi_1.getValue().substring(0,20));
 			dma_content.set("SCH_CURRENTMONTH",_current);
@@ -191,7 +192,7 @@ scwin.btn_done_onclick = function(e) {
 scwin.btn_update_exe = function(e) {
 	dma_content.set("COMMON_MASTER_QUERY"	, "M.updateSchedule");
 	dma_content.set("COMMON_STATUS", "U");
-	dma_content.set("SCH_CONT", edi_1.getValue()());
+	dma_content.set("SCH_CONT", edi_1.getValue());
 	let _title =  edi_1.getValue().substring(0,20);
 	_title = _title.split('---')[0]+'---'+dma_content.get('SCH_IDX');
 	dma_content.set("SCH_TITLE",_title);
@@ -298,9 +299,9 @@ scwin.colorPop_callback = function(e){
 			</xf:group>
 			<xf:group id="" class="edbox sch">
 				<xf:group id="" style="" class="edi_btn">
-					
+
 				</xf:group>
-				<xf:textarea id="edi_1" style="height:100%;" ref="data:dma_content.SCH_CONT"></xf:textarea>
+				<xf:textarea id="edi_1" style="height:100%;" ref="data:dma_content.SCH_CONT" escape="false"></xf:textarea>
 			</xf:group>
 		</xf:group>
 

@@ -1591,7 +1591,7 @@ input[type="file"]{cursor:pointer;}
 .edbox{position:relative; margin:0px; flex:auto; flex-grow: 20;}
 .edbox .w2editor{min-height:calc(100% - 100px);height:100%;}
 .sch.edbox .w2editor, .sch.edbox{height:100% !important; }
-.sch.edbox .w2textarea {padding:15px; font-size:25px} 
+.sch.edbox .w2textarea {padding:15px; font-size:25px; line-height:1.5em} 
 .w2editor .cke[role="application"]{width:100% !important; height:100% !important;}
 .w2editor .cke_contents{flex:auto; height:100% !important;}
 .edbox .cke_inner.cke_reset{display: flex !important;   flex-direction: column; height:100%}
