@@ -11,16 +11,25 @@
 		<script>
 		function isMobile (_type) {
 			if(_type){
-				//if(navigator.userAgent.indexOf('Android')){
-				if(navigator.userAgent.indexOf(_type)){
+				if(navigator.userAgent.indexOf(_type)){//'Android','Ios'
 					return true;
 				}
 			}
 			return WebSquare.util.isMobile();
 		};	
 		function go (_obj) {
-			sessionStorage.setItem("loginInfo", JSON.stringify(_obj));
-			//location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
+			var newUser = {};
+			newUser.email = _obj.email;
+			newUser.displayName = _obj.displayName;
+			if(_obj.name){
+				newUser.displayName = _obj.name;
+			}
+			newUser.id = _obj.id;
+			if(_obj.sub){
+				newUser.id = _obj.sub;
+			}		
+			sessionStorage.setItem("loginInfo", JSON.stringify(newUser));
+			location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
 		};
 					
 		var global_user;
@@ -31,7 +40,7 @@
 			localStorage.setItem('storageKey','{data:2}');
 		}
 		function appToWeb(data){
-			let arr = data.replace(/GoogleSignInAccount:/g,'').replace(/\{|\}/g,'').split(',');
+			let arr = data.repace(/\s/g,'').replace(/GoogleSignInAccount:/g,'').replace(/\{|\}/g,'').split(',');
 			let userObj = {};
 			for(let i=0; i < arr.length; i++){
 				let arr2 = arr[i].split(':');
