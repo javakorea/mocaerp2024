@@ -261,12 +261,12 @@ scwin.colorPop_callback = function(e){
 							ev:onclick="scwin.btn_adminDel_onclick">
 							<xf:label><![CDATA[폐기]]></xf:label>
 						</xf:trigger>
-					</xf:group>
-					<xf:group style="" id="grp_btn" class="fr">
-						<xf:trigger style="background:#076aff;width:27px;" id="btn_colorPicker" type="button" class="btn_color" ev:onclick="scwin.btn_color_onclick" userData2="#5ab4f3">
+					<xf:trigger style="background:#076aff;width:27px;" id="btn_colorPicker" type="button" class="btn_color" ev:onclick="scwin.btn_color_onclick" userData2="#5ab4f3">
 						<xf:label><![CDATA[]]>
 						</xf:label>
-					</xf:trigger><xf:trigger class="btn_cm" id="btn_success" nextTabID="" style="display:none" type="button" ev:onclick="scwin.btn_done_onclick">
+					</xf:trigger></xf:group>
+					<xf:group style="" id="grp_btn" class="fr">
+						<xf:trigger class="btn_cm" id="btn_success" nextTabID="" style="display:none" type="button" ev:onclick="scwin.btn_done_onclick">
 							<xf:label><![CDATA[완료처리]]></xf:label>
 						</xf:trigger><xf:trigger style="display: none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
