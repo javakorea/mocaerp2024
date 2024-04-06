@@ -1072,7 +1072,7 @@ input[type="file"]{cursor:pointer;}
 
 .win_c .w2windowContainer_windowToolbar{height:30px;border-top:1px solid #b5b8be;background:#d9dadc;}
 .win_c .w2windowContainer_windowToolbar_top{height:30px;background: #0b3157/*#2d5277*/;}
-.win_c .w2windowContainer_nameContainer{height:30px; top:0; right:201px !important;left:5px;overflow:hidden;border-bottom:1px solid #d4dcde}
+.win_c .w2windowContainer_nameContainer{height:30px; top:0; right:5px !important;left:5px;overflow:hidden;border-bottom:1px solid #d4dcde}
 .win_c .w2windowContainer_name{height:30px;}
 /* .win_c .w2windowContainer_nameLayer,  */
 .win_c .w2windowContainer_selectedNameLayer{color:#000;background:#FFF}
