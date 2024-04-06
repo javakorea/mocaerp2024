@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-		<script>
+	</head>
+<body   style="background: url(/cm/images/loading.gif) no-repeat fixed center/50%">
+			<script>
 		<!-- 시스템 공통함수-->
 		function isMobile (_type) {
 			if(_type){
@@ -20,6 +20,10 @@
 				}
 			}
 		};	
+		if (isMobile('Android') != -1 && window['webViewTeammoca']) {
+			webViewTeammoca.postMessage('webLoadDone');
+		}
+				
 		function go (_obj) {	
 			var newUser = {};
 			newUser.email = _obj.email;
@@ -47,17 +51,12 @@
 					let arr2 = arr[i].split(':');
 					userObj[arr2[0]]=arr2[1];
 				}
-				global_user = userObj;
-				go (global_user);
+				go (userObj);
 			}
 		}
 				
-		var global_user;
-		if (isMobile('Android') != -1 && window['webViewTeammoca']) {
-			webViewTeammoca.postMessage('webLoadDone');
-			localStorage.setItem('webLoadDone','true');
-		}
+
+		
 	</script>
-<body>
 </body>
 </html>
