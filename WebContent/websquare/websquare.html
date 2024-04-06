@@ -4,10 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<title>	mocaerp2024 </title>
-		<meta name="viewport" content="user-scalable=no, maxiumum-scale=1.0, width=device-width">
-		<script type="text/javascript" src="./_websquare_/javascriptLoader.wq"></script>
-		<script type="text/javascript" src="app.js"></script>
-		<link rel="stylesheet" href="/cm/font-awesome.min.css" crossorigin="anonymous">	
+
 		<script>
 		function isMobile (_type) {
 			if(_type){
@@ -17,31 +14,26 @@
 			}
 			return WebSquare.util.isMobile();
 		};	
-		function go (_obj) {
+				
+		function go (_obj) {	
 			var newUser = {};
 			newUser.email = _obj.email;
 			newUser.displayName = _obj.displayName;
 			if(_obj.name){
 				newUser.displayName = _obj.name;
 			}
-			newUser.admin = 'N';
-			if(_obj.sub ==  '108943482886035511239'){
-				//_obj.sub == '101079382101809037163' ||
-				newUser.admin = 'Y';
-			}
 			newUser.id = _obj.id;
 			if(_obj.sub){
 				newUser.id = _obj.sub;
+				newUser.admin = 'N';
+				if(_obj.sub ==  '108943482886035511239'){
+					//_obj.sub == '101079382101809037163' ||
+					newUser.admin = 'Y';
+				}				
 			}		
 			sessionStorage.setItem("loginInfo", JSON.stringify(newUser));
 			location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
 		};
-					
-		var global_user;
-		if (isMobile('Android') != -1 && window['webViewTeammoca'] && location.search == '?w2xPath=/ui/login.xml') {
-			webViewTeammoca.postMessage('webLoadDone');
-			localStorage.setItem('webLoadDone','true');
-		}
 		function appToWeb(data){
 			if(data){
 				let arr = data.replace(/\s/g,'').replace(/GoogleSignInAccount:/g,'').replace(/\{|\}/g,'').split(',');
@@ -54,22 +46,28 @@
 				go (global_user);
 			}
 		}
+				
+		var global_user;
+		if (isMobile('Android') != -1 && window['webViewTeammoca'] && location.search == '?w2xPath=/ui/login.xml') {
+			webViewTeammoca.postMessage('webLoadDone');
+			localStorage.setItem('webLoadDone','true');
+		}
+
+		
+		
+		
+		
+		
+		
+		
+		
 		function isAdmin () {
 			let adminYn = false;
-			if(JSON.parse(sessionStorage.getItem('loginInfo')).admin== "Y"){
+			if(JSON.parse(sessionStorage.getItem("loginInfo")).admin == "Y"){
 				adminYn = true;
 			}
 			return adminYn;
 		};	
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
@@ -305,6 +303,10 @@
       
       
 	</script>
+	<meta name="viewport" content="user-scalable=no, maxiumum-scale=1.0, width=device-width">
+	<script type="text/javascript" src="./_websquare_/javascriptLoader.wq"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<link rel="stylesheet" href="/cm/font-awesome.min.css" crossorigin="anonymous">		
 <body>
 		<!--구글로그인 start-->
 	    <div id="g_id_onload"
