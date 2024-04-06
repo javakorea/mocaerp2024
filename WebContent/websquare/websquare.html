@@ -6,13 +6,21 @@
 		<title>	mocaerp2024 </title>
 
 		<script>
+		<!-- 시스템 공통함수-->
 		function isMobile (_type) {
 			if(_type){
-				if(navigator.userAgent.indexOf(_type)){//'Android','Ios'
+				if(navigator.userAgent.indexOf(_type) > -1){//'Ios'는 아직작업안됨
 					return true;
+				}else{
+					return false;
+				}
+			}else{
+				if(navigator.userAgent.indexOf('Android') > -1){
+					return true;
+				}else{
+					return WebSquare.util.isMobile();
 				}
 			}
-			return WebSquare.util.isMobile();
 		};	
 				
 		function go (_obj) {	
