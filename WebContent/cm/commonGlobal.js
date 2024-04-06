@@ -640,8 +640,6 @@ gcm.win.openPopup = function($p, url, opt, data) {
 	};
 
 	options.resizable = false;
-	
-	options.resizable = false;
 	options.useMaximize = false;
 	options.width= window.screen.availWidth; 
 	options.height= $(document).height(); 
