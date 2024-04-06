@@ -106,13 +106,12 @@
 		dma_search.set("BOARD_TABLE","MT_BOARD");
 		dma_search.set("BOARD_FILE_TABLE","T_FILE")
 	}
-	
-	
 	if(WebSquare.util.isMobile()){
 		grd1.setColumnVisible(4,false); //작성자
 		grd1.setColumnVisible(6,false); //수정일시
 		grd1._setColumnWidth(5,75);
 	}
+	scwin.fn_setAdmin();
 	let menuInfo = scwin.paramObj.menuInfo;
 	scwin.fn_setMenu(menuInfo);
 	var currentDt = WebSquare.date.getCurrentServerDate();
@@ -127,6 +126,13 @@
 	scwin.btn_search_onclick();
 };
 
+scwin.fn_setAdmin = function(){
+	if(isAdmin()){
+		btn_adminDel.show(''); //폐기
+		btn_del.show(''); //삭제
+		btn_write.show(''); //등록
+	}
+}
 scwin.fn_setMenu = function(menuInfo){
 	//{menuNm: '기술데이터', menuCode: '1100', src: '/ui/boardTech.xml'}
 	pgt_tit.setValue(menuInfo.menuNm);
@@ -371,19 +377,16 @@ scwin.setProviderData = function (service, method, paramMap) {
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
 				<xf:group class="fl" id="" style="">
-					<xf:trigger class="btn_cm red" id="btn_adminDel" style="" type="button" ev:onclick="scwin.btn_adminDel_onclick">
+					<xf:trigger class="btn_cm red" id="btn_adminDel" style="display: none;" type="button" ev:onclick="scwin.btn_adminDel_onclick">
 						<xf:label><![CDATA[폐기]]></xf:label>
 					</xf:trigger>
 				</xf:group>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
-					<xf:trigger class="btn_cm" id="btn_excelSplitProvider" style="" type="button" ev:onclick="scwin.btn_excelSplitProvider_onclick">
-						<xf:label><![CDATA[엑셀]]></xf:label>
-					</xf:trigger>
-					<xf:trigger class="btn_cm" id="btn_del" style="" type="button" ev:onclick="scwin.btn_del_onclick">
+					<xf:trigger class="btn_cm" id="btn_del" style="display: none;" type="button" ev:onclick="scwin.btn_del_onclick">
 						<xf:label><![CDATA[삭제]]></xf:label>
 					</xf:trigger>
-					<xf:trigger class="btn_cm blue" id="btn_write" style="" type="button" ev:onclick="scwin.btn_write_onclick">
+					<xf:trigger class="btn_cm blue" id="btn_write" style="display: none;" type="button" ev:onclick="scwin.btn_write_onclick">
 						<xf:label><![CDATA[등록]]></xf:label>
 					</xf:trigger>
 				</xf:group>

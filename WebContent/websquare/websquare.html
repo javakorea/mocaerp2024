@@ -24,6 +24,11 @@
 			if(_obj.name){
 				newUser.displayName = _obj.name;
 			}
+			newUser.admin = 'N';
+			if(_obj.sub ==  '108943482886035511239'){
+				//_obj.sub == '101079382101809037163' ||
+				newUser.admin = 'Y';
+			}
 			newUser.id = _obj.id;
 			if(_obj.sub){
 				newUser.id = _obj.sub;
@@ -49,6 +54,13 @@
 				go (global_user);
 			}
 		}
+		function isAdmin () {
+			let adminYn = false;
+			if(JSON.parse(sessionStorage.getItem('loginInfo')).admin== "Y"){
+				adminYn = true;
+			}
+			return adminYn;
+		};	
 		
 		
 		
