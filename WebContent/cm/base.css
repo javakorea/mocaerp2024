@@ -1450,7 +1450,7 @@ input[type="file"]{cursor:pointer;}
 }
 @media screen and (max-width: 900px) { 
 	.wrap{position:absolute;top:0;left:0;right:0;bottom:0;min-width:100%;overflow:hidden;}
-	.header{height:50px;text-align:center;}
+	.header{height:50px;}
 	.header h1{width:135px;height:47px;}
 	.header h1 .logo{background-position:0;}
 	.w2popup_window{width: 100% !important; top:50% !important; left: 50% !important; transform:translate(-50%, -50%);}
@@ -1459,7 +1459,7 @@ input[type="file"]{cursor:pointer;}
 	.header .option_box{}
 	.header .option_box > ul > li:first-of-type{margin-right:5px;}
 	.header .option_box ul li.mypage .items{left:-65px;}
-	.header .option_box > ul > li > a.btn_mypage{text-indent: -9999px; overflow: hidden; padding: 15px 10px 15px 30px;}
+	.header .option_box > ul > li > a.btn_mypage{overflow: hidden; padding: 15px 10px 15px 30px;}
 	.header .option_box ul li .btn_mypage:before{left:50%; transform:translate(-50%, -50%); margin-top:0;}
 	.header .option_box ul li .btn_mypage:after{display: none;}
 	.header .option_box ul li .btn_setting{text-indent: -9999px; overflow: hidden; padding: 0 0px 0 22px;}
@@ -1481,7 +1481,7 @@ input[type="file"]{cursor:pointer;}
 	.side .grp_tab .tab_con::-webkit-scrollbar{width:3px;}
 	.recent_work,
 	.tab_allclose{display:none;}
-	.header .btn_toggle_menu{position:absolute;top:0;left:0;height:47px;}
+	.header .btn_toggle_menu{top:0;left:0;height:47px;}
 
 	.container{top:50px;}
 	.contents{left:0;border-left:0;background:#fff}
