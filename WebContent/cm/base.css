@@ -1601,7 +1601,7 @@ input[type="file"]{cursor:pointer;}
 .expandWrap{width:100%;height:100%;}
 .expandWrap .cke_top, .expandWrap .cke_bottom{display:none}
 .btn_expand{background:url(images/ico_expand.svg) no-repeat center;border:0;width:100%;margin-right:7px}
-.btn_color{border-radius:5px;border:0;width:100%;margin-right: 5px;  border: 3px solid #fff;  box-shadow: 0px 0px 3px rgba(0,0,0, 0.5); border-radius:50%;}
+.btn_color{border-radius:5px;border:0;width:100%;border: 3px solid #fff;  box-shadow: 0px 0px 3px rgba(0,0,0, 0.5); border-radius:50%;}
 .li_color{width: calc(50% - 2.5px);  display: inline-block;  cursor: pointer;  color: #fff;  height: 45px;  font-size: 20px;  text-align: center;  padding: 10px;  box-sizing: border-box;  border-radius: 10px; margin-bottom: 5px;  line-height: 24px;}
 .li_color:nth-child(2n){margin-left:5px;}
 .li_color:last-child{margin-bottom:0;}
