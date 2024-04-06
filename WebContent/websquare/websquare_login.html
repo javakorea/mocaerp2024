@@ -34,7 +34,7 @@
 		};
 					
 		var global_user;
-		if (isMobile('Android') != -1) {
+		if (isMobile('Android') != -1 && window['webViewTeammoca']) {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-ignore
 			webViewTeammoca.postMessage('webLoadDone');
