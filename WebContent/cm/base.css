@@ -1091,7 +1091,7 @@ input[type="file"]{cursor:pointer;}
 .win_c .w2window_status{left:0;right:0;bottom:0;background:#F0F2F4;border:1px solid #CED4DA;border-width:1px 0 0 0;z-index:1000;}
 .win_c .w2window_msg {left:5px;width:auto;padding:3px 0 0 19px;height:15px;color:#495255;background:url(/cm/images/icon_msg.png) no-repeat top 4px left 3px;}
 
-.w2windowContainer_nameLayer_fixOff{top:8px;border-radius:2px;background:#CED4DA url(/cm/images/btn_fix_off.png) no-repeat top 1px left 1px;background-size: 100%;}
+.w2windowContainer_nameLayer_fixOff{display:none;;top:8px;border-radius:2px;background:#CED4DA url(/cm/images/btn_fix_off.png) no-repeat top 1px left 1px;background-size: 100%;}
 .w2windowContainer_nameLayer_fixOn{background:#66B1CE url(/cm/images/btn_fix_off.png) no-repeat top 1px left 1px;background-size: 100%;}
 .w2window_minimize{width:18px;height:18px;background:url(/cm/images/btn_minimize.png) no-repeat center;}
 .w2window_restored .w2window_restore{width:18px;height:18px;background:url(/cm/images/btn_restore.png) no-repeat center;}
@@ -1137,7 +1137,7 @@ input[type="file"]{cursor:pointer;}
 .side .grp_tab > .tab_tit > li.on > a{color: #368CB2;font-weight: 600;}
 .side .grp_tab > .tab_tit > li.allmenu{position:relative;}
 .side .grp_tab > .tab_tit > li.allmenu a {padding:0 20px 0 16px;cursor:pointer;}
-.side .grp_tab .tab_con{position:absolute;top:40px;left:0;bottom:0;overflow:auto;}
+.side .grp_tab .tab_con{position:absolute;top:0px;left:0;bottom:0;overflow:auto;}
 
 .recent_work{position: absolute;bottom: 0;left: 0;right: 0;padding: 16px;}
 .recent_work .tit {font-weight:bold;line-height:28px;}
@@ -1515,7 +1515,7 @@ input[type="file"]{cursor:pointer;}
 	.show_menu .side .user_info{padding-left:30px;border-bottom:1px solid #ebebeb;text-align:left;}
 	.show_menu .side .user_info .user_img{vertical-align:middle;}
 	.show_menu .side .user_info .user_cnt{display:inline-block;margin-left:20px;padding-top:0;text-align:left;vertical-align:middle;}
-	.show_menu .header .btn_toggle_menu{left:0;z-index:2;height:44px;}
+	.show_menu .header .btn_toggle_menu{left:0;z-index:2;height:50px;}
 	.show_menu .header .btn_toggle_menu:after{background:url(/cm/images/btn_toggle_menu02.png) center center no-repeat;}
 	.show_menu .header .btn_toggle_menu:hover:after{animation:btn_toggle_menu 1s forwards}
 	.side .grp_tab > .shortcut_box {border:none}

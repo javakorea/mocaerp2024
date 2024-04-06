@@ -267,8 +267,5 @@ scwin.btn_logo_onclick = function () {
 		<w2:anchor outerDiv="false" style="display:none;" id="" class="btn_logout" ev:onclick="scwin.btn_logout_onclick">
 			<xf:label><![CDATA[Logout]]></xf:label>
 		</w2:anchor>
-		<w2:anchor outerDiv="false" id="" style="width: 100px;height: 23px;">
-			<xf:label><![CDATA[Insert Text]]></xf:label>
-		</w2:anchor>
 	</body>
 </html>
