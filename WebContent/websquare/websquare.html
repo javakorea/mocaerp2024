@@ -28,7 +28,25 @@
 				alert('appToWeb');
 			}
 		}
-				
+		function go (_obj) {	
+			var newUser = {};
+			newUser.email = _obj.email;
+			newUser.displayName = _obj.displayName;
+			if(_obj.name){
+				newUser.displayName = _obj.name;
+			}
+			newUser.id = _obj.id;
+			if(_obj.sub){
+				newUser.id = _obj.sub;
+				newUser.admin = 'N';
+				if(_obj.sub ==  '108943482886035511239'){
+					//_obj.sub == '101079382101809037163' ||
+					newUser.admin = 'Y';
+				}				
+			}		
+			sessionStorage.setItem("loginInfo", JSON.stringify(newUser));
+			location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
+		};
 
 		
 		
