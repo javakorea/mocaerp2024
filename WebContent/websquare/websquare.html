@@ -34,8 +34,6 @@
 					
 		var global_user;
 		if (isMobile('Android') != -1 && window['webViewTeammoca'] && location.search == '?w2xPath=/ui/login.xml') {
-			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-			//@ts-ignore
 			webViewTeammoca.postMessage('webLoadDone');
 			localStorage.setItem('webLoadDone','true');
 		}
