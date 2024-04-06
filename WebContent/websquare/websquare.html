@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<title>	mocaerp2024 </title>
-		<!--<meta name="viewport" content="user-scalable=no, maxiumum-scale=1.0, width=device-width">-->
+		<meta name="viewport" content="user-scalable=no, maxiumum-scale=1.0, width=device-width">
 		<script type="text/javascript" src="./_websquare_/javascriptLoader.wq"></script>
 		<script type="text/javascript" src="app.js"></script>
 		<link rel="stylesheet" href="/cm/font-awesome.min.css" crossorigin="anonymous">	
@@ -33,11 +33,11 @@
 		};
 					
 		var global_user;
-		if (isMobile('Android') != -1 && window['webViewTeammoca']) {
+		if (isMobile('Android') != -1 && window['webViewTeammoca'] && location.search == '?w2xPath=/ui/login.xml') {
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			//@ts-ignore
 			webViewTeammoca.postMessage('webLoadDone');
-			localStorage.setItem('storageKey','{data:2}');
+			localStorage.setItem('webLoadDone','true');
 		}
 		function appToWeb(data){
 			if(data){
