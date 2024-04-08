@@ -969,6 +969,7 @@ input[type="file"]{cursor:pointer;}
 	.w2tb.w2tb_adaptive_layout .w2selectbox_native_mobile,
 	.w2tb.w2tb_adaptive_layout .w2autoComplete,
 	.w2tb.w2tb_adaptive_layout .w2checkcombobox{min-width:50px; width:100% !important; margin-right:4px;}
+	.w2tb.w2tb_adaptive_layout .w2input.grp_fromto {width: calc(50% - 2.5px) !Important; font-size:22px !important;}
 }
 
 
@@ -1633,6 +1634,17 @@ input[type="file"]{cursor:pointer;}
 .fullcalendar.current th{background-color:#1975f0; color:#fff;}
 .fc-unthemed .fc-row.fc-week tbody td.fc-today{opacity:1 !important;background-color:rgb(255, 128, 0) !important;box-shadow:0 0 0 3px rgba(0,0,0,0.2) inset;}
 
+.grp_fromto {width: calc(50% - 2.5px) !important;  float:left; position:relative;}
+.sch_fromto{font-size: 24px !important;   height: 40px;   text-align: center; width:100%; border:1px solid #dde1e5 !important}}
+.sch_fromto.w2input_readonly{ border:1px solid #dde1e5 !important;}
+.cm_datePicker {position:absolute; background:rgba(0,0,0,0.5); left:0; top:0; bottom:0; right:0}
+.cm_datePicker .w2spinPicker{position:relative; width: 95%; height: 200px; z-index:1; background:#fff;top: calc(50% - 100px);  box-sizing: border-box; font-size:16px; margin:0 auto; border-radius:15px;}
+
+
+.cm_datePicker .w2spinPicker_selectedRowBar{background:#fff; border-top:2px solid #3c5174; border-bottom:2px solid #3c5174; box-sizing:border-box; left:10px; right: 10px;   width: auto}
+
+.cm_datePicker .w2spinPicker .yearMonthDate_year, .cm_datePicker .w2spinPicker .yearMonthDate_month{border-right:0}
+.cm_datePicker .w2spinPicker_topGradient, .cm_datePicker .w2spinPicker_bottomGradient {background:rgba(255,255,255,0.5); z-index:1; height:calc(50% - 21px)}
 /*.sch_today{background-color:#FFF !important;}*/
 /*.sch_today_bg{background-color:#FFF !important;}*/
 
@@ -1656,4 +1668,3 @@ div[id$=colorPop] > .w2window_header{display:none}
 
 .btn_esc{position: fixed; width: 150px; height: 150px; background-image: url(images/ico_esc.svg); text-indent: -9999px; left: calc(50% - 75px); border: 0; background-position: -2px; top: calc(50% - 75px); opacity: 0.3;z-index:1;}
 .btn_print{position: fixed; background-image: url(../websquare/_websquare_/externalJS/editor4.22.1/plugins/print/icons/print.png);  left: calc(100% - 50px); border: 0; background-repeat: no-repeat;top: 20px; opacity: 1;z-index:1;}
-
