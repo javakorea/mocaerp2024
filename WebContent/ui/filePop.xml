@@ -13,7 +13,12 @@
 		</w2:layoutInfo>
 		<w2:publicInfo method="" />
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
-    gcm.ext.scriptImport("https://accounts.google.com/gsi/client",gisLoaded);
+    top.fileUploadGrp =  grp_level1;
+    if(!tokenClient){
+        gcm.ext.scriptImport("https://accounts.google.com/gsi/client",gisLoaded);
+    }else{
+        top.fileUploadGrp.show('');
+    }
     gcm.ext.moca.setDragAndDrop(grp_dropArea.render,scwin.googleUpload);
 };
 scwin.selectCallback = async (_args)=>{
@@ -192,7 +197,7 @@ scwin.googleUpload = async function(arr){
 };		]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group class="sub_contents flex_gvw flex_m" id="" style="">
+		<xf:group class="sub_contents flex_gvw flex_m" id="grp_level1" style="display:none;">
 			<xf:group class="pgtbox" id="" style="display:none;">
 				<xf:trigger class="btn_fav" id="" style="" type="button">
 					<xf:label />

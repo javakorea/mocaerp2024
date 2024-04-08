@@ -14,7 +14,6 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-
 	// Mobile일때 메뉴 동작	
 	if (WebSquare.util.isMobile()) {
 		grp_wrap.removeClass("show_menu");
@@ -201,12 +200,12 @@ scwin.pushStateMain = function() {
 			<xf:group class="container" id="" style="">
 				<xf:group style="" id="" class="contents">
 					<w2:windowContainer class="win_c" controlIconPosition="allright" frameMode="wframe"
-						hideTitleOnMaximize="false" id="wdc_main" spaInitCount="0" stopMinimizeOnNameLayer="true" stopToggleOnLast="false" style="" toolbarPosition="top" tooltipDisplay="true"
+						hideTitleOnMaximize="false" id="wdc_main" spaInitCount="0" stopMinimizeOnNameLayer="true" stopToggleOnLast="false" style="" tooltipDisplay="false"
 						tooltipGroupClass="false" useCloseButton="true" useControlIconTitle="false" useCustomMsg="false" useFixButton="true"
 						useNameContainer="true" useStatusMsg="false" windowAutoResize="false" windowMaxNum="30" changeActiveWindow="true"
-						windowMaximizeAll="false" windowTooltipDisplay="true" closeType="" ev:onbeforecloseall="scwin.wdc_main_onbeforecloseall" fixArrangeFullScreen="true">
-						<w2:windowToolbar>
-							<w2:controlIconLayer>
+						windowMaximizeAll="false" windowTooltipDisplay="false" closeType="" ev:onbeforecloseall="scwin.wdc_main_onbeforecloseall" fixArrangeFullScreen="true" toolbarPosition="top">
+						<w2:windowToolbar style="">
+							<w2:controlIconLayer style="">
 								<w2:controlIcon></w2:controlIcon>
 								<w2:controlIcon></w2:controlIcon>
 								<w2:controlIcon></w2:controlIcon>

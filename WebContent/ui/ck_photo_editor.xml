@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ev="http://www.w3.org/2001/xml-events"
-    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
-    <head>
-        <w2:type>COMPONENT</w2:type>
-        <w2:buildDate/>
-        <w2:MSA/>
-        <xf:model>
-            <w2:dataCollection baseNode="map"/>
-            <w2:workflowCollection/>
-        </xf:model>
-        <w2:layoutInfo/>
-        <w2:publicInfo method=""/>
-        <script lazy="false" type="text/javascript"><![CDATA[
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<w2:MSA />
+		<xf:model>
+			<w2:dataCollection baseNode="map" />
+			<w2:workflowCollection />
+		</xf:model>
+		<w2:layoutInfo />
+		<w2:publicInfo method="" />
+		<script lazy="false" type="text/javascript"><![CDATA[
 scwin.onpageload = function() {
-	debugger;
     let src = $p.getAllParameter().paramData.data.src;
     img_work.setSrc(src);
 
@@ -74,6 +72,8 @@ scwin.btn_cut_onclick = function(e) {
 
 scwin.btn_confirm_onclick = function(e) {
     $(com.ckTarget.getSelection().getStartElement().$).attr('src',scwin.cropper.getCroppedCanvas().toDataURL());
+    $(com.ckTarget.getSelection().getStartElement().$).width('');
+    $(com.ckTarget.getSelection().getStartElement().$).removeAttr('data-cke-saved-src');
     $p.closePopup();
 };
 
@@ -88,27 +88,76 @@ scwin.btn_right_onclick = function(e) {
 scwin.btn_rest_onclick = function(e) {
     scwin.cropper.reset();
 };
+
+scwin.btn_in_onclick = function(e) {
+    scwin.cropper.zoom(0.1);
+};
+
+scwin.btn_zoomout_onclick = function(e) {
+    scwin.cropper.zoom(-0.1);
+};
 ]]></script>
-    </head>
-    <body ev:onpageload="scwin.onpageload">
-    	<xf:image src="" style="width:449px;height:377px;" id="img_work"></xf:image>
-    	<xf:trigger type="button" id="btn_cut" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_cut_onclick">
-    		<xf:label><![CDATA[자르기]]></xf:label>
-    	</xf:trigger>
-    	<xf:trigger type="button" id="btn_left" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_left_onclick">
-    		<xf:label><![CDATA[반시계방향]]></xf:label>
-    	</xf:trigger>
-    	<xf:trigger type="button" id="btn_right" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_right_onclick">
-    		<xf:label><![CDATA[시계방향]]></xf:label>
-    	</xf:trigger>
-    	<xf:trigger type="button" id="btn_move" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_move_onclick">
-    		<xf:label><![CDATA[이동]]></xf:label>
-    	</xf:trigger>
-    	<xf:trigger type="button" id="btn_confirm" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_confirm_onclick">
-    		<xf:label><![CDATA[적용]]></xf:label>
-    	</xf:trigger>
-    	<xf:trigger type="button" id="btn_rest" style="width: 80px;height: 23px;" ev:onclick="scwin.btn_rest_onclick">
-    		<xf:label><![CDATA[리셋]]></xf:label>
-    	</xf:trigger>
-    </body>
+<style>
+	.toolbar{background-color: rgba(0, 0, 0, .5); bottom: 1rem; color: #fff; height: 2rem; left: 50%; margin-left: -8rem; position: absolute; width: 14rem; z-index: 2015;}
+	.toolbar_button{position:relative;border-width: 0; color: #fff; cursor: pointer; display: block; float: left; font-size: .875rem; height: 2rem; text-align: center; width: 2rem;}
+	.toolbar_button:hover{background:#0074d9}
+	.toolbar_button > span{position: relative; top: 6px;}
+	.toolbar_button > input[type="button"]{position: absolute; left: 0; right: 0; height: 100%; text-indent:-9999px; border: 0; border-right: 1px solid rgba(255, 255, 255, 0.3);}
+</style>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:image src="" style="width:449px;height:377px;" id="img_work"></xf:image>
+		<xf:group id="" class="toolbar">
+			<xf:group class="toolbar_button">
+				<w2:span label="" style="" id=""  class="fa fa-crop"></w2:span>
+				<xf:trigger ev:onclick="scwin.btn_cut_onclick" style="" id="btn_cut" type="button">
+					<xf:label><![CDATA[자르기]]></xf:label>
+				</xf:trigger>
+			</xf:group>
+			<xf:group class="toolbar_button">
+				<w2:span label="" style="" id=""  class="fa fa-rotate-left"></w2:span>
+				<xf:trigger ev:onclick="scwin.btn_left_onclick" style="" id="btn_left" type="button">
+					<xf:label><![CDATA[반시계방향]]></xf:label>
+				</xf:trigger>
+			</xf:group>
+			<xf:group class="toolbar_button">
+				<w2:span label="" style="" id=""  class="fa fa-rotate-right"></w2:span>
+				<xf:trigger ev:onclick="scwin.btn_right_onclick" style="" id="btn_right" type="button">
+					<xf:label><![CDATA[시계방향]]></xf:label>
+				</xf:trigger>
+			</xf:group>
+			<xf:group class="toolbar_button">
+				<w2:span label="" style="" id=""  class="fa fa-arrows"></w2:span>
+				<xf:trigger ev:onclick="scwin.btn_move_onclick" style="" id="btn_move" type="button">
+					<xf:label><![CDATA[이동]]></xf:label>
+				</xf:trigger>
+			</xf:group>
+			<xf:group class="toolbar_button">
+				<w2:span label="" style="" id=""  class="fa fa-refresh"></w2:span>
+				<xf:trigger ev:onclick="scwin.btn_rest_onclick" style="" id="btn_rest" type="button">
+					<xf:label><![CDATA[리셋]]></xf:label>
+				</xf:trigger>
+			</xf:group>
+			<xf:group class="toolbar_button">
+				<w2:span label="" style="" id=""  class="fa fa-search-plus"></w2:span>
+				<xf:trigger ev:onclick="scwin.btn_in_onclick" style="" id="btn_in" type="button">
+					<xf:label><![CDATA[확대]]></xf:label>
+				</xf:trigger>
+			</xf:group>
+			<xf:group class="toolbar_button">
+				<w2:span label="" style="" id=""  class="fa fa-search-minus"></w2:span>
+				<xf:trigger ev:onclick="scwin.btn_zoomout_onclick" style="" id="btn_zoomout" type="button">
+					<xf:label><![CDATA[축소]]></xf:label>
+				</xf:trigger>
+			</xf:group>
+		</xf:group>
+		<xf:group id="" class="toolbar" style="right: 1em;    left: unset;    width: 32px;">
+			<xf:group class="toolbar_button" style="background-color:#ff791a">
+				<w2:span label="" style="" id=""  class="fa fa-check"></w2:span>
+				<xf:trigger ev:onclick="scwin.btn_confirm_onclick" style="" id="btn_confirm" type="button">
+					<xf:label><![CDATA[적용]]></xf:label>
+				</xf:trigger>
+			</xf:group>
+		</xf:group>
+	</body>
 </html>

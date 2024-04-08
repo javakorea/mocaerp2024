@@ -259,6 +259,7 @@
 	          
             )
         <selectKey keyProperty="SCH_IDX" resultType="string" order="BEFORE">
+        	/* selectKey in insertSchedule */
 			select max(SCH_IDX)+1 from MT_SCHEDULE
 		</selectKey>
     </insert>

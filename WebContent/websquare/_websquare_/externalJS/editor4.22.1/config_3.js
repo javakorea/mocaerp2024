@@ -49,7 +49,6 @@
 	config.pasteFromWordPromptCleanup = true;
 	config.pasteFromWordRemoveFontStyles = false;
 	config.pasteFromWordRemoveStyles = false;
-	
 	config.extraPlugins = 'resize, pastebase64,teammocacrop';
     config.removePlugins = 'exportpdf,magicline';//pdf는이미지라가안나와못씀,문단나누기는자동으로마음대로나와불편함
 	//config.resize_dir = 'both'; both || vertical || horizontal
@@ -59,9 +58,6 @@
 	//Teammocacorp에서 사용하는 crop오픈소스라이브러리
 	config.cropperJsUrl = "/cm/cropper.min.js";
     config.cropperCssUrl = "/cm/cropper.css"
-    	
-    	
-
 };
 
 

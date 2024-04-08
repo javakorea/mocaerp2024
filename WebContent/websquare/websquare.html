@@ -4,11 +4,68 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 		<title>	mocaerp2024 </title>
-		<meta name="viewport" content="user-scaleable=0, maxiumum-scale=1.0, width=device-width">
-		<script type="text/javascript" src="./_websquare_/javascriptLoader.wq"></script>
-		<script type="text/javascript" src="app.js"></script>
-			
-		<script>	
+
+		<script>
+		<!-- 시스템 공통함수-->
+		function isMobile (_type) {
+			if(_type){
+				if(navigator.userAgent.indexOf(_type) > -1){//'Ios'는 아직작업안됨
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				if(navigator.userAgent.indexOf('Android') > -1){
+					return true;
+				}else{
+					return WebSquare.util.isMobile();
+				}
+			}
+		};	
+
+		function appToWeb(data){
+			if(data){
+				alert('appToWeb');
+			}
+		}
+		function go (_obj) {	
+			var newUser = {};
+			newUser.email = _obj.email;
+			newUser.displayName = _obj.displayName;
+			if(_obj.name){
+				newUser.displayName = _obj.name;
+			}
+			newUser.id = _obj.id;
+			if(_obj.sub){
+				newUser.id = _obj.sub;
+				newUser.admin = 'N';
+				if(_obj.sub ==  '108943482886035511239'){
+					//_obj.sub == '101079382101809037163' ||
+					newUser.admin = 'Y';
+				}				
+			}		
+			sessionStorage.setItem("loginInfo", JSON.stringify(newUser));
+			location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
+		};
+
+		
+		
+		
+		function isAdmin () {
+			let adminYn = false;
+			if(JSON.parse(sessionStorage.getItem("loginInfo")).admin == "Y"){
+				adminYn = true;
+			}
+			return adminYn;
+		};	
+		
+		
+		
+		
+		
+		
+		
+		
 		/* 구글로그인 start --------------------------------------------------------------------*/
 		function parseJwt (_token) {
 		    const base64Url = _token.split('.')[1];
@@ -25,8 +82,7 @@
         		
             	const responsePayload = parseJwt(response.credential);
             	if( responsePayload.email == "shj9321@gmail.com" || responsePayload.email ==  "javakoreaboss@gmail.com"){
-            		 sessionStorage.setItem("loginInfo", JSON.stringify(responsePayload));
-                     location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
+            		 go (responsePayload);
             	}else{
             		alert('접근할 수 없는 계정입니다.')
             	}
@@ -130,6 +186,9 @@
 			} else {
 				tokenClient.requestAccessToken({prompt: ''});
 			}
+			if(top.fileUploadGrp){
+				top.fileUploadGrp.show('');
+			}
 		};
       
       
@@ -229,19 +288,21 @@
       
       
       
-      
       /*CK editor 컨텐츠속에 이미지로딩중이미지가 먼저표시되고 로딩이 끝나는시점에 호출됨 */var aaa = function(){}
-      
-      
 	</script>
-<body>
+	<meta name="viewport" content="user-scalable=no, maxiumum-scale=1.0, width=device-width">
+	
+	<script type="text/javascript" src="./_websquare_/javascriptLoader.wq"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<link rel="stylesheet" href="/cm/font-awesome.min.css" crossorigin="anonymous">	
+</head>		
+<body  style="background: url(/cm/images/loading.gif) no-repeat fixed center/50% ">
 		<!--구글로그인 start-->
 	    <div id="g_id_onload"
 		 data-client_id="191058282154-kmn71d0j1fqnstu9joe2od2rvbhm7hot.apps.googleusercontent.com"
 		 data-callback="handleCredentialResponse">
         </div>
         <!--구글로그인 end-->
-        
 
 </body>
 </html>

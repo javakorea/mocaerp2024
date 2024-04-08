@@ -38,13 +38,27 @@
 						<w2:key id="SCH_CURRENTMONTH_PREV" name="SCH_CURRENTMONTH_PREV" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH_NEXT" name="SCH_CURRENTMONTH_NEXT" dataType="text"></w2:key>
+						
+						<!-- 공통부 -->
+						<w2:key id="COMMON_TRAN_ID" 			name="TRAN_ID" 						dataType="text"></w2:key>
+						<w2:key id="COMMON_STATUS" 				name="CRUD_상태" 						dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" 				name="SELECT_QUERY" 				dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" 		name="COMMON_MASTER_QUERY" 			dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_DELETEQUERY" 	name="COMMON_MASTER_DELETEQUERY" 	dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" 			name="COMMON_MASTER_KEY" 			dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" 			name="COMMON_DETAIL_KEY" 			dataType="text"></w2:key>						
 					</w2:keyInfo>
 				</w2:dataMap>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
-			<xf:submission id="sbm_schdList" ref="data:json,dma_search" target="data:json,dlt_list" action="/selectScheduleList.do"
+			<xf:submission 
+				id="sbm_schdList" ref="data:json,dma_search" target="data:json,dlt_list" 
+				action="/selectList.do" ev:submitdone="scwin.sbm_schdList_submitdone"
 				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
-				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_schdList_submitdone" ev:submiterror="" abortTrigger="">
+				processMsg="" ev:submit="" ev:submiterror="" abortTrigger="">
 			</xf:submission>
 		</xf:model>
 
@@ -131,7 +145,6 @@ scwin.schedulePop_closeAction = ()=>{
 }
 /* 팝업 callback */
 scwin.schedulePop_callback = function(e) {
-	debugger;
 	scwin.popup_opened = false;
 	com.win.alert(e.message);
 	scwin.search();
@@ -172,6 +185,7 @@ scwin.search = function(){
 	let _yyyymm = scwin.setThisMonth();
 	SCH_CURRENTMONTH.setValue(_yyyymm);
 	scwin.setCalTitle();
+	dma_search.set('COMMON_QUERY',"M.selectScheduleList");
 	com.sbm.execute(sbm_schdList);
 	scwin.sbm_schdList_submitdone = function(e) {
 		let _yyyymm = SCH_CURRENTMONTH.getValue();	
@@ -198,6 +212,8 @@ scwin.search = function(){
 		gcm.ext.fullCalendar.setTodayStyle(comp_prev);
 		gcm.ext.fullCalendar.setTodayStyle(comp);
 		gcm.ext.fullCalendar.setTodayStyle(comp_next);
+		//여기
+		grp_root.show('');
 	};
 };
 
@@ -296,14 +312,14 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 			
 			.sub_contents {overflow:hidden}
  		 	.fc-toolbar.fc-header-toolbar {display:none;}
-			.swiper {width: 100%; height: calc(100% - 75px); overflow:hidden;}
+			.swiper {width: 100%; height: calc(100% - 34px); overflow:hidden;}
 			.swiper-slide { text-align: center; font-size: 18px; background: #fff; display: flex; justify-content: center; align-items: center;
 			flex-shrink:0; height:100%; box-sizing:border-box;}
 			.swiper-slide img { display: block; width: 100%; height: 100%; object-fit: cover;}
 		</style>
 	</head>
-	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="sub_contents flex_gvw">
+	<body ev:onpageload="scwin.onpageload" >
+		<xf:group id="grp_root" class="sub_contents flex_gvw" style="display:none;">
 			<xf:group style="" id="" class="pgtbox">
 				<xf:trigger style="" id="" type="button" class="btn_fav">
 					<xf:label></xf:label>

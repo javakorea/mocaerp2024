@@ -19,15 +19,15 @@
 
 						<w2:key id="SCH_CREATE_DTTM" name="SCH_CREATE_DTTM" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
-						<w2:key id="SCH_START" name="SCH_START" dataType="text"></w2:key>
-						<w2:key id="SCH_END" name="SCH_END" dataType="text"></w2:key>
+						<w2:key id="SCH_START" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
+						<w2:key id="SCH_END" name="SCH_START" dataType="text"></w2:key>
+						<w2:key id="STATUS" name="SCH_END" dataType="text"></w2:key>
 						<w2:key id="SCH_COLOR" name="SCH_COLOR" dataType="text"></w2:key>
 						<w2:key id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:key>
 						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
 						<w2:key id="STATUS" name="STATUS" dataType="text"></w2:key>
 						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
 						
-						<!-- 공통부 -->
 						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
 						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
 						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
@@ -44,13 +44,31 @@
 						<w2:key id="COMMON_DETAIL_RESULT" name="COMMON_DETAIL_RESULT" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
+				
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_schdInfo" ref="data:json,dma_content" target="data:json,dma_content"
+				action="/selectScheduleInfo.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_schdInfo_submitdone" ev:submiterror=""
+				abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_insertSchedule" ref="data:json,dma_content" target="data:json,dma_content"
+				action="/insertSchedule.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_insertSchedule_submitdone" ev:submiterror=""
+				abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_updateSchedule" ref="data:json,dma_content" target="data:json,dma_content"
+				action="/updateSchedule.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_updateSchedule_submitdone" ev:submiterror=""
+				abortTrigger="">
+			</xf:submission>
+			
 			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]' target="data:json,COMMON_RESULT"
 				action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
 				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror=""
 				abortTrigger="">
 			</xf:submission>
+						
 		</xf:model>
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
@@ -61,7 +79,7 @@
 		dma_content.setJSON(_parentDma);
 		scwin.btn_visible();
 		btn_colorPicker.setStyle("background-color",dma_content.get('SCH_COLOR'));
-		edi_1.setValue(dma_content.get('SCH_CONT'));
+		edi_1.setHTML(dma_content.get('SCH_CONT'));
 	}else{
 		dfbox.show('');
 		dma_content.set("SCH_COLOR","#076aff");
@@ -94,9 +112,8 @@ scwin.btn_confirm_onclick = function(e) {
 			dma_content.set("COMMON_STATUS", "I");
 
 			let _current = dma_content.getJSON().SCH_START.substr(0,6);
-			debugger;
-			dma_content.set("SCH_CONT", edi_1.getValue());
-			dma_content.set("SCH_TITLE",edi_1.getValue().substring(0,20));
+			dma_content.set("SCH_CONT", edi_1.getHTML());
+			dma_content.set("SCH_TITLE",gcm.ext.moca.getTitleFromEditor(edi_1));
 			dma_content.set("SCH_CURRENTMONTH",_current);
 			com.sbm.execute(sbm_commonTran);
 		}
@@ -192,15 +209,30 @@ scwin.btn_done_onclick = function(e) {
 scwin.btn_update_exe = function(e) {
 	dma_content.set("COMMON_MASTER_QUERY"	, "M.updateSchedule");
 	dma_content.set("COMMON_STATUS", "U");
-	dma_content.set("SCH_CONT", edi_1.getValue());
-	let _title =  edi_1.getValue().substring(0,20);
+	dma_content.set("SCH_CONT", edi_1.getHTML());
+	let _title =  gcm.ext.moca.getTitleFromEditor(edi_1);
 	_title = _title.split('---')[0]+'---'+dma_content.get('SCH_IDX');
 	dma_content.set("SCH_TITLE",_title);
 	com.sbm.execute(sbm_commonTran);
 };
 
 
-
+/* 일정 수정,삭제 callback */
+scwin.sbm_updateSchedule_submitdone = function(e) {
+	if(e.responseJSON.status == "S"){
+		if(dma_content.get('STATUS') == "D" || dma_content.get('SCH_DELYN') == "Y"){
+			var param = {
+				"message":"삭제가 완료되었습니다."
+			};
+			com.win.closePopup(param);
+		}else{
+			var param = {
+				"message":"수정이 완료되었습니다."
+			};
+			com.win.closePopup(param);
+		}
+	}
+};
 
 scwin.btn_color_onclick = function(e) {
 	var data = {callbackFn: "scwin.colorPop_callback" };
@@ -230,10 +262,7 @@ scwin.colorPop_callback = function(e){
 							ev:onclick="scwin.btn_adminDel_onclick">
 							<xf:label><![CDATA[폐기]]></xf:label>
 						</xf:trigger>
-					<xf:trigger style="background:#076aff;width:27px;" id="btn_colorPicker" type="button" class="btn_color" ev:onclick="scwin.btn_color_onclick" userData2="#5ab4f3">
-						<xf:label><![CDATA[]]>
-						</xf:label>
-					</xf:trigger></xf:group>
+					</xf:group>
 					<xf:group style="" id="grp_btn" class="fr">
 						<xf:trigger class="btn_cm" id="btn_success" nextTabID="" style="display:none" type="button" ev:onclick="scwin.btn_done_onclick">
 							<xf:label><![CDATA[완료처리]]></xf:label>
@@ -298,10 +327,14 @@ scwin.colorPop_callback = function(e){
 				</xf:group>
 			</xf:group>
 			<xf:group id="" class="edbox sch">
+				<w2:editor style="" id="edi_1" menubar="board"></w2:editor>
 				<xf:group id="" style="" class="edi_btn">
-
+					<xf:trigger style="background:#076aff;width:27px;" id="btn_colorPicker" type="button" class="btn_color"
+						ev:onclick="scwin.btn_color_onclick" userData2="#5ab4f3">
+						<xf:label><![CDATA[]]>
+						</xf:label>
+					</xf:trigger>
 				</xf:group>
-				<xf:textarea id="edi_1" style="height:100%;" ref="data:dma_content.SCH_CONT" escape="false"></xf:textarea>
 			</xf:group>
 		</xf:group>
 

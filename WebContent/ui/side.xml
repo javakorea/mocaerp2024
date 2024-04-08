@@ -131,11 +131,9 @@
 				ev:submit="" ev:submitdone="scwin.setupdateFavCallback" ev:submiterror="" abortTrigger="">
 			</xf:submission>
 		</xf:model>
-		<script type="text/javascript" lazy="false"><![CDATA[// 최대 HISTORY 저장 개수	
-scwin.HISTORY_MAX_SIZE = 10;
-
+		<script type="text/javascript" lazy="false"><![CDATA[
 scwin.onpageload = function () {
-	com.win.openMenu('스케줄러', '/ui/schedule.xml', '1100', null, {isHistory: true, closable: true});
+	com.win.openMenu('스케줄러', '/ui/schedule.xml', '1100', null, {isHistory: false, closable: true});
 };
 
 scwin.getInitData = function () {
@@ -154,7 +152,7 @@ scwin.initDataCallback = function () {
 	trv_menu.expandNode(0, true);
 	gcm.menuComp = dlt_menu; //전체 공통 영역에 메뉴리스트 데이터 변수 설정
 	var option = {
-		isHistory: true,
+		isHistory: false,
 		closable: false,
 	};
 
@@ -170,7 +168,7 @@ scwin.initDataCallback = function () {
 
 			if ((menuInfo.length > 0) && (!com.util.isEmpty(menuInfo[0].SRC_PATH))) {
 				var option = {
-					isHistory: true
+					isHistory: false
 				};
 				return com.win.openMenu(menuInfo[0].MENU_NM, menuInfo[0].SRC_PATH, menuInfo[0].MENU_CD, null, option);
 			}
@@ -187,7 +185,7 @@ scwin.initDataCallback = function () {
 
 				if ((menuInfo.length > 0) && (!com.util.isEmpty(menuInfo[0].SRC_PATH))) {
 					var option = {
-						isHistory: true
+						isHistory: false
 					};
 					return com.win.openMenu(menuInfo[0].MENU_NM, menuInfo[0].SRC_PATH, menuInfo[0].MENU_CD, null, option);
 				}
@@ -243,12 +241,6 @@ scwin.anc_menu02_onclick = function () {
 	gr_search_field.removeClass("active");
 };
 
-// click 최근 항목  
-scwin.btn_History_onclick = function () {
-	var menuInfoStr = this.getUserData("tmpMenuInfo");
-	var menuInfoArr = menuInfoStr.split("|");
-	scwin.setMenuRelation(this.getValue(), menuInfoArr[1], menuInfoArr[0]);
-};
 
 /**
  * 메뉴를 open할 때 관련된 기능들을 경우에 따라 처리해준다.
@@ -268,16 +260,13 @@ scwin.setMenuRelation = function (menuNm, menuUrl, menuCode, skipType, param, op
 
 	if (menuList && menuList.length > 0) {
 		var option = {
-			isHistory: true,
+			isHistory: false,
 			closable: true,
 			
 		};
 		if (com.win.openMenu(menuNm, menuUrl, menuCode, param, option)) {
-			scwin.addHistory(menuNm, menuUrl, menuCode, null);
+			//scwin.addHistory(menuNm, menuUrl, menuCode, null);
 		}
-
-		gen_history.removeClass("hide");
-		scwin.historyResize();
 
 		if ($p.main().scwin.isMobileSize() == true) {
 			$p.main().wfm_header.getWindow().scwin.toggleMenu();
@@ -296,42 +285,6 @@ scwin.setMenuRelation = function (menuNm, menuUrl, menuCode, skipType, param, op
 	}
 };
 
-/**
- * 최근 작업내용을 추가한다.
- * 
- * @date 2016.07.19
- * @param 메뉴 명 
- * @example
- * scwin.addHistory(label);
- */
-scwin.addHistory = function (menuNm, url, menuCode) {
-	// 맨 마지막에 열린 화면과 동일한 화면을 다시 오픈하는 경우에는 최근작업목록에 저장하지 않도록 반환한다.
-	if (gen_history.getLength() >= 1) {
-		var lastMenuCode = gen_history.getChild(0, "btn_History").getUserData("tmpMenuInfo").split("|")[0];
-		if (menuCode === lastMenuCode) {
-			return;
-		}
-	}
-
-	if (gen_history.getLength() >= scwin.HISTORY_MAX_SIZE) {
-		gen_history.removeChild(gen_history.getLength() - 1);
-	}
-
-	gen_history.insertChild(0);
-	var curObj = gen_history.getChild(0, "btn_History");
-
-	var tmpHH = $p.getFormattedDate(new Date(), "yyyy-MM-dd HH:mm");
-	curObj.setValue(menuNm);
-	curObj.setTitle("[" + tmpHH + "] " + menuNm);
-	curObj.setUserData("tmpMenuInfo", menuCode + "|" + url);
-};
-
-scwin.historyResize = function () {
-	var listHeight = gen_history.getSize("height");
-	var swhInBoxId = swh_lnbbox.getID();
-	$("#" + swhInBoxId + " .w2switch_case").animate({ "bottom": listHeight + 44 }, 700);
-	$(".box_history").animate({ "height": listHeight + 24 }, 700);
-}
 
 /**
  * 즐겨찾기 등록 업데이트 (추가/삭제)
@@ -394,16 +347,6 @@ scwin.setupdateFavCallback = function (e) {
 		com.sbm.resultMsg(e.responseJSON.rsMsg);
 		com.sbm.execute(sbm_selectFavList);
 	}
-};
-
-scwin.btn_history_clear_onclick = function () {
-	gen_history.removeAll();
-	scwin.historyResize();
-};
-
-scwin.historyTitle_onclick = function () {
-	gen_history.toggleClass("hide");
-	scwin.historyResize();
 };
 
 scwin.dispFm_UserName = function (val) {
@@ -472,7 +415,7 @@ scwin.hasFavCode = function (menuCode) {
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group class="grp_tab" id="" style="">
-			<xf:group class="shortcut_box" id="gr_shortcut_box">
+			<xf:group class="shortcut_box" id="gr_shortcut_box" style="display:none;">
 				<w2:anchor class="btn_all_search" id="btn_allSearch" outerDiv="false" style="">
 					<xf:label><![CDATA[메뉴검색]]></xf:label>
 				</w2:anchor>
@@ -485,14 +428,14 @@ scwin.hasFavCode = function (menuCode) {
 					<xf:label><![CDATA[메뉴펼치기]]></xf:label>
 				</w2:anchor>
 			</xf:group>
-			<xf:group class="tab_tit" id="" style="" tagname="ul">
+			<xf:group class="tab_tit" id="" style="display: none;" tagname="ul">
 				<xf:group class="on" id="" style="" tagname="li">
 					<w2:anchor class="" ev:onclick="scwin.anc_menu_onclick" id="anc_menu" outerDiv="false" style="">
 						<xf:label><![CDATA[메뉴]]></xf:label>
 					</w2:anchor>
 				</xf:group>
 				<xf:group id="grp_favMenu" style="" tagname="li">
-					<w2:anchor ev:onclick="scwin.anc_menu02_onclick" id="anc_menu02" outerDiv="false" style="">
+					<w2:anchor ev:onclick="scwin.anc_menu02_onclick" id="anc_menu02" outerDiv="false" style="display:none;">
 						<xf:label><![CDATA[즐겨찾기]]></xf:label>
 					</w2:anchor>
 				</xf:group>
@@ -500,7 +443,7 @@ scwin.hasFavCode = function (menuCode) {
 			<xf:group class="search_field" id="gr_search_field" ev:onblur="">
 				<w2:autoComplete interactionMode="" chooseOptionValue="none" chooseOptionLabel="메뉴를 검색하세요" chooseOption="true"
 					displayMode="label" ev:onviewchange="scwin.acb_search_onviewchange" id="acb_search" useKeywordHighlight="false"
-					style="height:32px;font-size:13px;" search="contain" allOption="" textAlign="left" submenuSize="auto" editType="select"
+					style="height:32px;font-size:13px;display:none;" search="contain" allOption="" textAlign="left" submenuSize="auto" editType="select"
 					class="w2gridViewItemTable_main" caseSensitive="false" noResult="first" ref="">
 					<w2:choices>
 						<w2:itemset nodeset="data:dlt_menu">
@@ -533,22 +476,5 @@ scwin.hasFavCode = function (menuCode) {
 				</xf:group>
 			</xf:group>
 		</xf:group>
-		<xf:group
-			style=""
-			id="box_history" class="recent_work">
-			<xf:group id="">
-				<w2:span id="" label="최근검색" style="" class="tit"></w2:span>
-				<w2:anchor outerDiv="false" ev:onclick="scwin.btn_history_clear_onclick" style="" id="btn_history_clear"
-					class="btn_work_clear fr">
-					<xf:label><![CDATA[All Clear]]></xf:label>
-				</w2:anchor>
-			</xf:group>
-		<xf:group id="" class="scrollbar" style="" tagname="ul"><w2:generator style="" id="gen_history" class="grbox">
-				<xf:group style="width: 100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" id="" class="work_item">
-					<w2:anchor outerDiv="false" ev:onclick="scwin.btn_History_onclick" style="" id="btn_History" class="on">
-						<xf:label><![CDATA[권한관리]]></xf:label>
-					</w2:anchor>
-				</xf:group>
-			</w2:generator></xf:group></xf:group>
 	</body>
 </html>
