@@ -1,0 +1,201 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+
+	<head>
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<w2:MSA />
+		<xf:model>
+			<w2:dataCollection baseNode="map">
+				<w2:dataList baseNode="list" id="dlt_list" repeatNode="map" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column dataType="text" id="SCH_IDX" name="SCH_IDX" />
+						<w2:column dataType="text" id="SCH_CATEGORY" name="SCH_CATEGORY" />
+						<w2:column id="SCH_TITLE2" name="SCH_TITLE2" dataType="text"></w2:column>
+						<w2:column dataType="text" id="SCH_TITLE" name="SCH_TITLE" />
+						<w2:column dataType="text" id="SCH_CONT" name="SCH_CONT" />
+						<w2:column dataType="text" id="SCH_WRITER" name="SCH_WRITER" />
+						<w2:column id="SCH_CREATE_DTTM" name="SCH_CREATE_DTTM" dataType="text"></w2:column>
+						<w2:column id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:column>
+						<w2:column id="SCH_START" name="SCH_START" dataType="text"></w2:column>
+						<w2:column id="SCH_END" name="SCH_END" dataType="text"></w2:column>
+						<w2:column id="SCH_START_UTC" name="SCH_START_UTC" dataType="text"></w2:column>
+						<w2:column id="SCH_END_UTC" name="SCH_END_UTC" dataType="text"></w2:column>
+						
+						
+						<w2:column id="SCH_COLOR" name="SCH_COLOR" dataType="text"></w2:column>
+						<w2:column id="FUL_COLOR" name="FUL_COLOR" dataType="text" importFormatter="scwin.fn_format"></w2:column>
+						
+						
+						<w2:column id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:column>
+						<w2:column id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:column>
+						<w2:column id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:column>
+					</w2:columnInfo>
+					<w2:data use="false"></w2:data>
+				</w2:dataList>
+				<w2:dataMap baseNode="map" id="dma_search">
+					<w2:keyInfo>
+						<w2:key id="SCH_CURRENTMONTH_PREV" name="SCH_CURRENTMONTH_PREV" dataType="text"></w2:key>
+						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
+						<w2:key id="SCH_CURRENTMONTH_NEXT" name="SCH_CURRENTMONTH_NEXT" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_schdList" ref="data:json,dma_search" target="data:json,dlt_list" action="/selectScheduleList.do"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_schdList_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+
+		<w2:layoutInfo>
+		</w2:layoutInfo>
+
+		<w2:publicInfo method="" />
+<script lazy="false" type="text/javascript"><![CDATA[scwin.yoil = {일요일:0,월요일:1,화요일:2,수요일:3,목요일:4,금요일:5,토요일:6};
+
+scwin.onpageload = function() {
+	debugger;
+	let yyyyMM = grp_yyyyMM.render.innerText.replace(/년/,'').replace(/월/,'');
+	let startDay = yyyyMM+'01';
+	let startWeekDay = scwin.yoil[WebSquare.date.getDay(startDay)];
+	var yyyyMM_next = WebSquare.date.dateTimeAdd( yyyyMM, 1, "month" );
+	let daysInMon = WebSquare.date.dateDiff(yyyyMM+'01',yyyyMM_next+'01');
+
+	let isStart = false;
+	let writeDay = 1;
+	for(let i=0; i < 6;i++){
+		for(let j=0; j < 7; j++){
+			if(i == 0 && j == startWeekDay){
+				isStart = true;
+			}
+			if(isStart){
+				$p.getComponentById("cell"+i+''+j).render.innerText = writeDay;
+				writeDay++;
+				if(writeDay > daysInMon){
+					isStart = false;
+				}
+			}
+		}		
+	}
+	debugger;
+}]]></script>
+	<style>
+			.fl{float:left;}
+			.fr{float:right;}
+			.sch_wrap{display: flex; flex-direction: row; flex-wrap: wrap; height: 100%;}
+			.sch_titleArea{width:100%;text-align: center; height:46px;}
+			.sch_titleArea h3{display:inline-block; font-size:30px;}
+			.sch_table{width: 100%; height: calc(100% - 46px);}
+			.sch_tr{height:100%; display: flex; flex-direction: row;}
+			.sch_thead .sch_tr{height:30px;}
+			.sch_thead {text-align:center;}
+			.sch_th > span{position:relative; top:8px;}
+			.sch_thead{width:100%; display:flex; flex-direction: column;}
+			.sch_tbody{width:100%; height:calc(100% - 30px);display: flex; flex-direction: column;}
+			.sch_td{background:#ddd; flex: auto; margin: 1px;}
+			.sch_th{background:orange; flex: auto; height:30px; margin: 1px;}
+			.btn_sch{padding: 10px; background: #ffab70; height: 36px; border-radius: 5px; margin: 5px; border: 0; width: 36px; color: #fff; font-weight: bold;}
+		</style>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group id="" class="sch_wrap">
+			<xf:group id="" class="sch_titleArea">
+				<xf:group id="" class="fl">
+					<xf:trigger class="btn_sch" id="" style="" type="button">
+						<xf:label><![CDATA[<<]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+				<xf:group tagname="h3" id="grp_yyyyMM">2024년04월</xf:group>
+				<xf:group id="" class="fr">
+					<xf:trigger class="btn_sch" ev:onclick="scwin.btn_delete_onclick" id="btn_right" style="" type="button">
+						<xf:label><![CDATA[>>]]></xf:label>
+					</xf:trigger>
+				</xf:group></xf:group>
+			<xf:group style="" id="" class="sch_table">
+				<xf:group style="" id="" class="sch_thead">
+					<xf:group style="" id="" class="sch_tr">
+						<xf:group style="" id="" class="sch_th">
+							<w2:span style="" label="일" id=""></w2:span>
+						</xf:group>
+						<xf:group style="" id="" class="sch_th">
+							<w2:span style="" label="월" id=""></w2:span>
+						</xf:group>
+						<xf:group style="" id="" class="sch_th">
+							<w2:span style="" label="화" id=""></w2:span>
+						</xf:group>
+						<xf:group style="" id="" class="sch_th">
+							<w2:span style="" label="수" id=""></w2:span>
+						</xf:group>
+						<xf:group style="" id="" class="sch_th">
+							<w2:span style="" label="목" id=""></w2:span>
+						</xf:group>
+						<xf:group style="" id="" class="sch_th">
+							<w2:span style="" label="금" id=""></w2:span>
+						</xf:group>
+						<xf:group style="" id="" class="sch_th">
+							<w2:span style="" label="토" id=""></w2:span>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+				<xf:group style="" id="" class="sch_tbody">
+					<xf:group style="" id="" class="sch_tr">
+						<xf:group style="" id="cell00" class="sch_td"></xf:group>
+						<xf:group style="" id="cell01" class="sch_td"></xf:group>
+						<xf:group style="" id="cell02" class="sch_td"></xf:group>
+						<xf:group style="" id="cell03" class="sch_td"></xf:group>
+						<xf:group style="" id="cell04" class="sch_td"></xf:group>
+						<xf:group style="" id="cell05" class="sch_td"></xf:group>
+						<xf:group style="" id="cell06" class="sch_td"></xf:group>
+					</xf:group>
+					<xf:group style="" id="" class="sch_tr">
+						<xf:group style="" id="cell10" class="sch_td"></xf:group>
+						<xf:group style="" id="cell11" class="sch_td"></xf:group>
+						<xf:group style="" id="cell12" class="sch_td"></xf:group>
+						<xf:group style="" id="cell13" class="sch_td"></xf:group>
+						<xf:group style="" id="cell14" class="sch_td"></xf:group>
+						<xf:group style="" id="cell15" class="sch_td"></xf:group>
+						<xf:group style="" id="cell16" class="sch_td"></xf:group>
+					</xf:group>
+					<xf:group style="" id="" class="sch_tr">
+						<xf:group style="" id="cell20" class="sch_td"></xf:group>
+						<xf:group style="" id="cell21" class="sch_td"></xf:group>
+						<xf:group style="" id="cell22" class="sch_td"></xf:group>
+						<xf:group style="" id="cell23" class="sch_td"></xf:group>
+						<xf:group style="" id="cell24" class="sch_td"></xf:group>
+						<xf:group style="" id="cell25" class="sch_td"></xf:group>
+						<xf:group style="" id="cell26" class="sch_td"></xf:group>
+					</xf:group>
+					<xf:group style="" id="" class="sch_tr">
+						<xf:group style="" id="cell30" class="sch_td"></xf:group>
+						<xf:group style="" id="cell31" class="sch_td"></xf:group>
+						<xf:group style="" id="cell32" class="sch_td"></xf:group>
+						<xf:group style="" id="cell33" class="sch_td"></xf:group>
+						<xf:group style="" id="cell34" class="sch_td"></xf:group>
+						<xf:group style="" id="cell35" class="sch_td"></xf:group>
+						<xf:group style="" id="cell36" class="sch_td"></xf:group>
+					</xf:group>
+					<xf:group style="" id="" class="sch_tr">
+						<xf:group style="" id="cell40" class="sch_td"></xf:group>
+						<xf:group style="" id="cell41" class="sch_td"></xf:group>
+						<xf:group style="" id="cell42" class="sch_td"></xf:group>
+						<xf:group style="" id="cell43" class="sch_td"></xf:group>
+						<xf:group style="" id="cell44" class="sch_td"></xf:group>
+						<xf:group style="" id="cell45" class="sch_td"></xf:group>
+						<xf:group style="" id="cell46" class="sch_td"></xf:group>
+					</xf:group>
+					<xf:group style="" id="" class="sch_tr">
+						<xf:group style="" id="cell50" class="sch_td"></xf:group>
+						<xf:group style="" id="cell51" class="sch_td"></xf:group>
+						<xf:group style="" id="cell52" class="sch_td"></xf:group>
+						<xf:group style="" id="cell53" class="sch_td"></xf:group>
+						<xf:group style="" id="cell54" class="sch_td"></xf:group>
+						<xf:group style="" id="cell55" class="sch_td"></xf:group>
+						<xf:group style="" id="cell56" class="sch_td"></xf:group>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+		</xf:group>
+	</body>
+
+</html>
