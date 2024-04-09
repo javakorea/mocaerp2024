@@ -306,17 +306,6 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 };
 ]]></script>
 		<style>
-			.ica_sch .w2inputCalendar_divInput{border:0; font-size:25px; font-weight:500}
-			.ica_sch .w2inputCalendar_div_img{left: 0; right: 0; width: 100%;}
-			.ica_sch .w2inputCalendar_div_img button, .ica_sch .w2inputCalendar_div_img button:not(.w2inputCalendar_img_readOnly):hover{background:unset !important;}
-			
-			
-			.sub_contents {overflow:hidden}
- 		 	.fc-toolbar.fc-header-toolbar {display:none;}
-			.swiper {width: 100%; height: calc(100% - 34px); overflow:hidden;}
-			.swiper-slide { text-align: center; font-size: 18px; background: #fff; display: flex; justify-content: center; align-items: center;
-			flex-shrink:0; height:100%; box-sizing:border-box;}
-			.swiper-slide img { display: block; width: 100%; height: 100%; object-fit: cover;}
 		</style>
 	</head>
 	<body ev:onpageload="scwin.onpageload" >

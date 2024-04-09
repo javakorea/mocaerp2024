@@ -68,25 +68,6 @@ scwin.onpageload = function() {
 }
 ]]></script>
 		<style>
-			.fl{float:left;}
-			.fr{float:right;}
-			.sch_wrap{display: flex; flex-direction: row; flex-wrap: wrap; height: 100%;}
-			.sch_titleArea{width:100%;text-align: center; height:46px; background:#98c7ce; color:#fff}
-			.sch_titleArea h3{display:inline-block; font-size:30px;}
-			.sch_table{width: 100%; height: calc(100% - 46px);}
-			.sch_tr{height:100%; display: flex; flex-direction: row;}
-			.sch_thead .sch_tr{height:30px; font-size: 17px; line-height: 15px;}
-			.sch_thead {text-align:center;}
-			.sch_th > span{position: relative; top: 8px; font-weight: bold; font-size: 18px;}
-			.sch_thead{width:100%; display:flex; flex-direction: column;}
-			.sch_tbody{width:100%; height:calc(100% - 30px);display: flex; flex-direction: column;}
-			.sch_td{background:#fff; flex: 1;  border: 1px dashed #cce7ed;overflow:hidden;}
-			.sch_th{background:#c2e1e5; flex: auto; height:30px; border-right:1px solid #fff}
-			.sch_th:last-child{border:0}
-			.btn_sch{padding: 10px; background: #ffab70;  height: 36px; border-radius: 8px; margin: 5px; border: 0; width: 36px; color: #fff; font-weight: bold; font-size: 20px; line-height: 0.7em;  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
-    		.spa_dt{display: inline-block;  width: 20px; height: 20px; background: none; font-size: 20px; margin: 5px;  padding: 6px 7px 6px 6px; line-height: 18px; text-align: center; border-radius:5px;}
-			.spa_dt.on{background: rgb(237 237 237); }
-			.sch_bar{display: block; padding: 2px 4px; border-radius: 12px; background: #bf70ff; margin: 2px; text-indent: 3px; color: #fff; font-weight: bold; height: 16px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 		</style>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
