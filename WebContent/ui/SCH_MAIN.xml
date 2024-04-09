@@ -75,7 +75,6 @@ scwin.onpageload = function() {
 	scwin.left = wfm_cal_prev;
 	scwin.center = wfm_cal;
 	scwin.right = wfm_cal_next;	
-	scwin.threeCalDraw();
 	gcm.ext.swiper.scriptImport(function(e){
 		scwin.swiper = new Swiper(".mySwiperNew", {
 			slidesPerView: 1,
@@ -100,8 +99,7 @@ scwin.onpageload = function() {
 			}			
 			scwin.search();
 		});
-		scwin.swiper.slideTo(1,0);//아이폰을위해서
-		//scwin.swiper.offsetLeft = $(sch_cal.render).offset().left;
+		scwin.swiper.slideTo(1,0);//아이폰을위해서 (realIndexChange발생)
 	});	
 }
 scwin.left = null;
@@ -129,15 +127,22 @@ scwin.threeCalDraw = function(){
 	dma_search.set('COMMON_QUERY',"M.selectScheduleList");
 	com.sbm.execute(sbm_schdList);
 	scwin.sbm_schdList_submitdone = function(e) {
+		scwin.dayMap = {};
 		let list = e.responseJSON.dlt_list;
 		for(let i=0; i < list.length; i++){
 			let c = list[i];
 			let day = c.SCH_START.substring(0,10).replace(/-/g,'');
-			scwin.dayMap[ WebSquare.date.dateTimeAdd( day, 1, "day" )] = c;
+			let _key = WebSquare.date.dateTimeAdd( day, 1, "day" );
+			let aDayList = scwin.dayMap[_key];
+			if(!aDayList){
+				aDayList = [];
+			}
+			aDayList.push(c);
+			scwin.dayMap[_key] = aDayList;
 		}
 		scwin.draw(yyyyMM,scwin.center.scope);
-		scwin.draw(yyyyMM_prev,scwin.left.scope);
-		scwin.draw(yyyyMM_next,scwin.right.scope);
+		//scwin.draw(yyyyMM_prev,scwin.left.scope);
+		//scwin.draw(yyyyMM_next,scwin.right.scope);
 	};
 }
 
@@ -180,7 +185,12 @@ scwin.draw = function(yyyyMM,_scope) {
 			}
 			let o = scwin.dayMap[dayDiv.getAttribute('yyyyMMdd')];
 			if(o){
-				_contents.render.innerHTML = "<span class='sch_bar'>"+o['SCH_TITLE']+"</span>";
+				let str = '';
+				for(let i=0; i < o.length; i++){
+					let aDaySc = o[i];
+					str += "<span class='sch_bar'>"+aDaySc['SCH_TITLE']+"</span>";
+				}
+				_contents.render.innerHTML = str;
 			}else{
 				_contents.render.innerHTML = "";				
 			}

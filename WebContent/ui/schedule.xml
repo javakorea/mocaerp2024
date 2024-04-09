@@ -74,7 +74,7 @@
 			slidesPerView: 1,
 			loop: true
 		});
-		debugger;
+		
 		scwin.swiper.onClickChild = scwin.sch_cal1_onclick;
 		scwin.swiper.on('doubleTap', function (e, s) {gcm.ext.swiper.capturingEvt(s.target,scwin.swiper);});
 		
