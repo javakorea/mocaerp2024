@@ -652,7 +652,7 @@ export default {
     },
     "trigger": {
       "preventMultipleClick": {
-        "@value": "true"
+        "@value": "false"
       }
     },
     "anchor": {

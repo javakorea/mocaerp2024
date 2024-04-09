@@ -37,6 +37,13 @@
 							<PARENT_MENU_CD><![CDATA[1000]]></PARENT_MENU_CD>
 						</w2:row>
 						<w2:row>
+							<MENU_CD><![CDATA[1400]]></MENU_CD>
+							<MENU_NM><![CDATA[NEW스케줄러]]></MENU_NM>
+							<SRC_PATH><![CDATA[/ui/SCH_MAIN.xml]]></SRC_PATH>
+							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<PARENT_MENU_CD><![CDATA[1000]]></PARENT_MENU_CD>
+						</w2:row>
+						<w2:row>
 							<MENU_CD><![CDATA[1200]]></MENU_CD>
 							<MENU_NM><![CDATA[기술데이터]]></MENU_NM>
 							<SRC_PATH><![CDATA[/ui/boardMain.xml]]></SRC_PATH>

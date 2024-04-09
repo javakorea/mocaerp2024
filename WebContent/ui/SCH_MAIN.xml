@@ -38,13 +38,27 @@
 						<w2:key id="SCH_CURRENTMONTH_PREV" name="SCH_CURRENTMONTH_PREV" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH_NEXT" name="SCH_CURRENTMONTH_NEXT" dataType="text"></w2:key>
+						
+						<!-- 공통부 -->
+						<w2:key id="COMMON_TRAN_ID" 			name="TRAN_ID" 						dataType="text"></w2:key>
+						<w2:key id="COMMON_STATUS" 				name="CRUD_상태" 						dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" 				name="SELECT_QUERY" 				dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" 		name="COMMON_MASTER_QUERY" 			dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_DELETEQUERY" 	name="COMMON_MASTER_DELETEQUERY" 	dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" 			name="COMMON_MASTER_KEY" 			dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" 			name="COMMON_DETAIL_KEY" 			dataType="text"></w2:key>						
 					</w2:keyInfo>
 				</w2:dataMap>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
-			<xf:submission id="sbm_schdList" ref="data:json,dma_search" target="data:json,dlt_list" action="/selectScheduleList.do"
+			<xf:submission 
+				id="sbm_schdList" ref="data:json,dma_search" target="data:json,dlt_list" 
+				action="/selectList.do" ev:submitdone="scwin.sbm_schdList_submitdone"
 				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
-				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_schdList_submitdone" ev:submiterror="" abortTrigger="">
+				processMsg="" ev:submit="" ev:submiterror="" abortTrigger="">
 			</xf:submission>
 		</xf:model>
 
@@ -53,33 +67,154 @@
 
 		<w2:publicInfo method="" />
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.yoil = {일요일:0,월요일:1,화요일:2,수요일:3,목요일:4,금요일:5,토요일:6};
-
+scwin.dayMap = {};
 scwin.onpageload = function() {
-	let yyyyMM = grp_yyyyMM.render.innerText.replace(/년/,'').replace(/월/,'');
+	let thisMonth = WebSquare.date.getCurrentServerDate('yyyyMM');
+	SCH_CURRENTMONTH.setValue(thisMonth);
+
+	scwin.left = wfm_cal_prev;
+	scwin.center = wfm_cal;
+	scwin.right = wfm_cal_next;	
+	scwin.threeCalDraw();
+	gcm.ext.swiper.scriptImport(function(e){
+		scwin.swiper = new Swiper(".mySwiperNew", {
+			slidesPerView: 1,
+			loop: true
+		});
+		scwin.swiper.on('realIndexChange', function (_swiperObj) {
+			let selectedCalObj = $p.getComponentById(scwin.swiper.slides[scwin.swiper.activeIndex].id);
+			let basisMonth = selectedCalObj.scope.grp_yyyyMM.render.innerText.replace(/년|월/g,'');
+			SCH_CURRENTMONTH.setValue(basisMonth);
+			if(selectedCalObj.org_id == 'wfm_cal_prev'){
+				scwin.left = wfm_cal_next;
+				scwin.center = wfm_cal_prev;
+				scwin.right = wfm_cal;
+			}else if(selectedCalObj.org_id == 'wfm_cal'){
+				scwin.left = wfm_cal_prev;
+				scwin.center = wfm_cal;
+				scwin.right = wfm_cal_next;
+			}else if(selectedCalObj.org_id == 'wfm_cal_next'){
+				scwin.left = wfm_cal;
+				scwin.center = wfm_cal_next;
+				scwin.right = wfm_cal_prev;		
+			}			
+			scwin.search();
+		});
+		scwin.swiper.slideTo(1,0);//아이폰을위해서
+		//scwin.swiper.offsetLeft = $(sch_cal.render).offset().left;
+	});	
+}
+scwin.left = null;
+scwin.center = null;
+scwin.right = null;
+scwin.search = function(){
+
+	scwin.threeCalDraw();
+};
+
+scwin.threeCalDraw = function(){
+	var yyyyMM 			= SCH_CURRENTMONTH.getValue();
+	var yyyyMM_prev 	= WebSquare.date.dateTimeAdd( yyyyMM, -1, "month" );
+	var yyyyMM_next 	= WebSquare.date.dateTimeAdd( yyyyMM, 1, "month" );
+
+	scwin.center.scope.grp_yyyyMM.render.innerText = yyyyMM.substring(0,4)+'년'+yyyyMM.substring(4)+'월';
+	scwin.left.scope.grp_yyyyMM.render.innerText = yyyyMM_prev.substring(0,4)+'년'+yyyyMM_prev.substring(4)+'월';
+	scwin.right.scope.grp_yyyyMM.render.innerText = yyyyMM_next.substring(0,4)+'년'+yyyyMM_next.substring(4)+'월';	
+
+	dma_search.set('SCH_CURRENTMONTH_PREV',yyyyMM_prev);
+	dma_search.set('SCH_CURRENTMONTH',yyyyMM);
+	dma_search.set('SCH_CURRENTMONTH_NEXT',yyyyMM_next);
+
+
+	dma_search.set('COMMON_QUERY',"M.selectScheduleList");
+	com.sbm.execute(sbm_schdList);
+	scwin.sbm_schdList_submitdone = function(e) {
+		let list = e.responseJSON.dlt_list;
+		for(let i=0; i < list.length; i++){
+			let c = list[i];
+			let day = c.SCH_START.substring(0,10).replace(/-/g,'');
+			scwin.dayMap[ WebSquare.date.dateTimeAdd( day, 1, "day" )] = c;
+		}
+		scwin.draw(yyyyMM,scwin.center.scope);
+		scwin.draw(yyyyMM_prev,scwin.left.scope);
+		scwin.draw(yyyyMM_next,scwin.right.scope);
+	};
+}
+
+scwin.draw = function(yyyyMM,_scope) {
 	let startDay = yyyyMM+'01';
 	let startWeekDay = scwin.yoil[WebSquare.date.getDay(startDay)];
 	var yyyyMM_next = WebSquare.date.dateTimeAdd( yyyyMM, 1, "month" );
 	let daysInMon = WebSquare.date.dateDiff(yyyyMM+'01',yyyyMM_next+'01');
 
-	let isStart = false;
+	var yyyyMM_prev 	= WebSquare.date.dateTimeAdd( yyyyMM, -1, "month" );
+	let daysInMon_prev 	= WebSquare.date.dateDiff(yyyyMM_prev+'01',yyyyMM+'01');
+
+	let isStart = -1;
 	let writeDay = 1;
 	for(let i=0; i < 6;i++){
 		for(let j=0; j < 7; j++){
+			let dayDiv = _scope.$p.getComponentById('cell' + i + '' + j);
+			let _spa = dayDiv.childControlList[0];
+			let _contents = dayDiv.childControlList[1];
+			_spa.removeClass("on");
 			if(i == 0 && j == startWeekDay){
-				isStart = true;
+				isStart = 0;
+			}else if(i == 0 && isStart == -1 && j != startWeekDay){
+				
+				let reday = daysInMon_prev-((startWeekDay-1)-j);
+				_spa.setLabel(reday);					dayDiv.setAttribute('yyyyMMdd',yyyyMM_prev+((reday<10)? '0'+reday:reday)	);
+				
 			}
-			if(isStart){
-				let _spa = $p.getComponentById('cell' + i + '' + j).childControlList[0];
+			if(isStart == 0){
 				_spa.addClass("on");
-				_spa.setLabel(writeDay);
+				_spa.setLabel(writeDay);				dayDiv.setAttribute('yyyyMMdd',yyyyMM+((writeDay<10)? '0'+writeDay:writeDay)  );
 				writeDay++;
 				if(writeDay > daysInMon){
-					isStart = false;
+					isStart = 1;
+					writeDay = 0;
 				}
+			}else if(isStart == 1){
+				writeDay++;
+				_spa.setLabel(writeDay);				dayDiv.setAttribute('yyyyMMdd',yyyyMM_next+((writeDay<10)? '0'+writeDay:writeDay));
 			}
+			let o = scwin.dayMap[dayDiv.getAttribute('yyyyMMdd')];
+			if(o){
+				_contents.render.innerHTML = "<span class='sch_bar'>"+o['SCH_TITLE']+"</span>";
+			}else{
+				_contents.render.innerHTML = "";				
+			}
+			
 		}		
 	}
-}]]></script>
+	
+	
+	
+	
+}
+
+scwin.btn_left_onclick = function(e) {
+	SCH_CURRENTMONTH.setValue(WebSquare.date.dateTimeAdd( SCH_CURRENTMONTH.getValue(), -1, "month" ));
+	scwin.search();	
+};
+
+
+scwin.btn_right_onclick = function(e) {
+	SCH_CURRENTMONTH.setValue(WebSquare.date.dateTimeAdd( SCH_CURRENTMONTH.getValue(), 1, "month" ));
+	scwin.search();	
+};
+
+scwin.cell_onclick = function(e) {
+	alert(this.getAttribute('yyyyMMdd'));
+};
+
+scwin.display = function(_yyyyMM){
+	return _yyyyMM.substring(0,4)+'년'+_yyyyMM.substring(4,6)+'월';
+}
+scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
+	scwin.search();	
+};
+]]></script>
 		<style>
 			.fl{float:left;}
 			.fr{float:right;}
@@ -93,198 +228,39 @@ scwin.onpageload = function() {
 			.sch_th > span{position: relative; top: 8px; font-weight: bold; font-size: 18px;}
 			.sch_thead{width:100%; display:flex; flex-direction: column;}
 			.sch_tbody{width:100%; height:calc(100% - 30px);display: flex; flex-direction: column;}
-			.sch_td{background:#fff; flex: auto;  border: 1px dashed #cce7ed}
+			.sch_td{background:#fff; flex: 1;  border: 1px dashed #cce7ed;overflow:hidden;}
 			.sch_th{background:#c2e1e5; flex: auto; height:30px; border-right:1px solid #fff}
 			.sch_th:last-child{border:0}
 			.btn_sch{padding: 10px; background: #ffab70;  height: 36px; border-radius: 8px; margin: 5px; border: 0; width: 36px; color: #fff; font-weight: bold; font-size: 20px; line-height: 0.7em;  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
     		.spa_dt{display: inline-block;  width: 20px; height: 20px; background: none; font-size: 20px; margin: 5px;  padding: 6px 7px 6px 6px; line-height: 18px; text-align: center; border-radius:5px;}
 			.spa_dt.on{background: rgb(237 237 237); }
+			.sch_bar{display: block; padding: 2px 4px; border-radius: 12px; background: #bf70ff; margin: 2px; text-indent: 3px; color: #fff; font-weight: bold; height: 16px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 		</style>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="sch_wrap">
+		<xf:group id="grp_cal" class="sch_wrap">
 			<xf:group id="" class="sch_titleArea">
 				<xf:group id="" class="fl">
-					<xf:trigger class="btn_sch " id="" style="" type="button">
+					<xf:trigger class="btn_sch " id="btn_left" style="" type="button" ev:onclick="scwin.btn_left_onclick">
 						<xf:label><![CDATA[〈]]></xf:label>
 					</xf:trigger>
 				</xf:group>
-				<xf:group tagname="h3" id="grp_yyyyMM">2024년04월</xf:group>
+				<xf:group tagname="h3" id="grp_yyyyMM" style=""><xf:input id="SCH_CURRENTMONTH" style="width: 200px;height: 50px;font-size:34px" displayFormatter="scwin.display" ev:onviewchange="scwin.SCH_CURRENTMONTH_onviewchange"></xf:input></xf:group>
 				<xf:group id="" class="fr">
-					<xf:trigger class="btn_sch" ev:onclick="scwin.btn_delete_onclick" id="btn_right" style="" type="button">
+					<xf:trigger class="btn_sch" id="btn_right" style="" type="button" ev:onclick="scwin.btn_right_onclick">
 						<xf:label><![CDATA[〉]]></xf:label>
 					</xf:trigger>
 				</xf:group>
 			</xf:group>
-			<xf:group style="" id="" class="sch_table">
-				<xf:group style="" id="" class="sch_thead">
-					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="" id="" class="sch_th">
-							<w2:span style="" label="일" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="" class="sch_th">
-							<w2:span style="" label="월" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="" class="sch_th">
-							<w2:span style="" label="화" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="" class="sch_th">
-							<w2:span style="" label="수" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="" class="sch_th">
-							<w2:span style="" label="목" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="" class="sch_th">
-							<w2:span style="" label="금" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="" class="sch_th">
-							<w2:span style="" label="토" id=""></w2:span>
-						</xf:group>
-					</xf:group>
-				</xf:group>
-				<xf:group style="" id="" class="sch_tbody">
-					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="" id="cell00" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell01" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell02" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell03" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell04" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell05" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell06" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-					</xf:group>
-					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="" id="cell10" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell11" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell12" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell13" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell14" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell15" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell16" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-					</xf:group>
-					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="" id="cell20" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell21" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell22" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell23" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell24" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell25" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell26" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-					</xf:group>
-					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="" id="cell30" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell31" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell32" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell33" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell34" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell35" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell36" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-					</xf:group>
-					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="" id="cell40" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell41" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell42" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell43" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell44" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell45" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell46" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-					</xf:group>
-					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="" id="cell50" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell51" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell52" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell53" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell54" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell55" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-						<xf:group style="" id="cell56" class="sch_td">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-						</xf:group>
-					</xf:group>
+			<xf:group class="swiper mySwiperNew">
+				<xf:group style="height:100%;flex-flow:nowrap;" id="" class="calendarbox flex swiper-wrapper">
+					<w2:wframe style="width: 100%;" id="wfm_cal_prev" src="SCH_WFM_CAL.xml" class="swiper-slide"></w2:wframe>
+					<w2:wframe style="width: 100%;" id="wfm_cal" src="SCH_WFM_CAL.xml" class="swiper-slide"></w2:wframe>
+					<w2:wframe style="width: 100%;" id="wfm_cal_next" src="SCH_WFM_CAL.xml" class="swiper-slide"></w2:wframe>
 				</xf:group>
 			</xf:group>
 		</xf:group>
-
+		
 	</body>
 
 </html>

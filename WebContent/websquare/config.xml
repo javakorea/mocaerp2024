@@ -254,7 +254,7 @@
 		<tooltipGroupClass value="false"/>
 	</treeview>
 	<trigger>
-		<preventMultipleClick value="true"/>
+		<preventMultipleClick value="false"/>
 	</trigger>
 	<anchor>
 		<preventMultipleClick value="true"/>
