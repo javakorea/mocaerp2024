@@ -268,7 +268,7 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 			<xf:group id="grp_cal" class="sch_wrap">
 				<xf:group id="" class="sch_titleArea">
 					<xf:group id="grp_adayList" 
-					style="display:none;text-align:right;z-index:9999;position: absolute;left: 0px;top: 50px;width: 90%;bottom:50px;background-color:#f9fe9d;border-color:lightgrey;border-width:1px;border-style:solid;">
+					style="display:none;text-align:right;z-index:9999;position: absolute;left: 0px;top: 0px;width: 90%;bottom:30px;background-color:#f9fe9d;border-color:lightgrey;border-width:1px;border-style:solid;">
 						<xf:group id="" class="fl" style="height:100%">
 							<xf:trigger ev:onclick="scwin.popupAdayList" style="width:60px;height:100%" id="btn_adayListClose" type="button" class="btn_sch ">
 								<xf:label><![CDATA[닫기]]></xf:label>
