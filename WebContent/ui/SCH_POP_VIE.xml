@@ -223,8 +223,11 @@ scwin.colorPop_callback = function(e){
 };
 
 scwin.display = function(_data){
-	let yyyyMMdd = _data.substring(0,10).replace(/-/g,'');
-	return WebSquare.date.getFormattedDate(yyyyMMdd,'yyyy년MM월dd일 EEE요일');
+	if(_data){
+		let yyyyMMdd = _data.substring(0,10).replace(/-/g,'');
+		yyyyMMdd = $p.parent().scwin.getDay(yyyyMMdd);
+		return WebSquare.date.getFormattedDate(yyyyMMdd,'yyyy년MM월dd일(EEE)');
+	}
 };
 
 

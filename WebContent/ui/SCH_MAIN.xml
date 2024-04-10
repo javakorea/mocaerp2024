@@ -110,6 +110,10 @@ scwin.search = function(){
 	scwin.threeCalDraw();
 };
 
+scwin.getDay = function(day){
+	return WebSquare.date.dateTimeAdd( day, 1, "day" );
+};
+
 scwin.threeCalDraw = function(){
 	var yyyyMM 			= SCH_CURRENTMONTH.getValue();
 	var yyyyMM_prev 	= WebSquare.date.dateTimeAdd( yyyyMM, -1, "month" );
@@ -132,7 +136,7 @@ scwin.threeCalDraw = function(){
 		for(let i=0; i < list.length; i++){
 			let c = list[i];
 			let day = c.SCH_START.substring(0,10).replace(/-/g,'');
-			let _key = WebSquare.date.dateTimeAdd( day, 1, "day" );
+			let _key = scwin.getDay(day);
 			let aDayList = scwin.dayMap[_key];
 			if(!aDayList){
 				aDayList = [];
