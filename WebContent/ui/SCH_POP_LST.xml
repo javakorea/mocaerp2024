@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="BM004P01" meta_programName="메뉴별 프로그램 조회 팝업" meta_programDesc="메뉴별 프로그램 조회 팝업" meta_author="Inswave Systems"
+		meta_date="2021.02.25">
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_content">
+					<w2:keyInfo>
+						<w2:key id="SCH_IDX" name="SCH_IDX" dataType="text"></w2:key>
+						<w2:key id="SCH_TITLE" name="SCH_TITLE" dataType="text"></w2:key>
+						<w2:key id="SCH_CONT" name="SCH_CONT" dataType="text"></w2:key>
+						<w2:key id="SCH_WRITER" name="SCH_WRITER" dataType="text"></w2:key>
+
+						<w2:key id="SCH_CREATE_DTTM" name="SCH_CREATE_DTTM" dataType="text"></w2:key>
+						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
+						<w2:key id="SCH_START" name="SCH_START" dataType="text"></w2:key>
+						<w2:key id="SCH_END" name="SCH_END" dataType="text"></w2:key>
+						<w2:key id="SCH_COLOR" name="SCH_COLOR" dataType="text"></w2:key>
+						<w2:key id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:key>
+						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
+						<w2:key id="STATUS" name="STATUS" dataType="text"></w2:key>
+						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
+						
+						<!-- 공통부 -->
+						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" name="COMMON_MASTER_KEY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="COMMON_RESULT">
+					<w2:keyInfo>
+						<w2:key id="COMMON_MASTER_RESULT" name="COMMON_MASTER_RESULT" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_RESULT" name="COMMON_DETAIL_RESULT" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]' target="data:json,COMMON_RESULT"
+				action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror=""
+				abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<w2:layoutInfo></w2:layoutInfo>
+		<w2:publicInfo method=""></w2:publicInfo>
+		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
+	debugger;
+	let selectedCell = $p.parent().scwin.selectedCell;
+	let list = $p.parent().scwin.dayMap[selectedCell.getAttribute('yyyyMMdd')];
+	if(list && list.length > 0){
+		let str = '';
+		for(let i=0; i < list.length; i++){
+			let row = list[i];
+			let tmpIdx = gen_item.insertChild();
+			var btn_item = gen_item.getChild(tmpIdx, "btn_item");
+			btn_item.setValue(row.SCH_TITLE2);
+		}
+		$p.parent().grp_adayList.show();
+	}
+
+};
+scwin.btn_item_onclick = function () {
+	debugger;
+};
+
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group id="" class="pop_contents flex_gvw flex_m">
+			<xf:group id="">
+				<xf:group style="" id="dfbox" class="dfbox">
+					<w2:generator style="" id="gen_item" class="gnb_menu" tagname="ul">
+						<xf:group id="" style="" tagname="li">
+							<xf:trigger style="" id="btn_item" type="button" class="btn_cm red"
+								ev:onclick="scwin.btn_item_onclick">
+								<xf:label><![CDATA[폐기]]></xf:label>
+							</xf:trigger>
+						</xf:group>
+					</w2:generator>
+				</xf:group>
+			</xf:group>
+		</xf:group>
+	</body>
+</html>
