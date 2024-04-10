@@ -66,6 +66,16 @@ scwin.onpageload = function() {
 
 
 }
+
+
+scwin.cell_onclick = function() {
+    let day = this.getAttribute('yyyyMMdd');
+    $p.parent().scwin.setBgColor(this);
+    $p.parent().scwin.showAdayList(this);
+}
+
+
+
 ]]></script>
 		<style>
 		</style>
@@ -74,17 +84,7 @@ scwin.onpageload = function() {
 
 		<xf:group id="grp_cal" class="sch_wrap">
 			<xf:group id="" class="sch_titleArea" style="display:none;">
-				<xf:group id="" class="fl">
-					<xf:trigger class="btn_sch " id="btn_left" style="" type="button" ev:onclick="scwin.btn_left_onclick">
-						<xf:label><![CDATA[〈]]></xf:label>
-					</xf:trigger>
-				</xf:group>
 				<xf:group tagname="h3" id="grp_yyyyMM" style="">2024년04월</xf:group>
-				<xf:group id="" class="fr">
-					<xf:trigger class="btn_sch" id="btn_right" style="" type="button" ev:onclick="scwin.btn_right_onclick">
-						<xf:label><![CDATA[〉]]></xf:label>
-					</xf:trigger>
-				</xf:group>
 			</xf:group>
 			<xf:group style="" id="" class="sch_table">
 				<xf:group style="" id="" class="sch_thead">
@@ -114,7 +114,7 @@ scwin.onpageload = function() {
 				</xf:group>
 				<xf:group style="" id="" class="sch_tbody">
 					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="" id="cell00" class="sch_td" ev:onclick="scwin.cell_onclick">
+						<xf:group style="" id="cell00" class="sch_td" ev:onclick="scwin.cell_onclick" ev:onmouseout="scwin.cell00_onmouseout">
 							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
 						</xf:group>

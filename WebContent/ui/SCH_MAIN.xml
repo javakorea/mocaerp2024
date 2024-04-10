@@ -106,7 +106,7 @@ scwin.left = null;
 scwin.center = null;
 scwin.right = null;
 scwin.search = function(){
-
+	scwin.setBgColor();
 	scwin.threeCalDraw();
 };
 
@@ -214,9 +214,41 @@ scwin.btn_right_onclick = function(e) {
 	scwin.search();	
 };
 
-scwin.cell_onclick = function(e) {
-	alert(this.getAttribute('yyyyMMdd'));
+scwin.selectedCell = null;
+scwin.setBgColor = function(_obj) {
+	let cellBgColor = '#ffca00';
+    if(scwin.selectedCell){
+    	scwin.selectedCell.setStyle('background-color','');
+    	scwin.hideAdayList();
+    }
+	if(_obj){
+		_obj.setStyle('background-color',cellBgColor);
+		scwin.selectedCell = _obj;
+	}
 };
+scwin.showAdayList = function(_thisObj) {
+	let list = scwin.dayMap[_thisObj.getAttribute('yyyyMMdd')];
+	if(list && list.length > 0){
+		let str = '';
+		for(let i=0; i < list.length; i++){
+			let row = list[i];
+			str += `<br><br><span id="btn_${row.SCH_IDX}" tabindex="${i}" class="fc-title" style="background-color:green;width:360px">${row.SCH_TITLE2}</span>`;
+		}
+		grp_adayList.show();
+		grp_adayList.render.innerHTML =str;
+	}
+};
+
+scwin.hideAdayList = function() {
+	grp_adayList.hide();
+	grp_adayList.render.innerHTML ='';
+};
+
+
+
+
+
+
 
 scwin.display = function(_yyyyMM){
 	return _yyyyMM.substring(0,4)+'년'+_yyyyMM.substring(4,6)+'월';
@@ -229,28 +261,46 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 		</style>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		
-	<xf:group id="" class="sub_contents flex_gvw flex_m" style="background:#f4f5f9"><xf:group id="grp_cal" class="sch_wrap">
-			<xf:group id="" class="sch_titleArea">
-				<xf:group id="" class="fl">
-					<xf:trigger ev:onclick="scwin.btn_left_onclick" style="" id="btn_left" type="button" class="btn_sch ">
-						<xf:label><![CDATA[〈]]></xf:label>
-					</xf:trigger>
-				</xf:group>
-				<xf:group style="" id="grp_yyyyMM" tagname="div" class="sch_tit"><xf:input displayFormatter="scwin.display" ev:onviewchange="scwin.SCH_CURRENTMONTH_onviewchange" style="" id="SCH_CURRENTMONTH"></xf:input></xf:group>
-				<xf:group id="" class="fr">
-					<xf:trigger ev:onclick="scwin.btn_right_onclick" style="" id="btn_right" type="button" class="btn_sch">
-						<xf:label><![CDATA[〉]]></xf:label>
-					</xf:trigger>
-				</xf:group>
-			</xf:group>
-			<xf:group class="swiper mySwiperNew">
-				<xf:group style="height:100%;flex-flow:nowrap;" id="" class="calendarbox flex swiper-wrapper">
-					<w2:wframe src="SCH_WFM_CAL.xml" style="width: 100%;" id="wfm_cal_prev" class="swiper-slide"></w2:wframe>
-					<w2:wframe src="SCH_WFM_CAL.xml" style="width: 100%;" id="wfm_cal" class="swiper-slide"></w2:wframe>
-					<w2:wframe src="SCH_WFM_CAL.xml" style="width: 100%;" id="wfm_cal_next" class="swiper-slide"></w2:wframe>
-				</xf:group>
-			</xf:group>
-		</xf:group></xf:group></body>
 
+		<xf:group id="" class="sub_contents flex_gvw flex_m" style="background:#f4f5f9">
+			<xf:group id="grp_cal" class="sch_wrap">
+				<xf:group id="" class="sch_titleArea">
+					<xf:group id="grp_adayList" 
+					style="display:none;text-align:right;z-index:9999;position: absolute;left: 20px;top: 100px;width: 400px;height: 500px;background-color:#f9fe9d;border-color:lightgrey;border-width:1px;border-style:solid;"></xf:group>
+					<xf:group id="" class="fl">
+						<xf:trigger ev:onclick="scwin.btn_left_onclick" style="" id="btn_left" type="button" class="btn_sch ">
+							<xf:label><![CDATA[〈]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+					<xf:group style="" id="grp_yyyyMM" tagname="div" class="sch_tit">
+						<xf:input displayFormatter="scwin.display" ev:onviewchange="scwin.SCH_CURRENTMONTH_onviewchange" style=""
+							id="SCH_CURRENTMONTH">
+						</xf:input>
+					</xf:group>
+					<xf:group id="" class="fr">
+						<xf:trigger ev:onclick="scwin.btn_right_onclick" style="" id="btn_right" type="button" class="btn_sch">
+							<xf:label><![CDATA[〉]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="swiper mySwiperNew">
+					<xf:group style="height:100%;flex-flow:nowrap;" id="" class="calendarbox flex swiper-wrapper">
+						<w2:wframe src="SCH_WFM_CAL.xml" style="width: 100%;" id="wfm_cal_prev" class="swiper-slide"></w2:wframe>
+						<w2:wframe src="SCH_WFM_CAL.xml" style="width: 100%;" id="wfm_cal" class="swiper-slide"></w2:wframe>
+						<w2:wframe src="SCH_WFM_CAL.xml" style="width: 100%;" id="wfm_cal_next" class="swiper-slide"></w2:wframe>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+		</xf:group>
+
+
+
+
+
+
+
+
+
+		
+	</body>
 </html>
