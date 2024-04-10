@@ -61,7 +61,6 @@
 	//if(scwin.param.data.mode == "read"){
 		dma_content.setJSON(_parentDma);
 		scwin.btn_visible();
-		btn_colorPicker.setStyle("background-color",dma_content.get('SCH_COLOR'));
 		edi_1.setValue(dma_content.get('SCH_CONT'));
 	//}else{
 	//	dfbox.show('');
@@ -85,7 +84,7 @@ scwin.btn_visible = function(){
 	btn_success.show('');
 	btn_adminDel.show('');
 	btn_confirm.hide();
-	dfbox.show('');
+	//dfbox.show(''); --2024-4-10
 }
 /* 일정등록 */
 scwin.btn_confirm_onclick = function(e) {
@@ -218,7 +217,6 @@ scwin.btn_color_onclick = function(e) {
 scwin.colorPop_callback = function(e){
 	if(e.color){
 		dma_content.set("SCH_COLOR", e.color);
-		btn_colorPicker.setStyle("background-color",e.color);
 	}
 };
 
@@ -237,7 +235,7 @@ scwin.display = function(_data){
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="pop_contents flex_gvw flex_m">
+		<xf:group id="" class="pop_contents flex_gvw flex_m" style="background:#eee">
 			<xf:group id="">
 				<xf:group style="display:none;" id="dfbox" class="dfbox">
 					<xf:group style="" id="" class="fl">
@@ -245,14 +243,13 @@ scwin.display = function(_data){
 							ev:onclick="scwin.btn_adminDel_onclick">
 							<xf:label><![CDATA[폐기]]></xf:label>
 						</xf:trigger>
-					<xf:trigger style="background:#076aff;width:27px;" id="btn_colorPicker" type="button" class="btn_color" ev:onclick="scwin.btn_color_onclick" userData2="#5ab4f3">
-						<xf:label><![CDATA[]]>
-						</xf:label>
-					</xf:trigger></xf:group>
+					</xf:group>
 					<xf:group style="" id="grp_btn" class="fr">
-						<xf:trigger class="btn_cm" id="btn_success" nextTabID="" style="display:none" type="button" ev:onclick="scwin.btn_done_onclick">
+						<xf:trigger class="btn_cm" id="btn_success" nextTabID="" style="display:none" type="button"
+							ev:onclick="scwin.btn_done_onclick">
 							<xf:label><![CDATA[완료처리]]></xf:label>
-						</xf:trigger><xf:trigger style="display: none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
+						</xf:trigger>
+						<xf:trigger style="display: none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
 						</xf:trigger>
 						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style=""
@@ -278,21 +275,17 @@ scwin.display = function(_data){
 						<xf:group tagname="col" style=""></xf:group>
 					</xf:group>
 					<xf:group style="" tagname="tr" id="tr_read">
-						<xf:group tagname="td" class="w2tb_td" style="padding: 4px; border:1px solid  #ced4da;">
+						<xf:group tagname="td" class="w2tb_td" style="padding: 4px;    border-top: 0 !important;    border-right: 0 !important;    background: none;    margin-bottom: 7px;">
 							<w2:attributes></w2:attributes>
-<!-- 							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
+							<!-- 							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
 								ref="data:dma_content.SCH_START" renderDiv="true" rightAlign="false" style="width:calc(50% - 5px);width:calc(50% - 2.5px);"
 								class="multi" mandatory="true">
-							</w2:inputCalendar>
-							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
+								</w2:inputCalendar>
+								<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
 								ref="data:dma_content.SCH_END" renderDiv="true" rightAlign="false" style="width:calc(50% - 2.5px);margin-right:0;" class="multi" mandatory="true">
-							</w2:inputCalendar> -->
-							
-							<xf:input displayFormatter="scwin.display" style="height:40px;font-size:24px;background-color:#d4eea9"
-								id="ipt_day" ref="data:dma_content.SCH_START" readOnly="true">
-							</xf:input>
-						
-													
+								</w2:inputCalendar> -->
+							<w2:textbox id="" label="" style="" tagname="span" class="fl sch_spa_view fa fa-calendar-o"></w2:textbox>
+							<w2:textbox class="ipt_day" displayFormatter="scwin.display" ref="data:dma_content.SCH_START" id="ipt_day" label="" style="" tagname="span"></w2:textbox>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_createDt" style="display:none;">
@@ -306,11 +299,12 @@ scwin.display = function(_data){
 					<xf:group tagname="tr" style="display:none;" id="tr_writer">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_content.SCH_WRITER" style="width:100%;">
+							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_content.SCH_WRITER"
+								style="width:100%;">
 							</xf:input>
 						</xf:group>
 					</xf:group>
-					<xf:group tagname="tr" style="display:none;"  id="tr_title">
+					<xf:group tagname="tr" style="display:none;" id="tr_title">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:input class="req" id="ibx_boardTitle" placeholder="" ref="data:dma_content.SCH_TITLE" style="width:100%;"></xf:input>
@@ -322,9 +316,11 @@ scwin.display = function(_data){
 				<xf:group id="" style="" class="edi_btn">
 
 				</xf:group>
-				<xf:textarea id="edi_1" style="height:100%;background-color:#d4eea9" ref="data:dma_content.SCH_CONT" escape="false" readOnly="true"></xf:textarea>
+				<xf:textarea id="edi_1" class="sch_view_cont" style="height:100%" ref="data:dma_content.SCH_CONT" escape="false"
+					readOnly="true">
+				</xf:textarea>
 			</xf:group>
 		</xf:group>
-
+		
 	</body>
 </html>

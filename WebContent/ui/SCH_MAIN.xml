@@ -259,11 +259,9 @@ scwin.popupAdayListReg  = function() {
 };
 scwin.저장  = function() {
 	btn_adayListReg.setLabel('저장');
-	btn_adayListReg.setStyle('background-color','#4545b9');
 };
 scwin.등록  = function() {
 	btn_adayListReg.setLabel('등록');
-	btn_adayListReg.setStyle('background-color','#ec7171');
 };
 
 
@@ -296,15 +294,26 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 			<xf:group id="grp_cal" class="sch_wrap">
 				<xf:group id="" class="sch_titleArea">
 					<xf:group id="grp_adayList" 
-					style="display:none;text-align:right;z-index:9999;position: absolute;left: 0px;top: 0px;width: 90%;height:100%;bottom:30px;background-color:#f9fe9d;border-color:lightgrey;border-width:1px;border-style:solid;">
-						<xf:group id="" class="fl" style="height:100%">
-							<xf:trigger ev:onclick="scwin.popupAdayListClose" style="width:60px;height:50%" id="btn_adayListClose" type="button" class="btn_sch ">
+					style="" class="sch_detail_wrap">
+						<xf:group id="" class="fl btn_list" style="height:100%">
+							<xf:trigger ev:onclick="scwin.popupAdayListClose" style="" id="btn_adayListClose" type="button" class="btn_schLeft close" >
 								<xf:label><![CDATA[닫기]]></xf:label>
 							</xf:trigger>
-							<br></br>
-							<xf:trigger id="btn_adayListReg" ev:onclick="scwin.popupAdayListReg" style="width:60px;height:50%;background-color:#ec7171"  type="button" class="btn_sch ">
+							<xf:trigger id="btn_adayListReg" ev:onclick="scwin.popupAdayListReg" style=""  type="button" class="btn_schLeft save" >
 								<xf:label><![CDATA[등록]]></xf:label>
-							</xf:trigger>							
+							</xf:trigger>
+							<xf:trigger id="btn_success" ev:onclick="scwin.popupAdayListReg" style=""  type="button" class="btn_schLeft success" >
+								<xf:label><![CDATA[완료취소]]></xf:label>
+							</xf:trigger>
+							<xf:trigger id="btn_del" ev:onclick="scwin.popupAdayListReg" style=""  type="button" class="btn_schLeft del" >
+								<xf:label><![CDATA[삭제]]></xf:label>
+							</xf:trigger>
+							<xf:trigger id="btn_update" ev:onclick="scwin.popupAdayListReg" style=""  type="button" class="btn_schLeft save" >
+								<xf:label><![CDATA[수정]]></xf:label>
+							</xf:trigger>
+							<xf:trigger id="btn_deladmin" ev:onclick="scwin.popupAdayListReg" style=""  type="button" class="btn_schLeft del" >
+								<xf:label><![CDATA[폐기]]></xf:label>
+							</xf:trigger>						
 						</xf:group>
 						<xf:group style="text-align:left;display: block;font-size: 24px;height:100%;" id="grp_list" tagname="div" class="">
 							<w2:wframe src="" style="width: 100%;height:100%;" id="wfm_pop" class=""></w2:wframe>

@@ -159,7 +159,7 @@ export default {
       "@value": "false"
     },
     "stylesheet": {
-      "@earlyImportList": "/cm/base.css",
+      "@earlyImportList": "/cm/base.css,/css/font-awesome.min.css",
       "@enable": "true",
       "@import": "link",
       "@value": "stylesheet_ext.css"

@@ -86,7 +86,7 @@ scwin.btn_item_onclick = function () {
 				<xf:group style="" id="dfbox" class="dfbox">
 					<w2:generator style="" id="gen_item" class="" tagname="ul">
 						<xf:group id="" style="" tagname="li">
-							<xf:trigger style="font-size:18px" id="btn_item" type="button" class="btn_cm red"
+							<xf:trigger style="font-size:18px" id="btn_item" type="button" class="mb10 sch_list"
 								ev:onclick="scwin.btn_item_onclick">
 								<xf:label><![CDATA[폐기]]></xf:label>
 							</xf:trigger>
