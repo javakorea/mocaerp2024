@@ -235,7 +235,7 @@ scwin.display = function(_data){
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="pop_contents flex_gvw flex_m" style="background:#eee">
+		<xf:group id="" class="pop_contents flex_gvw flex_m" style="background:#f4f5f9">
 			<xf:group id="">
 				<xf:group style="display:none;" id="dfbox" class="dfbox">
 					<xf:group style="" id="" class="fl">
@@ -266,7 +266,7 @@ scwin.display = function(_data){
 					</xf:group>
 				</xf:group>
 			</xf:group>
-			<xf:group class="tbbox" id="tbl_search" style="">
+			<xf:group class="tbbox" id="tbl_search" style="border-bottom: 2px solid #333;">
 				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
 					<w2:attributes>
 						<w2:summary></w2:summary>
@@ -316,7 +316,7 @@ scwin.display = function(_data){
 				<xf:group id="" style="" class="edi_btn">
 
 				</xf:group>
-				<xf:textarea id="edi_1" class="sch_view_cont" style="height:100%" ref="data:dma_content.SCH_CONT" escape="false"
+				<xf:textarea id="edi_1" class="sch_view_cont read" style="height:100%" ref="data:dma_content.SCH_CONT" escape="false"
 					readOnly="true">
 				</xf:textarea>
 			</xf:group>

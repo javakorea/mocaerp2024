@@ -225,7 +225,7 @@ scwin.display = function(_data){
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="pop_contents flex_gvw flex_m">
+		<xf:group id="" class="pop_contents flex_gvw flex_m" style="background:#f4f5f9">
 			<xf:group id="">
 				<xf:group style="display:none;" id="dfbox" class="dfbox">
 					<xf:group style="" id="" class="fl">
@@ -266,7 +266,7 @@ scwin.display = function(_data){
 						<xf:group tagname="col" style=""></xf:group>
 					</xf:group>
 					<xf:group style="" tagname="tr" id="tr_read">
-						<xf:group tagname="td" class="w2tb_td" style="padding: 4px; border:1px solid  #ced4da;">
+						<xf:group tagname="td" class="w2tb_td" style="padding: 4px;border:0 !important;border-radius:10px;">
 							<w2:attributes></w2:attributes>
 <!-- 							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
 								ref="data:dma_content.SCH_START" renderDiv="true" rightAlign="false" style="width:calc(50% - 5px);width:calc(50% - 2.5px);"
@@ -275,8 +275,8 @@ scwin.display = function(_data){
 							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
 								ref="data:dma_content.SCH_END" renderDiv="true" rightAlign="false" style="width:calc(50% - 2.5px);margin-right:0;" class="multi" mandatory="true">
 							</w2:inputCalendar> -->
-							
-							<xf:input displayFormatter="scwin.display" style="height:40px;font-size:24px"
+							<w2:textbox id="" label="" style="" tagname="span" class="fl sch_spa_view fa fa-calendar-o"></w2:textbox>
+							<xf:input displayFormatter="scwin.display" style="height: 40px;font-size: 18px;width: calc(100% - 40px) !important;border:0;"
 								id="ipt_day" ref="" >
 							</xf:input>
 						
@@ -310,7 +310,7 @@ scwin.display = function(_data){
 				<xf:group id="" style="" class="edi_btn">
 
 				</xf:group>
-				<xf:textarea id="edi_1" style="height:100%;" ref="data:dma_content.SCH_CONT" escape="false"></xf:textarea>
+				<xf:textarea id="edi_1" style="height:100%;border:0" ref="data:dma_content.SCH_CONT" escape="false" class="sch_view_cont"></xf:textarea>
 			</xf:group>
 		</xf:group>
 
