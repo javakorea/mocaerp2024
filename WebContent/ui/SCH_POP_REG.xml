@@ -55,21 +55,9 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-	let _parentDma = $p.parent().scwin.selectedSchObj;
-	//scwin.param = com.data.getParameter();
-	//let _parentDma = $p.parent().dlt_list.getMatchedJSON('SCH_IDX',scwin.param.data.schInfo.SCH_IDX)[0];
-	//if(scwin.param.data.mode == "read"){
-		dma_content.setJSON(_parentDma);
-		scwin.btn_visible();
-		btn_colorPicker.setStyle("background-color",dma_content.get('SCH_COLOR'));
-		edi_1.setValue(dma_content.get('SCH_CONT'));
-	//}else{
-	//	dfbox.show('');
-	//	dma_content.set("SCH_COLOR","#076aff");
-	//	dma_content.set("SCH_WRITER",scwin.param.data.writer);
-	//}
-	//dma_content.set("SCH_START",scwin.param.data.schInfo.START);
-	//dma_content.set("SCH_END",scwin.param.data.schInfo.END);
+	let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
+	ipt_day.setValue(day);
+	edi_1.focus();
 };
 
 scwin.btn_visible = function(){
@@ -123,7 +111,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 	
 /* 팝업닫기 */
 scwin.btn_cancel_onclick = function(e) {
-	$p.parent().scwin.popupSchVieClose();
+	$p.parent().scwin.popupSchRegClose();
 };
 
 /* 일정 논리삭제 */
@@ -225,8 +213,8 @@ scwin.colorPop_callback = function(e){
 scwin.display = function(_data){
 	if(_data){
 		let yyyyMMdd = _data.substring(0,10).replace(/-/g,'');
-		yyyyMMdd = $p.parent().scwin.getDay(yyyyMMdd);
-		return WebSquare.date.getFormattedDate(yyyyMMdd,'yyyy년MM월dd일(EEE)');
+		let str = WebSquare.date.getFormattedDate(yyyyMMdd,'yyyy년MM월dd일(EEE)');
+		return str;
 	}else{
 		return "";
 	}
@@ -288,8 +276,8 @@ scwin.display = function(_data){
 								ref="data:dma_content.SCH_END" renderDiv="true" rightAlign="false" style="width:calc(50% - 2.5px);margin-right:0;" class="multi" mandatory="true">
 							</w2:inputCalendar> -->
 							
-							<xf:input displayFormatter="scwin.display" style="height:40px;font-size:24px;background-color:#d4eea9"
-								id="ipt_day" ref="data:dma_content.SCH_START" readOnly="true">
+							<xf:input displayFormatter="scwin.display" style="height:40px;font-size:24px"
+								id="ipt_day" ref="" >
 							</xf:input>
 						
 													
@@ -322,7 +310,7 @@ scwin.display = function(_data){
 				<xf:group id="" style="" class="edi_btn">
 
 				</xf:group>
-				<xf:textarea id="edi_1" style="height:100%;background-color:#d4eea9" ref="data:dma_content.SCH_CONT" escape="false" readOnly="true"></xf:textarea>
+				<xf:textarea id="edi_1" style="height:100%;" ref="data:dma_content.SCH_CONT" escape="false"></xf:textarea>
 			</xf:group>
 		</xf:group>
 

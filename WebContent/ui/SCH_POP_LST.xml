@@ -67,8 +67,10 @@
 			btn_item.setUserData('SCH_IDX',row.SCH_IDX);
 			btn_item.setUserData('SCH_OBJ',row);
 		}
-		$p.parent().grp_adayList.show();
+	}else{
+		$p.parent().scwin.popupAdayListReg();
 	}
+	$p.parent().grp_adayList.show();
 
 };
 scwin.btn_item_onclick = function () {
