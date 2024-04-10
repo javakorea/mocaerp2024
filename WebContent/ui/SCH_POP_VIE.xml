@@ -95,7 +95,7 @@ scwin.btn_confirm_onclick = function(e) {
 			dma_content.set("COMMON_STATUS", "I");
 
 			let _current = dma_content.getJSON().SCH_START.substr(0,6);
-			debugger;
+			
 			dma_content.set("SCH_CONT", edi_1.getValue());
 			dma_content.set("SCH_TITLE",edi_1.getValue().substring(0,20));
 			dma_content.set("SCH_CURRENTMONTH",_current);

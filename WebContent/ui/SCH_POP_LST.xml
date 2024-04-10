@@ -55,7 +55,6 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-	debugger;
 	let selectedCell = $p.parent().scwin.selectedCell;
 	let list = $p.parent().scwin.dayMap[selectedCell.getAttribute('yyyyMMdd')];
 	if(list && list.length > 0){
@@ -64,7 +63,6 @@
 			let row = list[i];
 			let tmpIdx = gen_item.insertChild();
 			var btn_item = gen_item.getChild(tmpIdx, "btn_item");
-			debugger;
 			btn_item.setValue(row.SCH_TITLE2);
 			btn_item.setUserData('SCH_IDX',row.SCH_IDX);
 			btn_item.setUserData('SCH_OBJ',row);
