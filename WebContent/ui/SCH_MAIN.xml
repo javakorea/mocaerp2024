@@ -235,13 +235,15 @@ scwin.showAdayList = function(_thisObj) {
 			str += `<br><br><span id="btn_${row.SCH_IDX}" tabindex="${i}" class="fc-title" style="background-color:green;width:360px">${row.SCH_TITLE2}</span>`;
 		}
 		grp_adayList.show();
-		grp_adayList.render.innerHTML =str;
+		grp_list.render.innerHTML =str;
 	}
 };
-
 scwin.hideAdayList = function() {
 	grp_adayList.hide();
-	grp_adayList.render.innerHTML ='';
+	grp_list.render.innerHTML ='';
+};
+scwin.popupAdayList = function() {
+	scwin.hideAdayList();
 };
 
 
@@ -266,7 +268,16 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 			<xf:group id="grp_cal" class="sch_wrap">
 				<xf:group id="" class="sch_titleArea">
 					<xf:group id="grp_adayList" 
-					style="display:none;text-align:right;z-index:9999;position: absolute;left: 20px;top: 100px;width: 400px;height: 500px;background-color:#f9fe9d;border-color:lightgrey;border-width:1px;border-style:solid;"></xf:group>
+					style="display:none;text-align:right;z-index:9999;position: absolute;left: 0px;top: 50px;width: 90%;bottom:50px;background-color:#f9fe9d;border-color:lightgrey;border-width:1px;border-style:solid;">
+						<xf:group id="" class="fl" style="height:100%">
+							<xf:trigger ev:onclick="scwin.popupAdayList" style="width:60px;height:100%" id="btn_adayListClose" type="button" class="btn_sch ">
+								<xf:label><![CDATA[닫기]]></xf:label>
+							</xf:trigger>
+						</xf:group>
+						<xf:group style="text-align:left;display: block;font-size: 24px;" id="grp_list" tagname="div" class="">
+
+						</xf:group>
+					</xf:group>
 					<xf:group id="" class="fl">
 						<xf:trigger ev:onclick="scwin.btn_left_onclick" style="" id="btn_left" type="button" class="btn_sch ">
 							<xf:label><![CDATA[〈]]></xf:label>
