@@ -233,11 +233,21 @@ scwin.hideAdayList = function() {
 	grp_adayList.hide();
 	wfm_pop.setSrc('');
 };
-scwin.popupAdayList = function() {
-	scwin.hideAdayList();
+scwin.popupAdayListClose = function() {
+	if(scwin.selectedSchObj){
+		scwin.popupSchVieClose();
+	}else{
+		scwin.hideAdayList();	
+	}
 };
 
 
+
+scwin.selectedSchObj = null;
+scwin.popupSchVieClose = function() {
+	wfm_pop.setSrc('/ui/SCH_POP_LST.xml');
+	scwin.selectedSchObj = null;
+};
 
 
 
@@ -261,7 +271,7 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 					<xf:group id="grp_adayList" 
 					style="display:none;text-align:right;z-index:9999;position: absolute;left: 0px;top: 0px;width: 90%;height:100%;bottom:30px;background-color:#f9fe9d;border-color:lightgrey;border-width:1px;border-style:solid;">
 						<xf:group id="" class="fl" style="height:100%">
-							<xf:trigger ev:onclick="scwin.popupAdayList" style="width:60px;height:100%" id="btn_adayListClose" type="button" class="btn_sch ">
+							<xf:trigger ev:onclick="scwin.popupAdayListClose" style="width:60px;height:100%" id="btn_adayListClose" type="button" class="btn_sch ">
 								<xf:label><![CDATA[닫기]]></xf:label>
 							</xf:trigger>
 						</xf:group>

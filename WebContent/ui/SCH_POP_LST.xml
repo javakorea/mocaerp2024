@@ -64,14 +64,18 @@
 			let row = list[i];
 			let tmpIdx = gen_item.insertChild();
 			var btn_item = gen_item.getChild(tmpIdx, "btn_item");
+			debugger;
 			btn_item.setValue(row.SCH_TITLE2);
+			btn_item.setUserData('SCH_IDX',row.SCH_IDX);
+			btn_item.setUserData('SCH_OBJ',row);
 		}
 		$p.parent().grp_adayList.show();
 	}
 
 };
 scwin.btn_item_onclick = function () {
-	debugger;
+	$p.parent().scwin.selectedSchObj = this.getUserData('SCH_OBJ');
+	$p.parent().wfm_pop.setSrc('/ui/SCH_POP_VIE.xml');
 };
 
 ]]></script>
