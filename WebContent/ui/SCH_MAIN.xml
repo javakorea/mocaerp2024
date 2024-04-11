@@ -166,8 +166,8 @@ scwin.threeCalDraw = function(){
 			scwin.dayMap[_key] = aDayList;
 		}
 		scwin.draw(yyyyMM,scwin.center.scope);
-		//scwin.draw(yyyyMM_prev,scwin.left.scope);
-		//scwin.draw(yyyyMM_next,scwin.right.scope);
+		scwin.draw(yyyyMM_prev,scwin.left.scope);
+		scwin.draw(yyyyMM_next,scwin.right.scope);
 	};
 }
 
