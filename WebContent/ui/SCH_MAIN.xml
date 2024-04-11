@@ -356,12 +356,14 @@ scwin.btn_menu_onclick = function() {
 						</xf:group>
 					</xf:group>
 					<xf:group id="" class="fl">
-						<xf:trigger ev:onclick="scwin.btn_left_onclick" style="" id="btn_left" type="button" class="btn_sch ">
-							<xf:label><![CDATA[〈]]></xf:label>
-						</xf:trigger>
-						<w2:anchor class="btn_toggle_menu mo" id="btn_menu" name="" outerDiv="false" style="" ev:onclick="scwin.btn_menu_onclick">
+
+						<w2:anchor class="btn_toggle_menu mo" id="btn_menu" name="" outerDiv="false" style="margin-right:5px" ev:onclick="scwin.btn_menu_onclick">
 							<xf:label><![CDATA[slide]]></xf:label>
 						</w2:anchor>
+						
+						<xf:trigger ev:onclick="scwin.btn_left_onclick" style="" id="btn_left" type="button" class="btn_sch mo">
+							<xf:label><![CDATA[〈]]></xf:label>
+						</xf:trigger>						
 					</xf:group>
 					<xf:group style="" id="grp_yyyyMM" tagname="div" class="sch_tit">
 						<xf:input displayFormatter="scwin.display" ev:onviewchange="scwin.SCH_CURRENTMONTH_onviewchange" style=""
