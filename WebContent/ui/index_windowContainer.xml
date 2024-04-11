@@ -195,7 +195,7 @@ scwin.pushStateMain = function() {
 		<style type="text/css"><![CDATA[ ]]></style>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group class="wrap show_menu" id="grp_wrap" style="">
+		<xf:group class="wrap show_menu no_header" id="grp_wrap" style="">
 			<w2:wframe class="header" id="wfm_header" scope="true" src="header.xml" style=""></w2:wframe>
 			<xf:group class="container" id="" style="">
 				<xf:group style="" id="" class="contents">

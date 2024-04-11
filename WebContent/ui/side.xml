@@ -140,7 +140,7 @@
 		</xf:model>
 		<script type="text/javascript" lazy="false"><![CDATA[
 scwin.onpageload = function () {
-	com.win.openMenu('스케줄러', '/ui/schedule.xml', '1100', null, {isHistory: false, closable: true});
+	com.win.openMenu('공유달력', '/ui/SCH_MAIN.xml', '1100', null, {isHistory: false, closable: true});
 };
 
 scwin.getInitData = function () {

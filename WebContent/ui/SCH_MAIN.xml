@@ -314,6 +314,11 @@ scwin.display = function(_yyyyMM){
 scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 	scwin.search();	
 };
+
+scwin.btn_menu_onclick = function() {
+	$p.top().grp_wrap.toggleClass("show_menu");
+	btn_menu.toggleClass("on");
+};
 ]]></script>
 		<style>
 		</style>
@@ -354,6 +359,9 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 						<xf:trigger ev:onclick="scwin.btn_left_onclick" style="" id="btn_left" type="button" class="btn_sch ">
 							<xf:label><![CDATA[〈]]></xf:label>
 						</xf:trigger>
+						<w2:anchor class="btn_toggle_menu mo" id="btn_menu" name="" outerDiv="false" style="" ev:onclick="scwin.btn_menu_onclick">
+							<xf:label><![CDATA[slide]]></xf:label>
+						</w2:anchor>
 					</xf:group>
 					<xf:group style="" id="grp_yyyyMM" tagname="div" class="sch_tit">
 						<xf:input displayFormatter="scwin.display" ev:onviewchange="scwin.SCH_CURRENTMONTH_onviewchange" style=""

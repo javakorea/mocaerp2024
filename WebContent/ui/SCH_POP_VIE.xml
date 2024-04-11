@@ -286,7 +286,8 @@ scwin.display = function(_data){
 						<xf:group tagname="col" style=""></xf:group>
 					</xf:group>
 					<xf:group style="" tagname="tr" id="tr_read">
-						<xf:group tagname="td" class="w2tb_td" style="padding: 4px;    border-top: 0 !important;    border-right: 0 !important;    background: none;    margin-bottom: 7px;">
+						<xf:group tagname="td" class="w2tb_td"
+							style="padding: 4px;    border-top: 0 !important;    border-right: 0 !important;    background: none;    margin-bottom: 7px;">
 							<w2:attributes></w2:attributes>
 							<!-- 							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
 								ref="data:dma_content.SCH_START" renderDiv="true" rightAlign="false" style="width:calc(50% - 5px);width:calc(50% - 2.5px);"
@@ -296,7 +297,9 @@ scwin.display = function(_data){
 								ref="data:dma_content.SCH_END" renderDiv="true" rightAlign="false" style="width:calc(50% - 2.5px);margin-right:0;" class="multi" mandatory="true">
 								</w2:inputCalendar> -->
 							<w2:textbox id="" label="" style="" tagname="span" class="fl sch_spa_view fa fa-calendar-o"></w2:textbox>
-							<w2:textbox class="ipt_day" displayFormatter="scwin.display" ref="data:dma_content.SCH_START" id="ipt_day" label="" style="" tagname="span"></w2:textbox>
+							<w2:textbox class="ipt_day" displayFormatter="scwin.display" ref="data:dma_content.SCH_START" id="ipt_day"
+								label="" style="" tagname="span">
+							</w2:textbox>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_createDt" style="display:none;">

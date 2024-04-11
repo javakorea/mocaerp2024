@@ -1002,6 +1002,12 @@ input[type="file"]{cursor:pointer;}
 .gnb_menu > li.on > h2 > a, .gnb_menu > li > h2 > a:hover{color:#fff;}
 .gnb_menu > li.on > h2 > a:before, .gnb_menu > li > h2 > a:hover:before{content:'';position:absolute;left:8px;top:43%;width:6px;height:6px;margin-left:-3px;border-radius:100%;background:#fff;}
 
+.btn_toggle_menu.mo{display: inline-block; position: relative; width: 36px; height: 36px; font-size: 0px; line-height: 0px; vertical-align: top; background-color: #4c4c4c; border-radius: 8px; margin-left: 5px;}
+.btn_toggle_menu.mo:after{content:"";position:absolute;left:50%;top:50%;width:20px;height:20px;margin-top:-10px;margin-left:-10px;background:url(/cm/images/btn_toggle_menu.png) center center no-repeat}
+.btn_toggle_menu.mo:hover:after{animation:btn_toggle_menu 1s forwards}
+.wrap.no_header .header, .wrap.no_header .win_c .w2windowContainer_windowToolbar_top{display:none;}
+.wrap.no_header .container, .wrap.no_header .side, .wrap.no_header .win_c .w2windowContainer_window_top{top:0}
+
 .container.widget_bg{background-color:#EFF1F3 ;}
 
 ._flex{display: flex;}
@@ -1508,7 +1514,7 @@ input[type="file"]{cursor:pointer;}
 .fc-unthemed .fc-row.fc-week tbody td.fc-today{opacity:1 !important;background-color:rgb(255, 128, 0) !important;box-shadow:0 0 0 3px rgba(0,0,0,0.2) inset;}
 
 .grp_fromto {width: calc(50% - 2.5px) !important;  float:left; position:relative;}
-.sch_fromto{font-size: 24px !important;   height: 40px;   text-align: center; width:100%; border:1px solid #dde1e5 !important}}
+.sch_fromto{font-size: 24px !important;   height: 40px;   text-align: center; width:100%; border:1px solid #dde1e5 !important}
 .sch_fromto.w2input_readonly{ border:1px solid #dde1e5 !important;}
 .cm_datePicker {position:absolute; background:rgba(0,0,0,0.5); left:0; top:0; bottom:0; right:0}
 .cm_datePicker .w2spinPicker{position:relative; width: 95%; height: 200px; z-index:1; background:#fff;top: calc(50% - 100px);  box-sizing: border-box; font-size:16px; margin:0 auto; border-radius:15px;}
