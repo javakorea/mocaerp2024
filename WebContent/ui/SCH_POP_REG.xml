@@ -10,22 +10,43 @@
 				<data xmlns="" />
 			</xf:instance>
 			<w2:dataCollection baseNode="map">
+                <w2:dataList baseNode="list" repeatNode="map" id="dlt_gubunList" saveRemovedData="true">
+                    <w2:columnInfo>
+                        <w2:column id="CODE" name="CODE" dataType="text" length=""/>
+                        <w2:column id="DATA" name="DATA" dataType="text" length=""/>
+                    </w2:columnInfo>
+                    <w2:data use="true">
+                        <w2:row>
+                            <CODE><![CDATA[1]]></CODE>
+                            <DATA><![CDATA[개인일정]]></DATA>
+                        </w2:row>
+                        <w2:row>
+                            <CODE><![CDATA[2]]></CODE>
+                            <DATA><![CDATA[업무일정]]></DATA>
+                        </w2:row>
+                    </w2:data>
+                </w2:dataList>			
 				<w2:dataMap baseNode="map" id="dma_content">
 					<w2:keyInfo>
-						<w2:key id="SCH_IDX" name="SCH_IDX" dataType="text"></w2:key>
-						<w2:key id="SCH_TITLE" name="SCH_TITLE" dataType="text"></w2:key>
-						<w2:key id="SCH_CONT" name="SCH_CONT" dataType="text"></w2:key>
+						<!-- key -->
 						<w2:key id="SCH_WRITER" name="SCH_WRITER" dataType="text"></w2:key>
-
+						<w2:key id="SCH_START" name="SCH_START" dataType="text"></w2:key>
+						<w2:key id="SCH_IDX" name="SCH_IDX" dataType="text"></w2:key>
+						
+						<!-- contents -->
+						<w2:key id="SCH_TITLE" name="SCH_TITLE" dataType="text"></w2:key>
+						<w2:key id="SCH_CONT" name="SCH_CONT" dataType="text"></w2:key>						
 						<w2:key id="SCH_CREATE_DTTM" name="SCH_CREATE_DTTM" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
-						<w2:key id="SCH_START" name="SCH_START" dataType="text"></w2:key>
+
+						<!-- etc -->
+						<w2:key id="SCH_START_TIME" name="SCH_START_TIME" dataType="text"></w2:key>
 						<w2:key id="SCH_END" name="SCH_END" dataType="text"></w2:key>
+						<w2:key id="SCH_END_TIME" name="SCH_END_TIME" dataType="text"></w2:key>
 						<w2:key id="SCH_COLOR" name="SCH_COLOR" dataType="text"></w2:key>
 						<w2:key id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:key>
-						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
-						<w2:key id="STATUS" name="STATUS" dataType="text"></w2:key>
 						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
+						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
 						
 						<!-- 공통부 -->
 						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
@@ -79,14 +100,23 @@ scwin.btn_visible = function(){
 scwin.btn_confirm_onclick = function(e) {
 	com.win.confirm($p, '일정을 등록하시겠습니까?', function(e){
 		if(e.clickValue){
-			dma_content.set("COMMON_MASTER_QUERY"	, "M.insertSchedule");
+			dma_content.set("COMMON_MASTER_QUERY"	, "M.INS_SCHEDULE");
 			dma_content.set("COMMON_STATUS", "I");
 
-			let _current = dma_content.getJSON().SCH_START.substr(0,6);
-			
-			dma_content.set("SCH_CONT", edi_1.getValue());
+			/* key */
+			let _id = JSON.parse(sessionStorage.getItem('loginInfo')).id;
+			dma_content.set("SCH_WRITER", _id);
+			let day = ipt_day.getValue();
+			dma_content.set("SCH_START", day);
+
+			/* contents */
 			dma_content.set("SCH_TITLE",edi_1.getValue().substring(0,20));
+			dma_content.set("SCH_CONT", edi_1.getValue());
+			let _current = day.substr(0,6);
 			dma_content.set("SCH_CURRENTMONTH",_current);
+			let _color = rdo_gubunYn.getValue();
+			dma_content.set("SCH_COLOR",_color);
+			
 			com.sbm.execute(sbm_commonTran);
 		}
 	});
@@ -98,12 +128,18 @@ scwin.sbm_commonTran_submitdone = function(e) {
 	if(_j.status == "S"){
 		let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
 		if(request.COMMON_STATUS == "D" || request.SCH_DELYN == "Y"){//물리삭제 또는 논리삭제
-			com.win.closePopup({"message":"삭제가 완료되었습니다."});
+			com.win.alert($p, '삭제되었습니다.', function(e){
+				$p.parent().scwin.hideAdayList();
+			});			
 		}else if(request.COMMON_STATUS == "I"){
-			com.win.closePopup({"message":"등록이 완료되었습니다."});
+			com.win.alert($p, '등록되었습니다.', function(e){
+				$p.parent().scwin.hideAdayList();
+			});
 		}else{
 			if(!scwin.autoYn ||scwin.autoYn == "N"){
-				com.win.closePopup({"message":"수정이 완료되었습니다."});
+				com.win.alert($p, '수정되었습니다.', function(e){
+					$p.parent().scwin.hideAdayList();
+				});
 			}
 		}
 	}
@@ -268,19 +304,19 @@ scwin.display = function(_data){
 					<xf:group style="" tagname="tr" id="tr_read">
 						<xf:group tagname="td" class="w2tb_td" style="padding: 4px;border:0 !important;border-radius:10px;">
 							<w2:attributes></w2:attributes>
-<!-- 							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
-								ref="data:dma_content.SCH_START" renderDiv="true" rightAlign="false" style="width:calc(50% - 5px);width:calc(50% - 2.5px);"
-								class="multi" mandatory="true">
-							</w2:inputCalendar>
-							<w2:inputCalendar calendarValueType="yearMonthDateTimeSec" focusOnDateSelect="false" footerDiv="true" id=""
-								ref="data:dma_content.SCH_END" renderDiv="true" rightAlign="false" style="width:calc(50% - 2.5px);margin-right:0;" class="multi" mandatory="true">
-							</w2:inputCalendar> -->
 							<w2:textbox id="" label="" style="" tagname="span" class="fl sch_spa_view fa fa-calendar-o"></w2:textbox>
 							<xf:input displayFormatter="scwin.display" style="height: 40px;font-size: 18px;width: calc(100% - 40px) !important;border:0;"
 								id="ipt_day" ref="" >
 							</xf:input>
-						
-													
+							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref=""
+								renderType="radiogroup" rows="1" selectedIndex="0" style="color:gray" >
+								<xf:choices>
+									<xf:itemset nodeset="data:dlt_gubunList">
+										<xf:label ref="DATA"></xf:label>
+										<xf:value ref="CODE"></xf:value>
+									</xf:itemset>
+								</xf:choices>
+							</xf:select1>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_createDt" style="display:none;">

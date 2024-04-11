@@ -114,7 +114,7 @@ scwin.cell_onclick = function() {
 				</xf:group>
 				<xf:group style="" id="" class="sch_tbody">
 					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="" id="cell00" class="sch_td" ev:onclick="scwin.cell_onclick" ev:onmouseout="scwin.cell00_onmouseout">
+						<xf:group style="" id="cell00" class="sch_td" ev:onclick="scwin.cell_onclick">
 							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
 						</xf:group>

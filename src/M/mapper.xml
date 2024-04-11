@@ -264,6 +264,82 @@
 		</selectKey>
     </insert>
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <insert id="INS_SCHEDULE" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="SCH_IDX">
+        /*insertT_SCHEDULE*/
+    	INSERT INTO mocaerp.T_SCHEDULE
+		(
+			SCH_WRITER, SCH_START, SCH_IDX, 
+			SCH_TITLE, SCH_CONT, SCH_CREATE_DTTM, SCH_CURRENTMONTH, 
+			SCH_START_TIME, SCH_END, SCH_END_TIME, SCH_COLOR, 
+			SCH_DELYN, SCH_SUCCESSYN, SCH_SENDYN
+		)
+		VALUES(
+			#{SCH_WRITER}, #{SCH_START}, #{SCH_IDX}, 
+			#{SCH_TITLE}, #{SCH_CONT}, CURRENT_TIMESTAMP, #{SCH_CURRENTMONTH}, 
+			'', '', '', '',
+			'N', 'N', 'N'
+		);
+        <selectKey keyProperty="SCH_IDX" resultType="string" order="BEFORE">
+        	/* selectKey in INS_SCHEDULE */
+			SELECT NVL(MAX(SCH_IDX)+1,1) FROM T_SCHEDULE
+			WHERE 1=1
+			AND SCH_WRITER 	= #{SCH_WRITER}
+			AND SCH_START 	= #{SCH_START}
+		</selectKey>
+    </insert>
+    <select id="SEL_SCHEDULELIST" parameterType="java.util.Map" resultType="java.util.HashMap">
+    	/*SEL_SCHEDULELIST*/
+		SELECT
+			SCH_IDX,
+			case
+			    when SCH_SUCCESSYN= 'Y' then CONCAT('✔',SCH_TITLE)		
+			    else SCH_TITLE
+			END AS SCH_TITLE2,
+			SCH_TITLE,
+			SCH_CONT,
+			SCH_WRITER,
+			SCH_CREATE_DTTM,
+			SCH_CURRENTMONTH,
+			SCH_START,
+			
+			SCH_START_TIME,
+			SCH_END,
+			SCH_END_TIME,
+  
+			SCH_COLOR ,
+			SCH_COLOR AS FUL_COLOR,
+			SCH_DELYN,
+			SCH_SENDYN,
+			SCH_SUCCESSYN
+		FROM T_SCHEDULE
+		WHERE 1=1
+		AND SCH_DELYN = 'N'
+		AND (SCH_CURRENTMONTH = #{SCH_CURRENTMONTH_PREV} OR SCH_CURRENTMONTH = #{SCH_CURRENTMONTH} OR SCH_CURRENTMONTH = #{SCH_CURRENTMONTH_NEXT} )
+    </select>
+
+
+
+    
     <update id="updateSchedule" parameterType="java.util.Map">
          /*updateScheduleInfo 스케줄러 수정*/
          UPDATE MT_SCHEDULE SET 

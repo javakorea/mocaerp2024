@@ -68,6 +68,20 @@
 		<w2:publicInfo method="" />
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.yoil = {일요일:0,월요일:1,화요일:2,수요일:3,목요일:4,금요일:5,토요일:6};
 scwin.dayMap = {};
+scwin.getBgColorTag = function(_gubun){
+	if(_gubun == 1){
+		return 'background-color:red;color:white';
+	}else{
+		return 'background-color:blue;color:white';
+	}
+};
+scwin.getBgColor = function(_gubun){
+	if(_gubun == 1){
+		return 'red';
+	}else{
+		return 'blue';
+	}
+};
 scwin.onpageload = function() {
 	let thisMonth = WebSquare.date.getCurrentServerDate('yyyyMM');
 	SCH_CURRENTMONTH.setValue(thisMonth);
@@ -111,11 +125,13 @@ scwin.search = function(){
 };
 
 scwin.getDay = function(day){
-	return WebSquare.date.dateTimeAdd( day, 1, "day" );
+	//return WebSquare.date.dateTimeAdd( day, 1, "day" );
+	return day;
 };
 
 scwin.setDay = function(day){
-	return WebSquare.date.dateTimeAdd( day, -1, "day" );
+	//return WebSquare.date.dateTimeAdd( day, -1, "day" );
+	return day;
 };
 
 
@@ -133,7 +149,7 @@ scwin.threeCalDraw = function(){
 	dma_search.set('SCH_CURRENTMONTH_NEXT',yyyyMM_next);
 
 
-	dma_search.set('COMMON_QUERY',"M.selectScheduleList");
+	dma_search.set('COMMON_QUERY',"M.SEL_SCHEDULELIST");
 	com.sbm.execute(sbm_schdList);
 	scwin.sbm_schdList_submitdone = function(e) {
 		scwin.dayMap = {};
@@ -197,7 +213,9 @@ scwin.draw = function(yyyyMM,_scope) {
 				let str = '';
 				for(let i=0; i < o.length; i++){
 					let aDaySc = o[i];
-					str += "<span class='sch_bar'>"+aDaySc['SCH_TITLE']+"</span>";
+					let _bgColor = aDaySc['SCH_COLOR'];
+					_bgColor = scwin.getBgColorTag(_bgColor);
+					str += `<span class='sch_bar' style='${_bgColor}'>${aDaySc['SCH_TITLE']}</span>`;
 				}
 				_contents.render.innerHTML = str;
 			}else{
@@ -240,6 +258,9 @@ scwin.showAdayList = function(_thisObj) {
 	wfm_pop.setSrc('/ui/SCH_POP_LST.xml');
 };
 scwin.hideAdayList = function() {
+	if(scwin.selectedSchObj){
+		scwin.popupSchVieClose();
+	};	
 	grp_adayList.hide();
 	wfm_pop.setSrc('');
 };
@@ -254,8 +275,15 @@ scwin.popupAdayListClose = function() {
 
 
 scwin.popupAdayListReg  = function() {
-	scwin.저장();
-	wfm_pop.setSrc('/ui/SCH_POP_REG.xml');
+	debugger;
+	if(!this.getLabel || this.getLabel() == '등록'){//등록버튼을 안누르고 등록화면이뜬경우와 누른경우
+		scwin.저장();
+		wfm_pop.setSrc('/ui/SCH_POP_REG.xml');
+	}else if(this.getLabel() == '저장'){
+		wfm_pop.scope.scwin.btn_confirm_onclick();
+	}
+	
+	
 };
 scwin.저장  = function() {
 	btn_adayListReg.setLabel('저장');
