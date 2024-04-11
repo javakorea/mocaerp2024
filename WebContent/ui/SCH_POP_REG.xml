@@ -133,7 +133,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 			});			
 		}else if(request.COMMON_STATUS == "I"){
 			com.win.alert($p, '등록되었습니다.', function(e){
-				$p.parent().scwin.hideAdayList();
+				$p.parent().scwin.hideAdayList(true);
 			});
 		}else{
 			if(!scwin.autoYn ||scwin.autoYn == "N"){

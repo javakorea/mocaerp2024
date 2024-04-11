@@ -62,6 +62,17 @@
 		dma_content.setJSON(_parentDma);
 		scwin.btn_visible();
 		edi_1.setValue(dma_content.get('SCH_CONT'));
+
+		$p.parent().btn_success.setLabel('완료처리');
+		$p.parent().btn_success.show('');
+
+		$p.parent().btn_update.setLabel('수정');
+		$p.parent().btn_update.show('');
+
+		$p.parent().btn_del.setLabel('삭제');
+		$p.parent().btn_del.show('');
+
+
 	//}else{
 	//	dfbox.show('');
 	//	dma_content.set("SCH_COLOR","#076aff");
