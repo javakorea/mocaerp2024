@@ -277,7 +277,7 @@ scwin.popupAdayListClose = function() {
 
 
 scwin.popupAdayListReg  = function() {
-	debugger;
+	
 	if(!this.getLabel || this.getLabel() == '등록'){//등록버튼을 안누르고 등록화면이뜬경우와 누른경우
 		scwin.저장();
 		wfm_pop.setSrc('/ui/SCH_POP_REG.xml');
