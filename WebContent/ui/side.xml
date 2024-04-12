@@ -418,11 +418,17 @@ scwin.acb_search_onviewchange = function (info) {
 scwin.hasFavCode = function (menuCode) {
 	return (dlt_fav.getMatchedIndex("MENU_CD", menuCode, true)).length;
 }
+
+scwin.btn_close_onclick = function() {
+	$p.top().grp_wrap.toggleClass("show_menu");
+};
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group class="grp_tab" id="" style="">
-			<xf:group class="shortcut_box" id="gr_shortcut_box" style="display:none;">
+			<xf:group id="" class="fr btn_area" style="display: none;"><w2:anchor outerDiv="false" name="" style="margin-right:5px" id="btn_close" class="btn_toggle esc mo" ev:onclick="scwin.btn_close_onclick">
+				<xf:label><![CDATA[slide]]></xf:label>
+			</w2:anchor></xf:group><xf:group class="shortcut_box" id="gr_shortcut_box" style="display:none;">
 				<w2:anchor class="btn_all_search" id="btn_allSearch" outerDiv="false" style="">
 					<xf:label><![CDATA[메뉴검색]]></xf:label>
 				</w2:anchor>

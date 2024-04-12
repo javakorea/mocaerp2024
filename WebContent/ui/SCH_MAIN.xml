@@ -70,16 +70,16 @@
 scwin.dayMap = {};
 scwin.getBgColorTag = function(_gubun){
 	if(_gubun == 1){
-		return 'background-color:red;color:white';
+		return 'background-color:#ffc25f;color:white';
 	}else{
-		return 'background-color:blue;color:white';
+		return 'background-color:#8686f9;color:white';
 	}
 };
 scwin.getBgColor = function(_gubun){
 	if(_gubun == 1){
-		return 'red';
+		return '#ffc25f';
 	}else{
-		return 'blue';
+		return '#8686f9';
 	}
 };
 scwin.onpageload = function() {
@@ -332,13 +332,13 @@ scwin.btn_menu_onclick = function() {
 					style="" class="sch_detail_wrap">
 						<xf:group id="" class="fl btn_list" style="height:100%">
 
-							<xf:trigger id="btn_adayListReg" ev:onclick="scwin.popupAdayListReg" style=""  type="button" class="btn_schLeft save" >
+							<xf:trigger id="btn_adayListReg" ev:onclick="scwin.popupAdayListReg" style=""  type="button" class="btn_schLeft write" >
 								<xf:label><![CDATA[등록]]></xf:label>
 							</xf:trigger>
 							<xf:trigger id="btn_success" ev:onclick="scwin.popupAdayListReg" style="display:none;"  type="button" class="btn_schLeft success" >
 								<xf:label><![CDATA[완료취소]]></xf:label>
 							</xf:trigger>
-					<xf:trigger ev:onclick="scwin.popupAdayListClose" style="margin:20px;width:40px;height:200px;background-color:#dfdfdd" id="btn_adayListClose" type="button" class="" >
+					<xf:trigger ev:onclick="scwin.popupAdayListClose" style="" id="btn_adayListClose" type="button" class="btn_schLeft close" >
 						<xf:label><![CDATA[닫기]]></xf:label>
 					</xf:trigger>							
 							<xf:trigger id="btn_del" ev:onclick="scwin.popupAdayListReg" style="display:none;"  type="button" class="btn_schLeft del" >
@@ -347,7 +347,7 @@ scwin.btn_menu_onclick = function() {
 							<xf:trigger id="btn_update" ev:onclick="scwin.popupAdayListReg" style="display:none;"  type="button" class="btn_schLeft save" >
 								<xf:label><![CDATA[수정]]></xf:label>
 							</xf:trigger>
-							<xf:trigger id="btn_deladmin" ev:onclick="scwin.popupAdayListReg" style="display:none;"  type="button" class="btn_schLeft del" >
+							<xf:trigger id="btn_deladmin" ev:onclick="scwin.popupAdayListReg" style="display:none;"  type="button" class="btn_schLeft trash" >
 								<xf:label><![CDATA[폐기]]></xf:label>
 							</xf:trigger>						
 						</xf:group>
@@ -357,7 +357,7 @@ scwin.btn_menu_onclick = function() {
 					</xf:group>
 					<xf:group id="" class="fl">
 
-						<w2:anchor class="btn_toggle_menu mo" id="btn_menu" name="" outerDiv="false" style="margin-right:5px" ev:onclick="scwin.btn_menu_onclick">
+						<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style="margin-right:5px" ev:onclick="scwin.btn_menu_onclick">
 							<xf:label><![CDATA[slide]]></xf:label>
 						</w2:anchor>
 						
