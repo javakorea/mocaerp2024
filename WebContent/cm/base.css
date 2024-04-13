@@ -1565,7 +1565,7 @@ div[id$=colorPop] > .w2window_header{display:none}
 flex-shrink:0; height:100%; box-sizing:border-box;}
 .swiper-slide img { display: block; width: 100%; height: 100%; object-fit: cover;}
 .sch_wrap{width:100%;display: flex; flex-direction: row; flex-wrap: wrap; height: 100%;}
-.sch_titleArea{width:100%;text-align: center; padding-top:15px; height:46px; color:#fff}
+.sch_titleArea{width:100%;text-align: center; padding-top:10px; height:46px; color:#fff}
 .sch_titleArea .sch_tit{display:inline-block; height:40px;}
 .sch_titleArea .sch_tit > input {  background: unset;  border: 0;  font-size: 40px;  text-align: center;  width: 180px;  height: 100%;  box-sizing: border-box;position: relative;  top: 0px; color: #1e3154;  font-weight: bold;}
 .sch_table{width: 100%; height: 100%; }
@@ -1573,9 +1573,9 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .sch_thead .sch_tr{height:34px; font-size: 17px; line-height: 15px;}
 
 .sch_thead {text-align:center;}
-.sch_th{ flex: auto; height:34px; border-bottom: 3px solid #000; box-sizing: border-box;}
+.sch_th{ flex: auto; height:34px; border-bottom: 3px solid #000; box-sizing: border-box; background-color:#fff}
 .sch_th > span{position: relative; top:6px; font-weight: bold; font-size: 16px;}
-.sch_thead{width:100%; display:flex; flex-direction: column;border-radius: 10px 10px 0 0;  overflow: hidden;}
+.sch_thead{width:100%; display:flex; flex-direction: column; overflow: hidden;}
 .sch_tbody{width:100%; height:calc(100% - 34px);display: flex; flex-direction: column;border-radius: 0 0 15px 15px;  overflow: hidden;}
 .sch_td{background: #fff;  flex: 1;  border-bottom: 1px solid #f4f5f9;  overflow: hidden;  text-align: right;}
 .sch_tr .sch_td:first-child .spa_dt, .sch_thead .sch_tr .sch_th:first-child{color:#f78f8f}
