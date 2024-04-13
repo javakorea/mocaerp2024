@@ -66,6 +66,8 @@
 			btn_item.setValue(row.SCH_TITLE2);
 			btn_item.setUserData('SCH_IDX',row.SCH_IDX);
 			btn_item.setUserData('SCH_OBJ',row);
+			
+
 			let _color = $p.parent().scwin.getBgColor(row.SCH_COLOR);
 			btn_item.setStyle('background-color',_color);
 		}

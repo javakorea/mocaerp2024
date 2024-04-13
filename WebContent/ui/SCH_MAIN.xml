@@ -267,6 +267,7 @@ scwin.hideAdayList = function(_isReload) {
 	}
 };
 scwin.popupAdayListClose = function() {
+	debugger;
 	scwin.등록();
 	if(scwin.selectedSchObj){
 		scwin.popupSchVieClose();
@@ -278,7 +279,7 @@ scwin.popupAdayListClose = function() {
 
 scwin.popupAdayListReg  = function() {
 	
-	if(!this.getLabel || this.getLabel() == '등록'){//등록버튼을 안누르고 등록화면이뜬경우와 누른경우
+	if(!this.getLabel || this.getLabel() == '등록' || this.getLabel() == '수정'){//등록버튼을 안누르고 등록화면이뜬경우와 누른경우
 		scwin.저장();
 		wfm_pop.setSrc('/ui/SCH_POP_REG.xml');
 	}else if(this.getLabel() == '저장'){
@@ -291,7 +292,24 @@ scwin.저장  = function() {
 	btn_adayListReg.setLabel('저장');
 };
 scwin.등록  = function() {
+	
+	
 	btn_adayListReg.setLabel('등록');
+	btn_adayListReg.show();
+	
+	btn_adayListClose.setLabel('닫기');
+	btn_adayListClose.show('');	
+
+	btn_success.setLabel('완료처리');
+	btn_success.hide('');
+
+	btn_update.setLabel('수정');
+	btn_update.hide('');
+
+	btn_del.setLabel('삭제');
+	btn_del.hide('');
+	
+			
 };
 
 
@@ -331,16 +349,17 @@ scwin.btn_menu_onclick = function() {
 					<xf:group id="grp_adayList" 
 					style="" class="sch_detail_wrap">
 						<xf:group id="" class="fl btn_list" style="height:100%">
-
+							<xf:trigger ev:onclick="scwin.popupAdayListClose" style="" id="btn_adayListClose" type="button" class="btn_schLeft close" >
+								<xf:label><![CDATA[닫기]]></xf:label>
+							</xf:trigger>
+							
 							<xf:trigger id="btn_adayListReg" ev:onclick="scwin.popupAdayListReg" style=""  type="button" class="btn_schLeft write" >
 								<xf:label><![CDATA[등록]]></xf:label>
 							</xf:trigger>
 							<xf:trigger id="btn_success" ev:onclick="scwin.popupAdayListReg" style="display:none;"  type="button" class="btn_schLeft success" >
 								<xf:label><![CDATA[완료취소]]></xf:label>
 							</xf:trigger>
-					<xf:trigger ev:onclick="scwin.popupAdayListClose" style="" id="btn_adayListClose" type="button" class="btn_schLeft close" >
-						<xf:label><![CDATA[닫기]]></xf:label>
-					</xf:trigger>							
+							
 							<xf:trigger id="btn_del" ev:onclick="scwin.popupAdayListReg" style="display:none;"  type="button" class="btn_schLeft del" >
 								<xf:label><![CDATA[삭제]]></xf:label>
 							</xf:trigger>

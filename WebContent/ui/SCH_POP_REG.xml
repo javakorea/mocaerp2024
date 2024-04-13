@@ -76,6 +76,17 @@
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
+	scwin._parentDma = $p.parent().scwin.selectedSchObj;
+	if(scwin._parentDma && scwin._parentDma.SCH_IDX){
+		edi_1.setValue(scwin._parentDma.SCH_CONT);
+		$p.parent().btn_update.setLabel("저장");
+		dma_content.set('SCH_IDX',scwin._parentDma.SCH_IDX);
+		if(!scwin._parentDma.SCH_COLOR){
+			scwin._parentDma.SCH_COLOR = 1;
+		}
+		rdo_gubunYn.setValue(scwin._parentDma.SCH_COLOR);
+	}
+
 	let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
 	ipt_day.setValue(day);
 	edi_1.focus();
@@ -98,6 +109,10 @@ scwin.btn_visible = function(){
 }
 /* 일정등록 */
 scwin.btn_confirm_onclick = function(e) {
+	if(scwin._parentDma && scwin._parentDma.SCH_IDX){
+		scwin.btn_update_onclick();
+		return;
+	}
 	com.win.confirm($p, '일정을 등록하시겠습니까?', function(e){
 		if(e.clickValue){
 			dma_content.set("COMMON_MASTER_QUERY"	, "M.INS_SCHEDULE");
@@ -138,7 +153,8 @@ scwin.sbm_commonTran_submitdone = function(e) {
 		}else{
 			if(!scwin.autoYn ||scwin.autoYn == "N"){
 				com.win.alert($p, '수정되었습니다.', function(e){
-					$p.parent().scwin.hideAdayList();
+					$p.parent().scwin.selectedSchObj= null;
+					$p.parent().scwin.hideAdayList(true);
 				});
 			}
 		}
@@ -215,12 +231,36 @@ scwin.btn_done_onclick = function(e) {
 };
 
 scwin.btn_update_exe = function(e) {
+	/*
 	dma_content.set("COMMON_MASTER_QUERY"	, "M.updateSchedule");
 	dma_content.set("COMMON_STATUS", "U");
 	dma_content.set("SCH_CONT", edi_1.getValue());
 	let _title =  edi_1.getValue().substring(0,20);
-	_title = _title.split('---')[0]+'---'+dma_content.get('SCH_IDX');
+	//_title = _title.split('---')[0]+'---'+dma_content.get('SCH_IDX');
 	dma_content.set("SCH_TITLE",_title);
+	*/
+
+
+
+	dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
+	dma_content.set("COMMON_STATUS", "U");
+
+	/* key */
+	let _id = JSON.parse(sessionStorage.getItem('loginInfo')).id;
+	dma_content.set("SCH_WRITER", _id);
+	let day = ipt_day.getValue();
+	dma_content.set("SCH_START", day);
+
+	/* contents */
+	dma_content.set("SCH_TITLE",edi_1.getValue().substring(0,20));
+	dma_content.set("SCH_CONT", edi_1.getValue());
+	let _current = day.substr(0,6);
+	dma_content.set("SCH_CURRENTMONTH",_current);
+	let _color = rdo_gubunYn.getValue();
+	dma_content.set("SCH_COLOR",_color);
+
+
+
 	com.sbm.execute(sbm_commonTran);
 };
 

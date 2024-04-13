@@ -63,6 +63,19 @@
 		scwin.btn_visible();
 		edi_1.setValue(dma_content.get('SCH_CONT'));
 
+
+
+
+
+
+
+
+		$p.parent().btn_adayListReg.setLabel('등록');
+		$p.parent().btn_adayListReg.hide();
+		
+		$p.parent().btn_adayListClose.setLabel('이전목록');
+		$p.parent().btn_adayListClose.show('');	
+
 		$p.parent().btn_success.setLabel('완료처리');
 		$p.parent().btn_success.show('');
 
