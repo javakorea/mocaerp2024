@@ -329,7 +329,7 @@ scwin.display = function(_yyyyMM){
 	return _yyyyMM.substring(0,4)+'.'+_yyyyMM.substring(4,6);
 }
 scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
-	if(info.newValue.length > 5){
+	if(info.newValue.length > 4){
 		let year = info.newValue.substring(0,4);
 		let month = info.newValue.substring(4);
 		month = (month.length==1? "0":"")+month;
@@ -338,9 +338,14 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 	}
 };
 
-scwin.btn_menu_onclick = function() {
+scwin.btn_today_onclick = function() {
 	SCH_CURRENTMONTH.setValue(WebSquare.date.getCurrentServerDate('yyyyMM'));
 	scwin.search();	
+};
+
+scwin.btn_menu_onclick = function() {
+	$p.top().grp_wrap.toggleClass("show_menu");
+	btn_menu.toggleClass("on");
 };
 ]]></script>
 		<style>
@@ -402,7 +407,7 @@ scwin.btn_menu_onclick = function() {
 						</xf:input>
 					</xf:group>
 					<xf:group id="" class="fr">
-						<w2:anchor class="btn_toggle today mo mr5" ev:onclick="scwin.btn_menu_onclick" id="btn_today" name=""
+						<w2:anchor class="btn_toggle today mo mr5" ev:onclick="scwin.btn_today_onclick" id="btn_today" name=""
 							outerDiv="false" style="color:#fff;">
 							<xf:label><![CDATA[오늘]]></xf:label>
 						</w2:anchor>
