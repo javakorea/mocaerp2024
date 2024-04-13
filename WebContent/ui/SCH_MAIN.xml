@@ -333,8 +333,8 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 };
 
 scwin.btn_menu_onclick = function() {
-	$p.top().grp_wrap.toggleClass("show_menu");
-	btn_menu.toggleClass("on");
+	SCH_CURRENTMONTH.setValue(WebSquare.date.getCurrentServerDate('yyyyMM'));
+	scwin.search();	
 };
 ]]></script>
 		<style>
