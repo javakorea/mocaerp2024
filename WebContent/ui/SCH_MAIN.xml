@@ -309,7 +309,7 @@ scwin.popupSchRegClose = function() {
 
 
 scwin.display = function(_yyyyMM){
-	return _yyyyMM.substring(0,4)+'년'+_yyyyMM.substring(4,6)+'월';
+	return _yyyyMM.substring(0,4)+'.'+_yyyyMM.substring(4,6);
 }
 scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 	scwin.search();	
