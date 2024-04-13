@@ -91,6 +91,7 @@
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
 	scwin.param = com.data.getParameter();
+	debugger;
 	scwin.fn_setAdmin();
     if(!window['gapi']){
         gcm.ext.scriptImport("https://apis.google.com/js/api.js",function(){
@@ -112,7 +113,7 @@ scwin.onpageunload = function () {
 scwin.fn_setAdmin = function(){
 	if(isAdmin()){
 		if(scwin.param.data.mode == 'read'){
-			btn_update.show('');
+			//btn_update.show('');
 			btn_del.show('');
 			btn_adminDel.show('');
 			btn_confirm.hide();
@@ -210,26 +211,33 @@ scwin.fn_bytesToLabel = function(_byte){
 			}
 		}
 	};		
-	/* 게시물등록 */
-	scwin.btn_confirm_onclick = function(e) {
-		com.win.confirm($p, '해당 게시물을 등록하시겠습니까?', function(e){
-			if(e.clickValue){
-				dma_content.set("COMMON_MASTER_QUERY"	, "M.insertBoardInfo");
-				dma_content.set("COMMON_DETAIL_UPDATEQUERY"	, "M.update__T_FILE");
-				dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.insert__T_FILE");
-				dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
-				dma_content.set("COMMON_MASTER_KEY","BOARD_IDX");dma_content.set("COMMON_DETAIL_KEY","CONTENT_ID");
+	/* 게시물(등록,수정)의 저장 */
+	scwin.btn_confirm_onclick = function() {
+		debugger;
+		//등록
+		if(scwin.param.data.rowJson){
+			scwin.btn_update_onclick();
+		//수정	
+		}else{
+			com.win.confirm($p, '해당 게시물을 등록하시겠습니까?', function(e){
+				if(e.clickValue){
+					dma_content.set("COMMON_MASTER_QUERY"	, "M.insertBoardInfo");
+					dma_content.set("COMMON_DETAIL_UPDATEQUERY"	, "M.update__T_FILE");
+					dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.insert__T_FILE");
+					dma_content.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");			
+					dma_content.set("COMMON_MASTER_KEY","BOARD_IDX");dma_content.set("COMMON_DETAIL_KEY","CONTENT_ID");
 
-				dma_content.set("COMMON_STATUS", "I");
-				dma_content.set("BOARD_CONT", edi_1.getHTML());
-				dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
-				com.sbm.execute(sbm_commonTran);
-			}
-		});
+					dma_content.set("COMMON_STATUS", "I");
+					dma_content.set("BOARD_CONT", edi_1.getHTML());
+					dma_content.set("BOARD_TITLE", gcm.ext.moca.getTitleFromEditor(edi_1));
+					com.sbm.execute(sbm_commonTran);
+				}
+			});			
+		}
 	};
 
 	/* 게시물 수정 */
-	scwin.btn_update_onclick = function(e) {
+	scwin.btn_update_onclick = function() {
 		com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
 			if(e.clickValue){
 				scwin.autoYn = "N";
@@ -519,10 +527,10 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 							type="button">
 							<xf:label><![CDATA[저장]]></xf:label>
 						</xf:trigger>
-						<xf:trigger class="btn_cm" id="btn_update" nextTabID="" style="display:none;" type="button"
+<!-- 						<xf:trigger class="btn_cm" id="btn_update" nextTabID="" style="display:none;" type="button"
 							ev:onclick="scwin.btn_update_onclick">
 							<xf:label><![CDATA[수정]]></xf:label>
-						</xf:trigger>
+						</xf:trigger> -->
 
 					</xf:group>
 				</xf:group>
