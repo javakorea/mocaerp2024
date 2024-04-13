@@ -92,7 +92,7 @@
 		$p.parent().btn_adayListClose.setLabel('이전');
 		$p.parent().btn_adayListClose.show('');	
 
-		$p.parent().btn_success.setLabel('완료처리');
+		$p.parent().btn_success.setLabel('완료');
 		$p.parent().btn_success.show('');
 
 		$p.parent().btn_update.setLabel('수정');
