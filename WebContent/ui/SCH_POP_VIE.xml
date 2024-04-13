@@ -89,7 +89,7 @@
 		$p.parent().btn_adayListReg.setLabel('등록');
 		$p.parent().btn_adayListReg.hide();
 		
-		$p.parent().btn_adayListClose.setLabel('이전목록');
+		$p.parent().btn_adayListClose.setLabel('이전');
 		$p.parent().btn_adayListClose.show('');	
 
 		$p.parent().btn_success.setLabel('완료처리');
