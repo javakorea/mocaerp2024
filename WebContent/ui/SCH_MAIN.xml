@@ -242,7 +242,7 @@ scwin.btn_right_onclick = function(e) {
 
 scwin.selectedCell = null;
 scwin.setBgColor = function(_obj) {
-	let cellBgColor = '#ffca00';
+	let cellBgColor = '#f4f5f9';
     if(scwin.selectedCell){
     	scwin.selectedCell.setStyle('background-color','');
     	scwin.hideAdayList();
@@ -371,8 +371,15 @@ scwin.btn_menu_onclick = function() {
 						</xf:input>
 					</xf:group>
 					<xf:group id="" class="fr">
+						<w2:anchor class="btn_toggle today mo mr5" ev:onclick="scwin.btn_menu_onclick" id="btn_today" name=""
+							outerDiv="false" style="color:#fff;">
+							<xf:label><![CDATA[오늘]]></xf:label>
+						</w2:anchor>
 						<xf:trigger ev:onclick="scwin.btn_right_onclick" style="" id="btn_right" type="button" class="btn_sch">
 							<xf:label><![CDATA[〉]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_toggle setting mo" ev:onclick="scwin.btn_right_onclick" id="btn_setting" style="" type="button">
+							<xf:label><![CDATA[]]></xf:label>
 						</xf:trigger>
 					</xf:group>
 				</xf:group>
