@@ -242,7 +242,7 @@ scwin.btn_right_onclick = function(e) {
 
 scwin.selectedCell = null;
 scwin.setBgColor = function(_obj) {
-	let cellBgColor = '#f4f5f9';
+	let cellBgColor = '#deecee';
     if(scwin.selectedCell){
     	scwin.selectedCell.setStyle('background-color','');
     	scwin.hideAdayList();
