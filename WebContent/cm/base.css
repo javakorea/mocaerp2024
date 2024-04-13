@@ -1565,9 +1565,9 @@ div[id$=colorPop] > .w2window_header{display:none}
 flex-shrink:0; height:100%; box-sizing:border-box;}
 .swiper-slide img { display: block; width: 100%; height: 100%; object-fit: cover;}
 .sch_wrap{width:100%;display: flex; flex-direction: row; flex-wrap: wrap; height: 100%;}
-.sch_titleArea{width:100%;text-align: center; height:46px; color:#fff}
+.sch_titleArea{width:100%;text-align: center; padding-top:5px; height:46px; color:#fff}
 .sch_titleArea .sch_tit{display:inline-block; font-size:30px;}
-.sch_titleArea .sch_tit > input {  background: unset;  border: 0;  font-size: 27px;  text-align: center;  width: 155px;  height: 100%;  box-sizing: border-box;position: relative;  top: -4px; color: #1e3154;  font-weight: bold;}
+.sch_titleArea .sch_tit > input {  background: unset;  border: 0;  font-size: 30px;  text-align: center;  width: 170px;  height: 100%;  box-sizing: border-box;position: relative;  top: -4px; color: #1e3154;  font-weight: bold;}
 .sch_table{width: 100%; height: 100%; }
 .sch_tr{ display: flex; height: calc(100% / 6); }
 .sch_thead .sch_tr{height:34px; font-size: 17px; line-height: 15px;}
@@ -1747,7 +1747,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.login_wrap.type2 .login_container{ width: 312px;}
 	.login_wrap.type2 .login_contents ul li a {margin-left: 10px;padding-left: 10px;}
 	
-	.sch_titleArea .sch_tit > input{font-size:24px;}
+	.sch_titleArea .sch_tit > input{font-size:30px;}
 	.spa_dt{ margin: 0px;  font-size: 0.7em; padding:0}
 	.sch_bar{text-overflow:clip; margin: 4px 2px;}
 	.side .grp_tab .tab_con{top:45px;}

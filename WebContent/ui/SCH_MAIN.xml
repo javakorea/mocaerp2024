@@ -325,7 +325,7 @@ scwin.btn_menu_onclick = function() {
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 
-		<xf:group id="" class="sub_contents flex_gvw flex_m" style="background:#f4f5f9">
+		<xf:group id="" class="sub_contents flex_gvw flex_m" style="background:#f4f5f9; padding:0">
 			<xf:group id="grp_cal" class="sch_wrap">
 				<xf:group id="" class="sch_titleArea">
 					<xf:group id="grp_adayList" 
