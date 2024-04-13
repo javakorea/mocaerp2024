@@ -329,7 +329,13 @@ scwin.display = function(_yyyyMM){
 	return _yyyyMM.substring(0,4)+'.'+_yyyyMM.substring(4,6);
 }
 scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
-	scwin.search();	
+	if(info.newValue.length > 5){
+		let year = info.newValue.substring(0,4);
+		let month = info.newValue.substring(4);
+		month = (month.length==1? "0":"")+month;
+		this.setValue(year+month);
+		scwin.search();	
+	}
 };
 
 scwin.btn_menu_onclick = function() {
