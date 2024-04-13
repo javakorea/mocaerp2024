@@ -378,9 +378,10 @@ scwin.btn_menu_onclick = function() {
 						<xf:trigger ev:onclick="scwin.btn_right_onclick" style="" id="btn_right" type="button" class="btn_sch">
 							<xf:label><![CDATA[〉]]></xf:label>
 						</xf:trigger>
-						<xf:trigger class="btn_toggle setting mo" ev:onclick="scwin.btn_right_onclick" id="btn_setting" style="" type="button">
-							<xf:label><![CDATA[]]></xf:label>
-						</xf:trigger>
+						<w2:anchor class="btn_toggle setting mo" ev:onclick="scwin.btn_menu_onclick" id="anchor1" name="" outerDiv="false"
+							style="margin-right:5px">
+							<xf:label><![CDATA[slide]]></xf:label>
+						</w2:anchor>
 					</xf:group>
 				</xf:group>
 				<xf:group class="swiper mySwiperNew">
