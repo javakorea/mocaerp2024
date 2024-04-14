@@ -1750,4 +1750,5 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.sch_bar{text-overflow:clip; margin: 4px 2px;}
 	.side .grp_tab .tab_con{top:45px;}
 	.side .btn_area{display:block !important;}
+	.sch_titleArea{background-position:40%;}
 }
