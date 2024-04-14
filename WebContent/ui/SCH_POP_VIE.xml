@@ -110,6 +110,38 @@
 	//dma_content.set("SCH_START",scwin.param.data.schInfo.START);
 	//dma_content.set("SCH_END",scwin.param.data.schInfo.END);
 };
+scwin.btn_done_exe = function(e) {
+	debugger;
+	dma_content.set("SCH_CONT","");
+	dma_content.set("SCH_TITLE","");
+	dma_content.set("SCH_COLOR","");
+	dma_content.set("SCH_DELYN","");
+	dma_content.set("SCH_SENDYN","");
+	dma_content.set("SCH_SUCCESSYN","Y");
+	scwin.btn_update_exe();
+};
+
+
+scwin.btn_update_exe = function(e) {
+	dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
+	dma_content.set("COMMON_STATUS", "U");
+/* key */
+	let _id = JSON.parse(sessionStorage.getItem('loginInfo')).id;
+	dma_content.set("SCH_WRITER", _id);
+	let day = ipt_day.getValue();
+	dma_content.set("SCH_START", day);
+/* contents */
+	//dma_content.set("SCH_TITLE",edi_1.getValue().substring(0,20));
+	//dma_content.set("SCH_CONT", edi_1.getValue());
+	//let _current = day.substr(0,6);
+	//dma_content.set("SCH_CURRENTMONTH",_current);
+	//let _color = rdo_gubunYn.getValue();
+	//dma_content.set("SCH_COLOR",_color);
+	dma_content.set("SCH_SUCCESSYN","Y");
+com.sbm.execute(sbm_commonTran);
+};
+
+
 
 scwin.btn_visible = function(){
 	btn_update.show('');
@@ -227,16 +259,6 @@ scwin.btn_done_onclick = function(e) {
 			scwin.btn_update_exe();
 		}
 	});
-};
-
-scwin.btn_update_exe = function(e) {
-	dma_content.set("COMMON_MASTER_QUERY"	, "M.updateSchedule");
-	dma_content.set("COMMON_STATUS", "U");
-	dma_content.set("SCH_CONT", edi_1.getValue());
-	let _title =  edi_1.getValue().substring(0,20);
-	_title = _title.split('---')[0]+'---'+dma_content.get('SCH_IDX');
-	dma_content.set("SCH_TITLE",_title);
-	com.sbm.execute(sbm_commonTran);
 };
 
 

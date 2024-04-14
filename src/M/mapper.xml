@@ -317,8 +317,8 @@
 			<if test="SCH_DELYN != null and SCH_DELYN != ''">SCH_DELYN = #{SCH_DELYN},</if> 
 			<if test="SCH_SUCCESSYN != null and SCH_SUCCESSYN != ''">SCH_SUCCESSYN = #{SCH_SUCCESSYN},</if> 
 			<if test="SCH_SENDYN != null and SCH_SENDYN != ''">SCH_SENDYN = #{SCH_SENDYN}</if>
-			SCH_TITLE = #{SCH_TITLE}, 
-			SCH_CONT = #{SCH_CONT}			            
+			<if test="SCH_TITLE != null and SCH_TITLE != ''">SCH_TITLE = #{SCH_TITLE},</if> 
+			<if test="SCH_CONT != null and SCH_CONT != ''">SCH_CONT = #{SCH_CONT}</if>		            
          WHERE 1=1
          AND SCH_WRITER=#{SCH_WRITER}
          AND SCH_START=#{SCH_START}

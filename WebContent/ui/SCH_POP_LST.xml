@@ -12,20 +12,25 @@
 			<w2:dataCollection baseNode="map">
 				<w2:dataMap baseNode="map" id="dma_content">
 					<w2:keyInfo>
-						<w2:key id="SCH_IDX" name="SCH_IDX" dataType="text"></w2:key>
-						<w2:key id="SCH_TITLE" name="SCH_TITLE" dataType="text"></w2:key>
-						<w2:key id="SCH_CONT" name="SCH_CONT" dataType="text"></w2:key>
+						<!-- key -->
 						<w2:key id="SCH_WRITER" name="SCH_WRITER" dataType="text"></w2:key>
-
+						<w2:key id="SCH_START" name="SCH_START" dataType="text"></w2:key>
+						<w2:key id="SCH_IDX" name="SCH_IDX" dataType="text"></w2:key>
+						
+						<!-- contents -->
+						<w2:key id="SCH_TITLE" name="SCH_TITLE" dataType="text"></w2:key>
+						<w2:key id="SCH_CONT" name="SCH_CONT" dataType="text"></w2:key>						
 						<w2:key id="SCH_CREATE_DTTM" name="SCH_CREATE_DTTM" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
-						<w2:key id="SCH_START" name="SCH_START" dataType="text"></w2:key>
+
+						<!-- etc -->
+						<w2:key id="SCH_START_TIME" name="SCH_START_TIME" dataType="text"></w2:key>
 						<w2:key id="SCH_END" name="SCH_END" dataType="text"></w2:key>
+						<w2:key id="SCH_END_TIME" name="SCH_END_TIME" dataType="text"></w2:key>
 						<w2:key id="SCH_COLOR" name="SCH_COLOR" dataType="text"></w2:key>
 						<w2:key id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:key>
-						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
-						<w2:key id="STATUS" name="STATUS" dataType="text"></w2:key>
 						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
+						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
 						
 						<!-- 공통부 -->
 						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
