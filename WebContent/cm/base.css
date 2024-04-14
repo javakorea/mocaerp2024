@@ -547,7 +547,7 @@ input[type="file"]{cursor:pointer;}
 .tbbox.noline .tb, .tbbox.noline .tb .w2tb_td{border:0; padding-left:0; background: #fff; border-radius: 10px;}
 .tbbox.noline .tb .w2tb_td{padding: 15px; border:0}
 .tbbox.noline.read .tb.w2tb_adaptive_layout .w2tb_td{border-top:0 !important; }
-.tbbox.noline.read .tb .w2tb_td{background:#fff;border-radius: 0; border:0; border-bottom: 1px solid #000 !important;}
+.tbbox.noline.read .tb .w2tb_td{background:#fff;border-radius: 0; border:0; border-bottom: 1px solid #000 !important; padding-left:0}
 
 
 
