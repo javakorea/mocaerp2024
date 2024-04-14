@@ -90,7 +90,7 @@ scwin.btn_item_onclick = function () {
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="pop_contents flex_gvw flex_m">
+		<xf:group id="" class="pop_contents flex_gvw flex_m" style="overflow: auto;">
 			<xf:group id="">
 				<xf:group style="" id="dfbox" class="dfbox">
 					<w2:generator style="" id="gen_item" class="" tagname="ul">
