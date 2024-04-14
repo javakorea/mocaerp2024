@@ -328,10 +328,6 @@
     	/*SEL_SCHEDULELIST*/
 		SELECT
 			SCH_IDX,
-			case
-			    when SCH_SUCCESSYN= 'Y' then CONCAT('✔',SCH_TITLE)		
-			    else SCH_TITLE
-			END AS SCH_TITLE2,
 			SCH_TITLE,
 			SCH_CONT,
 			SCH_WRITER,

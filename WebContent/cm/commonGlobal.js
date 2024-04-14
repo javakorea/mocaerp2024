@@ -2598,3 +2598,18 @@ gcm.ext.moca.getTitleFromEditor = (edi_1)=>{
 	}
 	return title.trim();
 };
+
+gcm.display = {};
+gcm.display.yyyyPointMM = function(_yyyyMM){
+	return _yyyyMM.substring(0,4)+'.'+_yyyyMM.substring(4,6);
+}
+gcm.display.yyyy년MM월dd일EEE = function(_data){
+	if(_data){
+		let yyyyMMdd = _data.substring(0,10).replace(/-/g,'');
+		let str = WebSquare.date.getFormattedDate(yyyyMMdd,'yyyy년MM월dd일(EEE)');
+		return str;
+	}else{
+		return "";
+	}
+};
+

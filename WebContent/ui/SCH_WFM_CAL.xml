@@ -69,9 +69,7 @@ scwin.onpageload = function() {
 
 
 scwin.cell_onclick = function() {
-    let day = this.getAttribute('yyyyMMdd');
-    $p.parent().scwin.setBgColor(this);
-    $p.parent().scwin.showAdayList(this);
+	$p.parent().scwin.cell_onclick(this);
 }
 
 

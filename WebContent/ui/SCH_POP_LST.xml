@@ -68,16 +68,20 @@
 			let row = list[i];
 			let tmpIdx = gen_item.insertChild();
 			var btn_item = gen_item.getChild(tmpIdx, "btn_item");
-			btn_item.setValue(row.SCH_TITLE2);
+			let title_display = '';
+			if(row.SCH_SUCCESSYN == 'Y'){
+				title_display = '✔'+row.SCH_TITLE;
+			}else{
+				title_display = row.SCH_TITLE;
+			}
+			btn_item.setValue(title_display);
 			btn_item.setUserData('SCH_IDX',row.SCH_IDX);
 			btn_item.setUserData('SCH_OBJ',row);
-			
-
 			let _color = $p.parent().scwin.getBgColor(row.SCH_COLOR);
 			btn_item.setStyle('background-color',_color);
 		}
 	}else{
-		$p.parent().scwin.popupAdayListReg();
+		$p.parent().scwin.btn_reg_onclick();
 	}
 	$p.parent().grp_adayList.show();
 

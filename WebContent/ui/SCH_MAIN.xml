@@ -121,18 +121,16 @@
 		</w2:layoutInfo>
 
 		<w2:publicInfo method="" />
-		<script lazy="false" type="text/javascript"><![CDATA[scwin.yoil = {일요일:0,월요일:1,화요일:2,수요일:3,목요일:4,금요일:5,토요일:6};
+		<script lazy="false" type="text/javascript"><![CDATA[scwin.selectedCell = null;
+scwin.selectedSchObj = null;
+scwin.cellBgColor = '#deecee';
+scwin.gubun1Color = '#576DDC';
+scwin.gubun2Color = '#53A786';
+scwin.left = null;
+scwin.center = null;
+scwin.right = null;
+scwin.yoil = {일요일:0,월요일:1,화요일:2,수요일:3,목요일:4,금요일:5,토요일:6};
 scwin.dayMap = {};
-scwin.getBgColorTag = function(_gubun){
-	return `background-color:${scwin.getBgColor(_gubun)};color:white`;
-};
-scwin.getBgColor = function(_gubun){
-	if(_gubun == 1){
-		return '#576DDC';
-	}else{
-		return '#53A786';
-	}
-};
 scwin.onpageload = function() {
 	let thisMonth = WebSquare.date.getCurrentServerDate('yyyyMM');
 	SCH_CURRENTMONTH.setValue(thisMonth);
@@ -166,26 +164,8 @@ scwin.onpageload = function() {
 		});
 		scwin.swiper.slideTo(1,0);//아이폰을위해서 (realIndexChange발생)
 	});	
-}
-scwin.left = null;
-scwin.center = null;
-scwin.right = null;
-scwin.search = function(){
-	scwin.setBgColor();
-	scwin.threeCalDraw();
 };
-
-scwin.getDay = function(day){
-	//return WebSquare.date.dateTimeAdd( day, 1, "day" );
-	return day;
-};
-
-scwin.setDay = function(day){
-	//return WebSquare.date.dateTimeAdd( day, -1, "day" );
-	return day;
-};
-
-
+/* 달력3장그리기 */
 scwin.threeCalDraw = function(){
 	var yyyyMM 			= SCH_CURRENTMONTH.getValue();
 	var yyyyMM_prev 	= WebSquare.date.dateTimeAdd( yyyyMM, -1, "month" );
@@ -208,7 +188,7 @@ scwin.threeCalDraw = function(){
 		for(let i=0; i < list.length; i++){
 			let c = list[i];
 			let day = c.SCH_START.substring(0,10).replace(/-/g,'');
-			let _key = scwin.getDay(day);
+			let _key = day;
 			let aDayList = scwin.dayMap[_key];
 			if(!aDayList){
 				aDayList = [];
@@ -221,7 +201,7 @@ scwin.threeCalDraw = function(){
 		scwin.draw(yyyyMM_next,scwin.right.scope);
 	};
 }
-
+/* 달력1장그리기 */
 scwin.draw = function(yyyyMM,_scope) {
 	let startDay = yyyyMM+'01';
 	let startWeekDay = scwin.yoil[WebSquare.date.getDay(startDay)];
@@ -241,10 +221,8 @@ scwin.draw = function(yyyyMM,_scope) {
 			if(i == 0 && j == startWeekDay){
 				isStart = 0;
 			}else if(i == 0 && isStart == -1 && j != startWeekDay){
-				
 				let reday = daysInMon_prev-((startWeekDay-1)-j);
 				_spa.setLabel(reday);					dayDiv.setAttribute('yyyyMMdd',yyyyMM_prev+((reday<10)? '0'+reday:reday)	);
-				
 			}
 			if(isStart == 0){
 				_spa.addClass("on");
@@ -265,7 +243,13 @@ scwin.draw = function(yyyyMM,_scope) {
 					let aDaySc = o[i];
 					let _bgColor = aDaySc['SCH_COLOR'];
 					_bgColor = scwin.getBgColorTag(_bgColor);
-					str += `<span class='sch_bar' style='${_bgColor}'>${aDaySc['SCH_TITLE']}</span>`;
+					let title_display = '';
+					if(aDaySc.SCH_SUCCESSYN == 'Y'){
+						title_display = '✔'+aDaySc.SCH_TITLE;
+					}else{
+						title_display = aDaySc.SCH_TITLE;
+					}
+					str += `<span class='sch_bar' style='${_bgColor}'>${title_display}</span>`;
 				}
 				_contents.render.innerHTML = str;
 			}else{
@@ -274,114 +258,38 @@ scwin.draw = function(yyyyMM,_scope) {
 			
 		}		
 	}
-	
-	
-	
-	
-}
-
-scwin.btn_left_onclick = function(e) {
-	SCH_CURRENTMONTH.setValue(WebSquare.date.dateTimeAdd( SCH_CURRENTMONTH.getValue(), -1, "month" ));
-	scwin.search();	
 };
 
 
-scwin.btn_right_onclick = function(e) {
-	SCH_CURRENTMONTH.setValue(WebSquare.date.dateTimeAdd( SCH_CURRENTMONTH.getValue(), 1, "month" ));
-	scwin.search();	
-};
 
-scwin.selectedCell = null;
-scwin.setBgColor = function(_obj) {
-	let cellBgColor = '#deecee';
-    if(scwin.selectedCell){
-    	scwin.selectedCell.setStyle('background-color','');
-    	scwin.goList();
-    }
-	if(_obj){
-		_obj.setStyle('background-color',cellBgColor);
-		scwin.selectedCell = _obj;
-	}
-};
-scwin.showAdayList = function(_thisObj) {
-	scwin.등록();
-	wfm_pop.setSrc('/ui/SCH_POP_LST.xml');
-};
-scwin.goList = function(_isReload) {
-	if(scwin.selectedSchObj){
-		wfm_pop.setSrc('/ui/SCH_POP_LST.xml');
-		scwin.selectedSchObj = null;
-	}else{
-		grp_adayList.hide();
-		wfm_pop.setSrc('');
-		if(_isReload){
-			scwin.threeCalDraw();
-		}
-	}
-};
-scwin.closePopup = function() {
-	scwin.selectedSchObj = null;
-	grp_adayList.hide();
-	wfm_pop.setSrc('');
+
+/* 조회이벤트API */
+scwin.search = function(){
 	scwin.threeCalDraw();
 };
-scwin.popupAdayListClose = function() {
-	scwin.등록();
-	if(scwin.selectedSchObj){
-		scwin.popupSchVieClose();
+/* 구분컬러CSS로가져오기API */
+scwin.getBgColorTag = function(_gubun){
+	return `background-color:${scwin.getBgColor(_gubun)};color:white`;
+};
+/* 구분컬러가져오기API */
+scwin.getBgColor = function(_gubun){
+	if(_gubun == 1){
+		return scwin.gubun1Color;
 	}else{
-		scwin.goList();	
+		return scwin.gubun2Color;
 	}
 };
-scwin.popupAdayListReg  = function() {
-	if(!this.getLabel || this.getLabel() == '등록' || this.getLabel() == '수정'){//등록버튼을 안누르고 등록화면이뜬경우와 누른경우
-		scwin.저장();
-		wfm_pop.setSrc('/ui/SCH_POP_REG.xml');
-	}else if(this.getLabel() == '저장'){
-		wfm_pop.scope.scwin.btn_confirm_onclick();
+/* 날짜CELL클릭이벤트API */
+scwin.cell_onclick = function(_thisCell) {
+    if(scwin.selectedCell){scwin.selectedCell.setStyle('background-color','');}//이전선택된cell은 배경색지우고
+	if(_thisCell){
+		_thisCell.setStyle('background-color',scwin.cellBgColor);//지금선택된cell에 배경색을 적용
+		scwin.selectedCell = _thisCell;
 	}
-};
-scwin.저장  = function() {
-	btn_adayListReg.setLabel('저장');
-};
-scwin.등록  = function() {
+    scwin.openPopup();
 	
-	
-	btn_adayListReg.setLabel('등록');
-	btn_adayListReg.show();
-	
-	btn_adayListClose.setLabel('닫기');
-	btn_adayListClose.show('');	
-
-	btn_success.setLabel('완료처리');
-	btn_success.hide('');
-
-	btn_update.setLabel('수정');
-	btn_update.hide('');
-
-	btn_del.setLabel('삭제');
-	btn_del.hide('');
-	
-			
 };
-
-
-
-scwin.selectedSchObj = null;
-scwin.popupSchVieClose = function() {
-	wfm_pop.setSrc('/ui/SCH_POP_LST.xml');
-	scwin.selectedSchObj = null;
-};
-scwin.popupSchRegClose = function() {
-	scwin.goList();
-};
-
-
-
-
-scwin.display = function(_yyyyMM){
-	return _yyyyMM.substring(0,4)+'.'+_yyyyMM.substring(4,6);
-}
+/* 월직접입력조회하는이벤트API */
 scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 	if(info.newValue.length > 4){
 		let year = info.newValue.substring(0,4);
@@ -391,17 +299,112 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 		scwin.search();	
 	}
 };
+/* 팝업리스트열기API */
+scwin.openPopup = function() {
+	btn_closePopup.setLabel('닫기');
+	btn_closePopup.show('');	
+	btn_reg.setLabel('등록');
+	btn_reg.show();
+	btn_success.hide();
+	btn_update.hide();
+	btn_del.hide();
+	wfm_pop.setSrc('/ui/SCH_POP_LST.xml');
+	scwin.selectedSchObj = null;
+};
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 왼쪽버튼클릭 */
+scwin.btn_left_onclick = function(e) {
+	SCH_CURRENTMONTH.setValue(WebSquare.date.dateTimeAdd( SCH_CURRENTMONTH.getValue(), -1, "month" ));
+	scwin.search();	
+};
+/* 오른버튼클릭 */
+scwin.btn_right_onclick = function(e) {
+	SCH_CURRENTMONTH.setValue(WebSquare.date.dateTimeAdd( SCH_CURRENTMONTH.getValue(), 1, "month" ));
+	scwin.search();	
+};
+/* 오늘버튼클릭 */
 scwin.btn_today_onclick = function() {
 	SCH_CURRENTMONTH.setValue(WebSquare.date.getCurrentServerDate('yyyyMM'));
 	scwin.search();	
 };
-
+/* 메뉴버튼클릭 */
 scwin.btn_menu_onclick = function() {
 	$p.top().grp_wrap.toggleClass("show_menu");
 	btn_menu.toggleClass("on");
 };
-
+/* 닫기버튼클릭 */
+scwin.btn_closePopup_onclick = function() {
+	if(btn_closePopup.getLabel() == '이전'){
+		scwin.openPopup();
+	}else{
+		scwin.selectedSchObj = null;
+		grp_adayList.hide();
+		wfm_pop.setSrc('');
+		scwin.threeCalDraw();
+	}
+};
+/* 등록버튼클릭 */
+scwin.btn_reg_onclick = function(e) {
+	if(btn_reg.getLabel() == "등록"){
+		scwin.selectedSchObj = null;//선택된 스케쥴항목은클리어하고시작
+		btn_reg.setLabel('저장');
+		wfm_pop.setSrc('/ui/SCH_POP_REG.xml');
+	}else if(btn_reg.getLabel() == "저장"){
+		com.win.confirm('해당 일정을 등록하시겠습니까?', function(e){
+			if(e.clickValue){
+				/* contents */
+				dma_content.set("SCH_TITLE",wfm_pop.scope.edi_1.getValue().substring(0,20));
+				dma_content.set("SCH_CONT", wfm_pop.scope.edi_1.getValue());
+				dma_content.set("SCH_CURRENTMONTH",wfm_pop.scope.ipt_day.getValue().substr(0,6));
+				dma_content.set("COMMON_MASTER_QUERY"	, "M.INS_SCHEDULE");
+				dma_content.set("COMMON_STATUS"			, "I");
+				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
+				/* key2 */dma_content.set("SCH_START"			, wfm_pop.scope.ipt_day.getValue());
+				com.sbm.execute(sbm_commonTran);
+			}
+		});
+	}
+};
+/* 수정버튼클릭 */
+scwin.btn_update_onclick = function(e) {
+	if(btn_update.getLabel() == "수정"){
+		btn_update.setLabel('저장');
+		wfm_pop.setSrc('/ui/SCH_POP_REG.xml');
+	}else if(btn_update.getLabel() == "저장"){
+		com.win.confirm('해당 일정을 수정하시겠습니까?', function(e){
+			if(e.clickValue){
+				/* contents */
+				dma_content.set("SCH_TITLE",wfm_pop.scope.edi_1.getValue().substring(0,20));
+				dma_content.set("SCH_CONT", wfm_pop.scope.edi_1.getValue());
+				dma_content.set("SCH_CURRENTMONTH",scwin.selectedSchObj.SCH_START.substr(0,6));
+				dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
+				dma_content.set("COMMON_STATUS"			, "U");
+				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
+				/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);
+				/* key3 */dma_content.set("SCH_IDX"				, scwin.selectedSchObj.SCH_IDX);
+				com.sbm.execute(sbm_commonTran);
+			}
+		});
+	}
+};
 /* 완료버튼클릭 */
 scwin.btn_success_onclick = function(e) {
 	com.win.confirm('해당 일정을 완료처리하시겠습니까?', function(e){
@@ -416,31 +419,46 @@ scwin.btn_success_onclick = function(e) {
 		}
 	});
 };
-/* 게시물 수정,삭제 callback */
+/* 삭제버튼클릭 */
+scwin.btn_del_onclick = function(e) {
+    com.win.confirm($p, '해당 일정을 삭제하시겠습니까?', function(e){
+		if(e.clickValue){
+			dma_content.set("SCH_DELYN","Y");
+			dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
+			dma_content.set("COMMON_STATUS"			, "U_SCH_DELYN");
+			/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
+			/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);
+			/* key3 */dma_content.set("SCH_IDX"				, scwin.selectedSchObj.SCH_IDX);			
+			com.sbm.execute(sbm_commonTran);
+		}
+	});
+};
+
+/* sbm_commonTran callback */
 scwin.sbm_commonTran_submitdone = function(e) {
 	let _j = e.responseJSON;
 	if(_j.status == "S"){
 		let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
 		if(request.COMMON_STATUS == 'U_SCH_SUCCESSYN'){
-			debugger;
-			com.win.alert($p, '완료처리되었습니다.', function(e){
-				scwin.closePopup();
+			com.win.alert('완료처리되었습니다.', function(e){
+				btn_closePopup.setLabel('닫기');
+				scwin.btn_closePopup_onclick();
 			});		
-		}else if(request.COMMON_STATUS == "D" || request.SCH_DELYN == "Y"){//물리삭제 또는 논리삭제
-			com.win.alert($p, '삭제되었습니다.', function(e){
-				scwin.hideAdayList();
-			});			
-		}else if(request.COMMON_STATUS == "I"){
-			com.win.alert($p, '등록되었습니다.', function(e){
-				scwin.hideAdayList(true);
-			});
+		}else if(request.COMMON_STATUS == 'U_SCH_DELYN'){
+			com.win.alert('삭제되었습니다.', function(e){
+				btn_closePopup.setLabel('닫기');
+				scwin.btn_closePopup_onclick();
+			});		
+		}else if(request.COMMON_STATUS == 'I'){
+			com.win.alert('등록되었습니다.', function(e){
+				btn_closePopup.setLabel('닫기');
+				scwin.btn_closePopup_onclick();
+			});	
 		}else{
-			if(!scwin.autoYn ||scwin.autoYn == "N"){
-				com.win.alert($p, '수정되었습니다.', function(e){
-					scwin.selectedSchObj= null;
-					scwin.hideAdayList(true);
-				});
-			}
+			com.win.alert('수정되었습니다.', function(e){
+				btn_closePopup.setLabel('닫기');
+				scwin.btn_closePopup_onclick();
+			});		
 		}
 	}
 };	]]></script>
@@ -462,21 +480,21 @@ scwin.sbm_commonTran_submitdone = function(e) {
 							
 							
 										
-							<xf:trigger ev:onclick="scwin.popupAdayListClose" style="" id="btn_adayListClose" type="button" class="btn_schLeft close" >
+							<xf:trigger style="" id="btn_closePopup" type="button" class="btn_schLeft close" ev:onclick="scwin.btn_closePopup_onclick">
 								<xf:label><![CDATA[닫기]]></xf:label>
 							</xf:trigger>
 							
-							<xf:trigger id="btn_adayListReg" ev:onclick="scwin.popupAdayListReg" style=""  type="button" class="btn_schLeft write" >
+							<xf:trigger id="btn_reg" style=""  type="button" class="btn_schLeft write" ev:onclick="scwin.btn_reg_onclick">
 								<xf:label><![CDATA[등록]]></xf:label>
 							</xf:trigger>
 							<xf:trigger id="btn_success"  style="display:none;"  type="button" class="btn_schLeft success" ev:onclick="scwin.btn_success_onclick">
-								<xf:label><![CDATA[완료취소]]></xf:label>
+								<xf:label><![CDATA[완료]]></xf:label>
 							</xf:trigger>
 							
-							<xf:trigger id="btn_del" ev:onclick="scwin.popupAdayListReg" style="display:none;"  type="button" class="btn_schLeft del" >
+							<xf:trigger id="btn_del"  style="display:none;"  type="button" class="btn_schLeft del" ev:onclick="scwin.btn_del_onclick">
 								<xf:label><![CDATA[삭제]]></xf:label>
 							</xf:trigger>
-							<xf:trigger id="btn_update" ev:onclick="scwin.popupAdayListReg" style="display:none;"  type="button" class="btn_schLeft save" >
+							<xf:trigger id="btn_update" style="display:none;"  type="button" class="btn_schLeft save" ev:onclick="scwin.btn_update_onclick">
 								<xf:label><![CDATA[수정]]></xf:label>
 							</xf:trigger>
 							<xf:trigger id="btn_deladmin" ev:onclick="scwin.popupAdayListReg" style="display:none;"  type="button" class="btn_schLeft trash" >
@@ -499,7 +517,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 						</w2:anchor>
 					</xf:group>
 					<xf:group style="" id="grp_yyyyMM" tagname="div" class="sch_tit">
-						<xf:input displayFormatter="scwin.display" ev:onviewchange="scwin.SCH_CURRENTMONTH_onviewchange" style=""
+						<xf:input displayFormatter="gcm.display.yyyyPointMM" ev:onviewchange="scwin.SCH_CURRENTMONTH_onviewchange" style=""
 							id="SCH_CURRENTMONTH">
 						</xf:input>
 					</xf:group>
