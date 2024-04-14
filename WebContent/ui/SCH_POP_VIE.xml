@@ -306,7 +306,7 @@ scwin.display_color = function(_data){
 };]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="pop_contents flex_gvw flex_m" style="background:#f4f5f9">
+		<xf:group id="" class="pop_contents flex_gvw flex_m" style="">
 			<xf:group id="">
 				<xf:group style="display:none;" id="dfbox" class="dfbox">
 					<xf:group style="" id="" class="fl">
