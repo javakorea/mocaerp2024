@@ -1651,7 +1651,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.header{height:50px;}
 	.header h1{width:135px;height:47px;}
 	.header h1 .logo{background-position:0;}
-	.w2popup_window{width: 100% !important; top:50% !important; left: 50% !important; transform:translate(-50%, -50%);}
+	.w2popup_window{width: 90% !important; top:50% !important; left: 50% !important; transform:translate(-50%, -50%);}
 	.w2popup_window.h100 {height:100% !important;}
 	
 	.header .option_box{}
