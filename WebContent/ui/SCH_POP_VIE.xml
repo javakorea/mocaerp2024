@@ -10,22 +10,22 @@
 				<data xmlns="" />
 			</xf:instance>
 			<w2:dataCollection baseNode="map">
-                <w2:dataList baseNode="list" repeatNode="map" id="dlt_gubunList" saveRemovedData="true">
-                    <w2:columnInfo>
-                        <w2:column id="CODE" name="CODE" dataType="text" length=""/>
-                        <w2:column id="DATA" name="DATA" dataType="text" length=""/>
-                    </w2:columnInfo>
-                    <w2:data use="true">
-                        <w2:row>
-                            <CODE><![CDATA[1]]></CODE>
-                            <DATA><![CDATA[개인일정]]></DATA>
-                        </w2:row>
-                        <w2:row>
-                            <CODE><![CDATA[2]]></CODE>
-                            <DATA><![CDATA[업무일정]]></DATA>
-                        </w2:row>
-                    </w2:data>
-                </w2:dataList>				
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_gubunList" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="CODE" name="CODE" dataType="text" length="" />
+						<w2:column id="DATA" name="DATA" dataType="text" length="" />
+					</w2:columnInfo>
+					<w2:data use="true">
+						<w2:row>
+							<CODE><![CDATA[1]]></CODE>
+							<DATA><![CDATA[개인일정]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[2]]></CODE>
+							<DATA><![CDATA[업무일정]]></DATA>
+						</w2:row>
+					</w2:data>
+				</w2:dataList>
 				<w2:dataMap baseNode="map" id="dma_content">
 					<w2:keyInfo>
 						<w2:key id="SCH_IDX" name="SCH_IDX" dataType="text"></w2:key>
@@ -42,7 +42,7 @@
 						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
 						<w2:key id="STATUS" name="STATUS" dataType="text"></w2:key>
 						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
-						
+
 						<!-- 공통부 -->
 						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
 						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
@@ -62,10 +62,10 @@
 				</w2:dataMap>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
-			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]' target="data:json,COMMON_RESULT"
-				action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
-				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror=""
-				abortTrigger="">
+			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]'
+				target="data:json,COMMON_RESULT" action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
+				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
+				ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
 		</xf:model>
 		<w2:layoutInfo></w2:layoutInfo>
@@ -302,7 +302,7 @@ scwin.display_color = function(_data){
 	if(j && j.length > 0){
 		txt = j[0].DATA;
 	}
-	return `<span class='sch_bar' style='${_bgColor}'>${txt}</span>`;
+	return `<i style='${_bgColor}'>${txt}</i>`;
 };]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
@@ -323,8 +323,7 @@ scwin.display_color = function(_data){
 						<xf:trigger style="display: none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
 							<xf:label><![CDATA[삭제]]></xf:label>
 						</xf:trigger>
-						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style=""
-							type="button">
+						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style="" type="button">
 							<xf:label><![CDATA[저장]]></xf:label>
 						</xf:trigger>
 						<xf:trigger class="btn_cm" id="btn_update" nextTabID="" style="display:none;" type="button"
@@ -337,7 +336,7 @@ scwin.display_color = function(_data){
 					</xf:group>
 				</xf:group>
 			</xf:group>
-			<xf:group class="tbbox" id="tbl_search" style="border-bottom: 2px solid #333;">
+			<xf:group class="tbbox noline mb20 read" id="tbl_search" style="">
 				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
 					<w2:attributes>
 						<w2:summary></w2:summary>
@@ -346,24 +345,16 @@ scwin.display_color = function(_data){
 						<xf:group tagname="col" style=""></xf:group>
 					</xf:group>
 					<xf:group style="" tagname="tr" id="tr_read">
-						<xf:group tagname="td" class="w2tb_td"
-							style="padding: 4px;    border-top: 0 !important;    border-right: 0 !important;    background: none;    margin-bottom: 7px;">
+						<xf:group tagname="td" class="w2tb_td" style="">
 							<w2:attributes></w2:attributes>
-							<w2:textbox id="" label="" style="" tagname="span" class="fl sch_spa_view fa fa-calendar-o"></w2:textbox>
-							<w2:textbox class="ipt_day" displayFormatter="scwin.display" ref="data:dma_content.SCH_START" id="ipt_day"
-								label="" style="" tagname="span">
+							
+							<w2:textbox class="sch_gubun mr0" displayFormatter="scwin.display_color" ref="data:dma_content.SCH_COLOR" id="rdo_gubunYn" label="" style="" tagname="span">
+							</w2:textbox><w2:textbox id="" label="" style="display: none" tagname="span" class="sch_spa_view fa fa-calendar-o"></w2:textbox>
+							<w2:textbox class="ipt_day" displayFormatter="scwin.display" ref="data:dma_content.SCH_START" id="ipt_day" label=""
+								style="" tagname="span">
 							</w2:textbox>
 						</xf:group>
 					</xf:group>
-					<xf:group tagname="tr" id="tr_gubunYn" style="">
-						<xf:group tagname="td" class="w2tb_td" style="padding: 4px;    border-top: 0 !important;    border-right: 0 !important;    background: none;    margin-bottom: 7px;">
-							<w2:attributes></w2:attributes>
-							<w2:textbox class="" displayFormatter="scwin.display_color" 
-								ref="data:dma_content.SCH_COLOR" id="rdo_gubunYn"
-								label="" style="" tagname="span">
-							</w2:textbox>
-						</xf:group>
-					</xf:group>						
 					<xf:group tagname="tr" id="tr_createDt" style="display:none;">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
@@ -375,8 +366,7 @@ scwin.display_color = function(_data){
 					<xf:group tagname="tr" style="display:none;" id="tr_writer">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_content.SCH_WRITER"
-								style="width:100%;">
+							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_content.SCH_WRITER" style="width:100%;">
 							</xf:input>
 						</xf:group>
 					</xf:group>
@@ -397,6 +387,6 @@ scwin.display_color = function(_data){
 				</xf:textarea>
 			</xf:group>
 		</xf:group>
-		
+
 	</body>
 </html>
