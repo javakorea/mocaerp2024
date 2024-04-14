@@ -130,6 +130,7 @@ scwin.btn_confirm_onclick = function(e) {
 			let _current = day.substr(0,6);
 			dma_content.set("SCH_CURRENTMONTH",_current);
 			let _color = rdo_gubunYn.getValue();
+			debugger;
 			dma_content.set("SCH_COLOR",_color);
 			
 			com.sbm.execute(sbm_commonTran);

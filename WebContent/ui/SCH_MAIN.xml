@@ -69,17 +69,13 @@
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.yoil = {일요일:0,월요일:1,화요일:2,수요일:3,목요일:4,금요일:5,토요일:6};
 scwin.dayMap = {};
 scwin.getBgColorTag = function(_gubun){
-	if(_gubun == 1){
-		return 'background-color:#ffc25f;color:white';
-	}else{
-		return 'background-color:#8686f9;color:white';
-	}
+	return `background-color:${scwin.getBgColor(_gubun)};color:white`;
 };
 scwin.getBgColor = function(_gubun){
 	if(_gubun == 1){
-		return '#ffc25f';
+		return '#576DDC';
 	}else{
-		return '#8686f9';
+		return '#53A786';
 	}
 };
 scwin.onpageload = function() {
