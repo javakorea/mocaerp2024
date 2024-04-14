@@ -10,193 +10,37 @@
 				<data xmlns="" />
 			</xf:instance>
 			<w2:dataCollection baseNode="map">
-				<w2:dataList baseNode="list" repeatNode="map" id="dlt_gubunList" saveRemovedData="true">
-					<w2:columnInfo>
-						<w2:column id="CODE" name="CODE" dataType="text" length="" />
-						<w2:column id="DATA" name="DATA" dataType="text" length="" />
-					</w2:columnInfo>
-					<w2:data use="true">
-						<w2:row>
-							<CODE><![CDATA[1]]></CODE>
-							<DATA><![CDATA[개인일정]]></DATA>
-						</w2:row>
-						<w2:row>
-							<CODE><![CDATA[2]]></CODE>
-							<DATA><![CDATA[업무일정]]></DATA>
-						</w2:row>
-					</w2:data>
-				</w2:dataList>
-				<w2:dataMap baseNode="map" id="dma_content">
-					<w2:keyInfo>
-						<w2:key id="SCH_IDX" name="SCH_IDX" dataType="text"></w2:key>
-						<w2:key id="SCH_TITLE" name="SCH_TITLE" dataType="text"></w2:key>
-						<w2:key id="SCH_CONT" name="SCH_CONT" dataType="text"></w2:key>
-						<w2:key id="SCH_WRITER" name="SCH_WRITER" dataType="text"></w2:key>
-
-						<w2:key id="SCH_CREATE_DTTM" name="SCH_CREATE_DTTM" dataType="text"></w2:key>
-						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
-						<w2:key id="SCH_START" name="SCH_START" dataType="text"></w2:key>
-						<w2:key id="SCH_END" name="SCH_END" dataType="text"></w2:key>
-						<w2:key id="SCH_COLOR" name="SCH_COLOR" dataType="text"></w2:key>
-						<w2:key id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:key>
-						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
-						<w2:key id="STATUS" name="STATUS" dataType="text"></w2:key>
-						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
-
-						<!-- 공통부 -->
-						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
-						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
-						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_INSERTQUERY" name="SUBQUERY" dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_UPDATEQUERY" name="SUBQUERY" dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
-						<w2:key id="COMMON_MASTER_KEY" name="COMMON_MASTER_KEY" dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
-					</w2:keyInfo>
-				</w2:dataMap>
-				<w2:dataMap baseNode="map" id="COMMON_RESULT">
-					<w2:keyInfo>
-						<w2:key id="COMMON_MASTER_RESULT" name="COMMON_MASTER_RESULT" dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_RESULT" name="COMMON_DETAIL_RESULT" dataType="text"></w2:key>
-					</w2:keyInfo>
-				</w2:dataMap>
+				<w2:aliasDataMap scope="../dma_content" id="dma_content"></w2:aliasDataMap>
+				<w2:aliasDataList scope="../dlt_gubunList" id="dlt_gubunList"></w2:aliasDataList>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
-			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]'
-				target="data:json,COMMON_RESULT" action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
-				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
-				ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror="" abortTrigger="">
-			</xf:submission>
 		</xf:model>
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
 	let _parentDma = $p.parent().scwin.selectedSchObj;
-	//scwin.param = com.data.getParameter();
-	//let _parentDma = $p.parent().dlt_list.getMatchedJSON('SCH_IDX',scwin.param.data.schInfo.SCH_IDX)[0];
-	//if(scwin.param.data.mode == "read"){
-		dma_content.setJSON(_parentDma);
-		scwin.btn_visible();
-		edi_1.setValue(dma_content.get('SCH_CONT'));
+	dma_content.setJSON(_parentDma);
+	edi_1.setValue(dma_content.get('SCH_CONT'));
 
-
-
-
-
-
-
-
-		$p.parent().btn_adayListReg.setLabel('등록');
-		$p.parent().btn_adayListReg.hide();
-		
-		$p.parent().btn_adayListClose.setLabel('이전');
-		$p.parent().btn_adayListClose.show('');	
-
-		$p.parent().btn_success.setLabel('완료');
-		$p.parent().btn_success.show('');
-
-		$p.parent().btn_update.setLabel('수정');
-		$p.parent().btn_update.show('');
-
-		$p.parent().btn_del.setLabel('삭제');
-		$p.parent().btn_del.show('');
-
-
-	//}else{
-	//	dfbox.show('');
-	//	dma_content.set("SCH_COLOR","#076aff");
-	//	dma_content.set("SCH_WRITER",scwin.param.data.writer);
-	//}
-	//dma_content.set("SCH_START",scwin.param.data.schInfo.START);
-	//dma_content.set("SCH_END",scwin.param.data.schInfo.END);
-};
-scwin.btn_done_exe = function(e) {
-	debugger;
-	dma_content.set("SCH_CONT","");
-	dma_content.set("SCH_TITLE","");
-	dma_content.set("SCH_COLOR","");
-	dma_content.set("SCH_DELYN","");
-	dma_content.set("SCH_SENDYN","");
-	dma_content.set("SCH_SUCCESSYN","Y");
-	scwin.btn_update_exe();
-};
-
-
-scwin.btn_update_exe = function(e) {
-	dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
-	dma_content.set("COMMON_STATUS", "U");
-/* key */
-	let _id = JSON.parse(sessionStorage.getItem('loginInfo')).id;
-	dma_content.set("SCH_WRITER", _id);
-	let day = ipt_day.getValue();
-	dma_content.set("SCH_START", day);
-/* contents */
-	//dma_content.set("SCH_TITLE",edi_1.getValue().substring(0,20));
-	//dma_content.set("SCH_CONT", edi_1.getValue());
-	//let _current = day.substr(0,6);
-	//dma_content.set("SCH_CURRENTMONTH",_current);
-	//let _color = rdo_gubunYn.getValue();
-	//dma_content.set("SCH_COLOR",_color);
-	dma_content.set("SCH_SUCCESSYN","Y");
-com.sbm.execute(sbm_commonTran);
-};
-
-
-
-scwin.btn_visible = function(){
-	btn_update.show('');
-	btn_del.show('');
-	btn_success.removeClass("skyblue");
-	if(dma_content.get('SCH_SUCCESSYN') == 'Y'){
-		btn_success.setLabel('완료취소');
-	}else{
-		btn_success.addClass("skyblue");
-		btn_success.setLabel('완료처리');
-	}
-	btn_success.show('');
-	btn_adminDel.show('');
-	btn_confirm.hide();
-	//dfbox.show(''); --2024-4-10
-}
-/* 일정등록 */
-scwin.btn_confirm_onclick = function(e) {
-	com.win.confirm($p, '일정을 등록하시겠습니까?', function(e){
-		if(e.clickValue){
-			dma_content.set("COMMON_MASTER_QUERY"	, "M.insertSchedule");
-			dma_content.set("COMMON_STATUS", "I");
-
-			let _current = dma_content.getJSON().SCH_START.substr(0,6);
-			
-			dma_content.set("SCH_CONT", edi_1.getValue());
-			dma_content.set("SCH_TITLE",edi_1.getValue().substring(0,20));
-			dma_content.set("SCH_CURRENTMONTH",_current);
-			com.sbm.execute(sbm_commonTran);
-		}
-	});
-};
-
-/* 게시물 수정,삭제 callback */
-scwin.sbm_commonTran_submitdone = function(e) {
-	let _j = e.responseJSON;
-	if(_j.status == "S"){
-		let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
-		if(request.COMMON_STATUS == "D" || request.SCH_DELYN == "Y"){//물리삭제 또는 논리삭제
-			com.win.closePopup({"message":"삭제가 완료되었습니다."});
-		}else if(request.COMMON_STATUS == "I"){
-			com.win.closePopup({"message":"등록이 완료되었습니다."});
-		}else{
-			if(!scwin.autoYn ||scwin.autoYn == "N"){
-				com.win.closePopup({"message":"수정이 완료되었습니다."});
-			}
-		}
-	}
-};	
+	$p.parent().btn_adayListReg.setLabel('등록');
+	$p.parent().btn_adayListReg.hide();
 	
-/* 팝업닫기 */
-scwin.btn_cancel_onclick = function(e) {
-	$p.parent().scwin.popupSchVieClose();
-};
+	$p.parent().btn_adayListClose.setLabel('이전');
+	$p.parent().btn_adayListClose.show('');	
 
+	if(dma_content.get('SCH_SUCCESSYN') == '완료'){
+		$p.parent().btn_success.setLabel('완료취소');
+	}else{
+		$p.parent().btn_success.setLabel('완료');
+	} 
+	$p.parent().btn_success.show('');
+
+	$p.parent().btn_update.setLabel('수정');
+	$p.parent().btn_update.show('');
+
+	$p.parent().btn_del.setLabel('삭제');
+	$p.parent().btn_del.show('');
+};
 /* 일정 논리삭제 */
 scwin.btn_del_onclick = function(e) {
     com.win.confirm($p, '해당 게시물을 삭제하시겠습니까?', function(e){
@@ -207,7 +51,6 @@ scwin.btn_del_onclick = function(e) {
 		}
 	});
 };
-
 /* 일정 물리삭제 */
 scwin.btn_adminDel_onclick = function(e) {
 	var data = {callbackFn: "scwin.delPop_callback" };
@@ -231,38 +74,6 @@ scwin.btn_adminDel_onclick = function(e) {
 		}
 	};	
 };
-
-
-
-
-
-
-/* 일정 수정 */
-scwin.btn_update_onclick = function(e) {
-	com.win.confirm($p, '해당 게시물을 수정하시겠습니까?', function(e){
-		if(e.clickValue){
-			scwin.btn_update_exe();
-		}
-	});
-};
-
-scwin.btn_done_onclick = function(e) {
-	let _label = btn_success.getLabel();
-	com.win.confirm($p, `${_label} 하시겠습니까?`, function(e){
-		if(e.clickValue){
-			let _successYn = dma_content.get('SCH_SUCCESSYN');
-			if(_successYn == 'Y'){
-				dma_content.set("SCH_SUCCESSYN", "N");
-			}else{
-				dma_content.set("SCH_SUCCESSYN", "Y");
-			}
-			scwin.btn_update_exe();
-		}
-	});
-};
-
-
-
 
 scwin.btn_color_onclick = function(e) {
 	var data = {callbackFn: "scwin.colorPop_callback" };
@@ -307,35 +118,7 @@ scwin.display_color = function(_data){
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m" style="">
-			<xf:group id="">
-				<xf:group style="display:none;" id="dfbox" class="dfbox">
-					<xf:group style="" id="" class="fl">
-						<xf:trigger style="display: none;" id="btn_adminDel" type="button" class="btn_cm red"
-							ev:onclick="scwin.btn_adminDel_onclick">
-							<xf:label><![CDATA[폐기]]></xf:label>
-						</xf:trigger>
-					</xf:group>
-					<xf:group style="" id="grp_btn" class="fr">
-						<xf:trigger class="btn_cm" id="btn_success" nextTabID="" style="display:none" type="button"
-							ev:onclick="scwin.btn_done_onclick">
-							<xf:label><![CDATA[완료처리]]></xf:label>
-						</xf:trigger>
-						<xf:trigger style="display: none;" id="btn_del" type="button" class="btn_cm" ev:onclick="scwin.btn_del_onclick">
-							<xf:label><![CDATA[삭제]]></xf:label>
-						</xf:trigger>
-						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_confirm_onclick" id="btn_confirm" nextTabID="" style="" type="button">
-							<xf:label><![CDATA[저장]]></xf:label>
-						</xf:trigger>
-						<xf:trigger class="btn_cm" id="btn_update" nextTabID="" style="display:none;" type="button"
-							ev:onclick="scwin.btn_update_onclick">
-							<xf:label><![CDATA[수정]]></xf:label>
-						</xf:trigger>
-						<xf:trigger class="btn_cm" ev:onclick="scwin.btn_cancel_onclick" id="btn_cancel" style="" type="button">
-							<xf:label><![CDATA[닫기]]></xf:label>
-						</xf:trigger>
-					</xf:group>
-				</xf:group>
-			</xf:group>
+
 			<xf:group class="tbbox noline mb20 read" id="tbl_search" style="">
 				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
 					<w2:attributes>
