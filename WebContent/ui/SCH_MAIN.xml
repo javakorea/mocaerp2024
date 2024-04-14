@@ -395,13 +395,14 @@ scwin.btn_menu_onclick = function() {
 					</xf:group>
 					<xf:group id="" class="fl">
 
-						<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style="margin-right:5px" ev:onclick="scwin.btn_menu_onclick">
+						<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style=""
+							ev:onclick="scwin.btn_menu_onclick">
 							<xf:label><![CDATA[slide]]></xf:label>
 						</w2:anchor>
-						
-						<xf:trigger ev:onclick="scwin.btn_left_onclick" style="" id="btn_left" type="button" class="btn_sch mo">
-							<xf:label><![CDATA[〈]]></xf:label>
-						</xf:trigger>						
+						<w2:anchor class="btn_toggle left mo" ev:onclick="scwin.btn_left_onclick" id="btn_left" name="" outerDiv="false"
+							style="">
+							<xf:label><![CDATA[slide]]></xf:label>
+						</w2:anchor>
 					</xf:group>
 					<xf:group style="" id="grp_yyyyMM" tagname="div" class="sch_tit">
 						<xf:input displayFormatter="scwin.display" ev:onviewchange="scwin.SCH_CURRENTMONTH_onviewchange" style=""
@@ -409,15 +410,16 @@ scwin.btn_menu_onclick = function() {
 						</xf:input>
 					</xf:group>
 					<xf:group id="" class="fr">
-						<w2:anchor class="btn_toggle today mo mr5" ev:onclick="scwin.btn_today_onclick" id="btn_today" name=""
-							outerDiv="false" style="color:#fff;">
+						<w2:anchor class="btn_toggle today mo" ev:onclick="scwin.btn_today_onclick" id="btn_today" name=""
+							outerDiv="false" style="">
 							<xf:label><![CDATA[오늘]]></xf:label>
 						</w2:anchor>
-						<xf:trigger ev:onclick="scwin.btn_right_onclick" style="" id="btn_right" type="button" class="btn_sch">
-							<xf:label><![CDATA[〉]]></xf:label>
-						</xf:trigger>
-						<w2:anchor class="btn_toggle setting mo" ev:onclick="scwin.btn_menu_onclick" id="anchor1" name="" outerDiv="false"
-							style="margin-right:5px">
+						<w2:anchor class="btn_toggle right mo" ev:onclick="scwin.btn_right_onclick" id="btn_right" name="" outerDiv="false"
+							style="">
+							<xf:label><![CDATA[slide]]></xf:label>
+						</w2:anchor>
+						<w2:anchor class="btn_toggle setting mo mr5" ev:onclick="scwin.btn_menu_onclick" id="anchor1" name="" outerDiv="false"
+							style="">
 							<xf:label><![CDATA[slide]]></xf:label>
 						</w2:anchor>
 					</xf:group>

@@ -1002,13 +1002,16 @@ input[type="file"]{cursor:pointer;}
 .gnb_menu > li.on > h2 > a, .gnb_menu > li > h2 > a:hover{color:#fff;}
 .gnb_menu > li.on > h2 > a:before, .gnb_menu > li > h2 > a:hover:before{content:'';position:absolute;left:8px;top:43%;width:6px;height:6px;margin-left:-3px;border-radius:100%;background:#fff;}
 
-.btn_toggle.mo{display: inline-block; position: relative; width: 36px; height: 36px; font-size: 0px; line-height: 0px; vertical-align: top; background-color: #4c4c4c; border-radius: 8px; margin-left: 5px;}
+.btn_toggle.mo{display: inline-block; position: relative; width: 36px; height: 36px; font-size: 0px; line-height: 0px; vertical-align: top; background-color: #fff; border-radius: 8px; margin-left: 5px; color:#333;border: 1px solid #333}
 .btn_toggle.mo:after{content:"";position:absolute;left:50%;top:50%;width:20px;height:20px;margin-top:-10px;margin-left:-10px;}
-.btn_toggle.mo:hover:after{animation:btn_toggle_menu 1s forwards}
+/*.btn_toggle.mo:hover:after{animation:btn_toggle_menu 1s forwards}*/
 .btn_toggle.menu.mo:after{background:url(/cm/images/btn_toggle_menu.png) center center no-repeat}
 .btn_toggle.esc.mo{background-color:unset;}
 .btn_toggle.esc.mo:after{background:url(/cm/images/ico_esc.svg) center center no-repeat;}
-.btn_toggle.today.mo{background-color:#20a58d; color: #fff; font-size: 12px; line-height: 34px; font-weight:bold}
+.btn_toggle.today.mo{background-color:#fff; color: #333; font-size: 14px; line-height: 34px; font-weight:bold}
+.btn_toggle.left.mo:after{background:url(/cm/images/ico_left.png) center center no-repeat;}
+.btn_toggle.right.mo:after{background:url(/cm/images/ico_right.png) center center no-repeat;}
+
 .btn_toggle.setting.mo:after{background: url(/cm/images/ico_setting.svg) center center no-repeat; background-size: 20px;}
 .wrap.no_header .header, .wrap.no_header .win_c .w2windowContainer_windowToolbar_top{display:none;}
 .wrap.no_header .container, .wrap.no_header .side, .wrap.no_header .win_c .w2windowContainer_window_top{top:0}
@@ -1573,14 +1576,14 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .sch_thead .sch_tr{height:34px; font-size: 17px; line-height: 15px;}
 
 .sch_thead {text-align:center;}
-.sch_th{ flex: auto; height:34px; border-bottom: 3px solid #000; box-sizing: border-box; background-color:#fff}
+.sch_th{ flex: auto; height:34px; border-bottom: 1px solid #000; box-sizing: border-box; background-color:#fff}
 .sch_th > span{position: relative; top:6px; font-weight: bold; font-size: 16px;}
 .sch_thead{width:100%; display:flex; flex-direction: column; overflow: hidden;}
 .sch_tbody{width:100%; height:calc(100% - 34px);display: flex; flex-direction: column;border-radius: 0 0 15px 15px;  overflow: hidden;}
 .sch_td{background: #fff;  flex: 1;  border-bottom: 1px solid #f4f5f9;  overflow: hidden;  text-align: right;}
 .sch_tr .sch_td:first-child .spa_dt, .sch_thead .sch_tr .sch_th:first-child{color:#f78f8f}
 .sch_tr .sch_td:last-child .spa_dt, .sch_thead .sch_tr .sch_th:last-child{color:#83c4fd}
-.btn_sch{padding: 10px; background:#1ac5a6;  height: 36px; border-radius: 8px; border: 0; width: 36px; color: #fff; font-weight: bold; font-size: 20px; line-height: 0.7em;  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
+.btn_sch{padding: 10px; background:#fff;  height: 36px; border-radius: 8px; border: 0; width: 36px; color: #333; font-weight: bold; font-size: 20px; line-height: 0.7em;  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
 .spa_dt{display: inline-block;  opacity:0.4; width: 20px; height: 20px; background: none; font-size: 20px; margin: 5px;  padding: 6px 7px 6px 6px; line-height: 18px; text-align: center; border-radius:5px;}
 .spa_dt.on{ opacity:1; }
 .sch_bar{display: block; padding: 2px 4px;margin: 4px;  height: 16px; box-shadow: 1px 2px 2px rgba(0,0,0,0.1); border-radius: 3px; background:#1ac5a6; font-size:14px;  font-weight: bold; text-align:left; line-height:1.2; color: #fff; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
@@ -1591,7 +1594,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
     text-align: left;
     text-indent: 10px;
     line-height:40px;
-    background: #1ac5a6;
+    background: #fff;
     color: #fff;
     border: 0;
     box-shadow: inset 0px -2px 0px rgb(123 123 123 / 20%)}
