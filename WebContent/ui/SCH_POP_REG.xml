@@ -41,10 +41,21 @@
 	let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
 	ipt_day.setValue(day);
 	edi_1.focus();
+};
+
+scwin.rdo_gubunYn_onradioclick = function(index,value) {
+	rdo_gubunYn.removeClass("type1");
+	rdo_gubunYn.removeClass("type2");
+	let _idx = rdo_gubunYn.getSelectedIndex();
+	if(_idx == 0){
+		rdo_gubunYn.addClass("type1");
+	}else if(_idx == 1){
+		rdo_gubunYn.addClass("type2");
+	}
 };]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="" class="pop_contents flex_gvw flex_m" style="background:#f4f5f9">
+		<xf:group id="" class="pop_contents flex_gvw flex_m" style="">
 			<xf:group class="tbbox noline mb20" id="tbl_search" style="">
 				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
 					<w2:attributes>
@@ -54,7 +65,7 @@
 						<xf:group tagname="col" style=""></xf:group>
 					</xf:group>
 					<xf:group style="" tagname="tr" id="tr_read">
-						<xf:group tagname="td" class="w2tb_td" style="border:0 !important;border-radius:10px;">
+						<xf:group tagname="td" class="w2tb_td" style="border-radius:10px;">
 							<w2:attributes></w2:attributes>
 							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="data:dma_content.SCH_COLOR" renderType="radiogroup" rows="1" selectedIndex="0" style="" class="mo_rdo type1" ev:onviewchange="scwin.rdo_gubunYn_onradioclick">
 								<xf:choices>
@@ -96,7 +107,7 @@
 				<xf:group id="" style="" class="edi_btn">
 
 				</xf:group>
-				<xf:textarea id="edi_1" style="height:100%;border:0" ref="data:dma_content.SCH_CONT" escape="false" class="sch_view_cont"></xf:textarea>
+				<xf:textarea id="edi_1" style="height:100%;" ref="data:dma_content.SCH_CONT" escape="false" class="sch_view_cont"></xf:textarea>
 			</xf:group>
 		</xf:group>
 
