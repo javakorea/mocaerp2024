@@ -79,33 +79,32 @@ scwin.cell_onclick = function() {
 		</style>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-
-		<xf:group id="grp_cal" class="sch_wrap">
+		<xf:group id="grp_cal" class="sch_wrap" >
 			<xf:group id="" class="sch_titleArea" style="display:none;">
 				<xf:group tagname="h3" id="grp_yyyyMM" style="">2024년04월</xf:group>
 			</xf:group>
 			<xf:group style="" id="" class="sch_table">
 				<xf:group style="" id="" class="sch_thead">
 					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="" id="" class="sch_th">
+						<xf:group style="opacity:0.8" id="" class="sch_th">
 							<w2:span style="" label="일" id=""></w2:span>
 						</xf:group>
-						<xf:group style="" id="" class="sch_th">
+						<xf:group style="opacity:0.8" id="" class="sch_th">
 							<w2:span style="" label="월" id=""></w2:span>
 						</xf:group>
-						<xf:group style="" id="" class="sch_th">
+						<xf:group style="opacity:0.8" id="" class="sch_th">
 							<w2:span style="" label="화" id=""></w2:span>
 						</xf:group>
-						<xf:group style="" id="" class="sch_th">
+						<xf:group style="opacity:0.8" id="" class="sch_th">
 							<w2:span style="" label="수" id=""></w2:span>
 						</xf:group>
-						<xf:group style="" id="" class="sch_th">
+						<xf:group style="opacity:0.8" id="" class="sch_th">
 							<w2:span style="" label="목" id=""></w2:span>
 						</xf:group>
-						<xf:group style="" id="" class="sch_th">
+						<xf:group style="opacity:0.8" id="" class="sch_th">
 							<w2:span style="" label="금" id=""></w2:span>
 						</xf:group>
-						<xf:group style="" id="" class="sch_th">
+						<xf:group style="opacity:0.8" id="" class="sch_th">
 							<w2:span style="" label="토" id=""></w2:span>
 						</xf:group>
 					</xf:group>

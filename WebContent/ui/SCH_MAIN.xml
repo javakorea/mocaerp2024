@@ -197,6 +197,14 @@ scwin.threeCalDraw = function(){
 			scwin.dayMap[_key] = aDayList;
 		}
 		scwin.draw(yyyyMM,scwin.center.scope);
+		let _today = WebSquare.date.getCurrentServerDate('yyyyMMdd');
+		if(yyyyMM == _today.substring(0,6)){
+			grp_cal.setStyle('background-image', 'url(/cm/images/bg_spring.png)');
+			grp_cal.setStyle('background-repeat', 'no-repeat');
+		}else{
+			grp_cal.setStyle('background-image', '');
+			grp_cal.setStyle('background-repeat', '');
+		};
 		scwin.draw(yyyyMM_prev,scwin.left.scope);
 		scwin.draw(yyyyMM_next,scwin.right.scope);
 	};
@@ -504,7 +512,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 	<body ev:onpageload="scwin.onpageload">
 
 		<xf:group id="" class="sub_contents flex_gvw flex_m" style="padding:0;">
-			<xf:group id="grp_cal" class="sch_wrap">
+			<xf:group id="grp_cal" class="sch_wrap" >
 				<xf:group id="" class="sch_titleArea">
 					<xf:group id="grp_adayList" 
 					style="" class="sch_detail_wrap">
