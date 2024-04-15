@@ -123,6 +123,8 @@
 		<w2:publicInfo method="" />
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.selectedCell = null;
 scwin.selectedSchObj = null;
+
+scwin.yyyyMmColor = '#dc5773';
 scwin.cellBgColor = '#deecee';
 scwin.gubun1Color = '#576DDC';
 scwin.gubun2Color = '#53A786';
@@ -201,9 +203,11 @@ scwin.threeCalDraw = function(){
 		if(yyyyMM == _today.substring(0,6)){
 			grp_cal.setStyle('background-image', 'url(/cm/images/bg_spring.png)');
 			grp_cal.setStyle('background-repeat', 'no-repeat');
+			SCH_CURRENTMONTH.setStyle('color', scwin.yyyyMmColor);
 		}else{
 			grp_cal.setStyle('background-image', '');
 			grp_cal.setStyle('background-repeat', '');
+			SCH_CURRENTMONTH.setStyle('color', '');
 		};
 		scwin.draw(yyyyMM_prev,scwin.left.scope);
 		scwin.draw(yyyyMM_next,scwin.right.scope);
