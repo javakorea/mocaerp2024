@@ -170,6 +170,19 @@ scwin.onpageload = function() {
 /* 달력3장그리기 */
 scwin.threeCalDraw = function(){
 	var yyyyMM 			= scwin.getSCH_CURRENTMONTH();
+	let _today = WebSquare.date.getCurrentServerDate('yyyyMMdd');
+	if(yyyyMM == _today.substring(0,6)){
+		grp_cal.setStyle('background-image', 'url(/cm/images/bg_spring.png)');
+		grp_cal.setStyle('background-repeat', 'no-repeat');
+		grp_cal.setStyle('background-position-x', '-160px');
+		
+		SCH_CURRENTMONTH.setStyle('color', scwin.gubun1Color);
+	}else{
+		grp_cal.setStyle('background-image', '');
+		grp_cal.setStyle('background-repeat', '');
+		SCH_CURRENTMONTH.setStyle('color', '');
+	};
+
 	var yyyyMM_prev 	= WebSquare.date.dateTimeAdd( yyyyMM, -1, "month" );
 	var yyyyMM_next 	= WebSquare.date.dateTimeAdd( yyyyMM, 1, "month" );
 
@@ -199,16 +212,6 @@ scwin.threeCalDraw = function(){
 			scwin.dayMap[_key] = aDayList;
 		}
 		scwin.draw(yyyyMM,scwin.center.scope);
-		let _today = WebSquare.date.getCurrentServerDate('yyyyMMdd');
-		if(yyyyMM == _today.substring(0,6)){
-			grp_cal.setStyle('background-image', 'url(/cm/images/bg_spring.png)');
-			grp_cal.setStyle('background-repeat', 'no-repeat');
-			SCH_CURRENTMONTH.setStyle('color', scwin.gubun1Color);
-		}else{
-			grp_cal.setStyle('background-image', '');
-			grp_cal.setStyle('background-repeat', '');
-			SCH_CURRENTMONTH.setStyle('color', '');
-		};
 		scwin.draw(yyyyMM_prev,scwin.left.scope);
 		scwin.draw(yyyyMM_next,scwin.right.scope);
 	};
