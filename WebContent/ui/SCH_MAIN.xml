@@ -203,6 +203,8 @@ scwin.threeCalDraw = function(){
 }
 /* 달력1장그리기 */
 scwin.draw = function(yyyyMM,_scope) {
+	let _today = WebSquare.date.getCurrentServerDate('yyyyMMdd');
+
 	let startDay = yyyyMM+'01';
 	let startWeekDay = scwin.yoil[WebSquare.date.getDay(startDay)];
 	var yyyyMM_next = WebSquare.date.dateTimeAdd( yyyyMM, 1, "month" );
@@ -235,6 +237,11 @@ scwin.draw = function(yyyyMM,_scope) {
 			}else if(isStart == 1){
 				writeDay++;
 				_spa.setLabel(writeDay);				dayDiv.setAttribute('yyyyMMdd',yyyyMM_next+((writeDay<10)? '0'+writeDay:writeDay));
+			}
+			if((yyyyMM+_spa.render.innerText) == _today){
+				_spa.addClass("today_display");
+			}else{
+				_spa.removeClass("today_display");
 			}
 			let o = scwin.dayMap[dayDiv.getAttribute('yyyyMMdd')];
 			if(o){

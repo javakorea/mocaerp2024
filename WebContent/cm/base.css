@@ -1762,3 +1762,6 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.side .btn_area{display:block !important;}
 	.sch_titleArea{background-position:40%;}
 }
+
+
+.today_display {background: black;color: white;}
