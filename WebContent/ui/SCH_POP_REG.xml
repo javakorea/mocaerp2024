@@ -43,16 +43,7 @@
 	edi_1.focus();
 };
 
-scwin.rdo_gubunYn_onradioclick = function(index,value) {
-	rdo_gubunYn.removeClass("type1");
-	rdo_gubunYn.removeClass("type2");
-	let _idx = rdo_gubunYn.getSelectedIndex();
-	if(_idx == 0){
-		rdo_gubunYn.addClass("type1");
-	}else if(_idx == 1){
-		rdo_gubunYn.addClass("type2");
-	}
-};]]></script>
+]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m" style="">
@@ -67,15 +58,15 @@ scwin.rdo_gubunYn_onradioclick = function(index,value) {
 					<xf:group style="" tagname="tr" id="tr_read">
 						<xf:group tagname="td" class="w2tb_td" style="border-radius:10px;">
 							<w2:attributes></w2:attributes>
-							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="" renderType="radiogroup" rows="1" selectedIndex="0" style="" 
-								class="mo_rdo type1" ev:onviewchange="scwin.rdo_gubunYn_onradioclick">
+							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="" renderType="radiogroup" rows="1" selectedIndex="0" style="color:#333" 
+								class="" >
 								<xf:choices>
 									<xf:itemset nodeset="data:dlt_gubunList">
 										<xf:label ref="DATA"></xf:label>
 										<xf:value ref="CODE"></xf:value>
 									</xf:itemset>
 								</xf:choices>
-							</xf:select1><xf:input displayFormatter="gcm.display.yyyy년MM월dd일EEE" style="font-size: 18px;border:0;"
+							</xf:select1><xf:input displayFormatter="gcm.display.yyyy년MM월dd일EEE" style="font-size: 18px;border:0;padding:0 40px"
 								id="ipt_day" ref="" >
 							</xf:input>
 							

@@ -28,7 +28,7 @@
 	$p.parent().btn_closePopup.setLabel('이전');
 	$p.parent().btn_closePopup.show('');	
 
-	if(dma_content.get('SCH_SUCCESSYN') == '완료'){
+	if(dma_content.get('SCH_SUCCESSYN') == 'Y'){
 		$p.parent().btn_success.setLabel('완료취소');
 	}else{
 		$p.parent().btn_success.setLabel('완료');

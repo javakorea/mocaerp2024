@@ -409,17 +409,32 @@ scwin.btn_update_onclick = function(e) {
 };
 /* 완료버튼클릭 */
 scwin.btn_success_onclick = function(e) {
-	com.win.confirm('해당 일정을 완료처리하시겠습니까?', function(e){
-		if(e.clickValue){
-			dma_content.set("SCH_SUCCESSYN","Y");
-			dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
-			dma_content.set("COMMON_STATUS"			, "U_SCH_SUCCESSYN");
-			/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
-			/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);
-			/* key3 */dma_content.set("SCH_IDX"				, scwin.selectedSchObj.SCH_IDX);
-			com.sbm.execute(sbm_commonTran);
-		}
-	});
+	debugger;
+	if(btn_success.getLabel() == '완료취소'){
+		com.win.confirm('해당 일정을 \'완료취소\'처리하시겠습니까?', function(e){
+			if(e.clickValue){
+				dma_content.set("SCH_SUCCESSYN","N");
+				dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
+				dma_content.set("COMMON_STATUS"			, "U_SCH_SUCCESSYN_N");
+				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
+				/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);
+				/* key3 */dma_content.set("SCH_IDX"				, scwin.selectedSchObj.SCH_IDX);
+				com.sbm.execute(sbm_commonTran);
+			}
+		});
+	}else{
+		com.win.confirm('해당 일정을 \'완료\'처리하시겠습니까?', function(e){
+			if(e.clickValue){
+				dma_content.set("SCH_SUCCESSYN","Y");
+				dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
+				dma_content.set("COMMON_STATUS"			, "U_SCH_SUCCESSYN");
+				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
+				/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);
+				/* key3 */dma_content.set("SCH_IDX"				, scwin.selectedSchObj.SCH_IDX);
+				com.sbm.execute(sbm_commonTran);
+			}
+		});
+	}
 };
 /* 삭제버튼클릭 */
 scwin.btn_del_onclick = function(e) {
@@ -441,8 +456,14 @@ scwin.sbm_commonTran_submitdone = function(e) {
 	let _j = e.responseJSON;
 	if(_j.status == "S"){
 		let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
+		
 		if(request.COMMON_STATUS == 'U_SCH_SUCCESSYN'){
 			com.win.alert('완료처리되었습니다.', function(e){
+				btn_closePopup.setLabel('닫기');
+				scwin.btn_closePopup_onclick();
+			});		
+		}else if(request.COMMON_STATUS == 'U_SCH_SUCCESSYN_N'){
+			com.win.alert('완료취소되었습니다.', function(e){
 				btn_closePopup.setLabel('닫기');
 				scwin.btn_closePopup_onclick();
 			});		
