@@ -146,6 +146,7 @@ scwin.onpageload = function() {
 		scwin.swiper.on('realIndexChange', function (_swiperObj) {
 			let selectedCalObj = $p.getComponentById(scwin.swiper.slides[scwin.swiper.activeIndex].id);
 			let basisMonth = selectedCalObj.scope.grp_yyyyMM.render.innerText.replace(/년|월/g,'');
+			debugger;
 			SCH_CURRENTMONTH.setValue(basisMonth);
 			if(selectedCalObj.org_id == 'wfm_cal_prev'){
 				scwin.left = wfm_cal_next;
@@ -167,7 +168,7 @@ scwin.onpageload = function() {
 };
 /* 달력3장그리기 */
 scwin.threeCalDraw = function(){
-	var yyyyMM 			= SCH_CURRENTMONTH.getValue();
+	var yyyyMM 			= scwin.getSCH_CURRENTMONTH();
 	var yyyyMM_prev 	= WebSquare.date.dateTimeAdd( yyyyMM, -1, "month" );
 	var yyyyMM_next 	= WebSquare.date.dateTimeAdd( yyyyMM, 1, "month" );
 
@@ -262,7 +263,15 @@ scwin.draw = function(yyyyMM,_scope) {
 
 
 
-
+/* 현재월가져오기 */
+scwin.getSCH_CURRENTMONTH = function(){
+	var yyyyMM = SCH_CURRENTMONTH.getValue();
+	if(!yyyyMM.match(/\d{4}0$/) && yyyyMM.length > 4){
+		return yyyyMM;
+	}else{
+		return WebSquare.date.getCurrentServerDate('yyyyMM');
+	}
+};
 /* 조회이벤트API */
 scwin.search = function(){
 	scwin.threeCalDraw();
@@ -290,14 +299,13 @@ scwin.cell_onclick = function(_thisCell) {
 	
 };
 /* 월직접입력조회하는이벤트API */
-scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
-	if(info.newValue.length > 4){
-		let year = info.newValue.substring(0,4);
-		let month = info.newValue.substring(4);
-		month = (month.length==1? "0":"")+month;
-		this.setValue(year+month);
-		scwin.search();	
-	}
+scwin.SCH_CURRENTMONTH_onviewchange = function() {
+	let newValue = scwin.getSCH_CURRENTMONTH();
+	let year = newValue.substring(0,4);
+	let month = newValue.substring(4);
+	month = (month.length==1? "0":"")+month;
+	this.setValue(year+month);
+	scwin.search();	
 };
 /* 팝업리스트열기API */
 scwin.openPopup = function() {
@@ -540,7 +548,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 					</xf:group>
 					<xf:group style="" id="grp_yyyyMM" tagname="div" class="sch_tit">
 						<xf:input displayFormatter="gcm.display.yyyyPointMM" ev:onviewchange="scwin.SCH_CURRENTMONTH_onviewchange" style=""
-							id="SCH_CURRENTMONTH">
+							id="SCH_CURRENTMONTH" allowChar="0-9">
 						</xf:input>
 					</xf:group>
 					<xf:group id="" class="fr">
