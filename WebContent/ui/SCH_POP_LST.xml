@@ -10,45 +10,7 @@
 				<data xmlns="" />
 			</xf:instance>
 			<w2:dataCollection baseNode="map">
-				<w2:dataMap baseNode="map" id="dma_content">
-					<w2:keyInfo>
-						<!-- key -->
-						<w2:key id="SCH_WRITER" name="SCH_WRITER" dataType="text"></w2:key>
-						<w2:key id="SCH_START" name="SCH_START" dataType="text"></w2:key>
-						<w2:key id="SCH_IDX" name="SCH_IDX" dataType="text"></w2:key>
-						
-						<!-- contents -->
-						<w2:key id="SCH_TITLE" name="SCH_TITLE" dataType="text"></w2:key>
-						<w2:key id="SCH_CONT" name="SCH_CONT" dataType="text"></w2:key>						
-						<w2:key id="SCH_CREATE_DTTM" name="SCH_CREATE_DTTM" dataType="text"></w2:key>
-						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
-
-						<!-- etc -->
-						<w2:key id="SCH_START_TIME" name="SCH_START_TIME" dataType="text"></w2:key>
-						<w2:key id="SCH_END" name="SCH_END" dataType="text"></w2:key>
-						<w2:key id="SCH_END_TIME" name="SCH_END_TIME" dataType="text"></w2:key>
-						<w2:key id="SCH_COLOR" name="SCH_COLOR" dataType="text"></w2:key>
-						<w2:key id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:key>
-						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
-						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
-						
-						<!-- 공통부 -->
-						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
-						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
-						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_INSERTQUERY" name="SUBQUERY" dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_UPDATEQUERY" name="SUBQUERY" dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
-						<w2:key id="COMMON_MASTER_KEY" name="COMMON_MASTER_KEY" dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
-					</w2:keyInfo>
-				</w2:dataMap>
-				<w2:dataMap baseNode="map" id="COMMON_RESULT">
-					<w2:keyInfo>
-						<w2:key id="COMMON_MASTER_RESULT" name="COMMON_MASTER_RESULT" dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_RESULT" name="COMMON_DETAIL_RESULT" dataType="text"></w2:key>
-					</w2:keyInfo>
-				</w2:dataMap>
+				<w2:aliasDataList scope="../dlt_gubunList" id="dlt_gubunList"></w2:aliasDataList>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
 			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]' target="data:json,COMMON_RESULT"
@@ -61,24 +23,37 @@
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
 	let selectedCell = $p.parent().scwin.selectedCell;
+	ipt_day.setValue(selectedCell.getAttribute('yyyyMMdd'));
 	let list = $p.parent().scwin.dayMap[selectedCell.getAttribute('yyyyMMdd')];
 	if(list && list.length > 0){
 		let str = '';
 		for(let i=0; i < list.length; i++){
 			let row = list[i];
 			let tmpIdx = gen_item.insertChild();
-			var btn_item = gen_item.getChild(tmpIdx, "btn_item");
-			let title_display = '';
-			if(row.SCH_SUCCESSYN == 'Y'){
-				title_display = '✔'+row.SCH_TITLE;
-			}else{
-				title_display = row.SCH_TITLE;
-			}
-			btn_item.setValue(title_display);
-			btn_item.setUserData('SCH_IDX',row.SCH_IDX);
-			btn_item.setUserData('SCH_OBJ',row);
+			
+			
+			
+			let grp_row = gen_item.getChild(tmpIdx, "grp_row");
+			let btn_item = gen_item.getChild(tmpIdx, "btn_item");
+			let ipt_title = gen_item.getChild(tmpIdx, "ipt_title");
+			let spa_success = gen_item.getChild(tmpIdx, "spa_success");
+			let data = dlt_gubunList.getMatchedJSON('CODE',row.SCH_COLOR);
+			btn_item.setValue(data[0].DATA);
+			
+			grp_row.setUserData('SCH_IDX',row.SCH_IDX);
+			grp_row.setUserData('SCH_OBJ',row);
 			let _color = $p.parent().scwin.getBgColor(row.SCH_COLOR);
-			btn_item.setStyle('background-color',_color);
+			//btn_item.setStyle('background-color',_color);
+			btn_item.setStyle('border-left',`10px solid ${_color}`);
+
+			if(row.SCH_SUCCESSYN == 'Y'){
+				spa_success.addClass('done');
+			}else{
+				spa_success.removeClass('done');
+			}
+
+			ipt_title.setValue(row.SCH_TITLE);
+			ipt_title.setStyle('color','black');
 		}
 	}else{
 		$p.parent().scwin.btn_reg_onclick();
@@ -96,13 +71,19 @@ scwin.btn_item_onclick = function () {
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m" style="overflow: auto;">
 			<xf:group id="">
+				<w2:textbox id="" label="" style="" tagname="span" class="sch_spa_view fa fa-calendar-o fl"></w2:textbox>
+				<w2:textbox class="ipt_day" displayFormatter="gcm.display.yyyy_MM_ddEEE요일" ref="" id="ipt_day" label=""
+					style="" tagname="span">
+				</w2:textbox>
+										
 				<xf:group style="" id="dfbox" class="dfbox">
-					<w2:generator style="" id="gen_item" class="" tagname="ul">
-						<xf:group id="" style="" tagname="li">
-							<xf:trigger style="font-size:18px" id="btn_item" type="button" class="mb10 sch_list"
-								ev:onclick="scwin.btn_item_onclick">
-								<xf:label><![CDATA[폐기]]></xf:label>
+					<w2:generator style="" id="gen_item" class="gen_item" tagname="ul">
+						<xf:group id="grp_row" style="" tagname="li" ev:onclick="scwin.btn_item_onclick">
+							<xf:trigger style="font-size:18px;border-left: 10px solid #53a786;" id="btn_item" type="button" class="fl sch_list">
+								<xf:label><![CDATA[]]></xf:label>
 							</xf:trigger>
+							<w2:textbox class="ico_success fl done"  id="spa_success" label="" style="cursor:pointer" tagname="span"></w2:textbox>
+							<w2:textbox class="spa_listTitle"  id="ipt_title" label="" style="cursor:pointer" tagname="span"></w2:textbox>							
 						</xf:group>
 					</w2:generator>
 				</xf:group>

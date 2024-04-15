@@ -11,7 +11,7 @@
 			</xf:instance>
 			<w2:dataCollection baseNode="map">
 				<w2:aliasDataMap scope="../dma_content" id="dma_content"></w2:aliasDataMap>
-				<w2:aliasDataList scope="../dlt_gubunList" id="dlt_gubunList"></w2:aliasDataList>                
+				<w2:aliasDataList scope="../dlt_gubunList" id="dlt_gubunList"></w2:aliasDataList>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
 		</xf:model>
@@ -58,18 +58,19 @@
 					<xf:group style="" tagname="tr" id="tr_read">
 						<xf:group tagname="td" class="w2tb_td" style="border-radius:10px;">
 							<w2:attributes></w2:attributes>
-							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="" renderType="radiogroup" rows="1" selectedIndex="0" style="color:#333" 
-								class="" >
+							<w2:textbox id="" label="" style="top:0; padding-left:0; margin-left:0;" tagname="span" class="sch_spa_view fa fa-calendar-o"></w2:textbox>
+							<xf:input displayFormatter="gcm.display.yyyy년MM월dd일EEE" style="font-size: 18px;border:0;padding:0px; width:180px;" id="ipt_day" ref=""
+								readOnly="true">
+							</xf:input>
+							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="" renderType="radiogroup" rows="1"
+								selectedIndex="0" style="color:#333" class="sch_rdo">
 								<xf:choices>
 									<xf:itemset nodeset="data:dlt_gubunList">
 										<xf:label ref="DATA"></xf:label>
 										<xf:value ref="CODE"></xf:value>
 									</xf:itemset>
 								</xf:choices>
-							</xf:select1><xf:input displayFormatter="gcm.display.yyyy년MM월dd일EEE" style="font-size: 18px;border:0;padding:0 40px"
-								id="ipt_day" ref="" readOnly="true">
-							</xf:input>
-							
+							</xf:select1>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_createDt" style="display:none;">
@@ -87,7 +88,7 @@
 							</xf:input>
 						</xf:group>
 					</xf:group>
-					<xf:group tagname="tr" style="display:none;"  id="tr_title">
+					<xf:group tagname="tr" style="display:none;" id="tr_title">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:input class="req" id="ibx_boardTitle" placeholder="" ref="data:dma_content.SCH_TITLE" style="width:100%;"></xf:input>

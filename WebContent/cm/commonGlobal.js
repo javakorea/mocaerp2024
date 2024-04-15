@@ -2612,4 +2612,13 @@ gcm.display.yyyy년MM월dd일EEE = function(_data){
 		return "";
 	}
 };
+gcm.display.yyyy_MM_ddEEE요일 = function(_data){
+	if(_data){
+		let yyyyMMdd = _data.substring(0,10).replace(/-/g,'');
+		let str = WebSquare.date.getFormattedDate(yyyyMMdd,'yyyy-MM-dd (EEE요일)');
+		return str;
+	}else{
+		return "";
+	}
+};
 
