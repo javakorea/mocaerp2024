@@ -203,7 +203,7 @@ scwin.threeCalDraw = function(){
 		if(yyyyMM == _today.substring(0,6)){
 			grp_cal.setStyle('background-image', 'url(/cm/images/bg_spring.png)');
 			grp_cal.setStyle('background-repeat', 'no-repeat');
-			SCH_CURRENTMONTH.setStyle('color', scwin.yyyyMmColor);
+			SCH_CURRENTMONTH.setStyle('color', scwin.gubun1Color);
 		}else{
 			grp_cal.setStyle('background-image', '');
 			grp_cal.setStyle('background-repeat', '');

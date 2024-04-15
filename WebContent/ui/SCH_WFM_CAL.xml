@@ -86,25 +86,25 @@ scwin.cell_onclick = function() {
 			<xf:group style="" id="" class="sch_table">
 				<xf:group style="" id="" class="sch_thead">
 					<xf:group style="" id="" class="sch_tr">
-						<xf:group style="opacity:0.8" id="" class="sch_th">
+						<xf:group style="background:none" id="" class="sch_th">
 							<w2:span style="" label="일" id=""></w2:span>
 						</xf:group>
-						<xf:group style="opacity:0.8" id="" class="sch_th">
+						<xf:group style="background:none" id="" class="sch_th">
 							<w2:span style="" label="월" id=""></w2:span>
 						</xf:group>
-						<xf:group style="opacity:0.8" id="" class="sch_th">
+						<xf:group style="background:none" id="" class="sch_th">
 							<w2:span style="" label="화" id=""></w2:span>
 						</xf:group>
-						<xf:group style="opacity:0.8" id="" class="sch_th">
+						<xf:group style="background:none" id="" class="sch_th">
 							<w2:span style="" label="수" id=""></w2:span>
 						</xf:group>
-						<xf:group style="opacity:0.8" id="" class="sch_th">
+						<xf:group style="background:none" id="" class="sch_th">
 							<w2:span style="" label="목" id=""></w2:span>
 						</xf:group>
-						<xf:group style="opacity:0.8" id="" class="sch_th">
+						<xf:group style="background:none" id="" class="sch_th">
 							<w2:span style="" label="금" id=""></w2:span>
 						</xf:group>
-						<xf:group style="opacity:0.8" id="" class="sch_th">
+						<xf:group style="background:none" id="" class="sch_th">
 							<w2:span style="" label="토" id=""></w2:span>
 						</xf:group>
 					</xf:group>

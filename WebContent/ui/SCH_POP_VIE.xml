@@ -21,7 +21,7 @@
 	let _parentDma = $p.parent().scwin.selectedSchObj;
 	dma_content.setJSON(_parentDma);
 	edi_1.setValue(dma_content.get('SCH_CONT'));
-	edi_1.setStyle('padding','0px 0px 0px 0px');
+	edi_1.setStyle('padding','10px 0px 0px 0px');
 	$p.parent().btn_reg.setLabel('등록');
 	$p.parent().btn_reg.hide();
 	
