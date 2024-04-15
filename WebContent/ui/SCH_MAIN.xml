@@ -172,9 +172,10 @@ scwin.threeCalDraw = function(){
 	var yyyyMM 			= scwin.getSCH_CURRENTMONTH();
 	let _today = WebSquare.date.getCurrentServerDate('yyyyMMdd');
 	if(yyyyMM == _today.substring(0,6)){
-		grp_cal.setStyle('background-image', 'url(/cm/images/bg_spring.png)');
+		grp_cal.setStyle('background-image', 'url(/cm/images/ani1.gif)');
 		grp_cal.setStyle('background-repeat', 'no-repeat');
-		grp_cal.setStyle('background-position-x', '-160px');
+		//grp_cal.setStyle('background-position-x', '-300px');
+		//grp_cal.setStyle('background-position-y', '-260px');
 		
 		SCH_CURRENTMONTH.setStyle('color', scwin.gubun1Color);
 	}else{
@@ -212,8 +213,10 @@ scwin.threeCalDraw = function(){
 			scwin.dayMap[_key] = aDayList;
 		}
 		scwin.draw(yyyyMM,scwin.center.scope);
-		scwin.draw(yyyyMM_prev,scwin.left.scope);
-		scwin.draw(yyyyMM_next,scwin.right.scope);
+		setTimeout(function(){
+			scwin.draw(yyyyMM_prev,scwin.left.scope);
+			scwin.draw(yyyyMM_next,scwin.right.scope);
+		},500);
 	};
 }
 /* 달력1장그리기 */
@@ -284,10 +287,24 @@ scwin.draw = function(yyyyMM,_scope) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 현재월가져오기 */
 scwin.getSCH_CURRENTMONTH = function(){
 	var yyyyMM = SCH_CURRENTMONTH.getValue();
-	if(!yyyyMM.match(/\d{4}0$/) && yyyyMM.length > 4){
+	if(!yyyyMM.match(/\d{4}0$/) && (yyyyMM.length == 5 || yyyyMM.length == 6)){
 		return yyyyMM;
 	}else{
 		return WebSquare.date.getCurrentServerDate('yyyyMM');
