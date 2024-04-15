@@ -409,7 +409,6 @@ scwin.btn_update_onclick = function(e) {
 };
 /* 완료버튼클릭 */
 scwin.btn_success_onclick = function(e) {
-	debugger;
 	if(btn_success.getLabel() == '완료취소'){
 		com.win.confirm('해당 일정을 \'완료취소\'처리하시겠습니까?', function(e){
 			if(e.clickValue){
