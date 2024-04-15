@@ -374,6 +374,7 @@ scwin.btn_reg_onclick = function(e) {
 				dma_content.set("SCH_TITLE",wfm_pop.scope.edi_1.getValue().substring(0,20));
 				dma_content.set("SCH_CONT", wfm_pop.scope.edi_1.getValue());
 				dma_content.set("SCH_CURRENTMONTH",wfm_pop.scope.ipt_day.getValue().substr(0,6));
+				dma_content.set("SCH_COLOR", wfm_pop.scope.rdo_gubunYn.getValue());
 				dma_content.set("COMMON_MASTER_QUERY"	, "M.INS_SCHEDULE");
 				dma_content.set("COMMON_STATUS"			, "I");
 				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
@@ -395,6 +396,7 @@ scwin.btn_update_onclick = function(e) {
 				dma_content.set("SCH_TITLE",wfm_pop.scope.edi_1.getValue().substring(0,20));
 				dma_content.set("SCH_CONT", wfm_pop.scope.edi_1.getValue());
 				dma_content.set("SCH_CURRENTMONTH",scwin.selectedSchObj.SCH_START.substr(0,6));
+				dma_content.set("SCH_COLOR", wfm_pop.scope.rdo_gubunYn.getValue());
 				dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
 				dma_content.set("COMMON_STATUS"			, "U");
 				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);

@@ -67,7 +67,8 @@ scwin.rdo_gubunYn_onradioclick = function(index,value) {
 					<xf:group style="" tagname="tr" id="tr_read">
 						<xf:group tagname="td" class="w2tb_td" style="border-radius:10px;">
 							<w2:attributes></w2:attributes>
-							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="data:dma_content.SCH_COLOR" renderType="radiogroup" rows="1" selectedIndex="0" style="" class="mo_rdo type1" ev:onviewchange="scwin.rdo_gubunYn_onradioclick">
+							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="" renderType="radiogroup" rows="1" selectedIndex="0" style="" 
+								class="mo_rdo type1" ev:onviewchange="scwin.rdo_gubunYn_onradioclick">
 								<xf:choices>
 									<xf:itemset nodeset="data:dlt_gubunList">
 										<xf:label ref="DATA"></xf:label>
