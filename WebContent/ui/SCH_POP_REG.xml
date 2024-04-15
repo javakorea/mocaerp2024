@@ -41,9 +41,7 @@
 	let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
 	ipt_day.setValue(day);
 	edi_1.focus();
-};
-
-]]></script>
+};]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m" style="">
@@ -67,7 +65,7 @@
 									</xf:itemset>
 								</xf:choices>
 							</xf:select1><xf:input displayFormatter="gcm.display.yyyy년MM월dd일EEE" style="font-size: 18px;border:0;padding:0 40px"
-								id="ipt_day" ref="" >
+								id="ipt_day" ref="" readOnly="true">
 							</xf:input>
 							
 						</xf:group>
