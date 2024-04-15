@@ -146,7 +146,6 @@ scwin.onpageload = function() {
 		scwin.swiper.on('realIndexChange', function (_swiperObj) {
 			let selectedCalObj = $p.getComponentById(scwin.swiper.slides[scwin.swiper.activeIndex].id);
 			let basisMonth = selectedCalObj.scope.grp_yyyyMM.render.innerText.replace(/년|월/g,'');
-			debugger;
 			SCH_CURRENTMONTH.setValue(basisMonth);
 			if(selectedCalObj.org_id == 'wfm_cal_prev'){
 				scwin.left = wfm_cal_next;

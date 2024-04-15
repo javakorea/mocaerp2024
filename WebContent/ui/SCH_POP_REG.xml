@@ -27,6 +27,7 @@
 			scwin._parentDma.SCH_COLOR = 1;
 		}
 		rdo_gubunYn.setValue(scwin._parentDma.SCH_COLOR);
+	/*등록시*/	
 	}else{
 		let json = dma_content.getJSON();
 		let arr = Object.keys(json);
@@ -38,6 +39,7 @@
 		dma_content.setJSON(newJson);
 	}
 	/* 등록,수정모두 */
+	edi_1.setStyle('padding','10px 10px 10px 10px');
 	let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
 	ipt_day.setValue(day);
 	edi_1.focus();
