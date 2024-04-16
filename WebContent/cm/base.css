@@ -549,7 +549,7 @@ input[type="file"]{cursor:pointer;}
 .tbbox.noline .tb .w2tb_td{padding: 15px; border:0}
 .tbbox.noline.read .tb.w2tb_adaptive_layout .w2tb_td{border-top:0 !important; }
 .tbbox.noline.read .tb .w2tb_td{background:#fff;border-radius: 0; border:0; border-bottom: 1px solid #000 !important; padding-left:0}
-
+.tbbox.noline .tb.w2tb_adaptive_layout .w2tb_td{border:0 !important}
 
 
 .mo_rdo{font-size:20px; color:#333; border-radius: 3px; border: 1px solid #333;}
@@ -978,24 +978,6 @@ input[type="file"]{cursor:pointer;}
 .w2balloonTip_col_bottomleft,
 .w2balloonTip_col_bottomcenter,
 .w2balloonTip_col_bottomright {display:none}
-
-@media screen and (max-width: 430px) { 
-	.w2tb.w2tb_adaptive_layout .w2input,
-	.w2tb.w2tb_adaptive_layout .w2multiselect_div,
-	.w2tb.w2tb_adaptive_layout .w2selectbox_native_mobile,
-	.w2tb.w2tb_adaptive_layout .w2autoComplete,
-	.w2tb.w2tb_adaptive_layout .w2checkcombobox{min-width:50px; width:100% !important; margin-right:4px;}
-	.w2tb.w2tb_adaptive_layout .w2input.grp_fromto {width: calc(50% - 2.5px) !Important; font-size:22px !important;}
-}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1630,7 +1612,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .sch_view_cont.read:focus, .sch_view_cont.read:hover{border:unset !important;}
 .sch_rdo .w2radio_label:before{left: -2px; width: 20px; height: 20px; top: 11px;}
 .sch_rdo input[type="radio"]:checked + .w2radio_label:after{}
-
+.grp_setFromTo{display:flex}
 
 
 @media screen and (max-width: 1280px) {
@@ -1747,7 +1729,16 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.txt_saveDt{display: inline-block; left: 0; position: absolute; z-index: 2; top: -18px;}
 
 }
+
+
 @media screen and (max-width: 446px) { 
+	.w2tb.w2tb_adaptive_layout .w2input,
+	.w2tb.w2tb_adaptive_layout .w2multiselect_div,
+	.w2tb.w2tb_adaptive_layout .w2selectbox_native_mobile,
+	.w2tb.w2tb_adaptive_layout .w2autoComplete,
+	.w2tb.w2tb_adaptive_layout .w2checkcombobox{min-width:50px; width:100% !important; margin-right:4px;}
+	.w2tb.w2tb_adaptive_layout .w2input.grp_fromto {width: calc(50% - 2.5px) !Important; font-size:22px !important;}
+	
 	.login_wrap.type2 .login_container{ width: 312px;}
 	.login_wrap.type2 .login_contents ul li a {margin-left: 10px;padding-left: 10px;}
 	
@@ -1757,5 +1748,6 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.side .grp_tab .tab_con{top:45px;}
 	.side .btn_area{display:block !important;}
 	.sch_titleArea{background-position:40%;}
+	.w2tb.w2tb_adaptive_layout .grp_setFromTo .w2input{width:45px !important;}	
 }
-
+	

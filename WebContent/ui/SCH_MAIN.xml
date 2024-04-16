@@ -7,6 +7,142 @@
 		<w2:MSA />
 		<xf:model>
 			<w2:dataCollection baseNode="map">
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_HHs" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="CODE" name="CODE" dataType="text"></w2:column>
+						<w2:column id="DATA" name="DATA" dataType="text"></w2:column>
+					</w2:columnInfo>
+					<w2:data use="true">
+						<w2:row>
+							<CODE><![CDATA[06]]></CODE>
+							<DATA><![CDATA[6시(아침)]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[07]]></CODE>
+							<DATA><![CDATA[7시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[08]]></CODE>
+							<DATA><![CDATA[8시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[09]]></CODE>
+							<DATA><![CDATA[9시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[10]]></CODE>
+							<DATA><![CDATA[10시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[11]]></CODE>
+							<DATA><![CDATA[11시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[12]]></CODE>
+							<DATA><![CDATA[12시(점심)]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[13]]></CODE>
+							<DATA><![CDATA[13시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[14]]></CODE>
+							<DATA><![CDATA[14시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[15]]></CODE>
+							<DATA><![CDATA[15시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[16]]></CODE>
+							<DATA><![CDATA[16시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[17]]></CODE>
+							<DATA><![CDATA[17시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[18]]></CODE>
+							<DATA><![CDATA[18시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[19]]></CODE>
+							<DATA><![CDATA[19시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[20]]></CODE>
+							<DATA><![CDATA[20시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[21]]></CODE>
+							<DATA><![CDATA[21시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[22]]></CODE>
+							<DATA><![CDATA[22시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[23]]></CODE>
+							<DATA><![CDATA[23시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[00]]></CODE>
+							<DATA><![CDATA[0시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[01]]></CODE>
+							<DATA><![CDATA[1시(새벽)]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[02]]></CODE>
+							<DATA><![CDATA[2시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[03]]></CODE>
+							<DATA><![CDATA[3시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[04]]></CODE>
+							<DATA><![CDATA[4시]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[05]]></CODE>
+							<DATA><![CDATA[5시]]></DATA>
+						</w2:row>						
+					</w2:data>
+				</w2:dataList>
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_MIs" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="CODE" name="CODE" dataType="text"></w2:column>
+						<w2:column id="DATA" name="DATA" dataType="text"></w2:column>
+					</w2:columnInfo>
+					<w2:data use="true">
+						<w2:row>
+							<CODE><![CDATA[00]]></CODE>
+							<DATA><![CDATA[00분]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[10]]></CODE>
+							<DATA><![CDATA[10분]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[20]]></CODE>
+							<DATA><![CDATA[20분]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[30]]></CODE>
+							<DATA><![CDATA[30분]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[40]]></CODE>
+							<DATA><![CDATA[40분]]></DATA>
+						</w2:row>
+						<w2:row>
+							<CODE><![CDATA[50]]></CODE>
+							<DATA><![CDATA[50분]]></DATA>
+						</w2:row>
+					</w2:data>
+				</w2:dataList>			
 				<w2:dataList baseNode="list" repeatNode="map" id="dlt_gubunList" saveRemovedData="true">
 					<w2:columnInfo>
 						<w2:column id="CODE" name="CODE" dataType="text" length="" />
@@ -33,15 +169,14 @@
 						<w2:column dataType="text" id="SCH_WRITER" name="SCH_WRITER" />
 						<w2:column id="SCH_CREATE_DTTM" name="SCH_CREATE_DTTM" dataType="text"></w2:column>
 						<w2:column id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:column>
-						<w2:column id="SCH_START" name="SCH_START" dataType="text"></w2:column>
-						<w2:column id="SCH_END" name="SCH_END" dataType="text"></w2:column>
-						<w2:column id="SCH_START_UTC" name="SCH_START_UTC" dataType="text"></w2:column>
-						<w2:column id="SCH_END_UTC" name="SCH_END_UTC" dataType="text"></w2:column>
-
+						
+						<w2:column id="SCH_START" 			name="SCH_START" 		dataType="text"></w2:column>
+						<w2:column id="SCH_END" 			name="SCH_END" 			dataType="text"></w2:column>
+						<w2:column id="SCH_START_TIME" 		name="SCH_START_TIME" 	dataType="text"></w2:column>
+						<w2:column id="SCH_END_TIME" 		name="SCH_END_TIME" 	dataType="text"></w2:column>
 
 						<w2:column id="SCH_COLOR" name="SCH_COLOR" dataType="text"></w2:column>
 						<w2:column id="FUL_COLOR" name="FUL_COLOR" dataType="text" importFormatter="scwin.fn_format"></w2:column>
-
 
 						<w2:column id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:column>
 						<w2:column id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:column>

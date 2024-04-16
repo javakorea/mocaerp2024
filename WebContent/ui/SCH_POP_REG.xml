@@ -12,12 +12,34 @@
 			<w2:dataCollection baseNode="map">
 				<w2:aliasDataMap scope="../dma_content" id="dma_content"></w2:aliasDataMap>
 				<w2:aliasDataList scope="../dlt_gubunList" id="dlt_gubunList"></w2:aliasDataList>
+				<w2:aliasDataList scope="../dlt_HHs" id="dlt_HHs"></w2:aliasDataList>
+				<w2:aliasDataList scope="../dlt_MIs" id="dlt_MIs"></w2:aliasDataList>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
 		</xf:model>
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
+	let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
+
+	let list = dlt_HHs.getAllJSON();
+	for(let i=0; i < list.length; i++){
+		let row = list[i];
+		let tmpIdx = gen_HH.insertChild();
+		let grp_row = gen_HH.getChild(tmpIdx, "grp_hhrow");
+		let txb_HH = gen_HH.getChild(tmpIdx, "txb_HH");
+		grp_row.setUserData("CODE", row.CODE);
+		txb_HH.setValue(row.DATA);
+	};
+	let list2 = dlt_MIs.getAllJSON();
+	for(let i=0; i < list2.length; i++){
+		let row = list2[i];
+		let tmpIdx = gen_MI.insertChild();
+		let grp_row = gen_MI.getChild(tmpIdx, "grp_mirow");
+		let txb_MI = gen_MI.getChild(tmpIdx, "txb_MI");
+		grp_row.setUserData("CODE", row.CODE);
+		txb_MI.setValue(row.DATA);
+	};	
 	/* 수정일때만 */
 	scwin._parentDma = $p.parent().scwin.selectedSchObj;
 	if(scwin._parentDma && scwin._parentDma.SCH_IDX){
@@ -37,13 +59,98 @@
 			newJson[k] = '';
 		}
 		dma_content.setJSON(newJson);
+		ipc_start.setValue(day);
+		ipt_startHH.setValue("00");ipt_startMI.setValue("00");
+		ipt_endHH.setValue("00");ipt_endMI.setValue("00");
 	}
 	/* 등록,수정모두 */
 	edi_1.setStyle('padding','10px 10px 10px 10px');
-	let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
 	ipt_day.setValue(day);
 	edi_1.focus();
-};]]></script>
+};
+
+
+
+
+scwin.grp_dim_white_onclick = function(e) {
+	scwin.dim();grp_HH.hide('');grp_MI.hide('');	
+};
+scwin.dim = function() {
+	if(grp_dim_white.getStyle('display') == 'none'){
+		grp_dim_white.show('');
+		grp_dim_white.focus();
+	}else{
+		grp_dim_white.hide('');
+	}	
+};
+
+scwin.HHMIObj=null;
+/* 시작시입력 오픈 */
+scwin.tri_HH_onclick = function(e) {
+	if(this.id){
+		scwin.HHMIObj = this;
+	}else{
+		scwin.HHMIObj = null;
+	}
+	scwin.dim();
+	if(grp_HH.getStyle('display') == 'none'){
+		grp_HH.show('');
+		grp_HH.focus();
+	}else{
+		grp_HH.hide('');
+	}		
+};
+/* 시작분입력 오픈 */
+scwin.tri_MI_onclick = function(e) {
+	if(this.id){
+		scwin.HHMIObj = this;
+	}else{
+		scwin.HHMIObj = null;
+	}	
+	scwin.dim();
+	if(grp_MI.getStyle('display') == 'none'){
+		grp_MI.show('');
+		grp_MI.focus();
+	}else{
+		grp_MI.hide('');
+	}		
+};
+
+
+
+
+
+/*시팝업에서선택시*/
+scwin.grp_hhrow_onclick = function(e) {
+	scwin.HHMIObj.setValue(this.getUserData("CODE"));
+	scwin.tri_HH_onclick();
+};
+/*분팝업에서선택시*/
+scwin.grp_mirow_onclick = function(e) {
+	scwin.HHMIObj.setValue(this.getUserData("CODE"));
+	scwin.tri_MI_onclick();
+};
+
+
+
+
+
+
+
+scwin.trigger2_onclick = function(e) {
+	if(this.getValue() == '상세등록모드로이동'){
+		tr_gubun.show('');
+		tr_start.show('');
+		tr_end.show('');
+		this.setValue('간편등록모드로이동');
+	}else{
+		tr_gubun.hide('');
+		tr_start.hide('');
+		tr_end.hide('');
+		this.setValue('상세등록모드로이동');
+	}
+};
+]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m" style="">
@@ -58,10 +165,20 @@
 					<xf:group style="" tagname="tr" id="tr_read">
 						<xf:group tagname="td" class="w2tb_td" style="border-radius:10px;">
 							<w2:attributes></w2:attributes>
-							<w2:textbox id="" label="" style="top:0; padding-left:0; margin-left:0;" tagname="span" class="sch_spa_view fa fa-calendar-o"></w2:textbox>
-							<xf:input displayFormatter="gcm.display.yyyy년MM월dd일EEE" style="font-size: 18px;border:0;padding:0px; width:180px;" id="ipt_day" ref=""
-								readOnly="true">
+							<w2:textbox id="" label="" style="top:0; padding-left:0; margin-left:0;" tagname="span"
+								class="sch_spa_view fa fa-calendar-o">
+							</w2:textbox>
+							<xf:input displayFormatter="gcm.display.yyyy_MM_ddEEE요일"
+								style="font-size: 18px;border:0;padding:0px; width:180px;" id="ipt_day" ref="" readOnly="true">
 							</xf:input>
+							<xf:trigger type="button" id="trigger2" style="width: 180px;height: 23px;" ev:onclick="scwin.trigger2_onclick">
+								<xf:label><![CDATA[상세등록모드로이동]]></xf:label>
+							</xf:trigger>
+						</xf:group>
+					</xf:group>
+					<xf:group tagname="tr" id="tr_gubun" style="display:none;">
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes></w2:attributes>
 							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="" renderType="radiogroup" rows="1"
 								selectedIndex="0" style="color:#333" class="sch_rdo">
 								<xf:choices>
@@ -73,18 +190,33 @@
 							</xf:select1>
 						</xf:group>
 					</xf:group>
-					<xf:group tagname="tr" id="tr_createDt" style="display:none;">
-						<xf:group tagname="td" class="w2tb_td">
+					<xf:group tagname="tr" id="tr_start" style="display:none;">
+						<xf:group tagname="td" class="w2tb_td" >
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_schdDate" placeholder="" readOnly="true" ref="data:dma_content.SCH_CREATE_DTTM"
-								style="width:100%;">
-							</xf:input>
+							<xf:group id="" style="" class="grp_setFromTo">
+								<w2:inputCalendar id="ipc_start" style="width: 90px;height: 40px;" calendarValueType="yearMonthDate" pickerType="dynamic" readOnly="true"></w2:inputCalendar>
+								<xf:input id="ipt_startHH" style="cursor:pointer; width: 36px;font-size: 20px;height:30px;" readOnly="true" ev:onclick="scwin.tri_HH_onclick"></xf:input>
+								<w2:textbox id="" label=":" style="color:black;font-size: 30px"></w2:textbox>
+								<xf:input id="ipt_startMI" style="cursor:pointer; width: 36px;font-size: 20px;height:30px" readOnly="true" ev:onclick="scwin.tri_MI_onclick"></xf:input>
+							</xf:group> 
 						</xf:group>
 					</xf:group>
+					<xf:group tagname="tr" id="tr_end" style="display:none;">
+						<xf:group tagname="td" class="w2tb_td" >
+							<w2:attributes></w2:attributes>
+							<xf:group id="" style="" class="grp_setFromTo">
+								<w2:inputCalendar id="ipc_end" style="width: 90px;height: 40px;" calendarValueType="yearMonthDate" pickerType="dynamic"></w2:inputCalendar>
+								<xf:input id="ipt_endHH" style="cursor:pointer; width: 36px;font-size: 20px;height:30px;" readOnly="true" ev:onclick="scwin.tri_HH_onclick"></xf:input>
+								<w2:textbox id="" label=":" style="color:black;font-size: 30px"></w2:textbox>
+								<xf:input id="ipt_endMI" style="cursor:pointer; width: 36px;font-size: 20px;height:30px" readOnly="true" ev:onclick="scwin.tri_MI_onclick"></xf:input>
+							</xf:group> 
+						</xf:group>
+					</xf:group>					
 					<xf:group tagname="tr" style="display:none;" id="tr_writer">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_content.SCH_WRITER" style="width:100%;">
+							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_content.SCH_WRITER"
+								style="width:100%;">
 							</xf:input>
 						</xf:group>
 					</xf:group>
@@ -104,5 +236,24 @@
 			</xf:group>
 		</xf:group>
 
+		<xf:group id="grp_dim_white" class="" style="display:none;z-index:9998;background-color:#FFF;opacity:0.8;position:absolute;top:0px;bottom:0px;left:0px;right:0px" ev:onclick="scwin.grp_dim_white_onclick">
+		</xf:group>
+		<xf:group style="position:absolute;top:100px;left:100px;right:100px;bottom:100px;background-color:#333;color:#FFF;z-index:9999;overflow-y:auto;border-radius:10px;display:none;" 
+		id="grp_HH" class="">
+			<w2:generator style="" id="gen_HH" class="gen_HH" tagname="ul">
+				<xf:group id="grp_hhrow" style="cursor:pointer; border-bottom:1px solid #555; height: 40px; line-height: 40px;" tagname="li" ev:onclick="scwin.grp_hhrow_onclick">
+					<w2:textbox class=""  id="txb_HH" label="" style="padding-left:40px;font-size:20px;background-color:#333" tagname="span"></w2:textbox>
+				</xf:group>
+			</w2:generator>
+		</xf:group>
+		<xf:group style="position:absolute;top:100px;left:100px;right:100px;height:246px;background-color:#333;color:#FFF;z-index:9999;overflow-y:auto;border-radius:10px;display:none;" 
+		id="grp_MI" class="">
+			<w2:generator style="" id="gen_MI" class="gen_HH" tagname="ul">
+				<xf:group id="grp_mirow" style="cursor:pointer; border-bottom:1px solid #555; height: 40px; line-height: 40px;" tagname="li" ev:onclick="scwin.grp_mirow_onclick">
+					<w2:textbox class=""  id="txb_MI" label="" style="padding-left:40px;font-size:20px;background-color:#333" tagname="span"></w2:textbox>
+				</xf:group>
+			</w2:generator>
+		</xf:group>
+				
 	</body>
 </html>
