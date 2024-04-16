@@ -17,30 +17,50 @@
 		</xf:model>
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
-		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-	let _parentDma = $p.parent().scwin.selectedSchObj;
-	dma_content.setJSON(_parentDma);
-	edi_1.setValue(dma_content.get('SCH_CONT'));
-	edi_1.setStyle('padding','10px 0px 0px 0px');
-	$p.parent().btn_reg.setLabel('등록');
-	$p.parent().btn_reg.hide();
-	
-	$p.parent().btn_closePopup.setLabel('이전');
-	$p.parent().btn_closePopup.show('');	
+		<script type="text/javascript" lazy="false"><![CDATA[
+		
+		scwin.sch_mode = '';
+		scwin.onpageload = function () {
+			let _parentDma = $p.parent().scwin.selectedSchObj;
+			dma_content.setJSON(_parentDma);
+			if(dma_content.get('SCH_END_TIME')){
+				scwin.sch_mode = 'DETAIL';
+				ipc_start.setValue(dma_content.get('SCH_START'));
+				ipt_startHH.setValue(dma_content.get('SCH_START_TIME').substring(0,2));
+				ipt_startMI.setValue(dma_content.get('SCH_START_TIME').substring(2,4));
 
-	if(dma_content.get('SCH_SUCCESSYN') == 'Y'){
-		$p.parent().btn_success.setLabel('완료취소');
-	}else{
-		$p.parent().btn_success.setLabel('완료');
-	} 
-	$p.parent().btn_success.show('');
+				ipc_end.setValue(dma_content.get('SCH_END'));
+				ipt_endHH.setValue(dma_content.get('SCH_END_TIME').substring(0,2));
+				ipt_endMI.setValue(dma_content.get('SCH_END_TIME').substring(2,4));
+				
+				tr_start.show('');
+				tr_end.show('');
+			}else{
+				scwin.sch_mode = 'SIMPLE';
+				tr_start.hide('');
+				tr_end.hide('');				
+			}
+			edi_1.setValue(dma_content.get('SCH_CONT'));
+			edi_1.setStyle('padding','10px 0px 0px 0px');
+			$p.parent().btn_reg.setLabel('등록');
+			$p.parent().btn_reg.hide();
+			
+			$p.parent().btn_closePopup.setLabel('이전');
+			$p.parent().btn_closePopup.show('');	
 
-	$p.parent().btn_update.setLabel('수정');
-	$p.parent().btn_update.show('');
+			if(dma_content.get('SCH_SUCCESSYN') == 'Y'){
+				$p.parent().btn_success.setLabel('완료취소');
+			}else{
+				$p.parent().btn_success.setLabel('완료');
+			} 
+			$p.parent().btn_success.show('');
 
-	$p.parent().btn_del.setLabel('삭제');
-	$p.parent().btn_del.show('');
-};
+			$p.parent().btn_update.setLabel('수정');
+			$p.parent().btn_update.show('');
+
+			$p.parent().btn_del.setLabel('삭제');
+			$p.parent().btn_del.show('');
+		};
 
 scwin.display_color = function(_data){
 	let _bgColor = _data;
@@ -75,6 +95,39 @@ scwin.display_color = function(_data){
 							</w2:textbox>
 						</xf:group>
 					</xf:group>
+					
+					
+					
+					
+					
+					<xf:group tagname="tr" id="tr_start" style="display:none;">
+						<xf:group tagname="td" class="w2tb_td" >
+							<w2:attributes></w2:attributes>
+							<xf:group id="" style="" class="grp_setFromTo">
+								<w2:inputCalendar id="ipc_start" style="width: 90px;height: 40px;" calendarValueType="yearMonthDate" pickerType="dynamic" readOnly="true"></w2:inputCalendar>
+								<xf:input id="ipt_startHH" style="cursor:pointer; width: 36px;font-size: 20px;height:30px;" readOnly="true" ev:onclick="scwin.tri_HH_onclick"></xf:input>
+								<w2:textbox id="" label=":" style="color:black;font-size: 30px"></w2:textbox>
+								<xf:input id="ipt_startMI" style="cursor:pointer; width: 36px;font-size: 20px;height:30px" readOnly="true" ev:onclick="scwin.tri_MI_onclick"></xf:input>
+							</xf:group> 
+						</xf:group>
+					</xf:group>
+					<xf:group tagname="tr" id="tr_end" style="display:none;">
+						<xf:group tagname="td" class="w2tb_td" >
+							<w2:attributes></w2:attributes>
+							<xf:group id="" style="" class="grp_setFromTo">
+								<w2:inputCalendar id="ipc_end" style="width: 90px;height: 40px;" calendarValueType="yearMonthDate" pickerType="dynamic"></w2:inputCalendar>
+								<xf:input id="ipt_endHH" style="cursor:pointer; width: 36px;font-size: 20px;height:30px;" readOnly="true" ev:onclick="scwin.tri_HH_onclick"></xf:input>
+								<w2:textbox id="" label=":" style="color:black;font-size: 30px"></w2:textbox>
+								<xf:input id="ipt_endMI" style="cursor:pointer; width: 36px;font-size: 20px;height:30px" readOnly="true" ev:onclick="scwin.tri_MI_onclick"></xf:input>
+							</xf:group> 
+						</xf:group>
+					</xf:group>	
+					
+					
+					
+					
+					
+										
 					<xf:group tagname="tr" id="tr_createDt" style="display:none;">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>

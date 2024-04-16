@@ -212,8 +212,12 @@
 
 						<w2:key id="SCH_CREATE_DTTM" name="SCH_CREATE_DTTM" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
+						
 						<w2:key id="SCH_START" name="SCH_START" dataType="text"></w2:key>
+						<w2:key id="SCH_START_TIME" 		name="SCH_START_TIME" 	dataType="text"></w2:key>
 						<w2:key id="SCH_END" name="SCH_END" dataType="text"></w2:key>
+						<w2:key id="SCH_END_TIME" 		name="SCH_END_TIME" 	dataType="text"></w2:key>
+						
 						<w2:key id="SCH_COLOR" name="SCH_COLOR" dataType="text"></w2:key>
 						<w2:key id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:key>
 						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
@@ -309,8 +313,6 @@ scwin.threeCalDraw = function(){
 	if(yyyyMM == _today.substring(0,6)){
 		grp_cal.setStyle('background-image', 'url(/cm/images/f.gif)');
 		//grp_cal.setStyle('background-repeat', 'no-repeat');
-		//grp_cal.setStyle('background-position-x', '-300px');
-		//grp_cal.setStyle('background-position-y', '-260px');
 		SCH_CURRENTMONTH.setStyle('color', scwin.gubun1Color);
 	}else{
 		grp_cal.setStyle('background-image', '');
@@ -548,7 +550,33 @@ scwin.btn_reg_onclick = function(e) {
 		btn_reg.setLabel('저장');
 		wfm_pop.setSrc('/ui/SCH_POP_REG.xml');
 	}else if(btn_reg.getLabel() == "저장"){
-		com.win.confirm('해당 일정을 등록하시겠습니까?', function(e){
+		if(!wfm_pop.scope.edi_1.getValue()){
+			com.win.alert('일정내용을 입력해주세요.',function(){wfm_pop.scope.edi_1.focus();});
+			return;
+		}
+		let message = '';
+		if(wfm_pop.scope.trigger2.getValue() == '간편등록모드로이동'){
+			message = '해당 일정을 등록(상세모드)하시겠습니까?';
+			wfm_pop.scope.ipt_startHH.getValue();
+			wfm_pop.scope.ipt_startMI.getValue();
+			wfm_pop.scope.ipc_end.getValue();
+			wfm_pop.scope.ipt_endHH.getValue();
+			wfm_pop.scope.ipt_endMI.getValue();
+			dma_content.set("SCH_START_TIME", wfm_pop.scope.ipt_startHH.getValue()+wfm_pop.scope.ipt_startMI.getValue());
+			dma_content.set("SCH_END", wfm_pop.scope.ipc_end.getValue());
+			dma_content.set("SCH_END_TIME", wfm_pop.scope.ipt_endHH.getValue()+wfm_pop.scope.ipt_endMI.getValue());
+		}else{
+			message = '해당 일정을 등록(간편모드)하시겠습니까?';
+			wfm_pop.scope.ipt_startHH.setValue("");
+			wfm_pop.scope.ipt_startMI.setValue("");
+			wfm_pop.scope.ipc_end.setValue("");
+			wfm_pop.scope.ipt_endHH.setValue("");
+			wfm_pop.scope.ipt_endMI.setValue("");
+			dma_content.set("SCH_START_TIME", wfm_pop.scope.ipt_startHH.getValue()+wfm_pop.scope.ipt_startMI.getValue());
+			dma_content.set("SCH_END", wfm_pop.scope.ipc_end.getValue());
+			dma_content.set("SCH_END_TIME", wfm_pop.scope.ipt_endHH.getValue()+wfm_pop.scope.ipt_endMI.getValue());
+		}		
+		com.win.confirm(message, function(e){
 			if(e.clickValue){
 				/* contents */
 				dma_content.set("SCH_TITLE",wfm_pop.scope.edi_1.getValue().substring(0,20));
@@ -559,6 +587,7 @@ scwin.btn_reg_onclick = function(e) {
 				dma_content.set("COMMON_STATUS"			, "I");
 				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
 				/* key2 */dma_content.set("SCH_START"			, wfm_pop.scope.ipt_day.getValue());
+				debugger;
 				com.sbm.execute(sbm_commonTran);
 			}
 		});

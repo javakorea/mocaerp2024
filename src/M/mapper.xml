@@ -296,7 +296,7 @@
 		VALUES(
 			#{SCH_WRITER}, #{SCH_START}, #{SCH_IDX}, 
 			#{SCH_TITLE}, #{SCH_CONT}, CURRENT_TIMESTAMP, #{SCH_CURRENTMONTH}, 
-			'', '', '', #{SCH_COLOR},
+			#{SCH_START_TIME}, #{SCH_END}, #{SCH_END_TIME}, #{SCH_COLOR},
 			'N', 'N', 'N'
 		);
         <selectKey keyProperty="SCH_IDX" resultType="string" order="BEFORE">
