@@ -348,11 +348,10 @@ scwin.threeCalDraw = function(){
 			aDayList.push(c);
 			scwin.dayMap[_key] = aDayList;
 		}
+		if(scwin.selectedCell){scwin.selectedCell.setStyle('background-color','');}
 		scwin.draw(yyyyMM,scwin.center.scope);
-		setTimeout(function(){
-			scwin.draw(yyyyMM_prev,scwin.left.scope);
-			scwin.draw(yyyyMM_next,scwin.right.scope);
-		},500);
+		scwin.draw(yyyyMM_prev,scwin.left.scope);
+		scwin.draw(yyyyMM_next,scwin.right.scope);
 	};
 }
 /* 달력1장그리기 */
@@ -440,7 +439,7 @@ scwin.draw = function(yyyyMM,_scope) {
 /* 현재월가져오기 */
 scwin.getSCH_CURRENTMONTH = function(){
 	var yyyyMM = SCH_CURRENTMONTH.getValue();
-	if(!yyyyMM.match(/\d{4}0$/) && (yyyyMM.length == 5 || yyyyMM.length == 6)){
+	if(!yyyyMM.match(/^\d{4}0$/) && (yyyyMM.length == 5 || yyyyMM.length == 6)){
 		return yyyyMM;
 	}else{
 		return WebSquare.date.getCurrentServerDate('yyyyMM');
