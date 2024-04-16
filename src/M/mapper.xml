@@ -310,6 +310,7 @@
     <update id="UPT_SCHEDULE" parameterType="java.util.Map" useGeneratedKeys="true">
         /*UPT_SCHEDULE*/
          UPDATE T_SCHEDULE SET 
+         	<if test="SCH_START_TIME != null and SCH_START_TIME != ''">SCH_START_TIME = #{SCH_START_TIME}, </if>
 			<if test="SCH_END != null and SCH_END != ''">SCH_END = #{SCH_END}, </if>
 			<if test="SCH_END_TIME != null and SCH_END_TIME != ''">SCH_END_TIME = #{SCH_END_TIME}, </if>
 			<if test="SCH_COLOR != null and SCH_COLOR != ''">SCH_COLOR = #{SCH_COLOR}, </if>

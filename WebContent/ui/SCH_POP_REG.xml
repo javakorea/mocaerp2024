@@ -49,6 +49,29 @@
 			scwin._parentDma.SCH_COLOR = 1;
 		}
 		rdo_gubunYn.setValue(scwin._parentDma.SCH_COLOR);
+
+
+		if(dma_content.get('SCH_END_TIME')){
+			scwin.sch_mode = 'DETAIL';
+			ipc_start.setValue(dma_content.get('SCH_START'));
+			ipt_startHH.setValue(dma_content.get('SCH_START_TIME').substring(0,2));
+			ipt_startMI.setValue(dma_content.get('SCH_START_TIME').substring(2,4));
+
+			ipc_end.setValue(dma_content.get('SCH_END'));
+			ipt_endHH.setValue(dma_content.get('SCH_END_TIME').substring(0,2));
+			ipt_endMI.setValue(dma_content.get('SCH_END_TIME').substring(2,4));
+			
+			tr_start.show('');
+			tr_end.show('');
+			trigger2.setValue("간편등록모드로이동");
+		}else{
+			scwin.sch_mode = 'SIMPLE';
+			tr_start.hide('');
+			tr_end.hide('');			
+			trigger2.setValue("상세등록모드로이동");	
+		}
+
+
 	/*등록시*/	
 	}else{
 		let json = dma_content.getJSON();
