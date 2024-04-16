@@ -47,19 +47,27 @@
 			
 			$p.parent().btn_closePopup.setLabel('이전');
 			$p.parent().btn_closePopup.show('');	
+			if(JSON.parse(sessionStorage.getItem('loginInfo')).id == dma_content.get('SCH_WRITER')){
+				if(dma_content.get('SCH_SUCCESSYN') == 'Y'){
+					$p.parent().btn_success.setLabel('완료취소');
+				}else{
+					$p.parent().btn_success.setLabel('완료');
+				} 
+				$p.parent().btn_success.show('');
 
-			if(dma_content.get('SCH_SUCCESSYN') == 'Y'){
-				$p.parent().btn_success.setLabel('완료취소');
+				$p.parent().btn_update.setLabel('수정');
+				$p.parent().btn_update.show('');
+
+				$p.parent().btn_del.setLabel('삭제');
+				$p.parent().btn_del.show('');
+				tr_writer.hide();
 			}else{
-				$p.parent().btn_success.setLabel('완료');
-			} 
-			$p.parent().btn_success.show('');
+				$p.parent().btn_success.hide('');
+				$p.parent().btn_update.hide('');
+				$p.parent().btn_del.hide('');
+				tr_writer.show('');
+			}
 
-			$p.parent().btn_update.setLabel('수정');
-			$p.parent().btn_update.show('');
-
-			$p.parent().btn_del.setLabel('삭제');
-			$p.parent().btn_del.show('');
 		};
 
 scwin.display_color = function(_data){
@@ -136,9 +144,10 @@ scwin.display_color = function(_data){
 							</xf:input>
 						</xf:group>
 					</xf:group>
-					<xf:group tagname="tr" style="display:none;" id="tr_writer">
+					<xf:group tagname="tr" style="" id="tr_writer" style="display:none;">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
+							<w2:textbox id="" label="작성자:" style="color:black;font-size: 30px"></w2:textbox>
 							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_content.SCH_WRITER" style="width:100%;">
 							</xf:input>
 						</xf:group>
