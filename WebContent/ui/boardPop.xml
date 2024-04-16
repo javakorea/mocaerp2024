@@ -91,7 +91,6 @@
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
 	scwin.param = com.data.getParameter();
-	debugger;
 	scwin.fn_setAdmin();
     if(!window['gapi']){
         gcm.ext.scriptImport("https://apis.google.com/js/api.js",function(){
@@ -101,7 +100,6 @@
 	CKEDITOR.on('instanceReady', function(ev) {
         scwin.editor = ev.editor;
     });
-	
 };
 
 scwin.onpageunload = function () {
