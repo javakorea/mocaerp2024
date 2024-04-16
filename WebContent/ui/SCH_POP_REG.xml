@@ -185,19 +185,14 @@ scwin.trigger2_onclick = function(e) {
 					<xf:group tagname="colgroup">
 						<xf:group tagname="col" style=""></xf:group>
 					</xf:group>
-					<xf:group style="" tagname="tr" id="tr_read">
-						<xf:group tagname="td" class="w2tb_td" style="border-radius:10px;">
+					<xf:group style="margin-bottom:0;" tagname="tr" id="tr_read">
+						<xf:group tagname="td" class="w2tb_td" style="">
 							<w2:attributes></w2:attributes>
-							<w2:textbox id="" label="" style="top:0; padding-left:0; margin-left:0;" tagname="span"
-								class="sch_spa_view fa fa-calendar-o">
-							</w2:textbox>
-							<xf:input displayFormatter="gcm.display.yyyy_MM_ddEEE요일"
-								style="font-size: 18px;border:0;padding:0px; width:180px;" id="ipt_day" ref="" readOnly="true">
-							</xf:input>
-							<xf:trigger type="button" id="trigger2" style="width: 180px;height: 23px;" ev:onclick="scwin.trigger2_onclick">
+						<xf:group id="" class=""><xf:group id=""><w2:textbox tagname="span" style="top:0; padding-left:0; margin-left:0;" id="" label="" class="sch_spa_view fa fa-calendar-o">
+							</w2:textbox><xf:input ref="" style="font-size: 23px;    border: 0;    padding: 0px;    width:170px !important;" readOnly="true" id="ipt_day" displayFormat="yyyy-MM-dd (EEE)" dataType="date">
+							</xf:input></xf:group><xf:trigger ev:onclick="scwin.trigger2_onclick" style="" id="trigger2" type="button" class="btn_moreDetail">
 								<xf:label><![CDATA[상세등록모드로이동]]></xf:label>
-							</xf:trigger>
-						</xf:group>
+							</xf:trigger></xf:group></xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_gubun" style="display:none;">
 						<xf:group tagname="td" class="w2tb_td">

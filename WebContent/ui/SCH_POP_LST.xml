@@ -13,10 +13,10 @@
 				<w2:aliasDataList scope="../dlt_gubunList" id="dlt_gubunList"></w2:aliasDataList>
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
-			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]' target="data:json,COMMON_RESULT"
-				action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
-				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror=""
-				abortTrigger="">
+			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]'
+				target="data:json,COMMON_RESULT" action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
+				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
+				ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
 		</xf:model>
 		<w2:layoutInfo></w2:layoutInfo>
@@ -71,19 +71,22 @@ scwin.btn_item_onclick = function () {
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m" style="overflow: auto;">
 			<xf:group id="">
-				<w2:textbox id="" label="" style="" tagname="span" class="sch_spa_view fa fa-calendar-o fl"></w2:textbox>
-				<w2:textbox class="ipt_day" displayFormatter="gcm.display.yyyy_MM_ddEEE요일" ref="" id="ipt_day" label=""
-					style="" tagname="span">
-				</w2:textbox>
-										
+				<xf:group id="" class="grp_dateTit tac mb15">
+					<xf:group id="" class="">
+						<w2:textbox tagname="span" style="" id="" label="" class="sch_spa_view fa fa-calendar-o fl"></w2:textbox>
+						<w2:textbox displayFormatter="" ref="" tagname="span" style="" id="ipt_day" label="" class="ipt_day" displayFormat="yyyy-MM-dd (EEE)" dataType="date">
+						</w2:textbox>
+					</xf:group>
+				</xf:group>
 				<xf:group style="" id="dfbox" class="dfbox">
 					<w2:generator style="" id="gen_item" class="gen_item" tagname="ul">
 						<xf:group id="grp_row" style="" tagname="li" ev:onclick="scwin.btn_item_onclick">
 							<xf:trigger style="font-size:18px;border-left: 10px solid #53a786;" id="btn_item" type="button" class="fl sch_list">
-								<xf:label><![CDATA[]]></xf:label>
+								<xf:label><![CDATA[]]>
+								</xf:label>
 							</xf:trigger>
-							<w2:textbox class="ico_success fl done"  id="spa_success" label="" style="cursor:pointer" tagname="span"></w2:textbox>
-							<w2:textbox class="spa_listTitle"  id="ipt_title" label="" style="cursor:pointer" tagname="span"></w2:textbox>							
+							<w2:textbox class="spa_listTitle fl" id="ipt_title" label="" style="cursor:pointer" tagname="span"></w2:textbox>
+							<w2:textbox class="ico_success fl done" id="spa_success" label="" style="cursor:pointer" tagname="span"></w2:textbox>
 						</xf:group>
 					</w2:generator>
 				</xf:group>
