@@ -348,7 +348,7 @@ scwin.threeCalDraw = function(){
 			aDayList.push(c);
 			scwin.dayMap[_key] = aDayList;
 		}
-		if(scwin.selectedCell){scwin.selectedCell.setStyle('background-color','');}
+		if(scwin.selectedCell){scwin.selectedCell.setStyle('background-color','');scwin.selectedCell=null;}
 		scwin.draw(yyyyMM,scwin.center.scope);
 		scwin.draw(yyyyMM_prev,scwin.left.scope);
 		scwin.draw(yyyyMM_next,scwin.right.scope);
