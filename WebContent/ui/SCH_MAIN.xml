@@ -334,21 +334,40 @@ scwin.threeCalDraw = function(){
 
 	dma_search.set('COMMON_QUERY',"M.SEL_SCHEDULELIST");
 	com.sbm.execute(sbm_schdList);
+	scwin.addDayMap = function(_key,_valObj){
+		let aDayList = scwin.dayMap[_key];
+		if(!aDayList){
+			aDayList = [];
+		}
+		aDayList.push(_valObj);
+		scwin.dayMap[_key] = aDayList;
+	};
 	scwin.sbm_schdList_submitdone = function(e) {
 		scwin.dayMap = {};
 		let list = e.responseJSON.dlt_list;
 		for(let i=0; i < list.length; i++){
 			let c = list[i];
-			let day = c.SCH_START.substring(0,10).replace(/-/g,'');
-			let _key = day;
-			let aDayList = scwin.dayMap[_key];
-			if(!aDayList){
-				aDayList = [];
+			scwin.addDayMap(c.SCH_START,c);
+			if(c.SCH_END){
+				let loopMax = 100;//연속100일제한
+				let loopMaxCnt = 1;
+				while(true){
+					if(loopMaxCnt > loopMax){
+						break;
+					}else{
+						let aDay = WebSquare.date.dateTimeAdd( c.SCH_START, +loopMaxCnt, "day" );
+						if((c.SCH_END == aDay) || (Number(c.SCH_END) < Number(aDay))){
+							break;
+						}
+						scwin.addDayMap(aDay,c);
+					}				
+					loopMaxCnt++;
+				}
 			}
-			aDayList.push(c);
-			scwin.dayMap[_key] = aDayList;
-		}
-		if(scwin.selectedCell){scwin.selectedCell.setStyle('background-color','');scwin.selectedCell=null;}
+		};
+		if(scwin.selectedCell && (scwin.selectedCell.getAttribute('yyyyMMdd').substring(0,6) != yyyyMM)){
+			if(scwin.selectedCell){scwin.selectedCell.setStyle('background-color','');scwin.selectedCell=null;}
+		};
 		scwin.draw(yyyyMM,scwin.center.scope);
 		scwin.draw(yyyyMM_prev,scwin.left.scope);
 		scwin.draw(yyyyMM_next,scwin.right.scope);
