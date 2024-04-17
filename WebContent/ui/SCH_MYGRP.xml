@@ -214,30 +214,30 @@ scwin.btn_search_onclick = function(e) {
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
 					<xf:trigger class="btn_cm blue" id="btn_write" style="" type="button" ev:onclick="scwin.btn_write_onclick">
-						<xf:label><![CDATA[등록]]></xf:label>
+						<xf:label><![CDATA[그룹생성]]></xf:label>
 					</xf:trigger>
 
 				</xf:group>
 			</xf:group>
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
-				<w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
+				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
 					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style=""
 					ev:oncelldblclick="scwin.grd1_oncelldblclick" ev:oncellclick="scwin.grd1_oncellclick" rowNumVisible="true">
 					<w2:caption id="caption2" style="" value="this is a grid caption." />
 					<w2:header id="header2" style="">
 						<w2:row id="row3" style="">
-							<w2:column width="180" inputType="text" style="" id="column1" value="그룹명" displayMode="label"></w2:column>
-							<w2:column width="181" inputType="text" style="" id="column3" value="최대회원제한수" displayMode="label"></w2:column>
-							<w2:column width="136" inputType="text" style="" id="column5" value="등록일시" displayMode="label"></w2:column>
-							<w2:column width="156" inputType="text" style="" id="column4" value="삭제" displayMode="label"></w2:column>
+							<w2:column width="80" inputType="text" style="" id="column1" value="그룹명" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" style="" id="column3" value="회원제한" displayMode="label"></w2:column>
+							<w2:column width="120" inputType="text" style="" id="column5" value="등록일시" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
-							<w2:column width="180" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
-							<w2:column width="181" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"></w2:column>
-							<w2:column width="136" inputType="text" style="" id="GRP_REG_DTTM" value="" displayMode="label" displayFormat="####-##-## ##:##:##"></w2:column>
-							<w2:column width="156" inputType="button" style="" id="GRP_DEL" value="" displayMode="label"></w2:column>
+							<w2:column width="80" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
+							<w2:column width="50" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"></w2:column>
+							<w2:column width="120" inputType="text" style="" id="GRP_REG_DTTM" value="" displayMode="label" displayFormat="####-##-## ##:##:##"></w2:column>
+							<w2:column width="50" inputType="button" style="" id="GRP_DEL" value="" displayMode="label"></w2:column>
 							
 						</w2:row>
 					</w2:gBody>

@@ -87,7 +87,7 @@
 						</w2:row>
 						<w2:row>
 							<MENU_CD><![CDATA[2400]]></MENU_CD>
-							<MENU_NM><![CDATA[가입된그룹]]></MENU_NM>
+							<MENU_NM><![CDATA[그룹가입]]></MENU_NM>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
 							<SRC_PATH><![CDATA[/ui/SCH_GRPIN.xml]]></SRC_PATH>
 							<TYPE><![CDATA[WS]]></TYPE>
