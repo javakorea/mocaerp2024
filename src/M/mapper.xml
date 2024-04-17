@@ -275,7 +275,7 @@
     
     <insert id="INS_MEMBER" parameterType="java.util.Map" useGeneratedKeys="true"  >
         /*INS_MEMBER*/
-    	INSERT INTO mocaerp.T_MEMBER
+    	INSERT INTO T_MEMBER
 		(
 			U_ID, U_EMAIL, U_NAME, U_PHONE, U_REG_DT, U_LEVEL, U_ADDR, U_SOCIAL, U_BIRTH_DT
 		)
@@ -299,18 +299,35 @@
 			FROM T_MEMBER
 			WHERE 1=1 AND U_ID = #{id}
     </select>
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   	<select id="SEL_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* SEL_MEMBER */
+			SELECT *
+			FROM T_GRP
+			WHERE 1=1 AND GRP_NM = #{GRP_NM}
+    </select>
+    <insert id="INS_GRP" parameterType="java.util.Map" >
+        /*INS_GRP*/
+    	INSERT INTO T_GRP
+		(GRP_NM,GRP_REG_DTTM,GRP_MANAGER_ID,GRP_MEMBER_MAX)
+		VALUES
+		(#{GRP_NM},TO_CHAR(NOW(),'YYYYMMDDHH24MISS'),#{GRP_MANAGER_ID},100)
+    </insert>
+   	<select id="LST_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* LST_GRP */
+			SELECT GRP_NM,GRP_REG_DTTM,GRP_MANAGER_ID,GRP_MEMBER_MAX,'삭제' AS GRP_DEL
+			FROM T_GRP
+			WHERE 1=1 AND GRP_MANAGER_ID = #{GRP_MANAGER_ID}
+    </select>
+    <insert id="DEL_GRP" parameterType="java.util.Map" >
+        /*DEL_GRP*/
+	    DELETE FROM T_GRP
+		WHERE 1=1
+		AND GRP_NM=#{GRP_NM}
+		AND GRP_MANAGER_ID=#{GRP_MANAGER_ID}
+    </insert>
     <insert id="INS_SCHEDULE" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="SCH_IDX">
         /*INS_SCHEDULE*/
-    	INSERT INTO mocaerp.T_SCHEDULE
+    	INSERT INTO T_SCHEDULE
 		(
 			SCH_WRITER, SCH_START, SCH_IDX, 
 			SCH_TITLE, SCH_CONT, SCH_CREATE_DTTM, SCH_CURRENTMONTH, 

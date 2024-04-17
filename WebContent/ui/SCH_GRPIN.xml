@@ -1,0 +1,424 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<w2:MSA />
+		<xf:model>
+			<w2:dataCollection baseNode="map">
+				<w2:dataList baseNode="list" id="dlt_list" repeatNode="map" saveRemovedData="true">
+					<w2:columnInfo>
+					
+						<w2:column dataType="text" id="BOARD_TABLE" name="ERP인지일반인지테이블명" />
+					
+						<w2:column dataType="text" id="BOARD_PIDX" name="BOARD_PIDX" />
+						<w2:column dataType="text" id="BOARD_IDX" name="키(중요)" />
+						<w2:column dataType="text" id="BOARD_DELYN" name="BOARD_DELYN" />
+						<w2:column dataType="text" id="BOARD_TITLE" name="BOARD_TITLE" />
+						<w2:column dataType="text" id="BOARD_WRITER" name="BOARD_WRITER" />
+						<w2:column id="BOARD_DATE" name="BOARD_DATE" dataType="text"></w2:column>
+						<w2:column id="UPDATE_DATE" name="UPDATE_DATE" dataType="text"></w2:column>
+						<w2:column id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:column>
+						<w2:column id="CNT" name="CNT" dataType="text"></w2:column>
+						<w2:column id="BOARD_REPLYCNT" name="BOARD_REPLYCNT" dataType="text"></w2:column>
+						<w2:column id="CHK" name="CHK" dataType="text" ignoreStatus="true"></w2:column>
+					</w2:columnInfo>
+					<w2:data use="false"></w2:data>
+				</w2:dataList>
+				<w2:dataMap baseNode="map" id="dma_search">
+					<w2:keyInfo>
+						<!-- 게시판조건부 -->
+						<w2:key id="BOARD_TYPE" name="업무,기술,게시판종류" dataType="text"></w2:key>
+						<w2:key id="BOARD_TABLE" name="내부(ERP)냐외부냐" dataType="text"></w2:key>
+						<w2:key id="BOARD_FILE_TABLE" name="BOARD_FILE_TABLE" dataType="text"></w2:key>
+						
+						<!-- 검색조건부 -->
+						<w2:key id="BOARD_WRITER" name="BOARD_WRITER" dataType="text"></w2:key>
+						<w2:key id="BOARD_CONT" name="BOARD_CONT" dataType="text"></w2:key>
+						<w2:key id="BOARD_CONT_LIST" name="BOARD_CONT를띄어쓰기로나눈검색어리스트" dataType="text"></w2:key>
+						<w2:key id="FROM" name="FROM" dataType="text"></w2:key>
+						<w2:key id="TO" name="TO" dataType="text"></w2:key>					
+						
+						<!-- 공통부 -->
+						<w2:key id="COMMON_TRAN_ID" 			name="TRAN_ID" 						dataType="text"></w2:key>
+						<w2:key id="COMMON_STATUS" 				name="CRUD_상태" 						dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" 				name="SELECT_QUERY" 				dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" 		name="COMMON_MASTER_QUERY" 			dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_DELETEQUERY" 	name="COMMON_MASTER_DELETEQUERY" 	dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" 			name="COMMON_MASTER_KEY" 			dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" 			name="COMMON_DETAIL_KEY" 			dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_search_excel" style="">
+					<w2:keyInfo>
+						<w2:key id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:key>
+						<w2:key id="BOARD_TABLE" name="BOARD_TABLE" dataType="text"></w2:key>
+						<w2:key id="BOARD_WRITER" name="BOARD_WRITER" dataType="text"></w2:key>
+						<w2:key id="CORP_CD" name="CORP_CD" dataType="text"></w2:key>
+						<w2:key id="PAGE_TYPE" name="PAGE_TYPE" dataType="text"></w2:key>
+						<w2:key id="BOARD_CONT" name="BOARD_CONT" dataType="text"></w2:key>
+						<w2:key id="BOARD_RECEIPTIONER" name="BOARD_RECEIPTIONER" dataType="text"></w2:key>
+						<w2:key id="FROM" name="FROM" dataType="text"></w2:key>
+						<w2:key id="TO" name="TO" dataType="text"></w2:key>
+						<w2:key id="BOARD_FILE_TABLE" name="BOARD_FILE_TABLE" dataType="text"></w2:key>
+						<w2:key id="BOARD_DELYN" name="BOARD_DELYN" dataType="text"></w2:key>
+						
+						<w2:key id="START_IDX" name="name2" dataType="text"></w2:key>
+						<w2:key id="END_IDX" name="name3" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+			</w2:dataCollection>
+
+			<w2:workflowCollection></w2:workflowCollection>
+
+			<xf:submission id="sbm_searchBoardList" ref="data:json,dma_search" target="data:json,dlt_list" 
+				action="/selectList.do" ev:submitdone="scwin.sbm_searchBoardList_submitdone"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="조회중" ev:submit=""  ev:submiterror="" abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_deleteBoardList" ref='data:json,[{"action":"modified","id":"dlt_list"},"dma_search"]'
+				target="data:json,dma_boardInfo" action="/updateBoardList.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
+				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
+				ev:submitdone="scwin.sbm_deleteBoardList_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+			
+			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_search","key":"dma_common_request"},{"id":"dlt_list","key":"dlt_common"}  ]' target="data:json,COMMON_RESULT"
+				action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror=""
+				abortTrigger="">
+			</xf:submission>
+		</xf:model>
+
+		<w2:layoutInfo>
+		</w2:layoutInfo>
+
+		<w2:publicInfo method="" />
+
+		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
+	scwin.paramObj = $p.getAllParameter().paramData;
+	if(scwin.paramObj.erpYn == "Y"){
+		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
+		dma_search.set("BOARD_FILE_TABLE","T_FILE")
+	}else{
+		dma_search.set("BOARD_TABLE","MT_BOARD");
+		dma_search.set("BOARD_FILE_TABLE","T_FILE")
+	}
+	if(WebSquare.util.isMobile()){
+		grd1.setColumnVisible(4,false); //작성자
+		grd1.setColumnVisible(6,false); //수정일시
+		grd1._setColumnWidth(5,75);
+	}
+	scwin.fn_setAdmin();
+	let menuInfo = scwin.paramObj.menuInfo;
+	scwin.fn_setMenu(menuInfo);
+	var currentDt = WebSquare.date.getCurrentServerDate();
+	var bfweekDt = WebSquare.date.dateAdd( currentDt, -1095 );
+	com.win.setEnterKeyEvent(tbl_search, scwin.btn_search_onclick);
+	dma_search.set('FROM', bfweekDt);
+	dma_search.set('TO', currentDt);
+	$(".btn_fav").click(function(){
+		$(".btn_fav").toggleClass("on");
+	});
+
+	scwin.btn_search_onclick();
+};
+
+scwin.fn_setAdmin = function(){
+	if(isAdmin()){
+		btn_adminDel.show(''); //폐기
+		btn_del.show(''); //삭제
+		btn_write.show(''); //등록
+	}
+}
+scwin.fn_setMenu = function(menuInfo){
+	//{menuNm: '기술데이터', menuCode: '1100', src: '/ui/boardTech.xml'}
+	pgt_tit.setValue(menuInfo.menuNm);
+	txt_menu.setValue(menuInfo.menuNm);
+	var _dlt_menu = $p.main().wfm_side.scope.dlt_menu;
+	var _pMenuCd = _dlt_menu.getMatchedJSON('MENU_CD',menuInfo.menuCode)[0].PARENT_MENU_CD
+	var _pMenuNm = _dlt_menu.getMatchedJSON('MENU_CD',_pMenuCd)[0].MENU_NM;
+	txt_pMenu.setValue(_pMenuNm);
+}
+
+/* 조회 */
+scwin.btn_search_onclick = function(e) {
+	
+	if(scwin.paramObj.boardType){
+		dma_search.set("BOARD_TYPE",scwin.paramObj.boardType);
+	}
+
+	let _boardContArr = ibx_boardCont.getValue().split(/\s+/g);
+	if(_boardContArr.length > 0){
+		dma_search.set('BOARD_CONT_LIST',_boardContArr);
+	}
+	dma_search.set('COMMON_QUERY',"M.selectBoardList");
+	com.sbm.execute (sbm_searchBoardList);
+};
+scwin.sbm_searchBoardList_submitdone = function(e) {
+	
+	/*
+	let data = dlt_list.getAllJSON();
+	let allData = [];
+	for(let i=0; i < 1000; i++){
+		allData = allData.concat(data);
+	}	
+
+	let allData2 = [];
+	for(let i=0; i < 1; i++){
+		allData2 = allData2.concat(allData);
+	}	
+
+	dlt_list.setJSON(allData2);
+	*/
+	txt_cnt.setValue(dlt_list.getRowCount() + "건");
+};
+
+/* 상세조회 */
+scwin.grd1_oncelldblclick = function(row,col,colId) {
+	var _param = {};
+	_param.rowJson = dlt_list.getRowJSON(row);
+	_param.mode = "read";
+	_param.boardInfo = scwin.paramObj;
+	var data = { data: _param, callbackFn: "scwin.boardPop_callback" };
+	var options = {
+		id: "boardPop",
+		popupName: "상세",
+		className : "h100",
+		modal: true,
+		useMaximize : true,
+		width: (screen.availWidth * 0.8), height: (screen.availHeight * 0.8)
+	};
+	com.win.openPopup("/ui/boardPop.xml", options, data);
+};
+
+/* 글쓰기 팝업 */
+scwin.btn_write_onclick = function(e) {
+	var _param = {};
+	_param.mode = "write";
+	_param.boardInfo = scwin.paramObj;
+	var data = { data: _param, callbackFn: "scwin.boardPop_callback" };
+	var options = {
+		id: "boardPop",
+		popupName: "게시판등록",
+		className : "h100",
+		modal: true,
+		useMaximize : true,
+		width: 680, height: 518
+	};
+	com.win.openPopup("/ui/boardPop.xml", options, data);
+};
+
+/* 팝업 callback */
+scwin.boardPop_callback = function(e){
+	
+	com.win.alert(e.message);
+	scwin.btn_search_onclick();
+}
+
+/* 선택삭제 */
+scwin.btn_del_onclick = function(e) {
+	let _chkIdxArr = dlt_list.getMatchedIndex('CHK','1');
+	if(_chkIdxArr.length < 1){
+		com.win.alert('선택된 항목이 없습니다.');
+		return;
+	}
+	com.win.confirm($p, `선택된 ${_chkIdxArr.length}건의 게시물을 삭제하시겠습니까?`, function(e){
+		if(e.clickValue){
+			for(let i=0; i<_chkIdxArr.length; i++){
+				dlt_list.setCellData(_chkIdxArr[i],"BOARD_DELYN","Y");
+				debugger;
+				dlt_list.setCellData(_chkIdxArr[i],"BOARD_TABLE",dma_search.get("BOARD_TABLE"));	
+			}
+			com.sbm.execute(sbm_deleteBoardList);
+		}
+	});
+};
+
+/* 물리삭제 */
+scwin.btn_adminDel_onclick = function(e) {
+	let _chkIdxArr = dlt_list.getMatchedIndex('CHK','1');
+	if(_chkIdxArr.length < 1){
+		com.win.alert('선택된 항목이 없습니다.');
+		return;
+	}
+	var data = {callbackFn: "scwin.delPop_callback" };
+	var options = {
+		id: "delPop",
+		popupName: "게시물삭제",
+		modal: true,
+		useMaximize : true,
+		width: 420, height: 116
+	};
+	com.win.openPopup("/ui/delPop.xml", options, data);
+};
+scwin.delPop_callback = function(e){
+	if(e.delYn){
+		let _chkIdxArr = dlt_list.getMatchedIndex('CHK','1');
+		com.win.confirm($p, `삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 선택된 ${_chkIdxArr.length}건의 게시물을 삭제하시겠습니까?`, function(e){
+			if(e.clickValue){
+				for(let i=0; i<_chkIdxArr.length; i++){
+					dlt_list._setRowStatus(_chkIdxArr[i],'D');
+					dlt_list.setCellData(_chkIdxArr[i],"BOARD_TABLE",dma_search.get("BOARD_TABLE"));	
+				}
+				dma_search.set("COMMON_TRAN_ID"	, "물리삭제");	
+				dma_search.set("COMMON_MASTER_DELETEQUERY"	, "M.deleteBoard");	
+				dma_search.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");	
+				dma_search.set("COMMON_MASTER_KEY","BOARD_IDX");dma_search.set("COMMON_DETAIL_KEY","CONTENT_ID");
+				dma_search.set("COMMON_STATUS", "D");
+				com.sbm.execute(sbm_commonTran);
+			}
+		});
+	}
+};
+scwin.sbm_commonTran_submitdone =function(e) {
+	if(e.responseJSON.status == "S"){
+		if(e.responseJSON.COMMON_RESULT.COMMON_PARAM_MAP.COMMON_TRAN_ID == '물리삭제'){
+			com.win.alert('삭제가 완료되었습니다.',scwin.btn_search_onclick);
+		}
+	}
+}; 
+
+scwin.trigger1_onclick = function(e) {
+	var options = {};
+    options.type = "1";
+    options.fileName = "sample.xlsx";
+    options.splitProvider = "com.teammoca.moca3.SplitProvider";
+    options.showProcess = "true";
+    options.showConfirm = "true";
+	grd1.advancedExcelDownload(options)
+};
+
+scwin.btn_excelSplitProvider_onclick = function () {
+	option = {};
+	var info = {};
+	option.fileName = "data.xlsx";
+	option.useSplitProvider = "true";
+	option.showProcess = "true";
+	
+	dma_search_excel.set("START_IDX", "1");
+	dma_search.set("START_IDX", "1");
+	option.providerRequestXml = scwin.setProviderData("Moca3Application", "selectBoardList", dma_search);
+	com.data.downloadGridViewExcel(grd1, option, info);
+};
+
+scwin.setProviderData = function (service, method, paramMap) {
+	var serviceXml = "<service>" + service + "</service>";
+	var methodXml = "<method>" + method + "</method>";
+	var paramXml = "<param>" + JSON.stringify(paramMap.getJSON()) + "</param>";
+	return "<data>" + serviceXml + methodXml + paramXml + "</data>";
+};
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="sub_contents flex_gvw flex_m" id="" style="">
+			<xf:group class="pgtbox" id="" style="">
+				<xf:trigger class="btn_fav" id="" style="" type="button">
+					<xf:label />
+				</xf:trigger>
+				<w2:textbox class="pgt_tit" id="pgt_tit" label="기술데이터" style="" tagname="" />
+				<xf:group class="breadcrumb" id="" style="">
+					<xf:group id="" style="" tagname="ul">
+						<xf:group class="home" id="" style="" tagname="li">
+							<w2:anchor id="" outerDiv="false" style="">
+								<xf:label><![CDATA[Home]]></xf:label>
+							</w2:anchor>
+						</xf:group>
+						<xf:group id="" style="" tagname="li">
+							<w2:anchor id="txt_pMenu" outerDiv="false" style="">
+								<xf:label><![CDATA[]]>
+								</xf:label>
+							</w2:anchor>
+						</xf:group>
+						<xf:group id="" style="" tagname="li">
+							<w2:span id="txt_menu" label="" style="" />
+						</xf:group>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="shbox" id="" style="">
+				<xf:group class="schbox_inner" id="" style="">
+					<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="tbl_search" style="" tagname="table">
+						<w2:attributes>
+							<w2:summary />
+						</w2:attributes>
+						<xf:group tagname="colgroup">
+							<xf:group style="width:225px;;" tagname="col" />
+							<xf:group tagname="col" style="width:165px;"></xf:group>
+							<xf:group style="" tagname="col" />
+						</xf:group>
+						<xf:group class="" id="" style="" tagname="tr">
+							<xf:group class="w2tb_td w100" style="" tagname="td">
+								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
+									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.FROM" class="" mandatory="true">
+								</w2:inputCalendar>
+								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
+									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.TO" class="mr0" mandatory="true">
+								</w2:inputCalendar>
+							</xf:group>
+							<xf:group class="w2tb_td w50" id="" style="" tagname="td">
+								<xf:input id="ibx_boardCont" style="" ref="data:dma_search.BOARD_CONT" placeholder="내용을 입력해주세요."></xf:input>
+							</xf:group>
+							<xf:group tagname="td" id="" class="w2tb_td w50">
+								<w2:attributes></w2:attributes>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+				<xf:group class="btn_shbox" id="" style="">
+					<xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_search" style="" type="button"
+						ev:onclick="scwin.btn_search_onclick">
+						<xf:label><![CDATA[조회]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+			<xf:group class="dfbox" id="" style="">
+				<xf:group class="fl" id="" style="">
+					<xf:trigger class="btn_cm red" id="btn_adminDel" style="display: none;" type="button" ev:onclick="scwin.btn_adminDel_onclick">
+						<xf:label><![CDATA[폐기]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+				<xf:group class="fr" id="" style="">
+					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
+					<xf:trigger class="btn_cm" id="btn_del" style="display: none;" type="button" ev:onclick="scwin.btn_del_onclick">
+						<xf:label><![CDATA[삭제]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm blue" id="btn_write" style="display: none;" type="button" ev:onclick="scwin.btn_write_onclick">
+						<xf:label><![CDATA[등록]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+				<w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
+					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style="" ev:oncelldblclick="scwin.grd1_oncelldblclick">
+					<w2:caption id="caption2" style="" value="this is a grid caption." />
+					<w2:header id="header2" style="">
+						<w2:row id="row3" style="">
+							<w2:column width="30" inputType="checkbox" style="" id="column21" value="" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" id="column9" value="글번호" displayMode="label"></w2:column>
+							<w2:column width="200" inputType="text" id="column15" value="제목" displayMode="label"></w2:column>
+							<w2:column width="40" inputType="text" style="" id="H_CNT" value="첨부" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" id="H_boardWriter" value="작성자" displayMode="label"></w2:column>
+							<w2:column width="80" inputType="text" id="column17" value="작성일시" displayMode="label"></w2:column>
+							<w2:column width="80" inputType="text" id="H_updateDt" value="수정일시" displayMode="label"></w2:column>
+						</w2:row>
+					</w2:header>
+					<w2:gBody id="gBody2" style="">
+						<w2:row id="row4" style="">
+							<w2:column width="30" inputType="checkbox" style="" id="CHK" value="" displayMode="label" readOnly="false" falseValue="0"
+								trueValue="1" defaultValue="0" valueType="binary"></w2:column>
+							<w2:column width="50" inputType="text" id="BOARD_IDX" displayMode="label" readOnly="true"></w2:column>
+							<w2:column width="200" inputType="text" id="BOARD_TITLE" displayMode="label" textAlign="left" readOnly="true"></w2:column>
+							<w2:column width="40" inputType="text" style="" id="CNT" value="" displayMode="label" readOnly="true"></w2:column>
+							<w2:column width="50" inputType="text" id="BOARD_WRITER" displayMode="label" readOnly="true"></w2:column>
+							<w2:column width="80" inputType="text" id="BOARD_DATE" displayMode="label" readOnly="true" dataType="text" value=""></w2:column>
+							<w2:column width="80" inputType="text" id="UPDATE_DATE" displayMode="label" dataType="date" readOnly="true" value=""></w2:column>
+						</w2:row>
+					</w2:gBody>
+				</w2:gridView>
+			</xf:group>
+		</xf:group>
+	</body>
+</html>
