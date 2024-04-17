@@ -189,6 +189,7 @@
 						<w2:key id="SCH_CURRENTMONTH_PREV" name="SCH_CURRENTMONTH_PREV" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH_NEXT" name="SCH_CURRENTMONTH_NEXT" dataType="text"></w2:key>
+						<w2:key id="SCH_WRITER" name="SCH_WRITER" dataType="text"></w2:key>
 						
 						<!-- 공통부 -->
 						<w2:key id="COMMON_TRAN_ID" 			name="TRAN_ID" 						dataType="text"></w2:key>
@@ -273,6 +274,7 @@ scwin.right = null;
 scwin.yoil = {일요일:0,월요일:1,화요일:2,수요일:3,목요일:4,금요일:5,토요일:6};
 scwin.dayMap = {};
 scwin.onpageload = function() {
+	dma_search.set("SCH_WRITER",JSON.parse(sessionStorage.getItem('loginInfo')).id);
 	let thisMonth = WebSquare.date.getCurrentServerDate('yyyyMM');
 	SCH_CURRENTMONTH.setValue(thisMonth);
 

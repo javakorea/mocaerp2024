@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataList id="dlt_menu" baseNode="list" saveRemovedData="true" repeatNode="map"
+					ev:ondataload="scwin.dlt_menu_ondataload">
+					<w2:columnInfo>
+						<w2:column id="MENU_CD" name="메뉴코드" dataType="text"></w2:column>
+						<w2:column id="MENU_NM" name="메뉴명" dataType="text"></w2:column>
+						<w2:column id="IS_USE" name="사용유무" dataType="text"></w2:column>
+						<w2:column id="SRC_PATH" name="메뉴경로" dataType="text"></w2:column>
+						<w2:column id="PARENT_MENU_CD" name="부모메뉴코드" dataType="text"></w2:column>
+						<w2:column id="MENU_LEVEL" name="메뉴레벨" dataType="text"></w2:column>
+						<w2:column id="SORT_ORDER" name="정렬순서" dataType="text"></w2:column>
+						<w2:column id="PROGRAM_CD" name="프로그램코드" dataType="text"></w2:column>
+						<w2:column id="TYPE" name="게시판타입" dataType="text"></w2:column>
+						<w2:column id="ERP_YN" name="ERP여부" dataType="text"></w2:column>
+					</w2:columnInfo>
+					<w2:data use="true">
+						<w2:row>
+							<MENU_CD><![CDATA[1000]]></MENU_CD>
+							<MENU_NM><![CDATA[업무관리]]></MENU_NM>
+							<MENU_LEVEL><![CDATA[1]]></MENU_LEVEL>
+						</w2:row>
+						<w2:row>
+							<MENU_CD><![CDATA[1100]]></MENU_CD>
+							<MENU_NM><![CDATA[스케줄러]]></MENU_NM>
+							<SRC_PATH><![CDATA[/ui/schedule.xml]]></SRC_PATH>
+							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<PARENT_MENU_CD><![CDATA[1000]]></PARENT_MENU_CD>
+						</w2:row>
+						<w2:row>
+							<MENU_CD><![CDATA[1400]]></MENU_CD>
+							<MENU_NM><![CDATA[NEW스케줄러]]></MENU_NM>
+							<SRC_PATH><![CDATA[/ui/SCH_MAIN.xml]]></SRC_PATH>
+							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<PARENT_MENU_CD><![CDATA[1000]]></PARENT_MENU_CD>
+						</w2:row>
+						<w2:row>
+							<MENU_CD><![CDATA[1200]]></MENU_CD>
+							<MENU_NM><![CDATA[기술데이터]]></MENU_NM>
+							<SRC_PATH><![CDATA[/ui/boardMain.xml]]></SRC_PATH>
+							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<TYPE><![CDATA[TECH]]></TYPE>
+							<ERP_YN><![CDATA[Y]]></ERP_YN>
+							<PARENT_MENU_CD><![CDATA[1000]]></PARENT_MENU_CD>
+						</w2:row>
+						<w2:row>
+							<MENU_CD><![CDATA[1300]]></MENU_CD>
+							<MENU_NM><![CDATA[회사데이터]]></MENU_NM>
+							<SRC_PATH><![CDATA[/ui/boardMain.xml]]></SRC_PATH>
+							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<ERP_YN><![CDATA[Y]]></ERP_YN>
+							<TYPE><![CDATA[COMDATA]]></TYPE>
+							<PARENT_MENU_CD><![CDATA[1000]]></PARENT_MENU_CD>
+						</w2:row>
+
+						<w2:row>
+							<MENU_CD><![CDATA[2000]]></MENU_CD>
+							<MENU_NM><![CDATA[컨텐츠]]></MENU_NM>
+							<MENU_LEVEL><![CDATA[1]]></MENU_LEVEL>
+						</w2:row>
+						<w2:row>
+							<MENU_CD><![CDATA[2200]]></MENU_CD>
+							<MENU_NM><![CDATA[웹스퀘어 게시판]]></MENU_NM>
+							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<SRC_PATH><![CDATA[/ui/boardMain.xml]]></SRC_PATH>
+							<TYPE><![CDATA[WS]]></TYPE>
+							<ERP_YN><![CDATA[N]]></ERP_YN>
+							<PARENT_MENU_CD><![CDATA[2000]]></PARENT_MENU_CD>
+						</w2:row>
+						<w2:row>
+							<MENU_CD><![CDATA[2300]]></MENU_CD>
+							<MENU_NM><![CDATA[로그아웃]]></MENU_NM>
+							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
+							<SRC_PATH><![CDATA[]]></SRC_PATH>
+							<TYPE><![CDATA[SCRIPT]]></TYPE>
+							<ERP_YN><![CDATA[N]]></ERP_YN>
+							<PARENT_MENU_CD><![CDATA[2000]]></PARENT_MENU_CD>
+						</w2:row>						
+						
+					</w2:data>
+				</w2:dataList>
+				<w2:dataList id="dlt_fav" baseNode="list" saveRemovedData="true" repeatNode="map">
+					<w2:columnInfo>
+						<w2:column id="MENU_NM" name="메뉴명" dataType="text"></w2:column>
+						<w2:column id="SRC_PATH" name="메뉴경로" dataType="text"></w2:column>
+						<w2:column id="MENU_CD" name="메뉴코드" dataType="text"></w2:column>
+						<w2:column id="MENU_LEVEL" name="메뉴레벨" dataType="text" defaultValue="0"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+				<w2:dataMap baseNode="map" id="dma_favInfo">
+					<w2:keyInfo>
+						<w2:key id="STATUS" name="상태" dataType="text" defaultValue="R"></w2:key>
+						<w2:key id="MENU_CD" name="메뉴코드" dataType="text"></w2:key>
+						<w2:key id="MENU_NM" name="메뉴명" dataType="text"></w2:key>
+						<w2:key id="SRC_PATH" name="메뉴경로" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_result">
+					<w2:keyInfo>
+						<w2:key id="STATUS" name="name1" dataType="text"></w2:key>
+						<w2:key id="ICNT" name="name2" dataType="text"></w2:key>
+						<w2:key id="UCNT" name="name3" dataType="text"></w2:key>
+						<w2:key id="DCNT" name="name4" dataType="text"></w2:key>
+						<w2:key id="TYPE" name="name5" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_defInfo">
+					<w2:keyInfo>
+						<w2:key id="EMP_CD" name="사번" dataType="text"></w2:key>
+						<w2:key id="EMP_NM" name="사원명" dataType="text"></w2:key>
+						<w2:key id="IS_ADMIN" name="관리자여부" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_fav">
+					<w2:keyInfo>
+						<w2:key id="STATUS" name="상태" dataType="text" defaultValue="R"></w2:key>
+						<w2:key id="MENU_CD" name="메뉴코드" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_programAuthority" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="PROGRAM_CD" name="프로그램코드" dataType="text"></w2:column>
+						<w2:column id="IS_AUTH_SELECT" name="조회권한여부" dataType="text"></w2:column>
+						<w2:column id="IS_AUTH_SAVE" name="저장권한여부" dataType="text"></w2:column>
+						<w2:column id="IS_AUTH_EXCEL" name="엑셀권한여부" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+			</w2:dataCollection>
+			<xf:submission id="sbm_selectFavList" ref='' target='data:json,dlt_fav' action="/main/selectFavList" method="post"
+				mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg=""
+				ev:submit="" ev:submitdone="" ev:submiterror="">
+			</xf:submission>
+			<xf:submission id="sbm_initSide" ref="" target="" action="" method="post" mediatype="application/json" encoding="UTF-8"
+				instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone=""
+				ev:submiterror="">
+			</xf:submission>
+			<xf:submission id="sbm_updateFav" ref="data:json,dma_fav" target="" action="/main/updateFav" method="post"
+				mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg=""
+				ev:submit="" ev:submitdone="scwin.setupdateFavCallback" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+scwin.onpageload = function () {
+	
+	com.win.openMenu('공유달력', '/ui/SCH_MAIN.xml', '1400', null, {isHistory: false, closable: true});
+	com.win.openMenu('회원가입', '/ui/FRM_SIGNUP.xml', '1400', null, {isHistory: false, closable: true});
+};
+
+scwin.getInitData = function () {
+	var searchCodeGrpOption = {
+		id: "sbm_InitCont", action: "/main/init",
+		target: 'data:json, ["dlt_menu", "dlt_fav", "dma_defInfo", "dlt_programAuthority"]', method: "post",
+		mediatype: "application/json", mode: "asynchronous", isProcessMsg: false,
+		submitDoneHandler: scwin.initDataCallback
+	};
+
+	//com.sbm.executeDynamic(searchCodeGrpOption);
+};
+
+scwin.initDataCallback = function () {
+	$p.parent().wfm_header.getWindow().txt_empNm.setValue(dma_defInfo.get("EMP_NM"));
+	trv_menu.expandNode(0, true);
+	gcm.menuComp = dlt_menu; //전체 공통 영역에 메뉴리스트 데이터 변수 설정
+	var option = {
+		isHistory: false,
+		closable: false,
+	};
+
+	var layout = $p.main().scwin.getLayoutId();
+	if (layout == "S") {
+		var menuCd = $w.getParameter("menuCd");
+
+		if (com.util.isEmpty(menuCd)) {
+			com.win.openMenu("메인", "/cm/xml/main.xml", "MAIN", null, option);
+		} else {
+			trv_menu.findNodeByValue(menuCd, true);
+			var menuInfo = dlt_menu.getMatchedJSON("MENU_CD", menuCd);
+
+			if ((menuInfo.length > 0) && (!com.util.isEmpty(menuInfo[0].SRC_PATH))) {
+				var option = {
+					isHistory: false
+				};
+				return com.win.openMenu(menuInfo[0].MENU_NM, menuInfo[0].SRC_PATH, menuInfo[0].MENU_CD, null, option);
+			}
+		}
+	} else {
+
+		var promise = com.win.openMenu("메인", "/cm/xml/main.xml", "MAIN", null, option);
+		promise = promise.then(function (tabIndex) {
+			var menuCd = $w.getParameter("menuCd");
+
+			if (com.util.isEmpty(menuCd) === false) {
+				trv_menu.findNodeByValue(menuCd, true);
+				var menuInfo = dlt_menu.getMatchedJSON("MENU_CD", menuCd);
+
+				if ((menuInfo.length > 0) && (!com.util.isEmpty(menuInfo[0].SRC_PATH))) {
+					var option = {
+						isHistory: false
+					};
+					return com.win.openMenu(menuInfo[0].MENU_NM, menuInfo[0].SRC_PATH, menuInfo[0].MENU_CD, null, option);
+				}
+			}
+		});
+	}
+};
+
+// case 컴포넌트 사용시 case 전환할 경우 autoComplete 의 label이 사라지지 않음.
+scwin.btn_menu_onclick = function () {
+	swh_lnbbox.setSelectedID("case1");
+	as_tab.removeClass("mymn");
+	// autoComplete 의 label이 사라지지 않아 show & hide 처리함.
+	acb_search.show("");
+};
+
+// case 컴포넌트 사용시 case 전환할 경우 autoComplete 의 label이 사라지지 않음.
+scwin.btn_myMenu_onclick = function () {
+	swh_lnbbox.setSelectedID("case2");
+	// autoComplete 의 label이 사라지지 않아 show & hide 처리함.
+	as_tab.addClass("mymn");
+	acb_search.hide();
+};
+
+// 메뉴 클릭 이벤트 발생 시
+scwin.trv_menu_onclick = function () {
+	if (trv_menu.isLeaf()) { // 트리뷰에 자식노드가 없으면 실행
+		var tLabel = trv_menu.getSelectedLabel(); // 선택된 노드 label값을 가져와서 변수에 담는다.
+		if(tLabel == '로그아웃'){
+			com.win.confirm($p, '로그아웃하시겠습니까?', function(e){
+				if(e.clickValue){
+					sessionStorage.removeItem("loginInfo");
+					com.win.logout();
+				}
+			});
+			return;
+		}
+		
+		
+		
+		
+		var tCode = trv_menu.getSelectedValue(); // 선택된 노드 value값을 가져와서 변수에 담는다.
+		var selectedMenu = dlt_menu.getMatchedJSON("MENU_CD", trv_menu.getSelectedValue());
+		if (selectedMenu.length > 0) {
+			var tURL = selectedMenu[0].SRC_PATH;
+			var _param = {
+				"boardType": selectedMenu[0].TYPE,
+				"erpYn" :  selectedMenu[0].ERP_YN
+			}
+			scwin.setMenuRelation(tLabel, tURL, tCode, "Tree", _param);
+		}
+	}
+};
+
+scwin.anc_menu_onclick = function () {
+	gr_tab_menu.setStyle("display", "block");
+	gr_tab_menu02.setStyle("display", "none");
+	gr_shortcut_box.setStyle("display", "block");
+};
+
+scwin.anc_menu02_onclick = function () {
+	gr_tab_menu.setStyle("display", "none");
+	gr_tab_menu02.setStyle("display", "block");
+	gr_shortcut_box.setStyle("display", "none");
+	gr_search_field.removeClass("active");
+};
+
+
+/**
+ * 메뉴를 open할 때 관련된 기능들을 경우에 따라 처리해준다.
+ * @lastUpdate 2016.08.28
+ * @param <String> menuNm 메뉴 명
+ * @param <String> menuUrl 메뉴 URL
+ * @param <String> menuCode 메뉴 코드
+ * @param <String> skipType Tree Node 선택 여부 ("Tree" || null) 
+ * @author InswaveSystems
+ * @since 2016.08.28
+ * @example
+ * scwin.setMenuRelation("인사조회", "/tmp/tmp01.xml", "010001");arguments[0].responseJSON.length
+ * scwin.setMenuRelation("인사조회", "/tmp/tmp01.xml", "010001", "Tree");
+ */
+scwin.setMenuRelation = function (menuNm, menuUrl, menuCode, skipType, param, option) {
+	var menuList = dlt_menu.getMatchedJSON("MENU_CD", menuCode, true);
+
+	if (menuList && menuList.length > 0) {
+		var option = {
+			isHistory: false,
+			closable: true,
+			
+		};
+		if (com.win.openMenu(menuNm, menuUrl, menuCode, param, option)) {
+			//scwin.addHistory(menuNm, menuUrl, menuCode, null);
+		}
+
+		if ($p.main().scwin.isMobileSize() == true) {
+			$p.main().wfm_header.getWindow().scwin.toggleMenu();
+		}
+
+		//treeview에서 클릭한 경우는 find를 하지 않는다.
+		if (!skipType || skipType !== "Tree") {
+			trv_menu.findNodeByValue(menuCode, true);
+		}
+
+		var deviceWidth = com.num.parseFloat($("body").css("width"));
+		if (deviceWidth < 1280) {
+			$(".wrap").removeClass("show_menu");
+			$(".btn_toggle_menu").removeClass("on");
+		}
+	}
+};
+
+
+/**
+ * 즐겨찾기 등록 업데이트 (추가/삭제)
+ * com.updateFav 함수는 Scope=true가 적용된 WFrame에서는 사용해서는 안됨
+ * 
+ * @date 2017.11.30
+ * @param {Array} menuCode [[메뉴코드]:[F|T]]업데이트하기 위한 페이지 정보로 메뉴코드와 추가/삭제 여부에 대한 key값. (e.g., "030001:F", "030001:T")
+ * @param {String} favStatus 적용시킬 상태 값(T, F)
+ * @memberOf scwin
+ * @author InswaveSystems
+ */
+scwin.updateFav = function (menuCode, favStatus) {
+	if (favStatus == "F") {
+		favStatus = "I";
+	} else if (favStatus == "T") {
+		favStatus = "D"
+	}
+
+	dma_fav.set("MENU_CD", menuCode);
+	dma_fav.set("STATUS", favStatus);
+	com.sbm.execute(sbm_updateFav);
+}
+
+scwin.getMenuNavigation = function (menuCode, rsStr) {
+	var naviStr;
+	if (rsStr) {
+		naviStr = rsStr;
+	} else {
+		naviStr = "";
+	}
+	var menuJSON = dlt_menu.getMatchedJSON("MENU_CD", menuCode, true)[0];
+
+	naviStr += menuJSON.MENU_NM + "%|%" + menuCode + "%|%";
+
+	if (menuJSON) {
+		if (menuJSON.PARENT_MENU_CD != "000000000") {
+			return this.getMenuNavigation(menuJSON.PARENT_MENU_CD, naviStr);
+		}
+	}
+	return naviStr;
+};
+
+/**
+ * 즐겨찾기 등록 업데이트 후 callback 함
+ *
+ * @date 2017.11.30
+ * @param {Array} menuCode [[메뉴코드]:[F|T]]업데이트하기 위한 페이지 정보로 메뉴코드와 추가/삭제 여부에 대한 key값. (e.g., "030001:F", "030001:T")
+ * @param {String} favStatus 적용시킬 상태 값(T, F)
+ * @memberOf scwin
+ * @author InswaveSystems
+ */
+scwin.setupdateFavCallback = function (e) {
+	var updateResult = e.responseJSON.updateResult || "";
+	var updateInfoArr = updateResult.split(":");
+	var updateStatus = updateInfoArr[0];
+	var updateNum = updateInfoArr[1];
+
+	// 업데이트가 0건 이상일 경우 즐겨찾기 리스트 갱신
+	if (com.num.parseInt(updateNum) > 0) {
+		com.sbm.resultMsg(e.responseJSON.rsMsg);
+		com.sbm.execute(sbm_selectFavList);
+	}
+};
+
+scwin.dispFm_UserName = function (val) {
+	if (val) {
+		val += "님";
+	}
+	return val;
+};
+
+scwin.dlt_menu_ondataload = function () {
+	$p.main().scwin.setHeaderMenu();
+};
+
+//즐겨찾기 메뉴 node 클릭 시 
+scwin.btn_FavMenuNode_onclick = function () {
+	var tLabel = this.getSelectedLabel(); // 선택된 노드 label값을 가져와서 변수에 담는다.
+	var tCode = this.getSelectedValue(); // 선택된 노드 value값을 가져와서 변수에 담는다.
+	var menuInfo = dlt_menu.getMatchedJSON("MENU_CD", tCode);
+	var tURL = "";
+
+	if (!com.util.isEmpty(menuInfo) && menuInfo.length > 0) {
+		tURL = dlt_menu.getMatchedJSON("MENU_CD", tCode)[0].SRC_PATH;
+	}
+
+	scwin.setMenuRelation(tLabel, tURL, tCode, "Tree");
+};
+
+/**
+ * 메뉴 전체 확장 버튼 클릭 이벤트
+ */
+scwin.btn_menuExpandAll_onclick = function (e) {
+	trv_menu.expandNode(0, true);
+};
+
+/**
+ * 메뉴 전체 축소 버튼 클릭 이벤트
+ */
+scwin.btn_menuCollapseAll_onclick = function (e) {
+	trv_menu.collapseNode(0, true);
+};
+
+scwin.acb_search_onviewchange = function (info) {
+	var tmpNode = trv_menu.findNodeByValue(info.newValue, true);
+	if ((typeof tmpNode !== "undefined") && (tmpNode !== null)) {
+		trv_menu.spanNode(tmpNode.index, true, false);
+		scwin.trv_menu_onclick();
+	}
+};
+
+/**
+ * 즐겨찾기 리스트에서 menuCode가 추가되어있는지 확인후 개수 반환.
+ * 없으면 == 0, 있으면 > 0 
+ * @lastUpdate 2016.08.24
+ * @param {String} menuCode
+ * @returns {int} 존재 개수
+ * @author InswaveSystems
+ * @since 2016.08.24
+ * @example
+ * case 1. scwin.hasFavCode("030001"); return : 0 <br/>
+ * case 2. scwin.hasFavCode("030001"); return : 1
+ */
+scwin.hasFavCode = function (menuCode) {
+	return (dlt_fav.getMatchedIndex("MENU_CD", menuCode, true)).length;
+}
+
+scwin.btn_close_onclick = function() {
+	$p.top().grp_wrap.toggleClass("show_menu");
+};
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="grp_tab" id="" style="">
+			<xf:group id="" class="fr btn_area" style="display: none;"><w2:anchor outerDiv="false" name="" style="margin-right:5px" id="btn_close" class="btn_toggle esc mo" ev:onclick="scwin.btn_close_onclick">
+				<xf:label><![CDATA[slide]]></xf:label>
+			</w2:anchor></xf:group><xf:group class="shortcut_box" id="gr_shortcut_box" style="display:none;">
+				<w2:anchor class="btn_all_search" id="btn_allSearch" outerDiv="false" style="">
+					<xf:label><![CDATA[메뉴검색]]></xf:label>
+				</w2:anchor>
+				<w2:anchor class="btn_fold" id="btn_menuCollapseAll" outerDiv="false" style="" disabled=""
+					ev:onclick="scwin.btn_menuCollapseAll_onclick">
+					<xf:label><![CDATA[메뉴접기]]></xf:label>
+				</w2:anchor>
+				<w2:anchor class="btn_fold_list on" id="btn_menuExpandAll" outerDiv="false" style=""
+					ev:onclick="scwin.btn_menuExpandAll_onclick">
+					<xf:label><![CDATA[메뉴펼치기]]></xf:label>
+				</w2:anchor>
+			</xf:group>
+			<xf:group class="tab_tit" id="" style="display: none;" tagname="ul">
+				<xf:group class="on" id="" style="" tagname="li">
+					<w2:anchor class="" ev:onclick="scwin.anc_menu_onclick" id="anc_menu" outerDiv="false" style="">
+						<xf:label><![CDATA[메뉴]]></xf:label>
+					</w2:anchor>
+				</xf:group>
+				<xf:group id="grp_favMenu" style="" tagname="li">
+					<w2:anchor ev:onclick="scwin.anc_menu02_onclick" id="anc_menu02" outerDiv="false" style="display:none;">
+						<xf:label><![CDATA[즐겨찾기]]></xf:label>
+					</w2:anchor>
+				</xf:group>
+			</xf:group>
+			<xf:group class="search_field" id="gr_search_field" ev:onblur="">
+				<w2:autoComplete interactionMode="" chooseOptionValue="none" chooseOptionLabel="메뉴를 검색하세요" chooseOption="true"
+					displayMode="label" ev:onviewchange="scwin.acb_search_onviewchange" id="acb_search" useKeywordHighlight="false"
+					style="height:32px;font-size:13px;display:none;" search="contain" allOption="" textAlign="left" submenuSize="auto" editType="select"
+					class="w2gridViewItemTable_main" caseSensitive="false" noResult="first" ref="">
+					<w2:choices>
+						<w2:itemset nodeset="data:dlt_menu">
+							<w2:label ref="MENU_NM"></w2:label>
+							<w2:value ref="MENU_CD"></w2:value>
+						</w2:itemset>
+					</w2:choices>
+				</w2:autoComplete>
+			</xf:group>
+			<xf:group id="swh_lnbbox" class="tab_conbox">
+				<xf:group style="" id="gr_tab_menu" class="tab_con scrollbar">
+					<w2:treeview showTreeDepth="1" tooltipGroupClass="false" dataType="listed" labelclass="" toggleEvent="onclick"
+						ev:onclick="scwin.trv_menu_onclick" lineShow="false" style="" id="trv_menu" class="tw_menu">
+						<w2:itemset nodeset="data:dlt_menu">
+							<w2:label ref="MENU_NM"></w2:label>
+							<w2:value ref="MENU_CD"></w2:value>
+							<w2:depth ref="MENU_LEVEL"></w2:depth>
+						</w2:itemset>
+					</w2:treeview>
+				</xf:group>
+				<xf:group style="display: none;" id="gr_tab_menu02" class="tab_con scrollbar">
+					<w2:treeview showTreeDepth="1" tooltipGroupClass="false" dataType="listed" lineShow="" style="" id="trv_favMenu"
+						class="tw_menu" ev:onclick="scwin.btn_FavMenuNode_onclick" toggleEvent="onclick">
+						<w2:itemset nodeset="data:dlt_fav">
+							<w2:label ref="MENU_NM"></w2:label>
+							<w2:value ref="MENU_CD"></w2:value>
+							<w2:depth ref="MENU_LEVEL"></w2:depth>
+						</w2:itemset>
+					</w2:treeview>
+				</xf:group>
+			</xf:group>
+		</xf:group>
+	</body>
+</html>

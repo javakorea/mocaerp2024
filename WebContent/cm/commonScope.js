@@ -107,7 +107,6 @@ com.sbm.executeDynamic(searchCodeGrpOption);
  */
 com.sbm.executeDynamic = function(options, requestData, obj) {
 	var submissionObj = com.util.getComponent(options.id);
-
 	if (submissionObj === null) {
 		com.sbm.create(options);
 		submissionObj = com.util.getComponent(options.id);
@@ -116,7 +115,6 @@ com.sbm.executeDynamic = function(options, requestData, obj) {
 		com.sbm.create(options);
 		submissionObj = com.util.getComponent(options.id);
 	}
-
 	return com.sbm.execute(submissionObj, requestData, obj);
 };
 
@@ -3087,17 +3085,41 @@ com.win.goHome = function() {
  */
 com.win.logout = function() {
 	gcm.win.removeEventOnBeforeUnload();
-	
 	var logoutGrpOption = {
 		id : "_sbm_Logout",
-		action : "/main/logout",
+		action : "/FRM/LOGOUT.do",
 		target : "",
-		submitDoneHandler : "com.win.goHome",
+		submitDoneHandler : "com.win.logoutSubmitDone",
 		isProcessMsg : false
 	};
 	com.sbm.executeDynamic(logoutGrpOption);
 };
-
+com.win.logoutSubmitDone = function() {
+	let lengIsOne = arguments[0].responseJSON.length
+	sessionStorage.removeItem("loginInfo");
+	sessionStorage.removeItem("session");
+	com.win.goHome();
+};
+com.win.login = function(newUser) {
+	gcm.win.removeEventOnBeforeUnload();
+	var loginGrpOption = {
+		id : "_sbm_Login",
+		action : "/FRM/LOGIN.do",
+		target : "",
+		submitDoneHandler : "com.win.loginSubmitDone",
+		isProcessMsg : false
+	};
+	newUser['COMMON_QUERY'] = 'M.SEL_MEMBER';
+	com.sbm.executeDynamic(loginGrpOption,{dma_search:newUser});
+};
+com.win.loginSubmitDone = function() {
+	if(arguments[0].responseJSON.dma_map){
+		sessionStorage.setItem("session", JSON.stringify(arguments[0].responseJSON.dma_map));
+		location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';//메인화면
+	}else{
+		location.href = '/websquare/websquare.html?w2xPath=/ui/FRM_SIGNUP.xml';//회원가입
+	}
+};
 /**
  * 로그인한 사용자가 시스템 관리자 인지의 여부를 반환한다.
  * 

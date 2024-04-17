@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_content">
+					<w2:keyInfo>
+						<w2:key id="U_ID" name="SCH_IDX" dataType="text"></w2:key>
+						<w2:key id="U_EMAIL" name="SCH_TITLE" dataType="text"></w2:key>
+						<w2:key id="U_NAME" name="SCH_CONT" dataType="text"></w2:key>
+						<w2:key id="U_PHONE" name="SCH_WRITER" dataType="text"></w2:key>
+						<w2:key id="U_REG_DT" name="SCH_CREATE_DTTM" dataType="text"></w2:key>
+						<w2:key id="U_LEVEL" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
+						<w2:key id="U_ADDR" name="SCH_START" dataType="text"></w2:key>
+						<w2:key id="U_SOCIAL" 		name="SCH_START_TIME" 	dataType="text"></w2:key>
+						<w2:key id="U_BIRTH_DT" name="SCH_END" dataType="text"></w2:key>
+
+						<!-- 공통부 -->
+						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" name="COMMON_MASTER_KEY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>	
+			</w2:dataCollection>
+			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]'
+				target="data:json,COMMON_RESULT" action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
+				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
+				ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+scwin.onpageload = function () {
+	let email = JSON.parse(sessionStorage.getItem("loginInfo")).email;
+	ipt_id.setValue(email);
+};
+scwin.tri_signup_onclick = function(e) {
+	if(!ipt_name.getValue()){
+		com.win.alert('이름을 입력해주세요.',function(){ipt_name.focus();});
+		return;
+	}
+	if(!ipt_phone.getValue()){
+		com.win.alert('휴대폰번호를 입력해주세요.',function(){ipt_phone.focus();});
+		return;
+	}
+	com.win.confirm("회원가입하시겠습니까?", function(e){
+		if(e.clickValue){
+			let session = JSON.parse(sessionStorage.getItem("loginInfo"));
+			dma_content.set("U_ID"				, session.id);
+			dma_content.set("U_EMAIL"			, session.email);
+			dma_content.set("U_SOCIAL"			, session.social);
+
+			dma_content.set("COMMON_MASTER_QUERY"	, "M.INS_MEMBER");
+			dma_content.set("COMMON_STATUS"			, "I");
+			com.sbm.execute(sbm_commonTran);
+		}
+	});	
+};
+scwin.sbm_commonTran_submitdone = function () {
+	let rRow = arguments[0].responseJSON.COMMON_RESULT.COMMON_RESULT_ROW;
+	sessionStorage.setItem("session", JSON.stringify(rRow));
+	location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
+};]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+
+		<xf:input id="ipt_id" style="width:339px;height:21px;"></xf:input>
+		<w2:textbox id="" label="회원가입" style="width: 150px;height: 23px;"></w2:textbox>
+		
+		
+		<xf:input id="ipt_name" style="width: 144px;height: 21px;" placeholder="이름" ref="data:dma_content.U_NAME"></xf:input>
+		<xf:input id="ipt_phone" style="width: 144px;height: 21px;" placeholder="휴대폰번호" ref="data:dma_content.U_PHONE"></xf:input>
+		<xf:input id="ipt_addr" style="width: 144px;height: 21px;" placeholder="주소" ref="data:dma_content.U_ADDR"></xf:input>
+		<xf:input id="ipt_birth_dt" style="width: 144px;height: 21px;" placeholder="생년월일8자리" ref="data:dma_content.U_BIRTH_DT"></xf:input>
+		
+		<xf:trigger type="button" id="tri_signup" style="width: 80px;height: 23px;" ev:onclick="scwin.tri_signup_onclick">
+			<xf:label><![CDATA[가입]]></xf:label>
+		</xf:trigger>
+		<xf:trigger type="button" id="tri_cancel" style="width: 80px;height: 23px;">
+			<xf:label><![CDATA[취소]]></xf:label>
+		</xf:trigger>
+	</body>
+</html>

@@ -29,7 +29,7 @@
 			}
 		}
 		function go (_obj) {	
-			var newUser = {};
+			var newUser = {social:'google'};
 			newUser.email = _obj.email;
 			newUser.displayName = _obj.displayName;
 			if(_obj.name){
@@ -45,7 +45,7 @@
 				}				
 			}		
 			sessionStorage.setItem("loginInfo", JSON.stringify(newUser));
-			location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
+			com.win.login($p,newUser);
 		};
 
 		

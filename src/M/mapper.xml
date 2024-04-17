@@ -273,8 +273,32 @@
     
     
     
-    
-    
+    <insert id="INS_MEMBER" parameterType="java.util.Map" useGeneratedKeys="true"  >
+        /*INS_MEMBER*/
+    	INSERT INTO mocaerp.T_MEMBER
+		(
+			U_ID, U_EMAIL, U_NAME, U_PHONE, U_REG_DT, U_LEVEL, U_ADDR, U_SOCIAL, U_BIRTH_DT
+		)
+		VALUES(
+			#{U_ID}, #{U_EMAIL}, #{U_NAME}, #{U_PHONE}, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'), #{U_LEVEL}, #{U_ADDR}, #{U_SOCIAL}, #{U_BIRTH_DT}
+		);
+        <selectKey keyProperty="R_ID,R_EMAIL,R_NAME,R_PHONE,R_REG_DT,R_LEVEL,R_ADDR,R_SOCIAL,R_BIRTH_DT" resultType="java.util.HashMap" order="AFTER" >
+        	/* select result for insert in INS_MEMBER */
+			SELECT 
+			U_ID AS R_ID, U_EMAIL AS R_EMAIL, U_NAME AS R_NAME, U_PHONE AS R_PHONE, 
+			U_REG_DT AS R_REG_DT, U_LEVEL AS R_LEVEL, U_ADDR AS R_ADDR, U_SOCIAL AS R_SOCIAL, U_BIRTH_DT AS R_BIRTH_DT
+			FROM T_MEMBER
+			WHERE 1=1 AND U_ID = #{U_ID}
+		</selectKey>
+    </insert>
+   	<select id="SEL_MEMBER" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* SEL_MEMBER */
+			SELECT 
+			U_ID AS R_ID, U_EMAIL AS R_EMAIL, U_NAME AS R_NAME, U_PHONE AS R_PHONE, 
+			U_REG_DT AS R_REG_DT, U_LEVEL AS R_LEVEL, U_ADDR AS R_ADDR, U_SOCIAL AS R_SOCIAL, U_BIRTH_DT AS R_BIRTH_DT
+			FROM T_MEMBER
+			WHERE 1=1 AND U_ID = #{id}
+    </select>
     
     
     
@@ -348,6 +372,7 @@
 		FROM T_SCHEDULE
 		WHERE 1=1
 		AND SCH_DELYN = 'N'
+		AND SCH_WRITER = #{SCH_WRITER}
 		AND (SCH_CURRENTMONTH = #{SCH_CURRENTMONTH_PREV} OR SCH_CURRENTMONTH = #{SCH_CURRENTMONTH} OR SCH_CURRENTMONTH = #{SCH_CURRENTMONTH_NEXT} )
     </select>
 

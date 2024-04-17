@@ -14,10 +14,12 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -109,15 +111,29 @@ public class Moca3Application {
 		String COMMON_DETAIL_UPDATEQUERY 	= String.valueOf(dma_common.get(this.COMMON_DETAIL_UPDATEQUERY));
 		String COMMON_DETAIL_DELETEQUERY 	= String.valueOf(dma_common.get(this.COMMON_DETAIL_DELETEQUERY));
 		Map COMMON_RESULT_MAP = new HashMap(); 
+			Map resultAfterMap = null;
 			Map resultMap = new HashMap();
 			if(!"".equals(COMMON_MASTER_QUERY)) {
 				int re1 = ss.insert(COMMON_MASTER_QUERY, dma_common);
 				resultMap.put(this.COMMON_MASTER_RESULT, re1);
+				Set s = dma_common.keySet();
+				Map resultRow = new HashMap();
+				if(s != null) {
+					Iterator it = s.iterator();
+					while(it.hasNext()) {
+						String key = (String)it.next();
+						if(key.startsWith("R_")) {
+							resultRow.put(key, dma_common.get(key));
+						}
+					}
+				}
+				resultAfterMap = resultRow;				
 			}
 			Map result = new HashMap();
 			
 			
 			List dlt_common = (List) param.get(this.DETAIL_LiST);
+			
 			if(dlt_common != null) {
 				int sz = dlt_common.size();
 				for(int i=0; i < sz; i++) {
@@ -146,6 +162,9 @@ public class Moca3Application {
 				}
 				resultMap.put(this.COMMON_PARAM_LIST, dlt_common);
 			}
+			
+			
+			resultMap.put("COMMON_RESULT_ROW", resultAfterMap);
 			resultMap.put(this.COMMON_DETAIL_RESULT, result);
 			resultMap.put(this.COMMON_PARAM_MAP, dma_common);
 		COMMON_RESULT_MAP.put(this.COMMON_RESULT, resultMap);
@@ -279,9 +298,32 @@ public class Moca3Application {
 		}
 		return list;
 	};
-
-	
-	
+	//로그아웃  
+	@RequestMapping(value = "/FRM/LOGOUT.do")
+	public List LOGOUT(@RequestParam Map mocaMap,HttpServletRequest request) throws Exception {
+		LogUtil.info("----------------- /FRM/LOGOUT.do");
+		List list = new ArrayList();
+		try {
+			request.getSession().invalidate();
+			StringBuffer sb = new StringBuffer();
+			Enumeration enus = request.getSession().getAttributeNames();
+			while(enus.hasMoreElements()) {
+				String key = String.valueOf(enus.nextElement());
+				sb.append(key);
+				sb.append(",");
+			}
+			String resultValue = sb.toString();
+			list.add(resultValue);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	};
+	//로그인 
+	@RequestMapping(value = "/FRM/LOGIN.do")
+	public Map LOGIN(@RequestBody Map param,HttpServletRequest request) throws Exception {
+		return u.selectMap(param,ss);
+	};	
 	
 	
 	

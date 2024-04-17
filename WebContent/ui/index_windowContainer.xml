@@ -244,7 +244,7 @@ scwin.pushStateMain = function() {
 					</xf:group>
 				</xf:group>
 			</xf:group>
-			<w2:wframe style="" id="wfm_side" class="side" scope="true" src="side.xml"></w2:wframe>
+			<w2:wframe style="" id="wfm_side" class="side" scope="true" src="FRM_SIDE.xml"></w2:wframe>
 			<w2:wframe style="" id="wfm_footer" scope="true" src="footer.xml"></w2:wframe>
 			<xf:group style="" id="" class="dim"></xf:group>
 		</xf:group>
