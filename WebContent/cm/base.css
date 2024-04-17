@@ -1618,6 +1618,15 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .grp_setFromTo{display:flex}
 .btn_moreDetail{    width: 30px;  text-indent: -9999px;  background: url(/cm/images/ico_arrowBottom.png) no-repeat;  position: absolute;  right: 7px;  border: 0;  height: 30px;  top: 15px;  background-size: 30px;}
 
+.tbbox.join .tb{border:0}
+.tbbox.join .tb .w2tb_th, .tbbox.join .tb.w2tb.w2tb_adaptive_layout .w2tb_th{position:relative; top:unset; left:unset; font-size: 20px;  height: 30px; border: 0;  background: #fff;}
+.tbbox.join .tb .w2tb_td, .tbbox.join .tb.w2tb_adaptive_layout .w2tb_td{padding-left:0; border-top: 0 !important; border:0; border-bottom:1px solid #666 !important; margin-bottom:20px;}
+.tbbox.join .tb  tr:last-child .w2tb_td, .tbbox.join .tb.w2tb_adaptive_layout  tr:last-child .w2tb_td{ margin-bottom:0}
+.tbbox.join input{width:100%; height:40px; font-size:24px; border:0}
+.btnbox.join input[type="button"]{width:calc(50% - 5px); height:40px;  font-size:20px; border-radius:0; background:#1ac5a6; border:0}
+.btnbox.join input[type="button"]:last-child{background:#fff; color:#333; border:1px solid #333;}
+			
+			
 @media screen and (max-width: 1280px) {
 	/* Mobile Reset */
 	html,body{-webkit-overflow-scrolling:touch;}
