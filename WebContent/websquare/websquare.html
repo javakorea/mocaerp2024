@@ -6,6 +6,12 @@
 		<title>	mocaerp2024 </title>
 
 		<script>
+		function getLocationSignUpUrl(){
+			return '/websquare/websquare.html?w2xPath=/ui/FRM_SIGNUP.xml&p='+new Date().getTime();
+		};
+		function getLocationMainUrl(){
+			return '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml&p='+new Date().getTime();
+		};		
 		<!-- 시스템 공통함수-->
 		function isMobile (_type) {
 			if(_type){

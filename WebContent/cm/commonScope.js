@@ -3115,9 +3115,9 @@ com.win.login = function(newUser) {
 com.win.loginSubmitDone = function() {
 	if(arguments[0].responseJSON.dma_map){
 		sessionStorage.setItem("session", JSON.stringify(arguments[0].responseJSON.dma_map));
-		location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';//메인화면
+		location.href = getLocationMainUrl();//메인화면
 	}else{
-		location.href = '/websquare/websquare.html?w2xPath=/ui/FRM_SIGNUP.xml';//회원가입
+		location.href = getLocationSignUpUrl();//회원가입
 	}
 };
 /**

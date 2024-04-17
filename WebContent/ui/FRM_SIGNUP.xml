@@ -69,7 +69,7 @@ scwin.tri_signup_onclick = function(e) {
 scwin.sbm_commonTran_submitdone = function () {
 	let rRow = arguments[0].responseJSON.COMMON_RESULT.COMMON_RESULT_ROW;
 	sessionStorage.setItem("session", JSON.stringify(rRow));
-	location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
+	location.href = getLocationMainUrl();//메인화면
 };]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">

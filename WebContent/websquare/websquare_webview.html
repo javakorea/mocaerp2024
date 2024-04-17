@@ -25,7 +25,7 @@
 		}
 				
 		function go (_obj) {	
-			var newUser = {};
+			var newUser = {social:'google'};
 			newUser.email = _obj.email;
 			newUser.displayName = _obj.displayName;
 			if(_obj.name){
@@ -39,9 +39,9 @@
 			if(_obj.id ==  '108943482886035511239'){
 				//_obj.id == '101079382101809037163' ||
 				newUser.admin = 'Y';
-			}						
+			}			
 			sessionStorage.setItem("loginInfo", JSON.stringify(newUser));
-			location.href = '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml';
+			location.href = getLocationMainUrl();//메인화면
 		};
 		function appToWeb(data){
 			if(data){
