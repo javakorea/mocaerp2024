@@ -74,20 +74,26 @@ scwin.sbm_commonTran_submitdone = function () {
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 
-		<xf:input id="ipt_id" style="width:339px;height:21px;"></xf:input>
-		<w2:textbox id="" label="회원가입" style="width: 150px;height: 23px;"></w2:textbox>
-		
-		
-		<xf:input id="ipt_name" style="width: 144px;height: 21px;" placeholder="이름" ref="data:dma_content.U_NAME"></xf:input>
-		<xf:input id="ipt_phone" style="width: 144px;height: 21px;" placeholder="휴대폰번호" ref="data:dma_content.U_PHONE"></xf:input>
-		<xf:input id="ipt_addr" style="width: 144px;height: 21px;" placeholder="주소" ref="data:dma_content.U_ADDR"></xf:input>
-		<xf:input id="ipt_birth_dt" style="width: 144px;height: 21px;" placeholder="생년월일8자리" ref="data:dma_content.U_BIRTH_DT"></xf:input>
-		
-		<xf:trigger type="button" id="tri_signup" style="width: 80px;height: 23px;" ev:onclick="scwin.tri_signup_onclick">
-			<xf:label><![CDATA[가입]]></xf:label>
-		</xf:trigger>
-		<xf:trigger type="button" id="tri_cancel" style="width: 80px;height: 23px;">
-			<xf:label><![CDATA[취소]]></xf:label>
-		</xf:trigger>
+		<xf:group class="sub_contents flex_gvw flex_m" id="grp_level1" style="">
+			<xf:group class="" id="" style="display: flex;flex-direction: column;">    
+				<xf:group class="" id="" style="padding-bottom:40px"> 
+					<w2:textbox id="" label="회원가입" style="width: 150px;height: 40px;font-size:30px"></w2:textbox>
+					<xf:input id="ipt_id" style="width:339px;height:40px;font-size:24px"></xf:input>
+				</xf:group>			
+				<xf:input id="ipt_name" style="width: 244px;height: 40px;" placeholder="이름" ref="data:dma_content.U_NAME"></xf:input>
+				<xf:input id="ipt_phone" style="width: 244px;height: 40px;" placeholder="휴대폰번호" ref="data:dma_content.U_PHONE"></xf:input>
+				<xf:input id="ipt_addr" style="width: 244px;height: 40px;" placeholder="주소" ref="data:dma_content.U_ADDR"></xf:input>
+				<xf:input id="ipt_birth_dt" style="width: 244px;height: 40px;" placeholder="생년월일8자리" ref="data:dma_content.U_BIRTH_DT"></xf:input>
+				<xf:group class="" id="" style="padding-top:40px"> 
+					<xf:trigger type="button" id="tri_signup" style="width: 160px;height: 40px;" ev:onclick="scwin.tri_signup_onclick">
+						<xf:label><![CDATA[회원가입]]></xf:label>
+					</xf:trigger>
+					<xf:trigger type="button" id="tri_cancel" style="width: 160px;height: 40px;">
+						<xf:label><![CDATA[취소]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+		</xf:group>
+
 	</body>
 </html>

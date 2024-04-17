@@ -3100,26 +3100,7 @@ com.win.logoutSubmitDone = function() {
 	sessionStorage.removeItem("session");
 	com.win.goHome();
 };
-com.win.login = function(newUser) {
-	gcm.win.removeEventOnBeforeUnload();
-	var loginGrpOption = {
-		id : "_sbm_Login",
-		action : "/FRM/LOGIN.do",
-		target : "",
-		submitDoneHandler : "com.win.loginSubmitDone",
-		isProcessMsg : false
-	};
-	newUser['COMMON_QUERY'] = 'M.SEL_MEMBER';
-	com.sbm.executeDynamic(loginGrpOption,{dma_search:newUser});
-};
-com.win.loginSubmitDone = function() {
-	if(arguments[0].responseJSON.dma_map){
-		sessionStorage.setItem("session", JSON.stringify(arguments[0].responseJSON.dma_map));
-		location.href = getLocationMainUrl();//메인화면
-	}else{
-		location.href = getLocationSignUpUrl();//회원가입
-	}
-};
+
 /**
  * 로그인한 사용자가 시스템 관리자 인지의 여부를 반환한다.
  * 
