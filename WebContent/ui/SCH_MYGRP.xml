@@ -365,7 +365,7 @@ scwin.usercnt = function(v1,v2,row,col){
 
 
 		<xf:group id="grp_dim_white" class=""
-			style="display:none;z-index:9998;background-color:#FFF;opacity:0.8;position:absolute;top:0px;bottom:0px;left:0px;right:0px"
+			style="display:none;z-index:9998;background-color:#FFF;opacity:0.9;position:absolute;top:0px;bottom:0px;left:0px;right:0px"
 			ev:onclick="scwin.grp_dim_white_onclick">
 		</xf:group>
 		<xf:group
