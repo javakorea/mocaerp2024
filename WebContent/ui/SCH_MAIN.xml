@@ -746,7 +746,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 				<xf:group id="" class="sch_titleArea">
 					<xf:group id="grp_adayList" 
 					style="" class="sch_detail_wrap">
-						<xf:group id="" class="fl btn_list" style="height:100%;">
+						<xf:group id="" class="fl btn_list" style="height:100%">
 							<xf:trigger ev:onclick="" style="height:100px;visibility: hidden;" id="" 
 							type="button" class="" >
 								<xf:label><![CDATA[탑간격강제로줌]]></xf:label>
@@ -781,10 +781,10 @@ scwin.sbm_commonTran_submitdone = function(e) {
 					</xf:group>
 					<xf:group id="" class="fl">
 
-	<!-- 					<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style=""
+						<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style=""
 							ev:onclick="com.btn_togglemenu_onclick">
-							<xf:label><![CDATA[slide]]></xf:label>
-						</w2:anchor> -->
+							<xf:label><![CDATA[]]></xf:label>
+						</w2:anchor>
 						<w2:anchor class="btn_toggle left mo" ev:onclick="scwin.btn_left_onclick" id="btn_left" name="" outerDiv="false"
 							style="">
 							<xf:label><![CDATA[slide]]></xf:label>
