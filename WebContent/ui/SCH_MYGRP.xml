@@ -106,6 +106,14 @@
 };
 
 scwin.trigger1_onclick = function(e) {
+	let v = ipt_grpNm.getValue();
+	v = v.replace(/\s*/g,'');
+	if(!v){
+		com.win.alert('채널명을 입력하세요!',function(){
+			ipt_grpNm.focus();
+		});
+		return;
+	}
 	var xhr = new XMLHttpRequest();
 	xhr.open('post', '/selectMap.do');
 	xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
@@ -232,28 +240,22 @@ scwin.usercnt = function(v1,v2,row,col){
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group class="sub_contents flex_gvw flex_m" id="group1" style="" >
-			<xf:group class="shbox" id="" style="">
-				<xf:group class="schbox_inner" id="" style="">
-				</xf:group>
-				<xf:group class="btn_shbox" id="" style="">
-					<xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_search" style="" type="button"
-						ev:onclick="scwin.btn_search_onclick">
-						<xf:label><![CDATA[조회]]></xf:label>
-					</xf:trigger>				
-				</xf:group>				
-			</xf:group>
-			
-			
-			
 			<xf:group class="dfbox" id="" style="">
 				<xf:group class="fl" id="" style="">
-					<w2:textbox class="" id="txt_cnt_max" label="- 생성가능한 최대채널수는 5개까지입니다" style="font-size:16px;margin-top:8px"></w2:textbox>
+					<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style="margin-bottom:5px"
+						ev:onclick="com.btn_togglemenu_onclick">
+						<xf:label><![CDATA[slide]]></xf:label>
+					</w2:anchor>	
 				</xf:group>			
 				<xf:group class="fr" id="" style="">
-					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
-					<xf:trigger class="btn_cm blue" id="btn_write" style="" type="button" ev:onclick="scwin.btn_write_onclick">
+					<w2:textbox class="" id="txt_cnt" label="0건" style="margin-top:5px"></w2:textbox>
+					<xf:trigger class="btn_cm blue" id="btn_write" style="margin-top:3px" type="button" ev:onclick="scwin.btn_write_onclick">
 						<xf:label><![CDATA[채널생성]]></xf:label>
 					</xf:trigger>
+					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_search" style="margin-top:3px" type="button"
+						ev:onclick="scwin.btn_search_onclick">
+						<xf:label><![CDATA[조회]]></xf:label>
+					</xf:trigger>						
 				</xf:group>
 			</xf:group>
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
@@ -263,7 +265,7 @@ scwin.usercnt = function(v1,v2,row,col){
 					<w2:caption id="caption2" style="" value="this is a grid caption." />
 					<w2:header id="header2" style="">
 						<w2:row id="row3" style="">
-							<w2:column width="160" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
+							<w2:column width="120" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
 							<w2:column width="80" inputType="text" style="" id="column3" value="인원" displayMode="label"></w2:column>
 							<w2:column width="120" inputType="text" style="" id="column5" value="등록일시" displayMode="label" hidden="true"></w2:column>
 							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
@@ -271,7 +273,7 @@ scwin.usercnt = function(v1,v2,row,col){
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
-							<w2:column width="160" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
+							<w2:column width="120" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
 							<w2:column width="80" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"  customFormatter="scwin.usercnt"></w2:column>
 							<w2:column width="120" inputType="text" style="" id="GRP_REG_DTTM" value="" displayMode="label" displayFormat="####-##-## ##:##:##"></w2:column>
 							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
@@ -367,7 +369,7 @@ scwin.usercnt = function(v1,v2,row,col){
 			ev:onclick="scwin.grp_dim_white_onclick">
 		</xf:group>
 		<xf:group
-			style="text-align:center;position:absolute;top:100px;left:100px;right:100px;bottom:100px;z-index:9999;overflow-y:auto;border-radius:10px;display:none;"
+			style="text-align:center;position:absolute;top:40px;left:10px;right:10px;bottom:100px;z-index:9999;overflow-y:auto;border-radius:10px;display:none;"
 			id="grp_createGrp" class="">
 
 			<xf:input id="ipt_grpNm" style="width: 244px;height: 40px;font-size:24px"></xf:input>
