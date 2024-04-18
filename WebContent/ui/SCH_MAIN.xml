@@ -184,6 +184,18 @@
 					</w2:columnInfo>
 					<w2:data use="false"></w2:data>
 				</w2:dataList>
+				<w2:dataList baseNode="list" id="dlt_detail" repeatNode="map" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="SCH_IDX" 		name="SCH_IDX" 		dataType="text" />
+						<w2:column id="SCH_WRITER" 		name="SCH_WRITER" 	dataType="text" />
+						<w2:column id="SCH_START" 		name="SCH_START" 	dataType="text" />
+						<w2:column id="GRP_NM" 			name="SCH_WRITER" 	dataType="text" />
+					</w2:columnInfo>
+					<w2:data use="false"></w2:data>
+				</w2:dataList>				
+				
+
+				
 				<w2:dataMap baseNode="map" id="dma_search">
 					<w2:keyInfo>
 						<w2:key id="SCH_CURRENTMONTH_PREV" name="SCH_CURRENTMONTH_PREV" dataType="text"></w2:key>
@@ -254,6 +266,12 @@
 				target="data:json,COMMON_RESULT" action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
 				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
 				ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>			
+
+			<xf:submission id="sbm_commonTranDetail" ref='data:json,[{"id":"dma_content","key":"dma_common_request"},{"id":"dlt_detail","key":"dlt_common"}]' target="data:json,COMMON_RESULT"
+				action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror=""
+				abortTrigger="">
 			</xf:submission>			
 		</xf:model>
 
@@ -602,10 +620,29 @@ scwin.btn_reg_onclick = function(e) {
 				dma_content.set("SCH_COLOR", wfm_pop.scope.rdo_gubunYn.getValue());
 				dma_content.set("COMMON_MASTER_QUERY"	, "M.INS_SCHEDULE");
 				dma_content.set("COMMON_STATUS"			, "I");
+
+				dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.INS_MAPP");
+				dma_content.set("COMMON_MASTER_KEY","SCH_WRITER,SCH_START,SCH_IDX");dma_content.set("COMMON_DETAIL_KEY","SCH_WRITER,SCH_START,SCH_IDX");
+
 				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
 				/* key2 */dma_content.set("SCH_START"			, wfm_pop.scope.ipt_day.getValue());
-				debugger;
-				com.sbm.execute(sbm_commonTran);
+				wfm_pop.scope.chk_channel.getValue();
+
+				let arr = wfm_pop.scope.chk_channel.getValue().split(',');
+				let detail_list = [];
+				for(let i=0; i < arr.length; i++){
+					let row = {GRP_NM : arr[i]};
+					row["SCH_WRITER"] = JSON.parse(sessionStorage.getItem('loginInfo')).id;
+					row["SCH_START"] = wfm_pop.scope.ipt_day.getValue();
+					detail_list.push(row);
+				}
+				dlt_detail.setJSON(detail_list);
+				for(let i=0; i < arr.length; i++){
+					dlt_detail.modifyRowStatus(i,'C'); 
+				}
+
+				
+				com.sbm.execute(sbm_commonTranDetail);
 			}
 		});
 	}

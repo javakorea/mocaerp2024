@@ -302,8 +302,8 @@ scwin.trigger2_onclick = function(e) {
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:select selectedindex="-1"  appearance="full" cols="" disabled="" id="rdo_channel" ref="" renderType="checkboxgroup" rows="1"
-								style="color:#333" class="">
+							<xf:select selectedindex="-1"  appearance="full" cols="" disabled="" id="chk_channel" ref="" renderType="checkboxgroup" rows="1"
+								style="color:#333" class="" separator=",">
 								<xf:choices>
 									<xf:itemset nodeset="data:dlt_channel_list">
 										<xf:label ref="DATA"></xf:label>

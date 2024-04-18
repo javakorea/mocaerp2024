@@ -382,6 +382,16 @@
 		AND GRP_NM=#{GRP_NM}
 		AND GRP_MANAGER_ID=#{GRP_MANAGER_ID}
     </insert>
+    <insert id="INS_MAPP" parameterType="java.util.Map" >
+        /*INS_GRP*/
+    	INSERT INTO T_MAPP
+		(GRP_NM,SCH_WRITER, SCH_START, SCH_IDX)
+		VALUES
+		(#{GRP_NM},#{SCH_WRITER}, #{SCH_START}, #{SCH_IDX})
+    </insert>
+    
+    
+        
     <insert id="INS_SCHEDULE" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="SCH_IDX">
         /*INS_SCHEDULE*/
     	INSERT INTO T_SCHEDULE

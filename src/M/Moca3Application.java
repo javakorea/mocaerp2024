@@ -133,13 +133,22 @@ public class Moca3Application {
 			
 			
 			List dlt_common = (List) param.get(this.DETAIL_LiST);
-			
+			LogUtil.info(this.DETAIL_LiST);
+			LogUtil.info(dlt_common.size()+"");
 			if(dlt_common != null) {
 				int sz = dlt_common.size();
 				for(int i=0; i < sz; i++) {
 					Map row = (Map)dlt_common.get(i);
 					if(MASTER_KEY_NM != null) {
-						row.put(DETAIL_KEY_NM,	String.valueOf(dma_common.get(MASTER_KEY_NM)));
+						String[] arr = DETAIL_KEY_NM.split(",");
+						String[] arr2 = MASTER_KEY_NM.split(",");
+						if(arr != null && arr2 != null) {
+							for(int k=0; k < arr.length; k++) {
+								String dKey = arr[k];
+								String mKey = arr2[k];
+								row.put(dKey,	String.valueOf(dma_common.get(mKey)));
+							}
+						}
 					}
 					String s = (String)row.get(this.STATUS);
 					int re = 0;
