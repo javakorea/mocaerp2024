@@ -314,7 +314,7 @@
     </insert>
    	<select id="LST_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
    			/* LST_GRP */
-			SELECT G.GRP_NM,G.GRP_MEMBER_MAX,COUNT(GM.U_GRP_NM) AS CNT,'삭제' AS GRP_BTN
+			SELECT G.GRP_NM,G.GRP_NM AS DATA,G.GRP_NM AS CODE,G.GRP_MEMBER_MAX,COUNT(GM.U_GRP_NM) AS CNT,'삭제' AS GRP_BTN
 			FROM 	T_GRP_MEM GM 
 					RIGHT OUTER JOIN T_GRP G 
 					ON GM.U_GRP_NM = G.GRP_NM

@@ -14,84 +14,104 @@
 				<w2:aliasDataList scope="../dlt_gubunList" id="dlt_gubunList"></w2:aliasDataList>
 				<w2:aliasDataList scope="../dlt_HHs" id="dlt_HHs"></w2:aliasDataList>
 				<w2:aliasDataList scope="../dlt_MIs" id="dlt_MIs"></w2:aliasDataList>
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_channel_list" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="CODE" name="CODE" dataType="text" length="" />
+						<w2:column id="DATA" name="DATA" dataType="text" length="" />
+					</w2:columnInfo>
+				</w2:dataList>					
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
 		</xf:model>
 		<w2:layoutInfo></w2:layoutInfo>
 		<w2:publicInfo method=""></w2:publicInfo>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-	let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
+	var xhr = new XMLHttpRequest();
+	xhr.open('post', '/selectList.do');
+	xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
+	xhr.responseType = 'json';
+	xhr.onload = function() {
+		let result = xhr.response;
 
-	let list = dlt_HHs.getAllJSON();
-	for(let i=0; i < list.length; i++){
-		let row = list[i];
-		let tmpIdx = gen_HH.insertChild();
-		let grp_row = gen_HH.getChild(tmpIdx, "grp_hhrow");
-		let txb_HH = gen_HH.getChild(tmpIdx, "txb_HH");
-		grp_row.setUserData("CODE", row.CODE);
-		txb_HH.setValue(row.DATA);
+		if(result.dlt_list){
+			debugger;
+			dlt_channel_list.setJSON(result.dlt_list);
+			let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
+
+			let list = dlt_HHs.getAllJSON();
+			for(let i=0; i < list.length; i++){
+				let row = list[i];
+				let tmpIdx = gen_HH.insertChild();
+				let grp_row = gen_HH.getChild(tmpIdx, "grp_hhrow");
+				let txb_HH = gen_HH.getChild(tmpIdx, "txb_HH");
+				grp_row.setUserData("CODE", row.CODE);
+				txb_HH.setValue(row.DATA);
+			};
+			let list2 = dlt_MIs.getAllJSON();
+			for(let i=0; i < list2.length; i++){
+				let row = list2[i];
+				let tmpIdx = gen_MI.insertChild();
+				let grp_row = gen_MI.getChild(tmpIdx, "grp_mirow");
+				let txb_MI = gen_MI.getChild(tmpIdx, "txb_MI");
+				grp_row.setUserData("CODE", row.CODE);
+				txb_MI.setValue(row.DATA);
+			};	
+			/* 수정일때만 */
+			scwin._parentDma = $p.parent().scwin.selectedSchObj;
+			if(scwin._parentDma && scwin._parentDma.SCH_IDX){
+				edi_1.setValue(scwin._parentDma.SCH_CONT);
+				dma_content.set('SCH_IDX',scwin._parentDma.SCH_IDX);
+				if(!scwin._parentDma.SCH_COLOR){
+					scwin._parentDma.SCH_COLOR = 1;
+				}
+				rdo_gubunYn.setValue(scwin._parentDma.SCH_COLOR);
+
+
+				if(dma_content.get('SCH_END_TIME')){
+					scwin.sch_mode = 'DETAIL';
+					ipc_start.setValue(dma_content.get('SCH_START'));
+					ipt_startHH.setValue(dma_content.get('SCH_START_TIME').substring(0,2));
+					ipt_startMI.setValue(dma_content.get('SCH_START_TIME').substring(2,4));
+
+					ipc_end.setValue(dma_content.get('SCH_END'));
+					ipt_endHH.setValue(dma_content.get('SCH_END_TIME').substring(0,2));
+					ipt_endMI.setValue(dma_content.get('SCH_END_TIME').substring(2,4));
+					
+					tr_start.show('');
+					tr_end.show('');
+					trigger2.setValue("간편등록모드로이동");
+				}else{
+					scwin.sch_mode = 'SIMPLE';
+					tr_start.hide('');
+					tr_end.hide('');			
+					trigger2.setValue("상세등록모드로이동");	
+				}
+
+
+			/*등록시*/	
+			}else{
+				let json = dma_content.getJSON();
+				let arr = Object.keys(json);
+				let newJson = {};
+				for(let i=0; i < arr.length; i++){
+					let k = arr[i];
+					newJson[k] = '';
+				}
+				dma_content.setJSON(newJson);
+				ipc_start.setValue(day);
+				ipt_startHH.setValue("00");ipt_startMI.setValue("00");
+				ipt_endHH.setValue("00");ipt_endMI.setValue("00");
+			}
+			/* 등록,수정모두 */
+			edi_1.setStyle('padding','10px 10px 10px 10px');
+			ipt_day.setValue(day);
+			edi_1.focus();
+		}
 	};
-	let list2 = dlt_MIs.getAllJSON();
-	for(let i=0; i < list2.length; i++){
-		let row = list2[i];
-		let tmpIdx = gen_MI.insertChild();
-		let grp_row = gen_MI.getChild(tmpIdx, "grp_mirow");
-		let txb_MI = gen_MI.getChild(tmpIdx, "txb_MI");
-		grp_row.setUserData("CODE", row.CODE);
-		txb_MI.setValue(row.DATA);
-	};	
-	/* 수정일때만 */
-	scwin._parentDma = $p.parent().scwin.selectedSchObj;
-	if(scwin._parentDma && scwin._parentDma.SCH_IDX){
-		edi_1.setValue(scwin._parentDma.SCH_CONT);
-		dma_content.set('SCH_IDX',scwin._parentDma.SCH_IDX);
-		if(!scwin._parentDma.SCH_COLOR){
-			scwin._parentDma.SCH_COLOR = 1;
-		}
-		rdo_gubunYn.setValue(scwin._parentDma.SCH_COLOR);
+	xhr.send(JSON.stringify({dma_search:{COMMON_QUERY:'M.LST_GRP',GRP_MANAGER_ID:JSON.parse(sessionStorage.getItem('session')).R_ID}}));
 
 
-		if(dma_content.get('SCH_END_TIME')){
-			scwin.sch_mode = 'DETAIL';
-			ipc_start.setValue(dma_content.get('SCH_START'));
-			ipt_startHH.setValue(dma_content.get('SCH_START_TIME').substring(0,2));
-			ipt_startMI.setValue(dma_content.get('SCH_START_TIME').substring(2,4));
-
-			ipc_end.setValue(dma_content.get('SCH_END'));
-			ipt_endHH.setValue(dma_content.get('SCH_END_TIME').substring(0,2));
-			ipt_endMI.setValue(dma_content.get('SCH_END_TIME').substring(2,4));
-			
-			tr_start.show('');
-			tr_end.show('');
-			trigger2.setValue("간편등록모드로이동");
-		}else{
-			scwin.sch_mode = 'SIMPLE';
-			tr_start.hide('');
-			tr_end.hide('');			
-			trigger2.setValue("상세등록모드로이동");	
-		}
-
-
-	/*등록시*/	
-	}else{
-		let json = dma_content.getJSON();
-		let arr = Object.keys(json);
-		let newJson = {};
-		for(let i=0; i < arr.length; i++){
-			let k = arr[i];
-			newJson[k] = '';
-		}
-		dma_content.setJSON(newJson);
-		ipc_start.setValue(day);
-		ipt_startHH.setValue("00");ipt_startMI.setValue("00");
-		ipt_endHH.setValue("00");ipt_endMI.setValue("00");
-	}
-	/* 등록,수정모두 */
-	edi_1.setStyle('padding','10px 10px 10px 10px');
-	ipt_day.setValue(day);
-	edi_1.focus();
 };
-
 
 
 
@@ -272,15 +292,21 @@ scwin.trigger2_onclick = function(e) {
 							</xf:group>
 						</xf:group>
 					</xf:group>
-					<xf:group tagname="tr" style="display:none;" id="tr_writer">
+					<xf:group tagname="tr" style="" id="tr_channel">
 						<xf:group tagname="th" class="w2tb_th">
 							<w2:attributes></w2:attributes>
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_content.SCH_WRITER"
-								style="width:100%;">
-							</xf:input>
+							<xf:select1 appearance="full" cols="" disabled="" id="rdo_channel" ref="" renderType="radiogroup" rows="1"
+								selectedIndex="0" style="color:#333" class="">
+								<xf:choices>
+									<xf:itemset nodeset="data:dlt_channel_list">
+										<xf:label ref="DATA"></xf:label>
+										<xf:value ref="CODE"></xf:value>
+									</xf:itemset>
+								</xf:choices>
+							</xf:select1>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" style="display:none;" id="tr_title">
