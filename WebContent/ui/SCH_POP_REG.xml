@@ -177,24 +177,48 @@ scwin.trigger2_onclick = function(e) {
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m" style="">
-			<xf:group class="tbbox noline mb20" id="tbl_search" style="">
+			<xf:group class="tbbox mb20 reg" id="tbl_search" style="">
 				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
 					<w2:attributes>
 						<w2:summary></w2:summary>
 					</w2:attributes>
 					<xf:group tagname="colgroup">
+						<xf:group tagname="col" style="width:60px;"></xf:group>
 						<xf:group tagname="col" style=""></xf:group>
+					</xf:group><xf:group style="" tagname="tr" id="tr_read" class="mb0">
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes>
+								<w2:colspan>2</w2:colspan>
+								<w2:rowspan>1</w2:rowspan>
+							</w2:attributes>
+							<xf:group id="" class="">
+								<xf:group id="">
+									<w2:textbox tagname="span" style="top:0; padding-left:0; margin-left:0;" id="" label="" class="sch_spa_view fa fa-calendar-o">
+									</w2:textbox>
+									<xf:input ref="" style="font-size: 23px;    border: 0;    padding: 0px;    width:170px !important;" readOnly="true" id="ipt_day" displayFormat="yyyy-MM-dd (EEE)" dataType="date">
+									</xf:input>
+								</xf:group>
+								<xf:trigger ev:onclick="scwin.trigger2_onclick" style="" id="trigger2" type="button" class="btn_moreDetail">
+									<xf:label><![CDATA[상세등록모드로이동]]></xf:label>
+								</xf:trigger>
+							</xf:group>
+						</xf:group>
 					</xf:group>
-					<xf:group style="margin-bottom:0;" tagname="tr" id="tr_read">
-						<xf:group tagname="td" class="w2tb_td" style="">
-							<w2:attributes></w2:attributes>
-						<xf:group id="" class=""><xf:group id=""><w2:textbox tagname="span" style="top:0; padding-left:0; margin-left:0;" id="" label="" class="sch_spa_view fa fa-calendar-o">
-							</w2:textbox><xf:input ref="" style="font-size: 23px;    border: 0;    padding: 0px;    width:170px !important;" readOnly="true" id="ipt_day" displayFormat="yyyy-MM-dd (EEE)" dataType="date">
-							</xf:input></xf:group><xf:trigger ev:onclick="scwin.trigger2_onclick" style="" id="trigger2" type="button" class="btn_moreDetail">
-								<xf:label><![CDATA[상세등록모드로이동]]></xf:label>
-							</xf:trigger></xf:group></xf:group>
+					
+				</xf:group>
+				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
+					<w2:attributes>
+						<w2:summary></w2:summary>
+					</w2:attributes>
+					<xf:group tagname="colgroup">
+						<xf:group style="width:60px;" tagname="col"></xf:group>
+						<xf:group style="" tagname="col"></xf:group>
 					</xf:group>
+					
 					<xf:group tagname="tr" id="tr_gubun" style="display:none;">
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
+						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="" renderType="radiogroup" rows="1"
@@ -209,28 +233,49 @@ scwin.trigger2_onclick = function(e) {
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_start" style="display:none;">
-						<xf:group tagname="td" class="w2tb_td" >
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
+						</xf:group>
+						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:group id="" style="" class="grp_setFromTo">
-								<w2:inputCalendar id="ipc_start" style="width: 90px;height: 40px;" calendarValueType="yearMonthDate" pickerType="dynamic" readOnly="true"></w2:inputCalendar>
-								<xf:input id="ipt_startHH" style="cursor:pointer; width: 36px;font-size: 20px;height:30px;" readOnly="true" ev:onclick="scwin.tri_HH_onclick"></xf:input>
+								<w2:inputCalendar id="ipc_start" style="width: 90px;height: 40px;" calendarValueType="yearMonthDate"
+									pickerType="dynamic" readOnly="true">
+								</w2:inputCalendar>
+								<xf:input id="ipt_startHH" style="cursor:pointer; width: 36px;font-size: 20px;height:30px;" readOnly="true"
+									ev:onclick="scwin.tri_HH_onclick">
+								</xf:input>
 								<w2:textbox id="" label=":" style="color:black;font-size: 30px"></w2:textbox>
-								<xf:input id="ipt_startMI" style="cursor:pointer; width: 36px;font-size: 20px;height:30px" readOnly="true" ev:onclick="scwin.tri_MI_onclick"></xf:input>
-							</xf:group> 
+								<xf:input id="ipt_startMI" style="cursor:pointer; width: 36px;font-size: 20px;height:30px" readOnly="true"
+									ev:onclick="scwin.tri_MI_onclick">
+								</xf:input>
+							</xf:group>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_end" style="display:none;">
-						<xf:group tagname="td" class="w2tb_td" >
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
+						</xf:group>
+						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:group id="" style="" class="grp_setFromTo">
-								<w2:inputCalendar id="ipc_end" style="width: 90px;height: 40px;" calendarValueType="yearMonthDate" pickerType="dynamic"></w2:inputCalendar>
-								<xf:input id="ipt_endHH" style="cursor:pointer; width: 36px;font-size: 20px;height:30px;" readOnly="true" ev:onclick="scwin.tri_HH_onclick"></xf:input>
+								<w2:inputCalendar id="ipc_end" style="width: 90px;height: 40px;" calendarValueType="yearMonthDate"
+									pickerType="dynamic">
+								</w2:inputCalendar>
+								<xf:input id="ipt_endHH" style="cursor:pointer; width: 36px;font-size: 20px;height:30px;" readOnly="true"
+									ev:onclick="scwin.tri_HH_onclick">
+								</xf:input>
 								<w2:textbox id="" label=":" style="color:black;font-size: 30px"></w2:textbox>
-								<xf:input id="ipt_endMI" style="cursor:pointer; width: 36px;font-size: 20px;height:30px" readOnly="true" ev:onclick="scwin.tri_MI_onclick"></xf:input>
-							</xf:group> 
+								<xf:input id="ipt_endMI" style="cursor:pointer; width: 36px;font-size: 20px;height:30px" readOnly="true"
+									ev:onclick="scwin.tri_MI_onclick">
+								</xf:input>
+							</xf:group>
 						</xf:group>
-					</xf:group>					
+					</xf:group>
 					<xf:group tagname="tr" style="display:none;" id="tr_writer">
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
+						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_content.SCH_WRITER"
@@ -239,6 +284,9 @@ scwin.trigger2_onclick = function(e) {
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" style="display:none;" id="tr_title">
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
+						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:input class="req" id="ibx_boardTitle" placeholder="" ref="data:dma_content.SCH_TITLE" style="width:100%;"></xf:input>
@@ -248,12 +296,10 @@ scwin.trigger2_onclick = function(e) {
 			</xf:group>
 			<xf:group id="" class="edbox sch">
 				<xf:group id="" style="" class="edi_btn">
-
 				</xf:group>
 				<xf:textarea id="edi_1" style="height:100%;" ref="data:dma_content.SCH_CONT" escape="false" class="sch_view_cont"></xf:textarea>
 			</xf:group>
 		</xf:group>
-
 		<xf:group id="grp_dim_white" class="" style="display:none;z-index:9998;background-color:#FFF;opacity:0.8;position:absolute;top:0px;bottom:0px;left:0px;right:0px" ev:onclick="scwin.grp_dim_white_onclick">
 		</xf:group>
 		<xf:group style="position:absolute;top:100px;left:100px;right:100px;bottom:100px;background-color:#333;color:#FFF;z-index:9999;overflow-y:auto;border-radius:10px;display:none;" 

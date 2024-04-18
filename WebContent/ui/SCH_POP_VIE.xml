@@ -32,11 +32,12 @@
 				ipc_end.setValue(dma_content.get('SCH_END'));
 				ipt_endHH.setValue(dma_content.get('SCH_END_TIME').substring(0,2));
 				ipt_endMI.setValue(dma_content.get('SCH_END_TIME').substring(2,4));
-				
+				tb_detail.show('');
 				tr_start.show('');
 				tr_end.show('');
 			}else{
 				scwin.sch_mode = 'SIMPLE';
+				tb_detail.hide('');
 				tr_start.hide('');
 				tr_end.hide('');				
 			}
@@ -89,65 +90,83 @@ scwin.display_color = function(_data){
 						<w2:summary></w2:summary>
 					</w2:attributes>
 					<xf:group tagname="colgroup">
+						<xf:group tagname="col" style="width:100px;"></xf:group>
 						<xf:group tagname="col" style=""></xf:group>
 					</xf:group>
-					<xf:group style="" tagname="tr" id="tr_read">
-						<xf:group tagname="td" class="w2tb_td" style="">
-							<w2:attributes></w2:attributes>
+					<xf:group style="" tagname="tr" id="tr_read" class="mb0">
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes>
+								<w2:colspan>2</w2:colspan>
+								<w2:rowspan>1</w2:rowspan>
+							</w2:attributes>
 							<xf:group id="" class="grp_dateTit">
-							<xf:group id=""><w2:textbox displayFormatter="scwin.display_color" ref="data:dma_content.SCH_COLOR" tagname="span" style="" id="rdo_gubunYn" label="" class="sch_gubun">
-								</w2:textbox><w2:textbox tagname="span" style="display:none" id="" label="" class="sch_spa_view fa fa-calendar-o"></w2:textbox><w2:textbox ref="data:dma_content.SCH_START" tagname="span" style="" id="ipt_day" label="" class="ipt_day" dataType="date" displayFormat="yyyy-MM-dd (EEE)">
-								</w2:textbox></xf:group></xf:group>
+								<xf:group id="">
+									<w2:textbox displayFormatter="scwin.display_color" ref="data:dma_content.SCH_COLOR" tagname="span" style=""
+										id="rdo_gubunYn" label="" class="sch_gubun mr10">
+									</w2:textbox>
+									<w2:textbox tagname="span" style="display:none" id="" label="" class="sch_spa_view fa fa-calendar-o"></w2:textbox>
+									<w2:textbox ref="data:dma_content.SCH_START" tagname="span" style="" id="ipt_day" label="" class="ipt_day"
+										dataType="date" displayFormat="yyyy-MM-dd (EEE)">
+									</w2:textbox>
+								</xf:group>
+							</xf:group>
 						</xf:group>
 					</xf:group>
+				</xf:group>
 
-
-
-
-
-					<xf:group tagname="tr" id="tr_start" style="display:none;">
+				
+			<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="tb_detail" style="width:100%;display:none;padding:10px 0 0;border-bottom:1px solid #333;" tagname="table">
+					<w2:attributes>
+						<w2:summary></w2:summary>
+					</w2:attributes>
+					<xf:group tagname="colgroup">
+						<xf:group style="width:100px;" tagname="col"></xf:group>
+						<xf:group style="" tagname="col"></xf:group>
+					</xf:group>
+					<xf:group tagname="tr" id="tr_start" style="">
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
+							<w2:textbox style="" id="" label="시작" class=""></w2:textbox>
+						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:group id="" style="" class="grp_setFromTo">
-								<w2:inputCalendar id="ipc_start" style="width: 90px;height: 40px;" calendarValueType="yearMonthDate"
-									pickerType="dynamic" readOnly="true"></w2:inputCalendar>
-								<xf:input id="ipt_startHH" style="cursor:pointer; width: 36px;font-size: 20px;height:30px;" readOnly="true"
-									ev:onclick="scwin.tri_HH_onclick"></xf:input>
-								<w2:textbox id="" label=":" style="color:black;font-size: 30px"></w2:textbox>
-								<xf:input id="ipt_startMI" style="cursor:pointer; width: 36px;font-size: 20px;height:30px" readOnly="true"
-									ev:onclick="scwin.tri_MI_onclick"></xf:input>
+								<w2:textbox style="" id="ipc_start" label="" class="mr10" dataType="date" displayFormat="yyyy-MM-dd(EEE)"></w2:textbox>
+								<w2:textbox style="" id="ipt_startHH" label="" class=""></w2:textbox>
+								<w2:textbox id="" label=":" style="font-size: 16px;"></w2:textbox>
+								<w2:textbox style="" id="ipt_startMI" label="" class=""></w2:textbox>
 							</xf:group>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_end" style="display:none;">
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
+							<w2:textbox style="" id="" label="종료" class=""></w2:textbox>
+						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:group id="" style="" class="grp_setFromTo">
-								<w2:inputCalendar id="ipc_end" style="width: 90px;height: 40px;" calendarValueType="yearMonthDate"
-									pickerType="dynamic"></w2:inputCalendar>
-								<xf:input id="ipt_endHH" style="cursor:pointer; width: 36px;font-size: 20px;height:30px;" readOnly="true"
-									ev:onclick="scwin.tri_HH_onclick"></xf:input>
-								<w2:textbox id="" label=":" style="color:black;font-size: 30px"></w2:textbox>
-								<xf:input id="ipt_endMI" style="cursor:pointer; width: 36px;font-size: 20px;height:30px" readOnly="true"
-									ev:onclick="scwin.tri_MI_onclick"></xf:input>
+								<w2:textbox style="" id="ipc_end" label="" class="mr10" dataType="date" displayFormat="yyyy-MM-dd(EEE)"></w2:textbox>
+								<w2:textbox style="" id="ipt_endHH" label="" class=""></w2:textbox>
+								<w2:textbox id="" label=":" style="font-size: 16px;"></w2:textbox>
+								<w2:textbox style="" id="ipt_endMI" label="" class=""></w2:textbox>
 							</xf:group>
 						</xf:group>
 					</xf:group>
-
-
-
-
-
-
 					<xf:group tagname="tr" id="tr_createDt" style="display:none;">
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
+						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:input class="" id="ibx_schdDate" placeholder="" readOnly="true" ref="data:dma_content.SCH_CREATE_DTTM"
-								style="width:100%;">
+							<xf:input class="" id="ibx_schdDate" placeholder="" readOnly="true" ref="data:dma_content.SCH_CREATE_DTTM" style="width:100%;">
 							</xf:input>
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_writer" style="display:none;">
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes></w2:attributes>
+						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<w2:textbox id="" label="작성자:" style="color:black;font-size: 30px"></w2:textbox>
@@ -158,11 +177,13 @@ scwin.display_color = function(_data){
 					<xf:group tagname="tr" style="display:none;" id="tr_title">
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
+						</xf:group>
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes></w2:attributes>
 							<xf:input class="req" id="ibx_boardTitle" placeholder="" ref="data:dma_content.SCH_TITLE" style="width:100%;"></xf:input>
 						</xf:group>
 					</xf:group>
-				</xf:group>
-			</xf:group>
+				</xf:group></xf:group>
 			<xf:group id="" class="edbox sch">
 				<xf:group id="" style="" class="edi_btn">
 

@@ -71,9 +71,9 @@ scwin.btn_item_onclick = function () {
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m" style="overflow: auto;">
 			<xf:group id="">
-				<xf:group id="" class="grp_dateTit tac mb15">
+				<xf:group id="" class="grp_dateTit mb15">
 					<xf:group id="" class="">
-						<w2:textbox tagname="span" style="" id="" label="" class="sch_spa_view fa fa-calendar-o fl"></w2:textbox>
+						<w2:textbox tagname="span" style="" id="" label="" class="sch_spa_view fa fa-calendar-o fl mr10"></w2:textbox>
 						<w2:textbox displayFormatter="" ref="" tagname="span" style="" id="ipt_day" label="" class="ipt_day" displayFormat="yyyy-MM-dd (EEE)" dataType="date">
 						</w2:textbox>
 					</xf:group>
