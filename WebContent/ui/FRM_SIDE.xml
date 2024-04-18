@@ -78,19 +78,19 @@
 						</w2:row>
 						<w2:row>
 							<MENU_CD><![CDATA[2300]]></MENU_CD>
-							<MENU_NM><![CDATA[내그룹]]></MENU_NM>
+							<MENU_NM><![CDATA[내채널]]></MENU_NM>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
 							<SRC_PATH><![CDATA[/ui/SCH_MYGRP.xml]]></SRC_PATH>
-							<TYPE><![CDATA[WS]]></TYPE>
+							<TYPE><![CDATA[SCH]]></TYPE>
 							<ERP_YN><![CDATA[N]]></ERP_YN>
 							<PARENT_MENU_CD><![CDATA[2000]]></PARENT_MENU_CD>
 						</w2:row>
 						<w2:row>
 							<MENU_CD><![CDATA[2400]]></MENU_CD>
-							<MENU_NM><![CDATA[그룹가입]]></MENU_NM>
+							<MENU_NM><![CDATA[채널가입]]></MENU_NM>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
 							<SRC_PATH><![CDATA[/ui/SCH_GRPIN.xml]]></SRC_PATH>
-							<TYPE><![CDATA[WS]]></TYPE>
+							<TYPE><![CDATA[SCH]]></TYPE>
 							<ERP_YN><![CDATA[N]]></ERP_YN>
 							<PARENT_MENU_CD><![CDATA[2000]]></PARENT_MENU_CD>
 						</w2:row>												

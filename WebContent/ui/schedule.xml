@@ -312,6 +312,10 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 		<xf:group id="grp_root" class="sub_contents flex_gvw" style="display:none;">
 
 			<xf:group id="" class="dfbox">
+				<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style=""
+					ev:onclick="com.btn_togglemenu_onclick">
+					<xf:label><![CDATA[slide]]></xf:label>
+				</w2:anchor>			
 				<xf:group id="" class="fl"><xf:trigger ev:onclick="scwin.btn_prev_onclick" style="width: 70px" id="btn_prev" type="button" class="btn_cm btn_left">
 					<xf:label><![CDATA[<]]></xf:label>
 				</xf:trigger></xf:group>

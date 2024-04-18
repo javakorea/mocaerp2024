@@ -6,90 +6,91 @@
 		<w2:MSA />
 		<xf:model>
 			<w2:dataCollection baseNode="map">
-				<w2:dataList baseNode="list" id="dlt_list" repeatNode="map" saveRemovedData="true">
-					<w2:columnInfo>
-					
-						<w2:column dataType="text" id="BOARD_TABLE" name="ERP인지일반인지테이블명" />
-					
-						<w2:column dataType="text" id="BOARD_PIDX" name="BOARD_PIDX" />
-						<w2:column dataType="text" id="BOARD_IDX" name="키(중요)" />
-						<w2:column dataType="text" id="BOARD_DELYN" name="BOARD_DELYN" />
-						<w2:column dataType="text" id="BOARD_TITLE" name="BOARD_TITLE" />
-						<w2:column dataType="text" id="BOARD_WRITER" name="BOARD_WRITER" />
-						<w2:column id="BOARD_DATE" name="BOARD_DATE" dataType="text"></w2:column>
-						<w2:column id="UPDATE_DATE" name="UPDATE_DATE" dataType="text"></w2:column>
-						<w2:column id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:column>
-						<w2:column id="CNT" name="CNT" dataType="text"></w2:column>
-						<w2:column id="BOARD_REPLYCNT" name="BOARD_REPLYCNT" dataType="text"></w2:column>
-						<w2:column id="CHK" name="CHK" dataType="text" ignoreStatus="true"></w2:column>
-					</w2:columnInfo>
-					<w2:data use="false"></w2:data>
-				</w2:dataList>
-				<w2:dataMap baseNode="map" id="dma_search">
+				<w2:dataMap baseNode="map" id="dma_content">
 					<w2:keyInfo>
-						<!-- 게시판조건부 -->
-						<w2:key id="BOARD_TYPE" name="업무,기술,게시판종류" dataType="text"></w2:key>
-						<w2:key id="BOARD_TABLE" name="내부(ERP)냐외부냐" dataType="text"></w2:key>
-						<w2:key id="BOARD_FILE_TABLE" name="BOARD_FILE_TABLE" dataType="text"></w2:key>
-						
-						<!-- 검색조건부 -->
-						<w2:key id="BOARD_WRITER" name="BOARD_WRITER" dataType="text"></w2:key>
-						<w2:key id="BOARD_CONT" name="BOARD_CONT" dataType="text"></w2:key>
-						<w2:key id="BOARD_CONT_LIST" name="BOARD_CONT를띄어쓰기로나눈검색어리스트" dataType="text"></w2:key>
-						<w2:key id="FROM" name="FROM" dataType="text"></w2:key>
-						<w2:key id="TO" name="TO" dataType="text"></w2:key>					
-						
+						<w2:key id="GRP_NM" name="그룹명" dataType="text"></w2:key>
+						<w2:key id="GRP_MANAGER_ID" name="주인" dataType="text"></w2:key>
+						<w2:key id="GRP_MEMBER_MAX" name="최대회원수" dataType="text"></w2:key>
+						<w2:key id="GRP_MEMO" name="메모" dataType="text"></w2:key>
+						<w2:key id="GRP_REG_DTTM" name="등록일자" dataType="text"></w2:key>
 						<!-- 공통부 -->
-						<w2:key id="COMMON_TRAN_ID" 			name="TRAN_ID" 						dataType="text"></w2:key>
-						<w2:key id="COMMON_STATUS" 				name="CRUD_상태" 						dataType="text"></w2:key>
-						<w2:key id="COMMON_QUERY" 				name="SELECT_QUERY" 				dataType="text"></w2:key>
-						<w2:key id="COMMON_MASTER_QUERY" 		name="COMMON_MASTER_QUERY" 			dataType="text"></w2:key>
-						<w2:key id="COMMON_MASTER_DELETEQUERY" 	name="COMMON_MASTER_DELETEQUERY" 	dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_INSERTQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_UPDATEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_DELETEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
-						<w2:key id="COMMON_MASTER_KEY" 			name="COMMON_MASTER_KEY" 			dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_KEY" 			name="COMMON_DETAIL_KEY" 			dataType="text"></w2:key>
+						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" name="COMMON_MASTER_KEY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
-				<w2:dataMap baseNode="map" id="dma_search_excel" style="">
+				<w2:dataMap baseNode="map" id="dma_content2">
 					<w2:keyInfo>
-						<w2:key id="BOARD_TYPE" name="BOARD_TYPE" dataType="text"></w2:key>
-						<w2:key id="BOARD_TABLE" name="BOARD_TABLE" dataType="text"></w2:key>
-						<w2:key id="BOARD_WRITER" name="BOARD_WRITER" dataType="text"></w2:key>
-						<w2:key id="CORP_CD" name="CORP_CD" dataType="text"></w2:key>
-						<w2:key id="PAGE_TYPE" name="PAGE_TYPE" dataType="text"></w2:key>
-						<w2:key id="BOARD_CONT" name="BOARD_CONT" dataType="text"></w2:key>
-						<w2:key id="BOARD_RECEIPTIONER" name="BOARD_RECEIPTIONER" dataType="text"></w2:key>
-						<w2:key id="FROM" name="FROM" dataType="text"></w2:key>
-						<w2:key id="TO" name="TO" dataType="text"></w2:key>
-						<w2:key id="BOARD_FILE_TABLE" name="BOARD_FILE_TABLE" dataType="text"></w2:key>
-						<w2:key id="BOARD_DELYN" name="BOARD_DELYN" dataType="text"></w2:key>
-						
-						<w2:key id="START_IDX" name="name2" dataType="text"></w2:key>
-						<w2:key id="END_IDX" name="name3" dataType="text"></w2:key>
+						<w2:key id="U_GRP_NM" name="그룹명" dataType="text"></w2:key>
+						<w2:key id="U_ID" name="가입자" dataType="text"></w2:key>
+						<w2:key id="GRP_JOIN_DTTM" name="신청일" dataType="text"></w2:key>
+						<w2:key id="GRP_APPR_DTTM" name="승인일" dataType="text"></w2:key>
+						<!-- 공통부 -->
+						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" name="COMMON_MASTER_KEY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>				
+				<w2:dataMap baseNode="map" id="COMMON_RESULT">
+					<w2:keyInfo>
+						<w2:key id="COMMON_MASTER_RESULT" name="COMMON_MASTER_RESULT" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_RESULT" name="COMMON_DETAIL_RESULT" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_list" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="GRP_NM" name="GRP_NM" dataType="text"></w2:column>
+						<w2:column id="GRP_MANAGER_ID" name="GRP_MANAGER_ID" dataType="text"></w2:column>
+						<w2:column id="GRP_MEMBER_MAX" name="GRP_MEMBER_MAX" dataType="text"></w2:column>
+						<w2:column id="GRP_MEMO" name="GRP_MEMO" dataType="text"></w2:column>
+						<w2:column id="GRP_REG_DTTM" name="GRP_REG_DTTM" dataType="text"></w2:column>
+						<w2:column id="GRP_BTN" name="가입버튼" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_list_mychin" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="U_GRP_NM" name="U_GRP_NM" dataType="text"></w2:column>
+						<w2:column id="U_ID" name="U_ID" dataType="text"></w2:column>
+						<w2:column id="GRP_JOIN_DTTM" name="GRP_JOIN_DTTM" dataType="text"></w2:column>
+						<w2:column id="GRP_APPR_DTTM" name="GRP_APPR_DTTM" dataType="text"></w2:column>
+						<w2:column id="GRP_BTN" name="탈퇴버튼" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+				
+				
 			</w2:dataCollection>
 
 			<w2:workflowCollection></w2:workflowCollection>
-
-			<xf:submission id="sbm_searchBoardList" ref="data:json,dma_search" target="data:json,dlt_list" 
-				action="/selectList.do" ev:submitdone="scwin.sbm_searchBoardList_submitdone"
+			<xf:submission id="sbm_commonList" ref='data:json,{"id":"dma_content","key":"dma_search"}' target="data:json,dlt_list" 
+				action="/selectList.do" ev:submitdone="scwin.sbm_commonList_submitdone"
 				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
 				processMsg="조회중" ev:submit=""  ev:submiterror="" abortTrigger="">
-			</xf:submission>
-			<xf:submission id="sbm_deleteBoardList" ref='data:json,[{"action":"modified","id":"dlt_list"},"dma_search"]'
-				target="data:json,dma_boardInfo" action="/updateBoardList.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
+			</xf:submission>	
+			<xf:submission id="sbm_commonList2" ref='data:json,{"id":"dma_content2","key":"dma_search"}' target='data:json,{"id":"dlt_list_mychin","key":"dlt_list"}' 
+				action="/selectList.do" ev:submitdone="sbm_commonList2_submitdone"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="조회중" ev:submit=""  ev:submiterror="" abortTrigger="">
+			</xf:submission>							
+			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]'
+				target="data:json,COMMON_RESULT" action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
 				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
-				ev:submitdone="scwin.sbm_deleteBoardList_submitdone" ev:submiterror="" abortTrigger="">
+				ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
-			
-			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_search","key":"dma_common_request"},{"id":"dlt_list","key":"dlt_common"}  ]' target="data:json,COMMON_RESULT"
-				action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
-				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror=""
-				abortTrigger="">
-			</xf:submission>
+			<xf:submission id="sbm_commonTran_가입신청" ref='data:json,[{"id":"dma_content2","key":"dma_common_request"}]'
+				target="data:json,COMMON_RESULT" action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
+				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
+				ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>			
 		</xf:model>
 
 		<w2:layoutInfo>
@@ -98,246 +99,219 @@
 		<w2:publicInfo method="" />
 
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.onpageload = function() {
-	scwin.paramObj = $p.getAllParameter().paramData;
-	if(scwin.paramObj.erpYn == "Y"){
-		dma_search.set("BOARD_TABLE","MT_BOARD_ERP");
-		dma_search.set("BOARD_FILE_TABLE","T_FILE")
-	}else{
-		dma_search.set("BOARD_TABLE","MT_BOARD");
-		dma_search.set("BOARD_FILE_TABLE","T_FILE")
-	}
-	if(WebSquare.util.isMobile()){
-		grd1.setColumnVisible(4,false); //작성자
-		grd1.setColumnVisible(6,false); //수정일시
-		grd1._setColumnWidth(5,75);
-	}
-	scwin.fn_setAdmin();
-	let menuInfo = scwin.paramObj.menuInfo;
-	scwin.fn_setMenu(menuInfo);
-	var currentDt = WebSquare.date.getCurrentServerDate();
-	var bfweekDt = WebSquare.date.dateAdd( currentDt, -1095 );
-	com.win.setEnterKeyEvent(tbl_search, scwin.btn_search_onclick);
-	dma_search.set('FROM', bfweekDt);
-	dma_search.set('TO', currentDt);
-	$(".btn_fav").click(function(){
-		$(".btn_fav").toggleClass("on");
-	});
-
-	scwin.btn_search_onclick();
+	com.win.setEnterKeyEvent(tbl_search,scwin.btn_search_onclick);
+	scwin.btn_search2_onclick();
+	ipt_GRP_NM.focus();
 };
+scwin.grd1_oncellclick = function(row,col,colId) {
+	let GRP_NM = this._dataList.getCellData(row,"GRP_NM");
+	if(colId == 'GRP_BTN'){
+		var xhr = new XMLHttpRequest();
+		xhr.open('post', '/selectMap.do');
+		xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
+		xhr.responseType = 'json';
+		xhr.onload = () => {
+			let result = xhr.response;
+			if(!result.dma_map){
+				let ch = this._dataList.getCellData(row,'GRP_NM');
+				com.win.confirm($p, `채널[${ch}]에 가입신청하시겠습니까?`, function(e){
+					if(e.clickValue){
+						dma_content2.set("U_GRP_NM",ch);
+						dma_content2.set("U_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
 
-scwin.fn_setAdmin = function(){
-	if(isAdmin()){
-		btn_adminDel.show(''); //폐기
-		btn_del.show(''); //삭제
-		btn_write.show(''); //등록
-	}
-}
-scwin.fn_setMenu = function(menuInfo){
-	//{menuNm: '기술데이터', menuCode: '1100', src: '/ui/boardTech.xml'}
-	pgt_tit.setValue(menuInfo.menuNm);
-	txt_menu.setValue(menuInfo.menuNm);
-	var _dlt_menu = $p.main().wfm_side.scope.dlt_menu;
-	var _pMenuCd = _dlt_menu.getMatchedJSON('MENU_CD',menuInfo.menuCode)[0].PARENT_MENU_CD
-	var _pMenuNm = _dlt_menu.getMatchedJSON('MENU_CD',_pMenuCd)[0].MENU_NM;
-	txt_pMenu.setValue(_pMenuNm);
-}
-
-/* 조회 */
-scwin.btn_search_onclick = function(e) {
-	
-	if(scwin.paramObj.boardType){
-		dma_search.set("BOARD_TYPE",scwin.paramObj.boardType);
-	}
-
-	let _boardContArr = ibx_boardCont.getValue().split(/\s+/g);
-	if(_boardContArr.length > 0){
-		dma_search.set('BOARD_CONT_LIST',_boardContArr);
-	}
-	dma_search.set('COMMON_QUERY',"M.selectBoardList");
-	com.sbm.execute (sbm_searchBoardList);
-};
-scwin.sbm_searchBoardList_submitdone = function(e) {
-	
-	/*
-	let data = dlt_list.getAllJSON();
-	let allData = [];
-	for(let i=0; i < 1000; i++){
-		allData = allData.concat(data);
-	}	
-
-	let allData2 = [];
-	for(let i=0; i < 1; i++){
-		allData2 = allData2.concat(allData);
-	}	
-
-	dlt_list.setJSON(allData2);
-	*/
-	txt_cnt.setValue(dlt_list.getRowCount() + "건");
-};
-
-/* 상세조회 */
-scwin.grd1_oncelldblclick = function(row,col,colId) {
-	var _param = {};
-	_param.rowJson = dlt_list.getRowJSON(row);
-	_param.mode = "read";
-	_param.boardInfo = scwin.paramObj;
-	var data = { data: _param, callbackFn: "scwin.boardPop_callback" };
-	var options = {
-		id: "boardPop",
-		popupName: "상세",
-		className : "h100",
-		modal: true,
-		useMaximize : true,
-		width: (screen.availWidth * 0.8), height: (screen.availHeight * 0.8)
-	};
-	com.win.openPopup("/ui/boardPop.xml", options, data);
-};
-
-/* 글쓰기 팝업 */
-scwin.btn_write_onclick = function(e) {
-	var _param = {};
-	_param.mode = "write";
-	_param.boardInfo = scwin.paramObj;
-	var data = { data: _param, callbackFn: "scwin.boardPop_callback" };
-	var options = {
-		id: "boardPop",
-		popupName: "게시판등록",
-		className : "h100",
-		modal: true,
-		useMaximize : true,
-		width: 680, height: 518
-	};
-	com.win.openPopup("/ui/boardPop.xml", options, data);
-};
-
-/* 팝업 callback */
-scwin.boardPop_callback = function(e){
-	
-	com.win.alert(e.message);
-	scwin.btn_search_onclick();
-}
-
-/* 선택삭제 */
-scwin.btn_del_onclick = function(e) {
-	let _chkIdxArr = dlt_list.getMatchedIndex('CHK','1');
-	if(_chkIdxArr.length < 1){
-		com.win.alert('선택된 항목이 없습니다.');
-		return;
-	}
-	com.win.confirm($p, `선택된 ${_chkIdxArr.length}건의 게시물을 삭제하시겠습니까?`, function(e){
-		if(e.clickValue){
-			for(let i=0; i<_chkIdxArr.length; i++){
-				dlt_list.setCellData(_chkIdxArr[i],"BOARD_DELYN","Y");
-				debugger;
-				dlt_list.setCellData(_chkIdxArr[i],"BOARD_TABLE",dma_search.get("BOARD_TABLE"));	
+						dma_content2.set("COMMON_MASTER_QUERY"	, "M.I_CH_JOIN");
+						dma_content2.set("COMMON_STATUS"			, "I_CH_JOIN");
+						com.sbm.execute(sbm_commonTran_가입신청);
+					}
+				});		
+			}else{
+				com.win.alert('이미 가입된 채널입니다.');
 			}
-			com.sbm.execute(sbm_deleteBoardList);
-		}
-	});
-};
-
-/* 물리삭제 */
-scwin.btn_adminDel_onclick = function(e) {
-	let _chkIdxArr = dlt_list.getMatchedIndex('CHK','1');
-	if(_chkIdxArr.length < 1){
-		com.win.alert('선택된 항목이 없습니다.');
-		return;
+		};
+		xhr.send(JSON.stringify({dma_search:{COMMON_QUERY:'M.CHK_GRP_MEM',U_GRP_NM:GRP_NM,U_ID:JSON.parse(sessionStorage.getItem('session')).R_ID}}));
 	}
-	var data = {callbackFn: "scwin.delPop_callback" };
-	var options = {
-		id: "delPop",
-		popupName: "게시물삭제",
-		modal: true,
-		useMaximize : true,
-		width: 420, height: 116
-	};
-	com.win.openPopup("/ui/delPop.xml", options, data);
+
+
+
 };
-scwin.delPop_callback = function(e){
-	if(e.delYn){
-		let _chkIdxArr = dlt_list.getMatchedIndex('CHK','1');
-		com.win.confirm($p, `삭제하시면 데이터를 더이상 복구하실 수 없습니다.\n 선택된 ${_chkIdxArr.length}건의 게시물을 삭제하시겠습니까?`, function(e){
+scwin.grd_mychin_oncellclick = function(row,col,colId) {
+	if(colId == 'GRP_BTN'){
+		let U_GRP_NM = this._dataList.getCellData(row,'U_GRP_NM');
+		let U_ID = this._dataList.getCellData(row,'U_ID');	
+		com.win.confirm($p, `채널[${U_GRP_NM}]를 탈퇴하시겠습니까?`, function(e){
 			if(e.clickValue){
-				for(let i=0; i<_chkIdxArr.length; i++){
-					dlt_list._setRowStatus(_chkIdxArr[i],'D');
-					dlt_list.setCellData(_chkIdxArr[i],"BOARD_TABLE",dma_search.get("BOARD_TABLE"));	
-				}
-				dma_search.set("COMMON_TRAN_ID"	, "물리삭제");	
-				dma_search.set("COMMON_MASTER_DELETEQUERY"	, "M.deleteBoard");	
-				dma_search.set("COMMON_DETAIL_DELETEQUERY"	, "M.delete__T_FILE");	
-				dma_search.set("COMMON_MASTER_KEY","BOARD_IDX");dma_search.set("COMMON_DETAIL_KEY","CONTENT_ID");
-				dma_search.set("COMMON_STATUS", "D");
-				com.sbm.execute(sbm_commonTran);
+				dma_content2.set("U_GRP_NM",U_GRP_NM);
+				dma_content2.set("U_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
+				dma_content2.set("COMMON_MASTER_QUERY"	, "M.DEL_GRP_MEM");
+				dma_content2.set("COMMON_STATUS"			, "D");
+				com.sbm.execute(sbm_commonTran_가입신청);
 			}
-		});
-	}
+		});	
+	};
 };
-scwin.sbm_commonTran_submitdone =function(e) {
-	if(e.responseJSON.status == "S"){
-		if(e.responseJSON.COMMON_RESULT.COMMON_PARAM_MAP.COMMON_TRAN_ID == '물리삭제'){
-			com.win.alert('삭제가 완료되었습니다.',scwin.btn_search_onclick);
+
+/* sbm_commonTran callback */
+scwin.sbm_commonTran_submitdone = function(e) {
+	let _j = e.responseJSON;
+	if(_j.status == "S"){
+		let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
+		if(request.COMMON_STATUS == 'I_CH_JOIN'){
+			com.win.alert('가입신청되었습니다.', function(e){
+				scwin.btn_search2_onclick();
+			});		
+		}else if(request.COMMON_STATUS == 'D'){
+			com.win.alert('탈퇴되었습니다.', function(e){
+				scwin.btn_search2_onclick();
+			});		
 		}
 	}
-}; 
+};	
 
-scwin.trigger1_onclick = function(e) {
-	var options = {};
-    options.type = "1";
-    options.fileName = "sample.xlsx";
-    options.splitProvider = "com.teammoca.moca3.SplitProvider";
-    options.showProcess = "true";
-    options.showConfirm = "true";
-	grd1.advancedExcelDownload(options)
+
+scwin.sbm_commonList_submitdone  = function(e) {
+	let cnt = dlt_list.getRowCount();
+	txt_cnt.setValue(cnt+'건');
+};
+scwin.sbm_commonList2_submitdone  = function(e) {
+	let cnt = dlt_list.getRowCount();
+	txt_cnt.setValue(cnt+'건');
+};		
+scwin.btn_reg_onclick = function(e) {
+	grp_createGrp.show('');
+	grp_dim_white.show('');
+	ipt_GRP_NM.focus();
+};
+scwin.grp_dim_white_onclick = function(e) {
+	grp_createGrp.hide('');
+	grp_dim_white.hide('');
 };
 
-scwin.btn_excelSplitProvider_onclick = function () {
-	option = {};
-	var info = {};
-	option.fileName = "data.xlsx";
-	option.useSplitProvider = "true";
-	option.showProcess = "true";
-	
-	dma_search_excel.set("START_IDX", "1");
-	dma_search.set("START_IDX", "1");
-	option.providerRequestXml = scwin.setProviderData("Moca3Application", "selectBoardList", dma_search);
-	com.data.downloadGridViewExcel(grd1, option, info);
+scwin.btn_closePop_onclick = function(e) {
+	scwin.grp_dim_white_onclick();
 };
 
-scwin.setProviderData = function (service, method, paramMap) {
-	var serviceXml = "<service>" + service + "</service>";
-	var methodXml = "<method>" + method + "</method>";
-	var paramXml = "<param>" + JSON.stringify(paramMap.getJSON()) + "</param>";
-	return "<data>" + serviceXml + methodXml + paramXml + "</data>";
+
+
+scwin.btn_search_onclick = function(e) {
+	let txt = ipt_GRP_NM.getValue();
+	txt = txt.replace(/\s*/g,'');
+	if(!txt){
+		com.win.alert('검색어를 입력하세요!',function(){
+			setTimeout(function(){
+				ipt_GRP_NM.focus();
+			},100);
+		});
+		return;
+	}
+	dma_content.set("GRP_NM",ipt_GRP_NM.getValue());
+	dma_content.set("GRP_MANAGER_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
+	dma_content.set("COMMON_QUERY"	, "M.SER_GRP");
+	com.sbm.execute (sbm_commonList);
+};
+scwin.btn_search2_onclick = function(e) {
+	dma_content2.set("U_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
+	dma_content2.set("COMMON_QUERY"	, "M.SER_INGRP");
+	com.sbm.execute (sbm_commonList2);
 };
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group class="sub_contents flex_gvw flex_m" id="" style="">
-			<xf:group class="pgtbox" id="" style="">
-				<xf:trigger class="btn_fav" id="" style="" type="button">
-					<xf:label />
-				</xf:trigger>
-				<w2:textbox class="pgt_tit" id="pgt_tit" label="기술데이터" style="" tagname="" />
-				<xf:group class="breadcrumb" id="" style="">
-					<xf:group id="" style="" tagname="ul">
-						<xf:group class="home" id="" style="" tagname="li">
-							<w2:anchor id="" outerDiv="false" style="">
-								<xf:label><![CDATA[Home]]></xf:label>
-							</w2:anchor>
-						</xf:group>
-						<xf:group id="" style="" tagname="li">
-							<w2:anchor id="txt_pMenu" outerDiv="false" style="">
-								<xf:label><![CDATA[]]>
-								</xf:label>
-							</w2:anchor>
-						</xf:group>
-						<xf:group id="" style="" tagname="li">
-							<w2:span id="txt_menu" label="" style="" />
-						</xf:group>
-					</xf:group>
+		<xf:group class="sub_contents flex_gvw flex_m" id="group1" style="" >
+
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+	
+<!-- 2번 -->
+			<xf:group class="dfbox" id="" style="">
+				<xf:group class="fl" id="" style="">
+					<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style=""
+						ev:onclick="com.btn_togglemenu_onclick">
+						<xf:label><![CDATA[slide]]></xf:label>
+					</w2:anchor>				
+				</xf:group>	
+				<xf:group class="fl" id="" style="">
+					<w2:textbox class="" id="txt_title_mychin" label="내가가입한채널" style="font-size:18px;margin-left: 10px;margin-top: 5px;"></w2:textbox>
+				</xf:group>							
+				<xf:group class="fr" id="" style="">
+					<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox>
+					<xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_reg" style="width:100px;line-height: 0px;" type="button"
+						ev:onclick="scwin.btn_reg_onclick">
+						<xf:label><![CDATA[채널검색]]></xf:label>
+					</xf:trigger>					
 				</xf:group>
 			</xf:group>
+			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list_mychin"
+					focusMode="row" id="grd_mychin" scrollByColumn="false" scrollByColumnAdaptive="false" 
+					ev:oncellclick="scwin.grd_mychin_oncellclick" rowNumVisible="true" readOnly="true">
+					<w2:caption id="caption_mychin" style="" value="" />
+					<w2:header id="header_mychin" style="">
+						<w2:row id="row3" style="">
+							<w2:column width="120" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="column3" value="가입신청일" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="column5" value="가입승인일" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
+						</w2:row>
+					</w2:header>
+					<w2:gBody id="gBody2" style="">
+						<w2:row id="row4" style="">
+							<w2:column width="120" inputType="text" style="" id="U_GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
+							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
+						</w2:row>
+					</w2:gBody>
+				</w2:gridView>
+			</xf:group>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</xf:group>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<xf:group id="grp_dim_white" class=""
+			style="display:none;z-index:9998;background-color:#FFF;opacity:0.9;position:absolute;top:0px;bottom:0px;left:0px;right:0px"
+			ev:onclick="scwin.grp_dim_white_onclick">
+		</xf:group>
+		<xf:group
+			style="text-align:center;position:absolute;top:100px;left:100px;right:100px;bottom:100px;z-index:9999;overflow-y:auto;border-radius:10px;display:none;"
+			id="grp_createGrp" class="">
+
+
+
+
 			<xf:group class="shbox" id="" style="">
 				<xf:group class="schbox_inner" id="" style="">
 					<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="tbl_search" style="" tagname="table">
@@ -345,24 +319,20 @@ scwin.setProviderData = function (service, method, paramMap) {
 							<w2:summary />
 						</w2:attributes>
 						<xf:group tagname="colgroup">
-							<xf:group style="width:225px;;" tagname="col" />
-							<xf:group tagname="col" style="width:165px;"></xf:group>
+							<xf:group style="width:50px;" tagname="col" />
+							<xf:group tagname="col" style="width:65px;"></xf:group>
 							<xf:group style="" tagname="col" />
 						</xf:group>
 						<xf:group class="" id="" style="" tagname="tr">
-							<xf:group class="w2tb_td w100" style="" tagname="td">
-								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
-									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.FROM" class="" mandatory="true">
-								</w2:inputCalendar>
-								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
-									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.TO" class="mr0" mandatory="true">
-								</w2:inputCalendar>
+							<xf:group class="w2tb_td " style="" tagname="td">
 							</xf:group>
-							<xf:group class="w2tb_td w50" id="" style="" tagname="td">
-								<xf:input id="ibx_boardCont" style="" ref="data:dma_search.BOARD_CONT" placeholder="내용을 입력해주세요."></xf:input>
+							<xf:group class="w2tb_td" id="" style="" tagname="td">
+								<w2:textbox id="" label="채널명" style="height: 23px;"></w2:textbox>
+								
 							</xf:group>
-							<xf:group tagname="td" id="" class="w2tb_td w50">
+							<xf:group tagname="td" id="" class="w2tb_td w50" style="text-align:left">
 								<w2:attributes></w2:attributes>
+								<xf:input id="ipt_GRP_NM" style="height:29px;"></xf:input>
 							</xf:group>
 						</xf:group>
 					</xf:group>
@@ -372,53 +342,50 @@ scwin.setProviderData = function (service, method, paramMap) {
 						ev:onclick="scwin.btn_search_onclick">
 						<xf:label><![CDATA[조회]]></xf:label>
 					</xf:trigger>
+					<xf:trigger class="btn_cm close" disabled="" escape="false" id="btn_close" style="" type="button"
+						ev:onclick="scwin.btn_closePop_onclick">
+						<xf:label><![CDATA[닫기]]></xf:label>
+					</xf:trigger>					
 				</xf:group>
 			</xf:group>
+			
 			<xf:group class="dfbox" id="" style="">
-				<xf:group class="fl" id="" style="">
-					<xf:trigger class="btn_cm red" id="btn_adminDel" style="display: none;" type="button" ev:onclick="scwin.btn_adminDel_onclick">
-						<xf:label><![CDATA[폐기]]></xf:label>
-					</xf:trigger>
-				</xf:group>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
-					<xf:trigger class="btn_cm" id="btn_del" style="display: none;" type="button" ev:onclick="scwin.btn_del_onclick">
-						<xf:label><![CDATA[삭제]]></xf:label>
-					</xf:trigger>
-					<xf:trigger class="btn_cm blue" id="btn_write" style="display: none;" type="button" ev:onclick="scwin.btn_write_onclick">
-						<xf:label><![CDATA[등록]]></xf:label>
-					</xf:trigger>
 				</xf:group>
 			</xf:group>
+			
+						
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
-				<w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
-					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style="" ev:oncelldblclick="scwin.grd1_oncelldblclick">
+				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
+					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style=""
+					ev:oncellclick="scwin.grd1_oncellclick" rowNumVisible="true" tooltipDisplayColumn="GRP_MEMO" tooltipDisplay="true">
 					<w2:caption id="caption2" style="" value="this is a grid caption." />
 					<w2:header id="header2" style="">
 						<w2:row id="row3" style="">
-							<w2:column width="30" inputType="checkbox" style="" id="column21" value="" displayMode="label"></w2:column>
-							<w2:column width="50" inputType="text" id="column9" value="글번호" displayMode="label"></w2:column>
-							<w2:column width="200" inputType="text" id="column15" value="제목" displayMode="label"></w2:column>
-							<w2:column width="40" inputType="text" style="" id="H_CNT" value="첨부" displayMode="label"></w2:column>
-							<w2:column width="50" inputType="text" id="H_boardWriter" value="작성자" displayMode="label"></w2:column>
-							<w2:column width="80" inputType="text" id="column17" value="작성일시" displayMode="label"></w2:column>
-							<w2:column width="80" inputType="text" id="H_updateDt" value="수정일시" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
+							<w2:column width="40" inputType="text" style="" id="column3" value="인원" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="column5" value="채널소개" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
-							<w2:column width="30" inputType="checkbox" style="" id="CHK" value="" displayMode="label" readOnly="false" falseValue="0"
-								trueValue="1" defaultValue="0" valueType="binary"></w2:column>
-							<w2:column width="50" inputType="text" id="BOARD_IDX" displayMode="label" readOnly="true"></w2:column>
-							<w2:column width="200" inputType="text" id="BOARD_TITLE" displayMode="label" textAlign="left" readOnly="true"></w2:column>
-							<w2:column width="40" inputType="text" style="" id="CNT" value="" displayMode="label" readOnly="true"></w2:column>
-							<w2:column width="50" inputType="text" id="BOARD_WRITER" displayMode="label" readOnly="true"></w2:column>
-							<w2:column width="80" inputType="text" id="BOARD_DATE" displayMode="label" readOnly="true" dataType="text" value=""></w2:column>
-							<w2:column width="80" inputType="text" id="UPDATE_DATE" displayMode="label" dataType="date" readOnly="true" value=""></w2:column>
+							<w2:column width="110" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
+							<w2:column width="40" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="GRP_MEMO" value="" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:gBody>
 				</w2:gridView>
 			</xf:group>
+			
+			
+								
 		</xf:group>
+
+
+
+
 	</body>
 </html>

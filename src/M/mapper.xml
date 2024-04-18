@@ -300,7 +300,7 @@
 			WHERE 1=1 AND U_ID = #{id}
     </select>
    	<select id="SEL_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
-   			/* SEL_MEMBER */
+   			/* SEL_GRP */
 			SELECT *
 			FROM T_GRP
 			WHERE 1=1 AND GRP_NM = #{GRP_NM}
@@ -314,10 +314,67 @@
     </insert>
    	<select id="LST_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
    			/* LST_GRP */
-			SELECT GRP_NM,GRP_REG_DTTM,GRP_MANAGER_ID,GRP_MEMBER_MAX,'삭제' AS GRP_DEL
-			FROM T_GRP
-			WHERE 1=1 AND GRP_MANAGER_ID = #{GRP_MANAGER_ID}
+			SELECT G.GRP_NM,G.GRP_MEMBER_MAX,COUNT(GM.U_GRP_NM) AS CNT,'삭제' AS GRP_BTN
+			FROM 	T_GRP_MEM GM 
+					RIGHT OUTER JOIN T_GRP G 
+					ON GM.U_GRP_NM = G.GRP_NM
+			WHERE 1=1 
+			AND G.GRP_MANAGER_ID = #{GRP_MANAGER_ID}
+			GROUP BY G.GRP_NM	
     </select>
+   	<select id="SER_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* SER_GRP */
+			SELECT GRP_NM,GRP_REG_DTTM,GRP_MANAGER_ID,GRP_MEMBER_MAX,GRP_MEMO,'가입신청' AS GRP_BTN 
+			FROM T_GRP
+			WHERE 1=1 
+			AND GRP_MANAGER_ID != #{GRP_MANAGER_ID}
+			AND GRP_NM like CONCAT('%',#{GRP_NM},'%') 
+    </select>    
+   	<select id="SER_INGRP" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* SER_INGRP */
+			SELECT U_GRP_NM,U_ID,GRP_JOIN_DTTM,GRP_APPR_DTTM,'탈퇴' AS GRP_BTN 
+			FROM T_GRP_MEM
+			WHERE 1=1 
+			AND U_ID = #{U_ID}
+    </select>     
+    <insert id="I_CH_JOIN" parameterType="java.util.Map" >
+        /*INS_GRP*/
+    	INSERT INTO T_GRP_MEM
+		(U_GRP_NM,U_ID,GRP_JOIN_DTTM)
+		VALUES
+		(#{U_GRP_NM},#{U_ID},TO_CHAR(NOW(),'YYYYMMDDHH24MISS'))
+    </insert>
+    <delete id="DEL_GRP_MEM" parameterType="java.util.Map" >
+        /*DEL_GRP_MEM*/
+	    DELETE FROM T_GRP_MEM
+		WHERE 1=1
+		AND U_GRP_NM=#{U_GRP_NM}
+		AND U_ID=#{U_ID}
+    </delete>  
+   	<select id="CHK_GRP_MEM" parameterType="java.util.Map" resultType="java.util.HashMap">
+   		/* CHK_GRP_MEM */
+	    SELECT * FROM T_GRP_MEM
+		WHERE 1=1
+		AND U_GRP_NM=#{U_GRP_NM}
+		AND U_ID=#{U_ID}
+    </select>     
+     <update id="UPT_GRP_MEM" parameterType="java.util.Map" >
+        /*UPT_GRP_MEM*/
+		UPDATE T_GRP_MEM SET 
+            GRP_APPR_DTTM = TO_CHAR(NOW(),'YYYYMMDDHH24MISS')
+         WHERE 1=1
+		AND U_GRP_NM=#{U_GRP_NM}
+		AND U_ID=#{U_ID}
+    </update>    
+   	<select id="SEL_GRP_MEM" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* SEL_GRP_MEM */
+			SELECT 
+			G.U_GRP_NM,G.U_ID,G.GRP_JOIN_DTTM,G.GRP_APPR_DTTM,'승인' AS GRP_BTN,M.U_NAME,M.U_EMAIL
+			FROM T_GRP_MEM G,T_MEMBER M
+			WHERE 1=1 
+			AND G.U_ID = M.U_ID
+			AND U_GRP_NM=#{U_GRP_NM}
+    </select> 
     <insert id="DEL_GRP" parameterType="java.util.Map" >
         /*DEL_GRP*/
 	    DELETE FROM T_GRP

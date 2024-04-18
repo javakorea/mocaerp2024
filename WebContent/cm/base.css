@@ -570,7 +570,7 @@ input[type="file"]{cursor:pointer;}
 .wq_gvw thead.gridHeaderTableDefault{border:0;}
 .wq_gvw th.gridHeaderTDDefault{height:24px;color:#2d353c;font-size:12px;font-weight:bold;background:#f0f2f4;border-color:#CED4DA;border-top:0;}
 .wq_gvw th.gridHeaderTDDefault nobr{padding:0;}
-.wq_gvw .gridBodyDefault{height:24px;color:#2d353c;font-size:12px;background-color:#fff;border-color:#e6e9ec;border-width:1px;}
+.wq_gvw .gridBodyDefault{height:28px;color:#2d353c;font-size:16px;background-color:#fff;border-color:#e6e9ec;border-width:1px;}
 .wq_gvw .gridHeaderTableDefault,
 .wq_gvw th.gridHeaderTDDefault:first-child,
 .wq_gvw .gridBodyDefault:first-child{border-left:0}

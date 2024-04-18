@@ -351,6 +351,10 @@ scwin.setProviderData = function (service, method, paramMap) {
 						</xf:group>
 						<xf:group class="" id="" style="" tagname="tr">
 							<xf:group class="w2tb_td w100" style="" tagname="td">
+								<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style=""
+									ev:onclick="com.btn_togglemenu_onclick">
+									<xf:label><![CDATA[slide]]></xf:label>
+								</w2:anchor>							
 								<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
 									renderDiv="true" rightAlign="false" style="width: 100px;" ref="data:dma_search.FROM" class="" mandatory="true">
 								</w2:inputCalendar>

@@ -5366,3 +5366,16 @@ console.timeEnd = (function() {
 com.util.isMobile = function () {
 	return WebSquare.util.isMobile();
 };
+
+com.btn_togglemenu_onclick = function() {
+	$pp = $w.getComponentById(this.scope_id).scope.$p;
+	$pp.top().grp_wrap.toggleClass("show_menu");
+	this.toggleClass("on");
+};
+com.yyyy_MM_dd = function () {
+	let _value = arguments[0];
+	if(!_value){
+		return '';
+	}
+	return `${_value.substring(0,4)}-${_value.substring(4,6)}-${_value.substring(6,8)}`;
+};

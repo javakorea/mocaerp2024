@@ -548,10 +548,7 @@ scwin.btn_today_onclick = function() {
 	scwin.search();	
 };
 /* 메뉴버튼클릭 */
-scwin.btn_menu_onclick = function() {
-	$p.top().grp_wrap.toggleClass("show_menu");
-	btn_menu.toggleClass("on");
-};
+
 /* 닫기버튼클릭 */
 scwin.btn_closePopup_onclick = function() {
 	if(btn_closePopup.getLabel() == '이전'){
@@ -785,7 +782,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 					<xf:group id="" class="fl">
 
 						<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style=""
-							ev:onclick="scwin.btn_menu_onclick">
+							ev:onclick="com.btn_togglemenu_onclick">
 							<xf:label><![CDATA[slide]]></xf:label>
 						</w2:anchor>
 						<w2:anchor class="btn_toggle left mo" ev:onclick="scwin.btn_left_onclick" id="btn_left" name="" outerDiv="false"

@@ -26,6 +26,23 @@
 						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_content2">
+					<w2:keyInfo>
+						<w2:key id="U_GRP_NM" name="그룹명" dataType="text"></w2:key>
+						<w2:key id="U_ID" name="가입자" dataType="text"></w2:key>
+						<w2:key id="GRP_JOIN_DTTM" name="신청일" dataType="text"></w2:key>
+						<w2:key id="GRP_APPR_DTTM" name="승인일" dataType="text"></w2:key>
+						<!-- 공통부 -->
+						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" name="COMMON_MASTER_KEY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>				
 				<w2:dataMap baseNode="map" id="COMMON_RESULT">
 					<w2:keyInfo>
 						<w2:key id="COMMON_MASTER_RESULT" name="COMMON_MASTER_RESULT" dataType="text"></w2:key>
@@ -39,9 +56,21 @@
 						<w2:column id="GRP_MEMBER_MAX" name="GRP_MEMBER_MAX" dataType="text"></w2:column>
 						<w2:column id="GRP_MEMO" name="GRP_MEMO" dataType="text"></w2:column>
 						<w2:column id="GRP_REG_DTTM" name="GRP_REG_DTTM" dataType="text"></w2:column>
-						<w2:column id="GRP_DEL" name="GRP_DEL" dataType="text"></w2:column>
+						<w2:column id="CNT" name="CNT" dataType="text"></w2:column>
+						<w2:column id="GRP_BTN" name="GRP_BTN" dataType="text"></w2:column>
 					</w2:columnInfo>
 				</w2:dataList>
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_list_mychin" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="U_GRP_NM" name="U_GRP_NM" dataType="text"></w2:column>
+						<w2:column id="U_ID" name="U_ID" dataType="text"></w2:column>
+						<w2:column id="U_NAME" name="U_NAME" dataType="text"></w2:column>
+						<w2:column id="U_EMAIL" name="U_EMAIL" dataType="text"></w2:column>
+						<w2:column id="GRP_JOIN_DTTM" name="GRP_JOIN_DTTM" dataType="text"></w2:column>
+						<w2:column id="GRP_APPR_DTTM" name="GRP_APPR_DTTM" dataType="text"></w2:column>
+						<w2:column id="GRP_BTN" name="승인" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>				
 			</w2:dataCollection>
 
 			<w2:workflowCollection></w2:workflowCollection>
@@ -49,12 +78,22 @@
 				action="/selectList.do" ev:submitdone="scwin.sbm_commonList_submitdone"
 				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
 				processMsg="조회중" ev:submit=""  ev:submiterror="" abortTrigger="">
-			</xf:submission>			
+			</xf:submission>
+			<xf:submission id="sbm_commonList2" ref='data:json,{"id":"dma_content2","key":"dma_search"}' target='data:json,{"id":"dlt_list_mychin","key":"dlt_list"}' 
+				action="/selectList.do" ev:submitdone="scwin.sbm_commonList2_submitdone"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="조회중" ev:submit=""  ev:submiterror="" abortTrigger="">
+			</xf:submission>
 			<xf:submission id="sbm_commonTran" ref='data:json,[{"id":"dma_content","key":"dma_common_request"}]'
 				target="data:json,COMMON_RESULT" action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
 				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
 				ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror="" abortTrigger="">
 			</xf:submission>
+			<xf:submission id="sbm_commonTran_가입신청" ref='data:json,[{"id":"dma_content2","key":"dma_common_request"}]'
+				target="data:json,COMMON_RESULT" action="/commonTran.do" method="post" mediatype="application/json" encoding="UTF-8" instance=""
+				replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
+				ev:submitdone="scwin.sbm_commonTran_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>			
 		</xf:model>
 
 		<w2:layoutInfo>
@@ -71,10 +110,10 @@ scwin.trigger1_onclick = function(e) {
 	xhr.open('post', '/selectMap.do');
 	xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
 	xhr.responseType = 'json';
-	xhr.onload = () => {
+	xhr.onload = function() {
 		let result = xhr.response;
 		if(!result.dma_map){
-			com.win.confirm($p, '가입가능합니다. 가입하시겠습니까?', function(e){
+			com.win.confirm($p, '개설가능합니다. 진행하시겠습니까?', function(e){
 				if(e.clickValue){
 					dma_content.set("GRP_NM",ipt_grpNm.getValue());
 					dma_content.set("GRP_MANAGER_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
@@ -86,17 +125,68 @@ scwin.trigger1_onclick = function(e) {
 				}
 			});		
 		}else{
-			com.win.alert('이미있는 그룹명입니다.');
+			com.win.alert('이미있는 채널명입니다.');
 		}
 	};
 	xhr.send(JSON.stringify({dma_search:{COMMON_QUERY:'M.SEL_GRP',GRP_NM:ipt_grpNm.getValue()}}));
+};
+
+scwin.sbm_commonList_submitdone  = function(e) {
+	let cnt = dlt_list.getRowCount();
+	txt_cnt.setValue(cnt+'건/최대5건');
+	if(cnt < 5){
+		btn_write.show('');
+	}else{
+		btn_write.hide('');
+	}
+	scwin.detail_search();
+};	
+scwin.sbm_commonList2_submitdone  = function(e) {
+	let cnt = dlt_list_mychin.getRowCount();
+	txt_cnt_mychin.setValue(cnt+'건');
+};	
+scwin.btn_write_onclick = function(e) {
+	grp_createGrp.show('');
+	grp_dim_white.show('');
+	ipt_grpNm.focus();
+};
+scwin.trigger2_onclick = function(e) {
+	grp_createGrp.hide('');
+	grp_dim_white.hide('');
+};
+scwin.grd1_oncellclick = function(row,col,colId) {
+	let GRP_NM = this._dataList.getCellData(row,"GRP_NM");
+	if(colId == 'GRP_BTN'){
+			com.win.confirm($p, `[그룹:${GRP_NM}]을 삭제하시겠습니까?`, function(e){
+				if(e.clickValue){
+					dma_content.set("GRP_NM",GRP_NM);
+					dma_content.set("GRP_MANAGER_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
+					
+
+					dma_content.set("COMMON_MASTER_QUERY"	, "M.DEL_GRP");
+					dma_content.set("COMMON_STATUS"			, "D");
+					com.sbm.execute(sbm_commonTran);
+				}
+			});	
+	}else{
+		scwin.detail_search();
+	}
+};
+scwin.detail_search = function() {
+	dma_content2.set("U_GRP_NM",grd1._dataList.getCellData(grd1.getFocusedRowIndex(),"GRP_NM"));
+	dma_content2.set("COMMON_QUERY"	, "M.SEL_GRP_MEM");
+	com.sbm.execute (sbm_commonList2);
 };
 /* sbm_commonTran callback */
 scwin.sbm_commonTran_submitdone = function(e) {
 	let _j = e.responseJSON;
 	if(_j.status == "S"){
 		let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
-		if(request.COMMON_STATUS == 'I'){
+		if(request.COMMON_STATUS == 'U_APPR'){
+			com.win.alert('승인되었습니다.', function(e){
+				scwin.detail_search();
+			});		
+		}else if(request.COMMON_STATUS == 'I'){
 			com.win.alert('등록되었습니다.', function(e){
 				ipt_grpNm.setValue('');
 				grp_createGrp.hide('');
@@ -112,138 +202,137 @@ scwin.sbm_commonTran_submitdone = function(e) {
 		}
 	}
 };	
-scwin.sbm_commonList_submitdone  = function(e) {
-	let cnt = dlt_list.getRowCount();
-	txt_cnt.setValue(cnt+'건');
-	if(cnt < 5){
-		btn_write.show('');
-	}else{
-		btn_write.hide('');
-	}
-};	
-scwin.btn_write_onclick = function(e) {
-	grp_createGrp.show('');
-	grp_dim_white.show('');
-	ipt_grpNm.focus();
-};
-scwin.trigger2_onclick = function(e) {
-	grp_createGrp.hide('');
-	grp_dim_white.hide('');
-};
-scwin.grd1_oncellclick = function(row,col,colId) {
-	if(colId == 'GRP_DEL'){
-			let GRP_NM = this._dataList.getCellData(row,"GRP_NM");
-			com.win.confirm($p, `[그룹:${GRP_NM}]을 삭제하시겠습니까?`, function(e){
-				if(e.clickValue){
-					dma_content.set("GRP_NM",GRP_NM);
-					dma_content.set("GRP_MANAGER_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
-					
-
-					dma_content.set("COMMON_MASTER_QUERY"	, "M.DEL_GRP");
-					dma_content.set("COMMON_STATUS"			, "D");
-					com.sbm.execute(sbm_commonTran);
-				}
-			});	
-	}
-};
-
 scwin.btn_search_onclick = function(e) {
 	dma_content.set("GRP_MANAGER_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
 	dma_content.set("COMMON_QUERY"	, "M.LST_GRP");
 	com.sbm.execute (sbm_commonList);
 };
-]]></script>
+
+scwin.grd_mychin_oncellclick = function(row,col,colId) {
+	let U_GRP_NM = this._dataList.getCellData(row,'U_GRP_NM');
+	let U_ID = this._dataList.getCellData(row,'U_ID');
+	com.win.confirm($p, `신청자[${U_ID}]를 승인하시겠습니까?`, function(e){
+		if(e.clickValue){
+			dma_content2.set("U_GRP_NM",U_GRP_NM);
+			dma_content2.set("U_ID",U_ID);
+			dma_content2.set("COMMON_MASTER_QUERY"	, "M.UPT_GRP_MEM");
+			dma_content2.set("COMMON_STATUS"			, "U_APPR");
+			com.sbm.execute(sbm_commonTran_가입신청);
+		}
+	});	
+};
+scwin.user = function(v1,v2,row,col){
+	let U_EMAIL = dlt_list_mychin.getCellData(row,'U_EMAIL');
+	return `${v1}(${U_EMAIL})`;
+};
+scwin.usercnt = function(v1,v2,row,col){
+	let CNT = dlt_list.getCellData(row,'CNT');
+	return `<b>${CNT}</b>/${v1}`;
+};]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group class="sub_contents flex_gvw flex_m" id="group1" style="" >
-			<xf:group class="pgtbox" id="" style="">
-				<xf:trigger class="btn_fav" id="" style="" type="button">
-					<xf:label />
-				</xf:trigger>
-				<w2:textbox class="pgt_tit" id="pgt_tit" label="기술데이터" style="" tagname="" />
-				<xf:group class="breadcrumb" id="" style="">
-					<xf:group id="" style="" tagname="ul">
-						<xf:group class="home" id="" style="" tagname="li">
-							<w2:anchor id="" outerDiv="false" style="">
-								<xf:label><![CDATA[Home]]></xf:label>
-							</w2:anchor>
-						</xf:group>
-						<xf:group id="" style="" tagname="li">
-							<w2:anchor id="txt_pMenu" outerDiv="false" style="">
-								<xf:label><![CDATA[]]>
-								</xf:label>
-							</w2:anchor>
-						</xf:group>
-						<xf:group id="" style="" tagname="li">
-							<w2:span id="txt_menu" label="" style="" />
-						</xf:group>
-					</xf:group>
-				</xf:group>
-			</xf:group>
 			<xf:group class="shbox" id="" style="">
 				<xf:group class="schbox_inner" id="" style="">
-					<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="tbl_search" style="" tagname="table">
-						<w2:attributes>
-							<w2:summary />
-						</w2:attributes>
-						<xf:group tagname="colgroup">
-							<xf:group style="width:225px;;" tagname="col" />
-							<xf:group tagname="col" style="width:165px;"></xf:group>
-							<xf:group style="" tagname="col" />
-						</xf:group>
-						<xf:group class="" id="" style="" tagname="tr">
-							<xf:group class="w2tb_td w100" style="" tagname="td"></xf:group>
-							<xf:group class="w2tb_td w50" id="" style="" tagname="td"></xf:group>
-							<xf:group tagname="td" id="" class="w2tb_td w50">
-								<w2:attributes></w2:attributes>
-							</xf:group>
-						</xf:group>
-					</xf:group>
 				</xf:group>
 				<xf:group class="btn_shbox" id="" style="">
 					<xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_search" style="" type="button"
 						ev:onclick="scwin.btn_search_onclick">
 						<xf:label><![CDATA[조회]]></xf:label>
-					</xf:trigger>
-				</xf:group>
+					</xf:trigger>				
+				</xf:group>				
 			</xf:group>
+			
+			
+			
 			<xf:group class="dfbox" id="" style="">
 				<xf:group class="fl" id="" style="">
-					<w2:textbox class="" id="txt_cnt_max" label="- 생성가능한 최대그룹수는 5개까지입니다" style=""></w2:textbox>
+					<w2:textbox class="" id="txt_cnt_max" label="- 생성가능한 최대채널수는 5개까지입니다" style="font-size:16px;margin-top:8px"></w2:textbox>
 				</xf:group>			
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
 					<xf:trigger class="btn_cm blue" id="btn_write" style="" type="button" ev:onclick="scwin.btn_write_onclick">
-						<xf:label><![CDATA[그룹생성]]></xf:label>
+						<xf:label><![CDATA[채널생성]]></xf:label>
 					</xf:trigger>
-
 				</xf:group>
 			</xf:group>
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
 				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
 					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style=""
-					ev:oncelldblclick="scwin.grd1_oncelldblclick" ev:oncellclick="scwin.grd1_oncellclick" rowNumVisible="true">
+					ev:oncellclick="scwin.grd1_oncellclick" rowNumVisible="true">
 					<w2:caption id="caption2" style="" value="this is a grid caption." />
 					<w2:header id="header2" style="">
 						<w2:row id="row3" style="">
-							<w2:column width="80" inputType="text" style="" id="column1" value="그룹명" displayMode="label"></w2:column>
-							<w2:column width="50" inputType="text" style="" id="column3" value="인원제한" displayMode="label"></w2:column>
-							<w2:column width="120" inputType="text" style="" id="column5" value="등록일시" displayMode="label"></w2:column>
+							<w2:column width="160" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
+							<w2:column width="80" inputType="text" style="" id="column3" value="인원" displayMode="label"></w2:column>
+							<w2:column width="120" inputType="text" style="" id="column5" value="등록일시" displayMode="label" hidden="true"></w2:column>
 							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
-							<w2:column width="80" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
-							<w2:column width="50" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"></w2:column>
+							<w2:column width="160" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
+							<w2:column width="80" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"  customFormatter="scwin.usercnt"></w2:column>
 							<w2:column width="120" inputType="text" style="" id="GRP_REG_DTTM" value="" displayMode="label" displayFormat="####-##-## ##:##:##"></w2:column>
-							<w2:column width="50" inputType="button" style="" id="GRP_DEL" value="" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
 							
 						</w2:row>
 					</w2:gBody>
 				</w2:gridView>
 			</xf:group>
-		</xf:group>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+<!-- 2번 -->
+			<xf:group class="dfbox" id="" style="">
+				<xf:group class="fl" id="" style="">
+					<w2:textbox class="" id="txt_title_mychin" label="- 내채널회원" style="font-size:16px;margin-top:8px"></w2:textbox>
+				</xf:group>			
+				<xf:group class="fr" id="" style="">
+					<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox>
+				</xf:group>
+			</xf:group>
+			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list_mychin"
+					defaultCellHeight="26" focusMode="row" id="grd_mychin" scrollByColumn="false" scrollByColumnAdaptive="false" style=""
+					ev:oncellclick="scwin.grd_mychin_oncellclick" rowNumVisible="true">
+					<w2:caption id="caption_mychin" style="" value="" />
+					<w2:header id="header_mychin" style="">
+						<w2:row id="row3" style="">
+							<w2:column width="110" inputType="text" style="" id="column1" value="회원" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="column3" value="가입신청일" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="column5" value="가입승인일" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
+						</w2:row>
+					</w2:header>
+					<w2:gBody id="gBody2" style="">
+						<w2:row id="row4" style="">
+							<w2:column width="110" inputType="text" style="" id="U_NAME" value="" displayMode="label" textAlign="left" customFormatter="scwin.user"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
+							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
+						</w2:row>
+					</w2:gBody>
+				</w2:gridView>
+			</xf:group>
+			
+			
+			
+			
+			
+			
 
 
 
@@ -253,6 +342,24 @@ scwin.btn_search_onclick = function(e) {
 
 
 
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 
 
 		<xf:group id="grp_dim_white" class=""
@@ -271,7 +378,18 @@ scwin.btn_search_onclick = function(e) {
 				<xf:label><![CDATA[닫기]]></xf:label>
 			</xf:trigger>						
 		</xf:group>
-
-
+	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</xf:group>
 	</body>
 </html>
