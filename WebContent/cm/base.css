@@ -35,8 +35,8 @@ a:hover,a:active,a:visited,a:focus{}
 .container{position:absolute;top:50px;left:0;right:0;bottom:0;background:#fff;}
 .contents{position:absolute;top:0;left:0;right:0;bottom:0;overflow:auto;transition:all 0.8s;}
 .footer{position:absolute;left:0;right:0;bottom:0;height:37px;border-top:1px solid #ddd;background:#fff;}
-.side_r{position:absolute;top:50px;right:-291px;bottom:0;width:290px;border-left:1px solid #e1e1e1;overflow:auto;background:#F4F5F7;z-index:999;}
-.side{position:absolute;top:50px;left:-291px;bottom:0;width:290px;border-right:1px solid #e1e1e1;overflow:auto;background:#F4F5F7;z-index:999;}
+.side_r{position:absolute;top:50px;right:-221px;bottom:0;width:290px;border-left:1px solid #e1e1e1;overflow:auto;background:#F4F5F7;z-index:999;}
+/*.side{position:absolute;top:50px;left:-291px;bottom:0;width:290px;border-right:1px solid #e1e1e1;overflow:auto;background:#F4F5F7;z-index:999;}*/
 .show_menu .side{left:0;bottom:0;}
 .show_menu .side_r{right:0;bottom:0;}
 .show_menu .contents{left:291px;}
@@ -996,10 +996,13 @@ input[type="file"]{cursor:pointer;}
 .gnb_menu > li.on > h2 > a, .gnb_menu > li > h2 > a:hover{color:#fff;}
 .gnb_menu > li.on > h2 > a:before, .gnb_menu > li > h2 > a:hover:before{content:'';position:absolute;left:8px;top:43%;width:6px;height:6px;margin-left:-3px;border-radius:100%;background:#fff;}
 
-.btn_toggle.mo{display: inline-block; position: relative; width: 36px; height: 36px; font-size: 0px; line-height: 0px; vertical-align: top; background-color: #fff; border-radius: 8px; margin-left: 5px; color:#333;border: 1px solid #333}
+.btn_toggle.mo2{display: inline-block; position: relative; width: 36px; height: 36px; font-size: 0px; line-height: 0px; vertical-align: top; background-color: #fff; border-radius: 8px; margin-left: 5px; color:#333;border: 1px solid #333}
+.btn_toggle.mo2:after{content:"";position:absolute;left:50%;top:50%;width:20px;height:20px;margin-top:-10px;margin-left:-10px;}
+.btn_toggle.mo{display: inline-block; position: relative; width: 36px; height: 36px; font-size: 0px; line-height: 0px; vertical-align: top; background-color: #fff; border-radius: 8px; margin-left: 65px; color:#333;border: 1px solid #333}
 .btn_toggle.mo:after{content:"";position:absolute;left:50%;top:50%;width:20px;height:20px;margin-top:-10px;margin-left:-10px;}
 /*.btn_toggle.mo:hover:after{animation:btn_toggle_menu 1s forwards}*/
 .btn_toggle.menu.mo:after{background:url(/cm/images/btn_toggle_menu.png) center center no-repeat}
+.btn_toggle.menu.mo2:after{background:url(/cm/images/btn_toggle_menu.png) center center no-repeat}
 .btn_toggle.esc.mo{background-color:unset;}
 .btn_toggle.esc.mo:after{background:url(/cm/images/ico_esc.svg) center center no-repeat;}
 .btn_toggle.today.mo{background-color:#fff; color: #333; font-size: 14px; line-height: 34px; font-weight:bold}
@@ -1128,8 +1131,8 @@ input[type="file"]{cursor:pointer;}
 @keyframes btn_toggle_menu{100%{transform:rotate(180deg)}}
 
 /* side */
-.side{position:absolute;top:50px;left:-291px;bottom:0;width:220px;border-right:1px solid #e1e1e1;overflow:auto;background:#ffffff;transition:all 0.8s;z-index:1000;-webkit-box-shadow: 0px 0px 15px rgb(30 32 37 / 12%);-moz-box-shadow: 0px 0px 15px rgb(30 32 37 / 12%);box-shadow: 0px 0px 15px rgb(30 32 37 / 12%);}
-.side .grp_tab{position:absolute;top:16px;left:16px;right:16px;bottom:229px;}
+.side{position:absolute;top:50px;left:-221px;bottom:0;width:260px;background:transparent;transition:all 0.8s;}
+.side .grp_tab{position:absolute;top:16px;left:16px;right:56px;bottom:229px;}
 .side .grp_tab > a{position:absolute;text-indent:-9999px;}
 .side .grp_tab > .shortcut_box{position:absolute;right:0;height:25px;}
 .side .grp_tab > .shortcut_box:after{content:'';display:block;clear:both;}
@@ -1147,7 +1150,7 @@ input[type="file"]{cursor:pointer;}
 .side .grp_tab > .tab_tit > li.on > a{color: #368CB2;font-weight: 600;}
 .side .grp_tab > .tab_tit > li.allmenu{position:relative;}
 .side .grp_tab > .tab_tit > li.allmenu a {padding:0 20px 0 16px;cursor:pointer;}
-.side .grp_tab .tab_con{position:absolute;top:0px;left:0;bottom:0;overflow:auto;}
+.side .grp_tab .tab_con{position:absolute;top:0px;left:0;bottom:0;overflow:auto;border-right:1px solid #e1e1e1;overflow:auto;background:transparent;transition:all 0.8s;z-index:1000;-webkit-box-shadow: 0px 0px 15px rgb(30 32 37 / 12%);-moz-box-shadow: 0px 0px 15px rgb(30 32 37 / 12%);box-shadow: 0px 0px 15px rgb(30 32 37 / 12%);}
 
 .recent_work{position: absolute;bottom: 0;left: 0;right: 0;padding: 16px;}
 .recent_work .tit {font-weight:bold;line-height:28px;}

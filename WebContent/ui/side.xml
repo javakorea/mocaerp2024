@@ -467,7 +467,9 @@ scwin.btn_close_onclick = function() {
 				</w2:autoComplete>
 			</xf:group>
 			<xf:group id="swh_lnbbox" class="tab_conbox">
+		
 				<xf:group style="" id="gr_tab_menu" class="tab_con scrollbar">
+
 					<w2:treeview showTreeDepth="1" tooltipGroupClass="false" dataType="listed" labelclass="" toggleEvent="onclick"
 						ev:onclick="scwin.trv_menu_onclick" lineShow="false" style="" id="trv_menu" class="tw_menu">
 						<w2:itemset nodeset="data:dlt_menu">

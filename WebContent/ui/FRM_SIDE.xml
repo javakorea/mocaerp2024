@@ -467,6 +467,12 @@ scwin.btn_close_onclick = function() {
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="" id="grp_toggle_btn" style="z-index:9999;position: absolute;right: 0px;top: 10px;">
+			<w2:anchor class="btn_toggle menu mo2" id="btn_menu" name="" outerDiv="false" style=""
+				ev:onclick="com.btn_togglemenu_onclick">
+				<xf:label><![CDATA[slide]]></xf:label>
+			</w2:anchor>
+		</xf:group>	
 		<xf:group class="grp_tab" id="" style="">
 			<xf:group id="" class="fr btn_area" style="display: none;"><w2:anchor outerDiv="false" name="" style="margin-right:5px" id="btn_close" class="btn_toggle esc mo" ev:onclick="scwin.btn_close_onclick">
 				<xf:label><![CDATA[slide]]></xf:label>
@@ -508,6 +514,8 @@ scwin.btn_close_onclick = function() {
 					</w2:choices>
 				</w2:autoComplete>
 			</xf:group>
+
+										
 			<xf:group id="swh_lnbbox" class="tab_conbox">
 				<xf:group style="" id="gr_tab_menu" class="tab_con scrollbar">
 					<w2:treeview showTreeDepth="1" tooltipGroupClass="false" dataType="listed" labelclass="" toggleEvent="onclick"
