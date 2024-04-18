@@ -84,38 +84,17 @@ scwin.display_color = function(_data){
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group id="" class="pop_contents flex_gvw flex_m sch_view" style="">
-			<xf:group class="tbbox noline read mb0" id="tbl_search" style="">
-				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
-					<w2:attributes>
-						<w2:summary></w2:summary>
-					</w2:attributes>
-					<xf:group tagname="colgroup">
-						<xf:group tagname="col" style="width:100px;"></xf:group>
-						<xf:group tagname="col" style=""></xf:group>
-					</xf:group>
-					<xf:group style="" tagname="tr" id="tr_read" class="mb0">
-						<xf:group tagname="td" class="w2tb_td">
-							<w2:attributes>
-								<w2:colspan>2</w2:colspan>
-								<w2:rowspan>1</w2:rowspan>
-							</w2:attributes>
-							<xf:group id="" class="grp_dateTit">
-								<xf:group id="">
-									<w2:textbox displayFormatter="scwin.display_color" ref="data:dma_content.SCH_COLOR" tagname="span" style=""
-										id="rdo_gubunYn" label="" class="sch_gubun mr10">
-									</w2:textbox>
-									<w2:textbox tagname="span" style="display:none" id="" label="" class="sch_spa_view fa fa-calendar-o"></w2:textbox>
-									<w2:textbox ref="data:dma_content.SCH_START" tagname="span" style="" id="ipt_day" label="" class="ipt_day"
-										dataType="date" displayFormat="yyyy-MM-dd (EEE)">
-									</w2:textbox>
-								</xf:group>
-							</xf:group>
-						</xf:group>
-					</xf:group>
-				</xf:group>
+		<xf:group class="grp_dateTit" id="" style="">
+			<xf:group class="" id="">
+				<w2:textbox tagname="span" style="" id="" label="" class="sch_spa_view fa fa-calendar-o mr10"></w2:textbox>
+				<w2:textbox ref="data:dma_content.SCH_START" tagname="span" style="" id="ipt_day" label="" class="ipt_day" dataType="date" displayFormat="yyyy-MM-dd (EEE)">
+				</w2:textbox>
+			<w2:textbox displayFormatter="scwin.display_color" ref="data:dma_content.SCH_COLOR" tagname="span" style="" id="rdo_gubunYn" label="" class="sch_gubun ml10">
+				</w2:textbox></xf:group>
+			</xf:group><xf:group class="tbbox noline read mb0" id="tbl_search" style="">
 
-				
-			<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="tb_detail" style="width:100%;display:none;padding:10px 0 0;border-bottom:1px solid #333;" tagname="table">
+
+				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="tb_detail" style="width:100%;display:none;border-bottom:1px solid #333;" tagname="table">
 					<w2:attributes>
 						<w2:summary></w2:summary>
 					</w2:attributes>
@@ -183,16 +162,14 @@ scwin.display_color = function(_data){
 							<xf:input class="req" id="ibx_boardTitle" placeholder="" ref="data:dma_content.SCH_TITLE" style="width:100%;"></xf:input>
 						</xf:group>
 					</xf:group>
-				</xf:group></xf:group>
-			<xf:group id="" class="edbox sch">
+				</xf:group>
+			</xf:group><xf:group id="" class="edbox sch">
 				<xf:group id="" style="" class="edi_btn">
 
 				</xf:group>
-				<xf:textarea id="edi_1" class="sch_view_cont read" style="height:100%" ref="data:dma_content.SCH_CONT" escape="false"
-					readOnly="true">
+				<xf:textarea id="edi_1" class="sch_view_cont read" style="height:100%" ref="data:dma_content.SCH_CONT" escape="false" readOnly="true">
 				</xf:textarea>
-			</xf:group>
-		</xf:group>
+			</xf:group></xf:group>
 
 	</body>
 </html>
