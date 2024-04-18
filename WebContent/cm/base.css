@@ -563,9 +563,9 @@ input[type="file"]{cursor:pointer;}
 .wq_gvw {border:1px solid #CED4DA;background:#fff;box-sizing:border-box;}
 .wq_gvw .gridHeaderTableDefault{border-bottom:0;}
 .wq_gvw thead.gridHeaderTableDefault{border:0;}
-.wq_gvw th.gridHeaderTDDefault{height:24px;color:#2d353c;font-size:12px;font-weight:bold;background:#f0f2f4;border-color:#CED4DA;border-top:0;}
+.wq_gvw th.gridHeaderTDDefault{height:24px;color:#2d353c;font-size:14px;font-weight:bold;background:#f0f2f4;border-color:#CED4DA;border-top:0;}
 .wq_gvw th.gridHeaderTDDefault nobr{padding:0;}
-.wq_gvw .gridBodyDefault{height:28px;color:#2d353c;font-size:16px;background-color:#fff;border-color:#e6e9ec;border-width:1px;}
+.wq_gvw .gridBodyDefault{height:28px;color:#2d353c;font-size:14px;background-color:#fff;border-color:#e6e9ec;border-width:1px;}
 .wq_gvw .gridHeaderTableDefault,
 .wq_gvw th.gridHeaderTDDefault:first-child,
 .wq_gvw .gridBodyDefault:first-child{border-left:0}
@@ -573,7 +573,7 @@ input[type="file"]{cursor:pointer;}
 .wq_gvw .gridBodyDefault:last-child {/*border-right:0*/}
 .wq_gvw .w2input {padding:0 2px !important;min-width:auto;margin-top:-1px;border: 1px solid #dde1e5 !important;}
 .wq_gvw th.gridHeaderTDDefault.req nobr:before{content:'';display:inline-block;margin-right:3px;width:4px;height:4px;vertical-align:top;background:#E28834;border-radius:100%;}
-.wq_gvw .gridBodyDefault button{position:relative;display:inline-block;padding:0 8px;color:#20252A;font-size:12px;background:#fff;border: 1px solid #CED4DA;border-radius:3px;cursor:pointer;overflow:hidden;}
+.wq_gvw .gridBodyDefault button{position:relative;display:inline-block;padding:0 8px;color:#FFF;font-size:14px;background:#576DDC;border: 1px solid #CED4DA;border-radius:3px;cursor:pointer;overflow:hidden;}
 .wq_gvw .gridBodyDefault button:hover{border: 1px solid #8996A3;}
 .wq_gvw .gridBodyDefault button:active, .wq_gvw .gridBodyDefault .btn_cm:active:hover {background-color:#F5F7FA;border-color: #8996a3;}
 .wq_gvw .gridBodyDefault_calendar{padding-right:30px;background-image:url(/cm/images/ico_calendar.png); background-position:right 10px center;background-repeat:no-repeat;}

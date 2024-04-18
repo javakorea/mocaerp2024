@@ -177,6 +177,7 @@ scwin.grd1_oncellclick = function(row,col,colId) {
 				}
 			});	
 	}else{
+		txt_title_mychin.setValue(`- 채녈[${GRP_NM}]구독자목록`);
 		scwin.detail_search();
 	}
 };
@@ -217,17 +218,23 @@ scwin.btn_search_onclick = function(e) {
 };
 
 scwin.grd_mychin_oncellclick = function(row,col,colId) {
-	let U_GRP_NM = this._dataList.getCellData(row,'U_GRP_NM');
-	let U_ID = this._dataList.getCellData(row,'U_ID');
-	com.win.confirm($p, `신청자[${U_ID}]를 승인하시겠습니까?`, function(e){
-		if(e.clickValue){
-			dma_content2.set("U_GRP_NM",U_GRP_NM);
-			dma_content2.set("U_ID",U_ID);
-			dma_content2.set("COMMON_MASTER_QUERY"	, "M.UPT_GRP_MEM");
-			dma_content2.set("COMMON_STATUS"			, "U_APPR");
-			com.sbm.execute(sbm_commonTran_가입신청);
-		}
-	});	
+	if(colId == 'GRP_BTN'){
+		let U_GRP_NM = this._dataList.getCellData(row,'U_GRP_NM');
+		let U_ID = this._dataList.getCellData(row,'U_ID');
+		let U_NAME = this._dataList.getCellData(row,'U_NAME');
+		let U_EMAIL = this._dataList.getCellData(row,'U_EMAIL');
+		
+		
+		com.win.confirm($p, `'${U_NAME}(${U_EMAIL})'를 승인하시겠습니까?`, function(e){
+			if(e.clickValue){
+				dma_content2.set("U_GRP_NM",U_GRP_NM);
+				dma_content2.set("U_ID",U_ID);
+				dma_content2.set("COMMON_MASTER_QUERY"	, "M.UPT_GRP_MEM");
+				dma_content2.set("COMMON_STATUS"			, "U_APPR");
+				com.sbm.execute(sbm_commonTran_가입신청);
+			}
+		});	
+	}
 };
 scwin.user = function(v1,v2,row,col){
 	let U_EMAIL = dlt_list_mychin.getCellData(row,'U_EMAIL');
@@ -250,7 +257,7 @@ scwin.usercnt = function(v1,v2,row,col){
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style="margin-top:5px"></w2:textbox>
 					<xf:trigger class="btn_cm blue" id="btn_write" style="margin-top:3px" type="button" ev:onclick="scwin.btn_write_onclick">
-						<xf:label><![CDATA[채널생성]]></xf:label>
+						<xf:label><![CDATA[내채널만들기]]></xf:label>
 					</xf:trigger>
 					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_search" style="margin-top:3px" type="button"
 						ev:onclick="scwin.btn_search_onclick">
@@ -258,23 +265,23 @@ scwin.usercnt = function(v1,v2,row,col){
 					</xf:trigger>						
 				</xf:group>
 			</xf:group>
-			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+			<xf:group adaptiveThreshold="" class="" id="" style="">
 				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
-					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style=""
-					ev:oncellclick="scwin.grd1_oncellclick" rowNumVisible="true">
+					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style="height:164px"
+					ev:oncellclick="scwin.grd1_oncellclick" rowNumVisible="true" readOnly="true" visibleRowNum="5">
 					<w2:caption id="caption2" style="" value="this is a grid caption." />
 					<w2:header id="header2" style="">
 						<w2:row id="row3" style="">
-							<w2:column width="120" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
-							<w2:column width="80" inputType="text" style="" id="column3" value="인원" displayMode="label"></w2:column>
+							<w2:column width="130" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
+							<w2:column width="70" inputType="text" style="" id="column3" value="인원" displayMode="label"></w2:column>
 							<w2:column width="120" inputType="text" style="" id="column5" value="등록일시" displayMode="label" hidden="true"></w2:column>
 							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
-							<w2:column width="120" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
-							<w2:column width="80" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"  customFormatter="scwin.usercnt"></w2:column>
+							<w2:column width="130" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
+							<w2:column width="70" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"  customFormatter="scwin.usercnt"></w2:column>
 							<w2:column width="120" inputType="text" style="" id="GRP_REG_DTTM" value="" displayMode="label" displayFormat="####-##-## ##:##:##"></w2:column>
 							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
 							
@@ -300,7 +307,7 @@ scwin.usercnt = function(v1,v2,row,col){
 <!-- 2번 -->
 			<xf:group class="dfbox" id="" style="">
 				<xf:group class="fl" id="" style="">
-					<w2:textbox class="" id="txt_title_mychin" label="- 내채널회원" style="font-size:16px;margin-top:8px"></w2:textbox>
+					<w2:textbox class="" id="txt_title_mychin" label="- 채널별구독자목록" style="font-size:16px;margin-top:8px"></w2:textbox>
 				</xf:group>			
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox>
@@ -309,22 +316,22 @@ scwin.usercnt = function(v1,v2,row,col){
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
 				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list_mychin"
 					defaultCellHeight="26" focusMode="row" id="grd_mychin" scrollByColumn="false" scrollByColumnAdaptive="false" style=""
-					ev:oncellclick="scwin.grd_mychin_oncellclick" rowNumVisible="true">
+					ev:oncellclick="scwin.grd_mychin_oncellclick" rowNumVisible="true" readOnly="true">
 					<w2:caption id="caption_mychin" style="" value="" />
 					<w2:header id="header_mychin" style="">
 						<w2:row id="row3" style="">
-							<w2:column width="110" inputType="text" style="" id="column1" value="회원" displayMode="label"></w2:column>
-							<w2:column width="110" inputType="text" style="" id="column3" value="가입신청일" displayMode="label"></w2:column>
-							<w2:column width="110" inputType="text" style="" id="column5" value="가입승인일" displayMode="label"></w2:column>
 							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="column1" value="회원" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="column5" value="가입승인일" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="column3" value="가입신청일" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
-							<w2:column width="110" inputType="text" style="" id="U_NAME" value="" displayMode="label" textAlign="left" customFormatter="scwin.user"></w2:column>
-							<w2:column width="110" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
-							<w2:column width="110" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
 							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="U_NAME" value="" displayMode="label" textAlign="left" customFormatter="scwin.user"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
 						</w2:row>
 					</w2:gBody>
 				</w2:gridView>

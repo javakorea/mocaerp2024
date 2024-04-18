@@ -243,18 +243,18 @@ scwin.btn_search2_onclick = function(e) {
 					</w2:anchor>				
 				</xf:group>	
 				<xf:group class="fl" id="" style="">
-					<w2:textbox class="" id="txt_title_mychin" label="가입채널" style="font-size:18px;margin-left: 10px;margin-top: 5px;"></w2:textbox>
+					<w2:textbox class="" id="txt_title_mychin" label="구독중인 채널목록" style="font-size:18px;margin-left: 10px;margin-top: 5px;"></w2:textbox>
 				</xf:group>							
 				<xf:group class="fr" id="" style="">
 				<!-- 	<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox> -->
-					<xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_search2" style="width:50px;line-height: 0px;margin-top:4px" type="button"
+					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_reg" style="width:100px;line-height: 0px;margin-top:4px;margin-bottom:2px" type="button"
+						ev:onclick="scwin.btn_reg_onclick">
+						<xf:label><![CDATA[구독할채널찾기]]></xf:label>
+					</xf:trigger>				
+					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_search2" style="width:50px;line-height: 0px;margin-top:4px" type="button"
 						ev:onclick="scwin.btn_search2_onclick">
 						<xf:label><![CDATA[조회]]></xf:label>
 					</xf:trigger>
-					<xf:trigger class="btn_cm sch" disabled="" escape="false" id="btn_reg" style="width:100px;line-height: 0px;margin-top:4px;margin-bottom:2px" type="button"
-						ev:onclick="scwin.btn_reg_onclick">
-						<xf:label><![CDATA[채널검색]]></xf:label>
-					</xf:trigger>				
 				</xf:group>
 			</xf:group>
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">

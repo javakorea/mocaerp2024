@@ -358,10 +358,10 @@ scwin.threeCalDraw = function(){
 						break;
 					}else{
 						let aDay = WebSquare.date.dateTimeAdd( c.SCH_START, +loopMaxCnt, "day" );
+						scwin.addDayMap(aDay,c);
 						if((c.SCH_END == aDay) || (Number(c.SCH_END) < Number(aDay))){
 							break;
-						}
-						scwin.addDayMap(aDay,c);
+						}						
 					}				
 					loopMaxCnt++;
 				}
