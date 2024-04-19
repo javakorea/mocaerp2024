@@ -225,7 +225,7 @@ scwin.btn_search2_onclick = function(e) {
 /* 구독탈퇴/신청취소 */
 scwin.btnFormatter = function(_value){
 	if(!_value){//승인일이없으면
-		return `<input type='button' value='신청취소' style='background-color:#3a4891;color:#FFF;border-style:none;font-size:12px;height:24px;width:100%'/>`;
+		return `<input type='button' value='신청취소' style='background-color:#458b97;color:#FFF;border-style:none;font-size:12px;height:24px;width:100%'/>`;
 	}else{
 		return `<input type='button' value='구독탈퇴' style='background-color:#576DDC;color:#FFF;border-style:none;font-size:12px;height:24px;width:100%'/>`;
 	}
@@ -262,7 +262,7 @@ scwin.btnFormatter = function(_value){
 					</w2:anchor>				
 				</xf:group>	
 				<xf:group class="fl" id="" style="">
-					<w2:textbox class="" id="txt_title_mychin" label="구독중인 채널목록" style="font-size:18px;margin-left: 10px;margin-top: 5px;"></w2:textbox>
+					<w2:textbox class="" id="txt_title_mychin" label="구독(신청)중인 채널목록" style="font-size:18px;margin-left: 10px;margin-top: 5px;"></w2:textbox>
 				</xf:group>							
 				<xf:group class="fr" id="" style="">
 				<!-- 	<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox> -->

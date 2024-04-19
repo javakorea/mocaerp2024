@@ -346,6 +346,7 @@
 			FROM T_GRP_MEM
 			WHERE 1=1 
 			AND U_ID = #{U_ID}
+			ORDER BY GRP_APPR_DTTM ASC , GRP_JOIN_DTTM DESC
     </select>      
    	<select id="SER_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
    			/* SER_GRP 설정_채널가입 가입할채널검색*/
