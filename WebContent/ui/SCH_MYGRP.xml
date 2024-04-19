@@ -253,6 +253,10 @@ scwin.usercnt = function(v1,v2,row,col){
 						ev:onclick="com.btn_togglemenu_onclick">
 						<xf:label><![CDATA[slide]]></xf:label>
 					</w2:anchor>	
+					<w2:anchor class="btn_toggle menu " id="btn_menu" name="" outerDiv="false" style="margin-bottom:5px"
+						ev:onclick="com.mdi_close">
+						<xf:label><![CDATA[close]]></xf:label>
+					</w2:anchor>						
 				</xf:group>			
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style="margin-top:5px"></w2:textbox>
@@ -322,16 +326,16 @@ scwin.usercnt = function(v1,v2,row,col){
 						<w2:row id="row3" style="">
 							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
 							<w2:column width="110" inputType="text" style="" id="column1" value="회원" displayMode="label"></w2:column>
-							<w2:column width="110" inputType="text" style="" id="column5" value="가입승인일" displayMode="label"></w2:column>
-							<w2:column width="110" inputType="text" style="" id="column3" value="가입신청일" displayMode="label"></w2:column>
+							<w2:column width="80" inputType="text" style="" id="column5" value="가입승인일" displayMode="label"></w2:column>
+							<w2:column width="80" inputType="text" style="" id="column3" value="가입신청일" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
 							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
 							<w2:column width="110" inputType="text" style="" id="U_NAME" value="" displayMode="label" textAlign="left" customFormatter="scwin.user"></w2:column>
-							<w2:column width="110" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
-							<w2:column width="110" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
+							<w2:column width="80" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
+							<w2:column width="80" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
 						</w2:row>
 					</w2:gBody>
 				</w2:gridView>

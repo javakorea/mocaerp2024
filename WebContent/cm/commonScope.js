@@ -5379,3 +5379,7 @@ com.yyyy_MM_dd = function () {
 	}
 	return `${_value.substring(0,4)}-${_value.substring(4,6)}-${_value.substring(6,8)}`;
 };
+
+com.mdi_close = function () {
+	debugger;
+};
