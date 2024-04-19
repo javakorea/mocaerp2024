@@ -339,23 +339,23 @@
     
     
     
-    
-        
+    <!-- 설정_채널가입 -->
+   	<select id="SER_INGRP" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* SER_INGRP 설정_채널가입 구독중인채널목록*/
+			SELECT U_GRP_NM,U_ID,GRP_JOIN_DTTM,GRP_APPR_DTTM,GRP_APPR_DTTM AS GRP_BTN 
+			FROM T_GRP_MEM
+			WHERE 1=1 
+			AND U_ID = #{U_ID}
+    </select>      
    	<select id="SER_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
-   			/* SER_GRP */
+   			/* SER_GRP 설정_채널가입 가입할채널검색*/
 			SELECT GRP_NM,GRP_REG_DTTM,GRP_MANAGER_ID,GRP_MEMBER_MAX,GRP_MEMO,'가입신청' AS GRP_BTN 
 			FROM T_GRP
 			WHERE 1=1 
 			AND GRP_MANAGER_ID != #{GRP_MANAGER_ID}
 			AND GRP_NM like CONCAT('%',#{GRP_NM},'%') 
     </select>    
-   	<select id="SER_INGRP" parameterType="java.util.Map" resultType="java.util.HashMap">
-   			/* SER_INGRP */
-			SELECT U_GRP_NM,U_ID,GRP_JOIN_DTTM,GRP_APPR_DTTM,'탈퇴' AS GRP_BTN 
-			FROM T_GRP_MEM
-			WHERE 1=1 
-			AND U_ID = #{U_ID}
-    </select>     
+   
     <insert id="I_CH_JOIN" parameterType="java.util.Map" >
         /*INS_GRP*/
     	INSERT INTO T_GRP_MEM

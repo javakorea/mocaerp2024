@@ -104,24 +104,27 @@
 	ipt_GRP_NM.focus();
 };
 scwin.grd1_oncellclick = function(row,col,colId) {
-	let GRP_NM = this._dataList.getCellData(row,"GRP_NM");
+	let g = this;
+	let GRP_NM = g._dataList.getCellData(row,"GRP_NM");
 	if(colId == 'GRP_BTN'){
 		var xhr = new XMLHttpRequest();
 		xhr.open('post', '/selectMap.do');
 		xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
 		xhr.responseType = 'json';
-		xhr.onload = () => {
+		xhr.onload = function() {
 			let result = xhr.response;
 			if(!result.dma_map){
-				let ch = this._dataList.getCellData(row,'GRP_NM');
+				let ch = g._dataList.getCellData(row,'GRP_NM');
 				com.win.confirm($p, `채널[${ch}]에 가입신청하시겠습니까?`, function(e){
 					if(e.clickValue){
+					
 						dma_content2.set("U_GRP_NM",ch);
 						dma_content2.set("U_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
 
 						dma_content2.set("COMMON_MASTER_QUERY"	, "M.I_CH_JOIN");
 						dma_content2.set("COMMON_STATUS"			, "I_CH_JOIN");
 						com.sbm.execute(sbm_commonTran_가입신청);
+						dlt_list.setJSON([]);
 					}
 				});		
 			}else{
@@ -157,6 +160,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 		let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
 		if(request.COMMON_STATUS == 'I_CH_JOIN'){
 			com.win.alert('가입신청되었습니다.', function(e){
+				scwin.grp_dim_white_onclick();
 				scwin.btn_search2_onclick();
 			});		
 		}else if(request.COMMON_STATUS == 'D'){
@@ -168,11 +172,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 };	
 
 
-scwin.sbm_commonList_submitdone  = function(e) {
-	let cnt = dlt_list.getRowCount();
-	txt_cnt.setValue(cnt+'건');
-	ipt_GRP_NM.setValue('');
-};
+
 scwin.sbm_commonList2_submitdone  = function(e) {
 	let cnt = dlt_list.getRowCount();
 	txt_cnt.setValue(cnt+'건');
@@ -193,7 +193,7 @@ scwin.btn_closePop_onclick = function(e) {
 };
 
 
-
+/*팝업조회*/
 scwin.btn_search_onclick = function(e) {
 	let txt = ipt_GRP_NM.getValue();
 	txt = txt.replace(/\s*/g,'');
@@ -210,11 +210,30 @@ scwin.btn_search_onclick = function(e) {
 	dma_content.set("COMMON_QUERY"	, "M.SER_GRP");
 	com.sbm.execute (sbm_commonList);
 };
+scwin.sbm_commonList_submitdone  = function(e) {
+	let cnt = dlt_list.getRowCount();
+	txt_cnt.setValue(cnt+'건');
+	ipt_GRP_NM.setValue('');
+};
+/*메인조회*/
 scwin.btn_search2_onclick = function(e) {
 	dma_content2.set("U_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
 	dma_content2.set("COMMON_QUERY"	, "M.SER_INGRP");
 	com.sbm.execute (sbm_commonList2);
 };
+
+/* 구독탈퇴/신청취소 */
+scwin.btnFormatter = function(_value){
+	if(!_value){//승인일이없으면
+		return `<input type='button' value='신청취소' style='background-color:#3a4891;color:#FFF;border-style:none;font-size:12px;height:24px;width:100%'/>`;
+	}else{
+		return `<input type='button' value='구독탈퇴' style='background-color:#576DDC;color:#FFF;border-style:none;font-size:12px;height:24px;width:100%'/>`;
+	}
+};
+
+
+
+
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
@@ -264,18 +283,18 @@ scwin.btn_search2_onclick = function(e) {
 					<w2:caption id="caption_mychin" style="" value="" />
 					<w2:header id="header_mychin" style="">
 						<w2:row id="row3" style="">
-							<w2:column width="80" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
-							<w2:column width="95" inputType="text" style="" id="column3" value="가입신청일" displayMode="label"></w2:column>
+							<w2:column width="170" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
+							<!-- <w2:column width="95" inputType="text" style="" id="column3" value="가입신청일" displayMode="label"></w2:column> -->
 							<w2:column width="95" inputType="text" style="" id="column5" value="가입승인일" displayMode="label"></w2:column>
 							<w2:column width="" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
-							<w2:column width="80" inputType="text" style="" id="U_GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
-							<w2:column width="95" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
+							<w2:column width="170" inputType="text" style="" id="U_GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
+							<!-- <w2:column width="95" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column> -->
 							<w2:column width="95" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
-							<w2:column width="" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
+							<w2:column width="100" inputType="text" style="" id="GRP_BTN" value="" displayMode="label" displayFormatter="scwin.btnFormatter"></w2:column>
 						</w2:row>
 					</w2:gBody>
 				</w2:gridView>
@@ -308,7 +327,7 @@ scwin.btn_search2_onclick = function(e) {
 
 
 		<xf:group id="grp_dim_white" class=""
-			style="display:none;z-index:9998;background-color:#FFF;opacity:0.9;position:absolute;top:0px;bottom:0px;left:0px;right:0px"
+			style="display:none;z-index:9998;background-color:#FFF;opacity:1;position:absolute;top:0px;bottom:0px;left:0px;right:0px"
 			ev:onclick="scwin.grp_dim_white_onclick">
 		</xf:group>
 		<xf:group
@@ -369,18 +388,18 @@ scwin.btn_search2_onclick = function(e) {
 					<w2:caption id="caption2" style="" value="this is a grid caption." />
 					<w2:header id="header2" style="">
 						<w2:row id="row3" style="">
-							<w2:column width="80" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
+							<w2:column width="120" inputType="text" style="" id="column1" value="채널명" displayMode="label"></w2:column>
 							<w2:column width="40" inputType="text" style="" id="column3" value="인원" displayMode="label"></w2:column>
 							<w2:column width="80" inputType="text" style="" id="column5" value="채널소개" displayMode="label"></w2:column>
-							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
+							<w2:column width="" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
-							<w2:column width="80" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
+							<w2:column width="120" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
 							<w2:column width="40" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"></w2:column>
-							<w2:column width="80" inputType="text" style="" id="GRP_MEMO" value="" displayMode="label"></w2:column>
-							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
+							<w2:column width="100" inputType="text" style="" id="GRP_MEMO" value="" displayMode="label"></w2:column>
+							<w2:column width="" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:gBody>
 				</w2:gridView>
