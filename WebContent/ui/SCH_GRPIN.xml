@@ -225,7 +225,7 @@ scwin.btn_search2_onclick = function(e) {
 /* 구독탈퇴/신청취소 */
 scwin.btnFormatter = function(_value){
 	if(!_value){//승인일이없으면
-		return `<input type='button' value='신청취소' style='background-color:#458b97;color:#FFF;border-style:none;font-size:12px;height:24px;width:100%'/>`;
+		return `<input type='button' value='신청취소' style='background-color:#2c5b63;color:#FFF;border-style:none;font-size:12px;height:24px;width:100%'/>`;
 	}else{
 		return `<input type='button' value='구독탈퇴' style='background-color:#576DDC;color:#FFF;border-style:none;font-size:12px;height:24px;width:100%'/>`;
 	}
