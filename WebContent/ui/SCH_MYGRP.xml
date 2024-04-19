@@ -253,7 +253,7 @@ scwin.usercnt = function(v1,v2,row,col){
 						ev:onclick="com.btn_togglemenu_onclick">
 						<xf:label><![CDATA[slide]]></xf:label>
 					</w2:anchor>	
-					<w2:anchor class="btn_toggle menu " id="btn_menu" name="" outerDiv="false" style="margin-bottom:5px"
+					<w2:anchor class="btn_toggle menu " id="btn_mdiback" name="" outerDiv="false" style="margin-bottom:5px"
 						ev:onclick="com.mdi_close">
 						<xf:label><![CDATA[close]]></xf:label>
 					</w2:anchor>						
