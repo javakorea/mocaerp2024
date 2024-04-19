@@ -213,7 +213,8 @@
 						<w2:key id="COMMON_DETAIL_UPDATEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
 						<w2:key id="COMMON_DETAIL_DELETEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
 						<w2:key id="COMMON_MASTER_KEY" 			name="COMMON_MASTER_KEY" 			dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_KEY" 			name="COMMON_DETAIL_KEY" 			dataType="text"></w2:key>						
+						<w2:key id="COMMON_DETAIL_KEY" 			name="COMMON_DETAIL_KEY" 			dataType="text"></w2:key>		
+						<w2:key id="COMMON_DETAIL_BEFORE_INSERTQUERY" 			name="COMMON_DETAIL_BEFORE_INSERTQUERY" 			dataType="text"></w2:key>					
 					</w2:keyInfo>
 				</w2:dataMap>
 				<w2:dataMap baseNode="map" id="dma_content">
@@ -246,6 +247,7 @@
 						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
 						<w2:key id="COMMON_MASTER_KEY" name="COMMON_MASTER_KEY" dataType="text"></w2:key>
 						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_BEFORE_INSERTQUERY" name="COMMON_DETAIL_BEFORE_INSERTQUERY" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>		
 				<w2:dataMap baseNode="map" id="COMMON_RESULT">
@@ -691,7 +693,37 @@ scwin.btn_update_onclick = function(e) {
 				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
 				/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);
 				/* key3 */dma_content.set("SCH_IDX"				, scwin.selectedSchObj.SCH_IDX);
-				com.sbm.execute(sbm_commonTran);
+
+
+
+
+
+
+
+
+				/* contents */
+				dma_content.set("COMMON_DETAIL_BEFORE_INSERTQUERY"	, "M.DEL_MAPP");
+				dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.INS_MAPP");
+				dma_content.set("COMMON_MASTER_KEY","SCH_WRITER,SCH_START,SCH_IDX");dma_content.set("COMMON_DETAIL_KEY","SCH_WRITER,SCH_START,SCH_IDX");
+				wfm_pop.scope.chk_channel.getValue();
+
+				let arr = wfm_pop.scope.chk_channel.getValue().split(',');
+				let detail_list = [];
+				for(let i=0; i < arr.length; i++){
+					let row = {GRP_NM : arr[i]};
+					row["SCH_WRITER"] = JSON.parse(sessionStorage.getItem('loginInfo')).id;
+					row["SCH_START"] = wfm_pop.scope.ipt_day.getValue();
+					detail_list.push(row);
+				}
+				dlt_detail.setJSON(detail_list);
+				for(let i=0; i < arr.length; i++){
+					dlt_detail.modifyRowStatus(i,'C'); 
+				}
+
+				
+				com.sbm.execute(sbm_commonTranDetail);
+
+
 			}
 		});
 	}

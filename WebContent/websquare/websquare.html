@@ -102,11 +102,12 @@
         	//gauth.signIn().then(function(){
         		
             	const responsePayload = parseJwt(response.credential);
-            	if( responsePayload.email == "shj9321@gmail.com" || responsePayload.email ==  "javakoreaboss@gmail.com"){
+            	debugger;
+            	//if( responsePayload.email == "shj9321@gmail.com" || responsePayload.email ==  "javakoreaboss@gmail.com"){
             		 go (responsePayload);
-            	}else{
-            		alert('접근할 수 없는 계정입니다.')
-            	}
+            	//}else{
+            	//	alert('접근할 수 없는 계정입니다.')
+            	//}
 /*            console.log("ID: " + responsePayload.sub);
                 console.log('Full Name: ' + responsePayload.name);
                 console.log('Given Name: ' + responsePayload.given_name);

@@ -31,10 +31,10 @@
 	xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
 	xhr.responseType = 'json';
 	xhr.onload = function() {
+		debugger;
 		let result = xhr.response;
 
 		if(result.dlt_list){
-			debugger;
 			dlt_channel_list.setJSON(result.dlt_list);
 			let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
 
@@ -59,33 +59,59 @@
 			/* 수정일때만 */
 			scwin._parentDma = $p.parent().scwin.selectedSchObj;
 			if(scwin._parentDma && scwin._parentDma.SCH_IDX){
-				edi_1.setValue(scwin._parentDma.SCH_CONT);
-				dma_content.set('SCH_IDX',scwin._parentDma.SCH_IDX);
-				if(!scwin._parentDma.SCH_COLOR){
-					scwin._parentDma.SCH_COLOR = 1;
-				}
-				rdo_gubunYn.setValue(scwin._parentDma.SCH_COLOR);
+				var xhr2 = new XMLHttpRequest();
+				xhr2.open('post', '/selectList.do');
+				xhr2.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
+				xhr2.responseType = 'json';
+				xhr2.onload = function() {
+					let result = xhr2.response;
+					debugger;
+					if(result.dlt_list){
+						let str = '';
+						for(let j=0; j < result.dlt_list.length; j++){
+							let oneGrp = result.dlt_list[j];
+							if(j == result.dlt_list.length-1){
+								str += oneGrp.GRP_NM + '';
+							}else{
+								str += oneGrp.GRP_NM + ',';
+							}
+							
+						}
+						chk_channel.setValue(str);
+					}
+					edi_1.setValue(scwin._parentDma.SCH_CONT);
+					dma_content.set('SCH_IDX',scwin._parentDma.SCH_IDX);
+					if(!scwin._parentDma.SCH_COLOR){
+						scwin._parentDma.SCH_COLOR = 1;
+					}
+					rdo_gubunYn.setValue(scwin._parentDma.SCH_COLOR);
 
 
-				if(dma_content.get('SCH_END_TIME')){
-					scwin.sch_mode = 'DETAIL';
-					ipc_start.setValue(dma_content.get('SCH_START'));
-					ipt_startHH.setValue(dma_content.get('SCH_START_TIME').substring(0,2));
-					ipt_startMI.setValue(dma_content.get('SCH_START_TIME').substring(2,4));
+					if(dma_content.get('SCH_END_TIME')){
+						scwin.sch_mode = 'DETAIL';
+						ipc_start.setValue(dma_content.get('SCH_START'));
+						ipt_startHH.setValue(dma_content.get('SCH_START_TIME').substring(0,2));
+						ipt_startMI.setValue(dma_content.get('SCH_START_TIME').substring(2,4));
 
-					ipc_end.setValue(dma_content.get('SCH_END'));
-					ipt_endHH.setValue(dma_content.get('SCH_END_TIME').substring(0,2));
-					ipt_endMI.setValue(dma_content.get('SCH_END_TIME').substring(2,4));
-					
-					tr_start.show('');
-					tr_end.show('');
-					trigger2.setValue("간편등록모드로이동");
-				}else{
-					scwin.sch_mode = 'SIMPLE';
-					tr_start.hide('');
-					tr_end.hide('');			
-					trigger2.setValue("상세등록모드로이동");	
-				}
+						ipc_end.setValue(dma_content.get('SCH_END'));
+						ipt_endHH.setValue(dma_content.get('SCH_END_TIME').substring(0,2));
+						ipt_endMI.setValue(dma_content.get('SCH_END_TIME').substring(2,4));
+						
+						tr_start.show('');
+						tr_end.show('');
+						trigger2.setValue("간편등록모드로이동");
+					}else{
+						scwin.sch_mode = 'SIMPLE';
+						tr_start.hide('');
+						tr_end.hide('');			
+						trigger2.setValue("상세등록모드로이동");	
+					}
+				};
+				xhr2.send(JSON.stringify({dma_search:{COMMON_QUERY:'M.SEL_GRP_FORSCH',SCH_WRITER:dma_content.get('SCH_WRITER'),SCH_START:dma_content.get('SCH_START'),SCH_IDX:dma_content.get('SCH_IDX')}}));
+
+
+
+
 
 
 			/*등록시*/	
@@ -278,7 +304,7 @@ scwin.trigger2_onclick = function(e) {
 							</xf:group>
 						</xf:group>
 					</xf:group>
-					<xf:group tagname="tr" style="" id="tr_channel">
+					<xf:group tagname="tr" id="tr_channel" style="height:80px">
 						<xf:group tagname="th" class="w2tb_th">
 							<w2:attributes></w2:attributes>
 							<w2:textbox class="" id="" label="공유" style=""></w2:textbox>

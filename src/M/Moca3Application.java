@@ -71,6 +71,7 @@ public class Moca3Application {
 	public static String COMMON_DETAIL_UPDATEQUERY = "COMMON_DETAIL_UPDATEQUERY";
 	public static String COMMON_DETAIL_INSERTQUERY = "COMMON_DETAIL_INSERTQUERY";
 	public static String COMMON_DETAIL_DELETEQUERY = "COMMON_DETAIL_DELETEQUERY";	
+	public static String COMMON_DETAIL_BEFORE_INSERTQUERY = "COMMON_DETAIL_BEFORE_INSERTQUERY";	
 	
 	
 	public static String COMMON_MASTER_QUERY = "COMMON_MASTER_QUERY";
@@ -103,13 +104,16 @@ public class Moca3Application {
 	public Map commonTran(@RequestBody Map param) throws Exception{
 		Map dma_common = (Map) param.get(this.MASTER_MAP);
 		
-		String COMMON_MASTER_QUERY 			= String.valueOf(dma_common.get(this.COMMON_MASTER_QUERY));
-		String MASTER_KEY_NM 				= String.valueOf(dma_common.get(this.COMMON_MASTER_KEY));
-		String DETAIL_KEY_NM 				= String.valueOf(dma_common.get(this.COMMON_DETAIL_KEY));
-		String COMMON_MASTER_DELETEQUERY 	= String.valueOf(dma_common.get(this.COMMON_MASTER_DELETEQUERY));
-		String COMMON_DETAIL_INSERTQUERY 	= String.valueOf(dma_common.get(this.COMMON_DETAIL_INSERTQUERY));
-		String COMMON_DETAIL_UPDATEQUERY 	= String.valueOf(dma_common.get(this.COMMON_DETAIL_UPDATEQUERY));
-		String COMMON_DETAIL_DELETEQUERY 	= String.valueOf(dma_common.get(this.COMMON_DETAIL_DELETEQUERY));
+		String COMMON_MASTER_QUERY 					= String.valueOf(dma_common.get(this.COMMON_MASTER_QUERY));
+		String MASTER_KEY_NM 						= String.valueOf(dma_common.get(this.COMMON_MASTER_KEY));
+		String DETAIL_KEY_NM 						= String.valueOf(dma_common.get(this.COMMON_DETAIL_KEY));
+		String COMMON_MASTER_DELETEQUERY 			= String.valueOf(dma_common.get(this.COMMON_MASTER_DELETEQUERY));
+		String COMMON_DETAIL_INSERTQUERY 			= String.valueOf(dma_common.get(this.COMMON_DETAIL_INSERTQUERY));
+		String COMMON_DETAIL_UPDATEQUERY 			= String.valueOf(dma_common.get(this.COMMON_DETAIL_UPDATEQUERY));
+		String COMMON_DETAIL_DELETEQUERY 			= String.valueOf(dma_common.get(this.COMMON_DETAIL_DELETEQUERY));
+		String COMMON_DETAIL_BEFORE_INSERTQUERY 	= String.valueOf(dma_common.get(this.COMMON_DETAIL_BEFORE_INSERTQUERY));
+		
+		
 		Map COMMON_RESULT_MAP = new HashMap(); 
 			Map resultAfterMap = null;
 			Map resultMap = new HashMap();
@@ -132,9 +136,14 @@ public class Moca3Application {
 			Map result = new HashMap();
 			
 			
+			
+			if(!"null".equalsIgnoreCase(COMMON_DETAIL_BEFORE_INSERTQUERY)  && !"".equals(COMMON_DETAIL_BEFORE_INSERTQUERY.trim())) {
+				int delCnt = ss.insert(COMMON_DETAIL_BEFORE_INSERTQUERY,dma_common);
+			}
+			
+			
 			List dlt_common = (List) param.get(this.DETAIL_LiST);
 			LogUtil.info(this.DETAIL_LiST);
-			LogUtil.info(dlt_common.size()+"");
 			if(dlt_common != null) {
 				int sz = dlt_common.size();
 				for(int i=0; i < sz; i++) {

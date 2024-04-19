@@ -312,16 +312,35 @@
 		VALUES
 		(#{GRP_NM},TO_CHAR(NOW(),'YYYYMMDDHH24MISS'),#{GRP_MANAGER_ID},100)
     </insert>
+    
+    
+    
+    <!-- 설정_내채널 -->
    	<select id="LST_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
-   			/* LST_GRP */
-			SELECT G.GRP_NM,G.GRP_NM AS DATA,G.GRP_NM AS CODE,G.GRP_MEMBER_MAX,COUNT(GM.U_GRP_NM) AS CNT,'삭제' AS GRP_BTN
+   			/* LST_GRP 내채널_내채널목록조회*/
+			SELECT G.GRP_REG_DTTM,G.GRP_NM,G.GRP_NM AS DATA,G.GRP_NM AS CODE,G.GRP_MEMBER_MAX,COUNT(GM.U_GRP_NM) AS CNT,'삭제' AS GRP_BTN
 			FROM 	T_GRP_MEM GM 
 					RIGHT OUTER JOIN T_GRP G 
 					ON GM.U_GRP_NM = G.GRP_NM
 			WHERE 1=1 
 			AND G.GRP_MANAGER_ID = #{GRP_MANAGER_ID}
-			GROUP BY G.GRP_NM	
+			GROUP BY G.GRP_NM
+			ORDER BY 1 DESC				
     </select>
+   	<select id="SEL_GRP_MEM" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* SEL_GRP_MEM 내채널클릭시_상세구독자조회*/
+			SELECT 
+			G.U_GRP_NM,G.U_ID,G.GRP_JOIN_DTTM,G.GRP_APPR_DTTM,'승인' AS GRP_BTN,M.U_NAME,M.U_EMAIL
+			FROM T_GRP_MEM G,T_MEMBER M
+			WHERE 1=1 
+			AND G.U_ID = M.U_ID
+			AND U_GRP_NM=#{U_GRP_NM}
+    </select> 
+    
+    
+    
+    
+        
    	<select id="SER_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
    			/* SER_GRP */
 			SELECT GRP_NM,GRP_REG_DTTM,GRP_MANAGER_ID,GRP_MEMBER_MAX,GRP_MEMO,'가입신청' AS GRP_BTN 
@@ -366,15 +385,7 @@
 		AND U_GRP_NM=#{U_GRP_NM}
 		AND U_ID=#{U_ID}
     </update>    
-   	<select id="SEL_GRP_MEM" parameterType="java.util.Map" resultType="java.util.HashMap">
-   			/* SEL_GRP_MEM */
-			SELECT 
-			G.U_GRP_NM,G.U_ID,G.GRP_JOIN_DTTM,G.GRP_APPR_DTTM,'승인' AS GRP_BTN,M.U_NAME,M.U_EMAIL
-			FROM T_GRP_MEM G,T_MEMBER M
-			WHERE 1=1 
-			AND G.U_ID = M.U_ID
-			AND U_GRP_NM=#{U_GRP_NM}
-    </select> 
+
     <insert id="DEL_GRP" parameterType="java.util.Map" >
         /*DEL_GRP*/
 	    DELETE FROM T_GRP
@@ -389,6 +400,24 @@
 		VALUES
 		(#{GRP_NM},#{SCH_WRITER}, #{SCH_START}, #{SCH_IDX})
     </insert>
+   	<select id="SEL_GRP_FORSCH" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* SEL_GRP_FORSCH 스케쥴에 매핑된 그룹리스트 가져오기 */
+			SELECT 
+			GRP_NM,SCH_WRITER,SCH_START,SCH_IDX
+			FROM T_MAPP
+			WHERE 1=1 
+			AND SCH_WRITER = #{SCH_WRITER}
+			AND SCH_START = #{SCH_START}
+			AND SCH_IDX = #{SCH_IDX}
+    </select> 
+    <delete id="DEL_MAPP" parameterType="java.util.Map" >
+        /*DEL_MAPP 수정을위한 해당일에 공유전체삭제*/
+	    DELETE FROM T_MAPP
+		WHERE 1=1 
+		AND SCH_WRITER = #{SCH_WRITER}
+		AND SCH_START = #{SCH_START}
+		AND SCH_IDX = #{SCH_IDX}
+    </delete> 
     
     
         
