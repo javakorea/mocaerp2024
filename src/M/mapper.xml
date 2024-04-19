@@ -356,6 +356,14 @@
 			AND GRP_MANAGER_ID != #{GRP_MANAGER_ID}
 			AND GRP_NM like CONCAT('%',#{GRP_NM},'%') 
     </select>    
+    
+    
+    
+    
+    
+    
+    
+    
    
     <insert id="I_CH_JOIN" parameterType="java.util.Map" >
         /*INS_GRP*/
