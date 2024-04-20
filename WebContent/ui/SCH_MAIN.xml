@@ -293,9 +293,14 @@ scwin.yoil = {일요일:0,월요일:1,화요일:2,수요일:3,목요일:4,금요
 scwin.dayMap = {};
 
 /* 구분컬러CSS로가져오기API */
-scwin.getBgColorTag = function(_gubun){
-	let c = scwin.getColor(_gubun);
-	return `background-color:${c.backColor};color:${c.color}`;
+scwin.getBgColorTag = function(_gubun,o){
+	if(o.TYPE == 'LINK'){
+		let c = scwin.getColor(101);
+		return `background-color:${c.backColor};color:${c.color}`;
+	}else{
+		let c = scwin.getColor(_gubun);
+		return `background-color:${c.backColor};color:${c.color}`;
+	}
 };
 /* 구분컬러가져오기API */
 scwin.getColor = function(_gubun){
@@ -402,9 +407,7 @@ scwin.setCalData = function(list,_isLink){
 		if(_isLink){
 			if(c.SCH_WRITER != JSON.parse(sessionStorage.getItem('loginInfo')).id){
 				//구독일정일경우
-				c.SCH_COLOR = '101';
 				c.TYPE = 'LINK';
-				debugger;				
 			}
 		}
 		scwin.addDayMap(c.SCH_START,c);
@@ -474,7 +477,7 @@ scwin.draw = function(yyyyMM,_scope) {
 				for(let i=0; i < o.length; i++){
 					let aDaySc = o[i];
 					let _bgColor = aDaySc['SCH_COLOR'];
-					_bgColor = scwin.getBgColorTag(_bgColor);
+					_bgColor = scwin.getBgColorTag(_bgColor,aDaySc);
 					let title_display = '';
 
 
