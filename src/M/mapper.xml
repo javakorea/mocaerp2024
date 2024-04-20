@@ -471,8 +471,20 @@
          AND SCH_START=#{SCH_START}
          AND SCH_IDX=#{SCH_IDX}
     </update>
-    <select id="SEL_SCHEDULELIST" parameterType="java.util.Map" resultType="java.util.HashMap">
-    	/*SEL_SCHEDULELIST*/
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- 달력 -->
+    <select id="SEL_MY_SCH_LIST" parameterType="java.util.Map" resultType="java.util.HashMap">
+    	/*SEL_MY_SCH_LIST 나의일정리스트 */
 		SELECT
 			SCH_IDX,
 			SCH_TITLE,
@@ -481,13 +493,10 @@
 			SCH_CREATE_DTTM,
 			SCH_CURRENTMONTH,
 			SCH_START,
-			
 			SCH_START_TIME,
 			SCH_END,
 			SCH_END_TIME,
-  
 			SCH_COLOR ,
-			SCH_COLOR AS FUL_COLOR,
 			SCH_DELYN,
 			SCH_SENDYN,
 			SCH_SUCCESSYN
@@ -495,8 +504,44 @@
 		WHERE 1=1
 		AND SCH_DELYN = 'N'
 		AND SCH_WRITER = #{SCH_WRITER}
-		AND (SCH_CURRENTMONTH = #{SCH_CURRENTMONTH_PREV} OR SCH_CURRENTMONTH = #{SCH_CURRENTMONTH} OR SCH_CURRENTMONTH = #{SCH_CURRENTMONTH_NEXT} )
+		AND S.SCH_CURRENTMONTH IN (#{SCH_CURRENTMONTH_PREV},#{SCH_CURRENTMONTH},#{SCH_CURRENTMONTH_NEXT} )
     </select>
+    <select id="SEL_CH_SCH_LIST" parameterType="java.util.Map" resultType="java.util.HashMap">
+    	/*SEL_CH_SCH_LIST 나의구독일정리스트 */
+		SELECT 
+			G.GRP_NM,GM.U_ID,
+			S.SCH_WRITER,S.SCH_START,S.SCH_IDX,
+			S.SCH_TITLE,S.SCH_CONT,S.SCH_CREATE_DTTM,S.SCH_CURRENTMONTH,
+			S.SCH_START_TIME,S.SCH_END,S.SCH_END_TIME,S.SCH_COLOR,
+			S.SCH_DELYN,S.SCH_SUCCESSYN,S.SCH_SENDYN,S.SCH_UPTDT
+		FROM 
+			T_GRP_MEM 	GM,
+			T_MAPP 		PP, 
+			T_SCHEDULE 	S,
+			T_GRP 		G
+		WHERE 1=1
+		AND G.GRP_NM 		= PP.GRP_NM
+		AND GM.U_GRP_NM 	= PP.GRP_NM
+		AND PP.SCH_WRITER 	= S.SCH_WRITER
+		AND PP.SCH_START 	= S.SCH_START
+		AND PP.SCH_IDX 		= S.SCH_IDX
+		AND GM.U_ID 		= #{SCH_WRITER}
+		AND GM.GRP_APPR_DTTM IS NOT NULL
+		AND S.SCH_CURRENTMONTH IN (#{SCH_CURRENTMONTH_PREV},#{SCH_CURRENTMONTH},#{SCH_CURRENTMONTH_NEXT} )
+    </select>
+
+    
+    
+
+
+
+
+
+
+
+
+
+
 
 
 

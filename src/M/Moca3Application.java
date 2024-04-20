@@ -570,8 +570,18 @@ class u {
 	public static Map selectList(Map param,SqlSession ss) {
 		Map searchMap = (Map) param.get("dma_search");
 		Map resultMap = new HashMap();
-		List list = ss.selectList((String)searchMap.get("COMMON_QUERY"), searchMap);
-		resultMap.put("dlt_list", list);
+		
+		String querys = (String)searchMap.get("COMMON_QUERY");
+		String[] queryArr = querys.split(",");
+		for(int i=0; i < queryArr.length; i++) {
+			String query = queryArr[i];
+			List list = ss.selectList(query, searchMap);
+			if(i == 0) {
+				resultMap.put("dlt_list", list);
+			}else {
+				resultMap.put("dlt_list"+i, list);
+			}
+		}
 		return resultMap;
 	};
 }

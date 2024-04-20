@@ -286,13 +286,28 @@ scwin.selectedSchObj = null;
 
 scwin.yyyyMmColor = '#dc5773';
 scwin.cellBgColor = '#deecee';
-scwin.gubun1Color = '#576DDC';
-scwin.gubun2Color = '#53A786';
 scwin.left = null;
 scwin.center = null;
 scwin.right = null;
 scwin.yoil = {일요일:0,월요일:1,화요일:2,수요일:3,목요일:4,금요일:5,토요일:6};
 scwin.dayMap = {};
+
+/* 구분컬러CSS로가져오기API */
+scwin.getBgColorTag = function(_gubun){
+	let c = scwin.getColor(_gubun);
+	return `background-color:${c.backColor};color:${c.color}`;
+};
+/* 구분컬러가져오기API */
+scwin.getColor = function(_gubun){
+	if(_gubun == 1){
+		return {backColor:'#576DDC',color:'white'};
+	}else if(_gubun == 101){
+		return {backColor:'yellow',color:'black'};
+	}else{
+		return {backColor:'#53A786',color:'black'};
+	}
+};
+
 scwin.onpageload = function() {
 	dma_search.set("SCH_WRITER",JSON.parse(sessionStorage.getItem('loginInfo')).id);
 	let thisMonth = WebSquare.date.getCurrentServerDate('yyyyMM');
@@ -354,7 +369,7 @@ scwin.threeCalDraw = function(){
 	dma_search.set('SCH_CURRENTMONTH_NEXT',yyyyMM_next);
 
 
-	dma_search.set('COMMON_QUERY',"M.SEL_SCHEDULELIST");
+	dma_search.set('COMMON_QUERY',"M.SEL_MY_SCH_LIST,M.SEL_CH_SCH_LIST");
 	com.sbm.execute(sbm_schdList);
 	scwin.addDayMap = function(_key,_valObj){
 		let aDayList = scwin.dayMap[_key];
@@ -366,27 +381,12 @@ scwin.threeCalDraw = function(){
 	};
 	scwin.sbm_schdList_submitdone = function(e) {
 		scwin.dayMap = {};
-		let list = e.responseJSON.dlt_list;
-		for(let i=0; i < list.length; i++){
-			let c = list[i];
-			scwin.addDayMap(c.SCH_START,c);
-			if(c.SCH_END){
-				let loopMax = 100;//연속100일제한
-				let loopMaxCnt = 1;
-				while(true){
-					if(loopMaxCnt > loopMax){
-						break;
-					}else{
-						let aDay = WebSquare.date.dateTimeAdd( c.SCH_START, +loopMaxCnt, "day" );
-						scwin.addDayMap(aDay,c);
-						if((c.SCH_END == aDay) || (Number(c.SCH_END) < Number(aDay))){
-							break;
-						}						
-					}				
-					loopMaxCnt++;
-				}
-			}
-		};
+
+		//나의일정
+		scwin.setCalData(e.responseJSON.dlt_list);
+		//구독일정 
+		scwin.setCalData(e.responseJSON.dlt_list1,'link');
+
 		if(scwin.selectedCell && (scwin.selectedCell.getAttribute('yyyyMMdd').substring(0,6) != yyyyMM)){
 			if(scwin.selectedCell){scwin.selectedCell.setStyle('background-color','');scwin.selectedCell=null;}
 		};
@@ -394,6 +394,37 @@ scwin.threeCalDraw = function(){
 		scwin.draw(yyyyMM_prev,scwin.left.scope);
 		scwin.draw(yyyyMM_next,scwin.right.scope);
 	};
+}
+
+scwin.setCalData = function(list,_isLink){
+	for(let i=0; i < list.length; i++){
+		let c = list[i];
+		if(_isLink){
+			if(c.SCH_WRITER != JSON.parse(sessionStorage.getItem('loginInfo')).id){
+				//구독일정일경우
+				c.SCH_COLOR = '101';
+				c.TYPE = 'LINK';
+				debugger;				
+			}
+		}
+		scwin.addDayMap(c.SCH_START,c);
+		if(c.SCH_END){
+			let loopMax = 100;//연속100일제한
+			let loopMaxCnt = 1;
+			while(true){
+				if(loopMaxCnt > loopMax){
+					break;
+				}else{
+					let aDay = WebSquare.date.dateTimeAdd( c.SCH_START, +loopMaxCnt, "day" );
+					scwin.addDayMap(aDay,c);
+					if((c.SCH_END == aDay) || (Number(c.SCH_END) < Number(aDay))){
+						break;
+					}						
+				}				
+				loopMaxCnt++;
+			}
+		}
+	}
 }
 /* 달력1장그리기 */
 scwin.draw = function(yyyyMM,_scope) {
@@ -490,18 +521,7 @@ scwin.getSCH_CURRENTMONTH = function(){
 scwin.search = function(){
 	scwin.threeCalDraw();
 };
-/* 구분컬러CSS로가져오기API */
-scwin.getBgColorTag = function(_gubun){
-	return `background-color:${scwin.getBgColor(_gubun)};color:white`;
-};
-/* 구분컬러가져오기API */
-scwin.getBgColor = function(_gubun){
-	if(_gubun == 1){
-		return scwin.gubun1Color;
-	}else{
-		return scwin.gubun2Color;
-	}
-};
+
 /* 날짜CELL클릭이벤트API */
 scwin.cell_onclick = function(_thisCell) {
     if(scwin.selectedCell){scwin.selectedCell.setStyle('background-color','');}//이전선택된cell은 배경색지우고
