@@ -302,9 +302,9 @@ scwin.getColor = function(_gubun){
 	if(_gubun == 1){
 		return {backColor:'#576DDC',color:'white'};
 	}else if(_gubun == 101){
-		return {backColor:'yellow',color:'black'};
+		return {backColor:'white',color:'black'};
 	}else{
-		return {backColor:'#53A786',color:'black'};
+		return {backColor:'#53A786',color:'white'};
 	}
 };
 
@@ -476,10 +476,18 @@ scwin.draw = function(yyyyMM,_scope) {
 					let _bgColor = aDaySc['SCH_COLOR'];
 					_bgColor = scwin.getBgColorTag(_bgColor);
 					let title_display = '';
+
+
 					if(aDaySc.SCH_SUCCESSYN == 'Y'){
 						title_display = '✔'+aDaySc.SCH_TITLE;
 					}else{
 						title_display = aDaySc.SCH_TITLE;
+					}
+
+
+					
+					if(aDaySc.TYPE == 'LINK'){
+						title_display = '⊶'+title_display;
 					}
 					str += `<span class='sch_bar' style='${_bgColor}'>${title_display}</span>`;
 				}
