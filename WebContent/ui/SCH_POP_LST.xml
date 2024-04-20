@@ -42,7 +42,7 @@
 			
 			grp_row.setUserData('SCH_IDX',row.SCH_IDX);
 			grp_row.setUserData('SCH_OBJ',row);
-			let _color = $p.parent().scwin.getBgColor(row.SCH_COLOR);
+			let _color = $p.parent().scwin.getColor(row.SCH_COLOR).backColor;
 			//btn_item.setStyle('background-color',_color);
 			btn_item.setStyle('border-left',`10px solid ${_color}`);
 
