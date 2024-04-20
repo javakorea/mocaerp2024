@@ -1000,8 +1000,6 @@ input[type="file"]{cursor:pointer;}
 .btn_toggle.mo{display: inline-block; position: relative; width: 36px; height: 36px; font-size: 0px; line-height: 0px; vertical-align: top; background-color: #fff; border-radius: 8px; margin-left: 5px; color:#333;border: 1px solid #333}
 .btn_toggle.mo:after{content:"";position:absolute;left:50%;top:50%;width:20px;height:20px;margin-top:-10px;margin-left:-10px;}
 /*.btn_toggle.mo:hover:after{animation:btn_toggle_menu 1s forwards}*/
-.fl .btn_toggle.menu.mo:first-child{margin-left:10px;}
-.fr .btn_toggle.menu.mo:last-child{margin-right:10px;}
 .btn_toggle.menu.mo:after{background:url(/cm/images/btn_toggle_menu.png) center center no-repeat}
 .btn_toggle.esc.mo{background-color:unset;}
 .btn_toggle.logout.mo:after{background:url(/cm/images/ico_logout.svg) left center no-repeat; background-size:22px;}
@@ -1777,6 +1775,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	
 	.sch_titleArea .sch_tit > input{}
 	.spa_dt{ margin: 0px;  font-size: 0.7em; padding:0}
+	.ico_weather{width:22px; height:22px; background-size:22px; right:22px;}
 	.sch_bar{text-overflow:clip; margin: 4px 2px;}
 	.side .grp_tab .tab_con{top:0px;}
 	.sch_titleArea{background-position:40%;}

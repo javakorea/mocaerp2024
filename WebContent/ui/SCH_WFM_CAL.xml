@@ -178,28 +178,32 @@ scwin.cell_onclick = function() {
 						<xf:group style="" id="cell21" class="sch_td" ev:onclick="scwin.cell_onclick">
 							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
+							<w2:span class="ico_weather cloud" id="" label="" style=""></w2:span>
 						</xf:group>
 						<xf:group style="" id="cell22" class="sch_td" ev:onclick="scwin.cell_onclick">
 							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
+							<w2:span class="ico_weather cloud" id="" label="" style=""></w2:span>
 						</xf:group>
 						<xf:group style="" id="cell23" class="sch_td" ev:onclick="scwin.cell_onclick">
 							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
+							<w2:span class="ico_weather sunny" id="" label="" style=""></w2:span>
 						</xf:group>
 						<xf:group style="" id="cell24" class="sch_td" ev:onclick="scwin.cell_onclick">
 							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
+							<w2:span class="ico_weather sunny" id="" label="" style=""></w2:span>
 						</xf:group>
 						<xf:group style="" id="cell25" class="sch_td" ev:onclick="scwin.cell_onclick">
 							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-							<w2:span class="ico_weather sunny" id="" label="" style=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
+							<w2:span class="ico_weather sunny" id="" label="" style=""></w2:span>
 						</xf:group>
 						<xf:group style="" id="cell26" class="sch_td" ev:onclick="scwin.cell_onclick">
 							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
-							<w2:span class="ico_weather rain" id="" label="" style=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
+							<w2:span class="ico_weather rain" id="" label="" style=""></w2:span>
 						</xf:group>
 					</xf:group>
 					<xf:group style="" id="" class="sch_tr">
