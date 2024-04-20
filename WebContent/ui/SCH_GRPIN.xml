@@ -237,49 +237,48 @@ scwin.btnFormatter = function(_value){
 ]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group class="sub_contents flex_gvw flex_m" id="group1" style="" >
+		<xf:group class="sub_contents flex_gvw flex_m" id="group1" style="">
 
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 
-	
-<!-- 2번 -->
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- 2번 -->
+			<w2:wframe class="wfm_tit" id="" src="/ui/contentHeader.xml" style=""></w2:wframe>
 			<xf:group class="dfbox" id="" style="">
 				<xf:group class="fl" id="" style="">
-					<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style=""
-						ev:onclick="com.btn_togglemenu_onclick">
-						<xf:label><![CDATA[slide]]></xf:label>
-					</w2:anchor>				
-				</xf:group>	
+				</xf:group>
 				<xf:group class="fl" id="" style="">
-					<w2:textbox class="" id="txt_title_mychin" label="구독(신청)중인 채널목록" style="font-size:18px;margin-left: 10px;margin-top: 5px;"></w2:textbox>
-				</xf:group>							
+					<w2:textbox class="" id="txt_title_mychin" label="구독(신청)중인 채널목록"
+						style="font-size:18px;margin-left: 10px;margin-top: 5px;">
+					</w2:textbox>
+				</xf:group>
 				<xf:group class="fr" id="" style="">
-				<!-- 	<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox> -->
-					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_reg" style="width:100px;line-height: 0px;margin-top:4px;margin-bottom:2px" type="button"
-						ev:onclick="scwin.btn_reg_onclick">
+					<!-- 	<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox> -->
+					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_reg"
+						style="width:100px;line-height: 0px;margin-top:4px;margin-bottom:2px" type="button" ev:onclick="scwin.btn_reg_onclick">
 						<xf:label><![CDATA[구독할채널찾기]]></xf:label>
-					</xf:trigger>				
-					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_search2" style="width:50px;line-height: 0px;margin-top:4px" type="button"
-						ev:onclick="scwin.btn_search2_onclick">
+					</xf:trigger>
+					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_search2"
+						style="width:50px;line-height: 0px;margin-top:4px" type="button" ev:onclick="scwin.btn_search2_onclick">
 						<xf:label><![CDATA[조회]]></xf:label>
 					</xf:trigger>
 				</xf:group>
 			</xf:group>
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
 				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list_mychin"
-					focusMode="row" id="grd_mychin" scrollByColumn="false" scrollByColumnAdaptive="false" 
-					ev:oncellclick="scwin.grd_mychin_oncellclick" rowNumVisible="false" readOnly="true">
+					focusMode="row" id="grd_mychin" scrollByColumn="false" scrollByColumnAdaptive="false" ev:oncellclick="scwin.grd_mychin_oncellclick"
+					rowNumVisible="false" readOnly="true">
 					<w2:caption id="caption_mychin" style="" value="" />
 					<w2:header id="header_mychin" style="">
 						<w2:row id="row3" style="">
@@ -293,22 +292,26 @@ scwin.btnFormatter = function(_value){
 						<w2:row id="row4" style="">
 							<w2:column width="170" inputType="text" style="" id="U_GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
 							<!-- <w2:column width="95" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column> -->
-							<w2:column width="95" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
-							<w2:column width="100" inputType="text" style="" id="GRP_BTN" value="" displayMode="label" displayFormatter="scwin.btnFormatter"></w2:column>
+							<w2:column width="95" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label"
+								displayFormatter="com.yyyy_MM_dd">
+							</w2:column>
+							<w2:column width="100" inputType="text" style="" id="GRP_BTN" value="" displayMode="label"
+								displayFormatter="scwin.btnFormatter">
+							</w2:column>
 						</w2:row>
 					</w2:gBody>
 				</w2:gridView>
 			</xf:group>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
+
+
+
+
 		</xf:group>
 
 

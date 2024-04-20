@@ -246,27 +246,21 @@ scwin.usercnt = function(v1,v2,row,col){
 };]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group class="sub_contents flex_gvw flex_m" id="group1" style="" >
+		<xf:group class="sub_contents flex_gvw flex_m" id="group1" style="">
+			<w2:wframe id="" src="/ui/contentHeader.xml" style="" class="wfm_tit"></w2:wframe>
 			<xf:group class="dfbox" id="" style="">
 				<xf:group class="fl" id="" style="">
-					<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style="margin-bottom:5px"
-						ev:onclick="com.btn_togglemenu_onclick">
-						<xf:label><![CDATA[slide]]></xf:label>
-					</w2:anchor>	
-					<w2:anchor class="btn_toggle menu " id="btn_mdiback" name="" outerDiv="false" style="margin-bottom:5px"
-						ev:onclick="com.mdi_close">
-						<xf:label><![CDATA[close]]></xf:label>
-					</w2:anchor>						
-				</xf:group>			
+				</xf:group>
 				<xf:group class="fr" id="" style="">
-					<w2:textbox class="" id="txt_cnt" label="0건" style="margin-top:5px"></w2:textbox>
-					<xf:trigger class="btn_cm blue" id="btn_write" style="margin-top:3px" type="button" ev:onclick="scwin.btn_write_onclick">
+					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
+					<xf:trigger class="btn_cm blue" id="btn_write" style="margin-top:3px" type="button"
+						ev:onclick="scwin.btn_write_onclick">
 						<xf:label><![CDATA[내채널만들기]]></xf:label>
 					</xf:trigger>
 					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_search" style="margin-top:3px" type="button"
 						ev:onclick="scwin.btn_search_onclick">
 						<xf:label><![CDATA[조회]]></xf:label>
-					</xf:trigger>						
+					</xf:trigger>
 				</xf:group>
 			</xf:group>
 			<xf:group adaptiveThreshold="" class="" id="" style="">
@@ -285,34 +279,38 @@ scwin.usercnt = function(v1,v2,row,col){
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
 							<w2:column width="130" inputType="text" style="" id="GRP_NM" value="" displayMode="label" textAlign="left"></w2:column>
-							<w2:column width="70" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"  customFormatter="scwin.usercnt"></w2:column>
-							<w2:column width="120" inputType="text" style="" id="GRP_REG_DTTM" value="" displayMode="label" displayFormat="####-##-## ##:##:##"></w2:column>
+							<w2:column width="70" inputType="text" style="" id="GRP_MEMBER_MAX" value="" displayMode="label"
+								customFormatter="scwin.usercnt">
+							</w2:column>
+							<w2:column width="120" inputType="text" style="" id="GRP_REG_DTTM" value="" displayMode="label"
+								displayFormat="####-##-## ##:##:##">
+							</w2:column>
 							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
-							
+
 						</w2:row>
 					</w2:gBody>
 				</w2:gridView>
 			</xf:group>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-<!-- 2번 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<!-- 2번 -->
 			<xf:group class="dfbox" id="" style="">
 				<xf:group class="fl" id="" style="">
 					<w2:textbox class="" id="txt_title_mychin" label="- 채널별구독자목록" style="font-size:16px;margin-top:8px"></w2:textbox>
-				</xf:group>			
+				</xf:group>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox>
 				</xf:group>
@@ -333,19 +331,19 @@ scwin.usercnt = function(v1,v2,row,col){
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
 							<w2:column width="50" inputType="button" style="" id="GRP_BTN" value="" displayMode="label"></w2:column>
-							<w2:column width="110" inputType="text" style="" id="U_NAME" value="" displayMode="label" textAlign="left" customFormatter="scwin.user"></w2:column>
-							<w2:column width="80" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
-							<w2:column width="80" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label" displayFormatter="com.yyyy_MM_dd"></w2:column>
+							<w2:column width="110" inputType="text" style="" id="U_NAME" value="" displayMode="label" textAlign="left"
+								customFormatter="scwin.user">
+							</w2:column>
+							<w2:column width="80" inputType="text" style="" id="GRP_APPR_DTTM" value="" displayMode="label"
+								displayFormatter="com.yyyy_MM_dd">
+							</w2:column>
+							<w2:column width="80" inputType="text" style="" id="GRP_JOIN_DTTM" value="" displayMode="label"
+								displayFormatter="com.yyyy_MM_dd">
+							</w2:column>
 						</w2:row>
 					</w2:gBody>
 				</w2:gridView>
 			</xf:group>
-			
-			
-			
-			
-			
-			
 
 
 
@@ -355,56 +353,64 @@ scwin.usercnt = function(v1,v2,row,col){
 
 
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 
 
-		<xf:group id="grp_dim_white" class=""
-			style="display:none;z-index:9998;background-color:#FFF;opacity:1;position:absolute;top:0px;bottom:0px;left:0px;right:0px"
-			ev:onclick="scwin.grp_dim_white_onclick">
-		</xf:group>
-		<xf:group
-			style="text-align:center;position:absolute;top:40px;left:20px;right:20px;bottom:100px;z-index:9999;overflow-y:auto;border-radius:10px;display:none;"
-			id="grp_createGrp" class="">
 
-			<xf:input id="ipt_grpNm" style="width: 244px;height: 40px;font-size:16px" placeholder="채널명을 입력하세요"></xf:input>
-			<xf:group id="" class="" style='padding:4px'>
-				<xf:trigger type="button" id="trigger1" style="width: 100px;height: 40px;font-size:14px;margin:4px;background-color:#3a4891;color:#FFF" ev:onclick="scwin.trigger1_onclick">
-					<xf:label><![CDATA[중복확인]]></xf:label>
-				</xf:trigger>
-				<xf:trigger type="button" id="trigger2" style="width: 100px;height: 40px;font-size:14px;margin:4px;background-color:#576DDC;color:#FFF" ev:onclick="scwin.trigger2_onclick">
-					<xf:label><![CDATA[닫기]]></xf:label>
-				</xf:trigger>				
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<xf:group id="grp_dim_white" class=""
+				style="display:none;z-index:9998;background-color:#FFF;opacity:1;position:absolute;top:0px;bottom:0px;left:0px;right:0px"
+				ev:onclick="scwin.grp_dim_white_onclick">
 			</xf:group>
-		</xf:group>
-	
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			<xf:group
+				style="text-align:center;position:absolute;top:40px;left:20px;right:20px;bottom:100px;z-index:9999;overflow-y:auto;border-radius:10px;display:none;"
+				id="grp_createGrp" class="">
+
+				<xf:input id="ipt_grpNm" style="width: 244px;height: 40px;font-size:16px" placeholder="채널명을 입력하세요"></xf:input>
+				<xf:group id="" class="" style='padding:4px'>
+					<xf:trigger type="button" id="trigger1"
+						style="width: 100px;height: 40px;font-size:14px;margin:4px;background-color:#3a4891;color:#FFF" ev:onclick="scwin.trigger1_onclick">
+						<xf:label><![CDATA[중복확인]]></xf:label>
+					</xf:trigger>
+					<xf:trigger type="button" id="trigger2"
+						style="width: 100px;height: 40px;font-size:14px;margin:4px;background-color:#576DDC;color:#FFF" ev:onclick="scwin.trigger2_onclick">
+						<xf:label><![CDATA[닫기]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+
+
+
+
+
+
+
+
+
+
+
+
 		</xf:group>
 	</body>
 </html>

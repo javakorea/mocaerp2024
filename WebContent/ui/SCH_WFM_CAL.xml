@@ -38,18 +38,18 @@
 						<w2:key id="SCH_CURRENTMONTH_PREV" name="SCH_CURRENTMONTH_PREV" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH_NEXT" name="SCH_CURRENTMONTH_NEXT" dataType="text"></w2:key>
-						
+
 						<!-- 공통부 -->
-						<w2:key id="COMMON_TRAN_ID" 			name="TRAN_ID" 						dataType="text"></w2:key>
-						<w2:key id="COMMON_STATUS" 				name="CRUD_상태" 						dataType="text"></w2:key>
-						<w2:key id="COMMON_QUERY" 				name="SELECT_QUERY" 				dataType="text"></w2:key>
-						<w2:key id="COMMON_MASTER_QUERY" 		name="COMMON_MASTER_QUERY" 			dataType="text"></w2:key>
-						<w2:key id="COMMON_MASTER_DELETEQUERY" 	name="COMMON_MASTER_DELETEQUERY" 	dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_INSERTQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_UPDATEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_DELETEQUERY" 	name="SUBQUERY" 					dataType="text"></w2:key>
-						<w2:key id="COMMON_MASTER_KEY" 			name="COMMON_MASTER_KEY" 			dataType="text"></w2:key>
-						<w2:key id="COMMON_DETAIL_KEY" 			name="COMMON_DETAIL_KEY" 			dataType="text"></w2:key>						
+						<w2:key id="COMMON_TRAN_ID" name="TRAN_ID" dataType="text"></w2:key>
+						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
+						<w2:key id="COMMON_QUERY" name="SELECT_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_QUERY" name="COMMON_MASTER_QUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_DELETEQUERY" name="COMMON_MASTER_DELETEQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_INSERTQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_UPDATEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_DELETEQUERY" name="SUBQUERY" dataType="text"></w2:key>
+						<w2:key id="COMMON_MASTER_KEY" name="COMMON_MASTER_KEY" dataType="text"></w2:key>
+						<w2:key id="COMMON_DETAIL_KEY" name="COMMON_DETAIL_KEY" dataType="text"></w2:key>
 					</w2:keyInfo>
 				</w2:dataMap>
 			</w2:dataCollection>
@@ -79,7 +79,7 @@ scwin.cell_onclick = function() {
 		</style>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
-		<xf:group id="grp_cal" class="sch_wrap" >
+		<xf:group id="grp_cal" class="sch_wrap">
 			<xf:group id="" class="sch_titleArea" style="display:none;">
 				<xf:group tagname="h3" id="grp_yyyyMM" style="">2024년04월</xf:group>
 			</xf:group>
@@ -193,10 +193,12 @@ scwin.cell_onclick = function() {
 						</xf:group>
 						<xf:group style="" id="cell25" class="sch_td" ev:onclick="scwin.cell_onclick">
 							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
+							<w2:span class="ico_weather sunny" id="" label="" style=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
 						</xf:group>
 						<xf:group style="" id="cell26" class="sch_td" ev:onclick="scwin.cell_onclick">
 							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
+							<w2:span class="ico_weather rain" id="" label="" style=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
 						</xf:group>
 					</xf:group>
