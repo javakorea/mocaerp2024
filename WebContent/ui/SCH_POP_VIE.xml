@@ -42,6 +42,11 @@
 				tr_end.hide('');				
 			}
 			edi_1.setValue(dma_content.get('SCH_CONT'));
+			if(dma_content.get('TYPE') == 'LINK'){
+				txt_isLink.setValue($p.parent().scwin.linkIcon);	
+			}
+
+
 			edi_1.setStyle('padding','10px 0px 0px 0px');
 			$p.parent().btn_reg.setLabel('등록');
 			$p.parent().btn_reg.hide();
@@ -89,8 +94,12 @@ scwin.display_color = function(_data){
 				<w2:textbox tagname="span" style="" id="" label="" class="sch_spa_view fa fa-calendar-o mr10"></w2:textbox>
 				<w2:textbox ref="data:dma_content.SCH_START" tagname="span" style="" id="ipt_day" label="" class="ipt_day" dataType="date" displayFormat="yyyy-MM-dd (EEE)">
 				</w2:textbox>
-			<w2:textbox displayFormatter="scwin.display_color" ref="data:dma_content.SCH_COLOR" tagname="span" style="" id="rdo_gubunYn" label="" class="sch_gubun ml10">
-				</w2:textbox></xf:group>
+				<w2:textbox displayFormatter="scwin.display_color" ref="data:dma_content.SCH_COLOR" tagname="span" style="" id="rdo_gubunYn" label="" class="sch_gubun ml10">
+				</w2:textbox>
+				<w2:textbox tagname="span" style="width:100px" id="txt_isLink" label="" class=" ml10"></w2:textbox>				
+				
+				
+				</xf:group>
 			</xf:group><xf:group class="tbbox noline read mb0" id="tbl_search" style="">
 
 

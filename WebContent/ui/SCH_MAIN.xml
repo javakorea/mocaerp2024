@@ -237,6 +237,7 @@
 						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
 						<w2:key id="STATUS" name="STATUS" dataType="text"></w2:key>
 						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
+						<w2:key id="TYPE" name="LINK" dataType="text"></w2:key>
 
 						<!-- 공통부 -->
 						<w2:key id="COMMON_STATUS" name="CRUD_상태" dataType="text"></w2:key>
@@ -284,6 +285,7 @@
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.selectedCell = null;
 scwin.selectedSchObj = null;
 
+scwin.linkIcon = '⊶';
 scwin.yyyyMmColor = '#dc5773';
 scwin.cellBgColor = '#deecee';
 scwin.left = null;
@@ -294,7 +296,7 @@ scwin.dayMap = {};
 
 /* 구분컬러CSS로가져오기API */
 scwin.getBgColorTag = function(_gubun,o){
-	if(o.TYPE == 'LINK'){
+	if(o && o.TYPE == 'LINK'){
 		let c = scwin.getColor(101);
 		return `background-color:${c.backColor};color:${c.color}`;
 	}else{
@@ -490,7 +492,7 @@ scwin.draw = function(yyyyMM,_scope) {
 
 					
 					if(aDaySc.TYPE == 'LINK'){
-						title_display = '⊶'+title_display;
+						title_display = scwin.linkIcon+title_display;
 					}
 					str += `<span class='sch_bar' style='${_bgColor}'>${title_display}</span>`;
 				}

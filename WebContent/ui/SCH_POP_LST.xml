@@ -51,8 +51,11 @@
 			}else{
 				spa_success.removeClass('done');
 			}
-
-			ipt_title.setValue(row.SCH_TITLE);
+			if(row.TYPE == 'LINK'){
+				ipt_title.setValue('⊶'+row.SCH_TITLE);
+			}else{
+				ipt_title.setValue(row.SCH_TITLE);
+			}
 			ipt_title.setStyle('color','black');
 		}
 	}else{
