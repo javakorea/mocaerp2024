@@ -307,7 +307,24 @@
     </select>
 
     
+     <!-- 설정_아이콘 -->
+   	<select id="LST_ICO" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* LST_ICO 아이콘_목록조회*/
+			SELECT ICO_NM,ICO_MANAGER_ID, ICO_REG_DTTM, ICO_TYPE, ICO, '삭제' AS ICO_BTN
+			FROM 	T_ICO
+			WHERE 1=1 
+			AND ICO_MANAGER_ID = #{ICO_MANAGER_ID}
+			ORDER BY 1 DESC				
+    </select>
+    <insert id="INS_ICO" parameterType="java.util.Map" >
+        /*INS_ICO 아이콘등록*/
+    	INSERT INTO T_ICO
+		(ICO_NM,ICO_MANAGER_ID, ICO_REG_DTTM, ICO_TYPE, ICO)
+		VALUES
+		(#{ICO_NM},#{ICO_MANAGER_ID},TO_CHAR(NOW(),'YYYYMMDDHH24MISS'),#{ICO_MAX},#{ICO})
+    </insert>
     
+       
     
     <!-- 설정_내채널 -->
    	<select id="LST_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
