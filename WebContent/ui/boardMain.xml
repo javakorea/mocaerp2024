@@ -135,12 +135,14 @@ scwin.fn_setAdmin = function(){
 }
 scwin.fn_setMenu = function(menuInfo){
 	//{menuNm: '기술데이터', menuCode: '1100', src: '/ui/boardTech.xml'}
+	/*
 	pgt_tit.setValue(menuInfo.menuNm);
 	txt_menu.setValue(menuInfo.menuNm);
 	var _dlt_menu = $p.main().wfm_side.scope.dlt_menu;
 	var _pMenuCd = _dlt_menu.getMatchedJSON('MENU_CD',menuInfo.menuCode)[0].PARENT_MENU_CD
 	var _pMenuNm = _dlt_menu.getMatchedJSON('MENU_CD',_pMenuCd)[0].MENU_NM;
 	txt_pMenu.setValue(_pMenuNm);
+	*/
 }
 
 /* 조회 */
