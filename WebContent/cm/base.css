@@ -1592,8 +1592,8 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .btn_sch{padding: 10px; background:#fff;  height: 36px; border-radius: 8px; border: 0; width: 36px; color: #333; font-weight: bold; font-size: 20px; line-height: 0.7em;  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
 .spa_dt{display: inline-block;  opacity:0.4; width: 20px; height: 20px; background: none; font-size: 20px; margin: 5px;  padding: 6px 7px 6px 6px; line-height: 18px; text-align: center; border-radius:50%;}
 .spa_dt.on{ opacity:1; }
-.sch_bar{display: block; padding: 2px 4px;margin: 4px;  height: 16px; box-shadow: 1px 2px 2px rgba(0,0,0,0.1); border-radius: 3px; margin-left: 22px; font-size:14px;  text-align:left; line-height:1.2; color: #fff; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
-.sch_bar .icon{width:16px;  height: 16px;  display: inline-block; position: absolute; left: 2px; background:orange;}
+.sch_bar{display: block; padding: 2px 4px;margin: 4px;  height: 16px; box-shadow: 1px 2px 2px rgba(0,0,0,0.1); border-radius: 3px; font-size:14px;  text-align:left; line-height:1.2; color: #fff; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+.sch_bar .icon{width:16px;  height: 16px;  display: inline-block; position: absolute; left: 2px;}
 .sch_gubun {font-size:15px;}
 .sch_gubun i {color: #fff; height: 20px; display: inline-block; padding: 2px 4px; font-style: normal; border-radius: 3px; line-height: 1.5;}
 .sch_detail_wrap{display:none; text-align:right; z-index:9999; position: absolute;left: 0px;top: 0px; width: 100%; height:100%; bottom:30px; background-color:#fff; overflow:hidden;}
@@ -1761,11 +1761,16 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.wfm_tit:before{content:''; position:absolute;    left: -10px;  right: -10px;  border-bottom: 1px solid #333;  top: 48px;}
 	.wfm_tit + div{margin-top:5px;}
 	.win_c .w2window_header{height:48px;}
-	.sch_titleArea{padding-top:5px; height:42px;}
+	.sch_titleArea{padding-top:5px; height:37px;}
 	.sch_titleArea .sch_tit{height:34px;}
-	.sch_titleArea .sch_tit > input{}
+	.sch_titleArea .sch_tit > input{font-size:33px}
+	.sch_th{height:20px;}
+	.sch_thead .sch_tr{height:20px;}
+	.sch_th > span{top:0}
+	.sch_tbody{height:calc(100% - 18px)}
 	.spa_dt{padding:0; font-size:15px; margin:0}
 	.ico_weather{ width: 16px;    height: 16px;    background-size: 16px;    right: 23px;    top: 6px;}
+	.btn_toggle.mo{width:30px; height:30px;}
 }
 
 
@@ -1783,7 +1788,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.sch_titleArea .sch_tit > input{}
 	.spa_dt{ margin: 0px;  font-size: 0.7em; padding:0}
 	.ico_weather{width: 16px;  height: 16px;    background-size: 16px;  right: 22px;  top: 7px;}
-	.sch_bar{text-overflow:clip; margin: 4px 2px;  margin-left: 20px;}
+	.sch_bar{text-overflow:clip; margin: 4px 2px; }
 	.side .grp_tab .tab_con{top:0px;}
 	.sch_titleArea{background-position:40%;}
 	.w2tb.w2tb_adaptive_layout .grp_setFromTo .w2input{width:40px !important;}	
