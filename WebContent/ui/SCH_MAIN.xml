@@ -495,9 +495,12 @@ scwin.draw = function(yyyyMM,_scope) {
 						title_display = scwin.linkIcon+title_display;
 					}
 
-					str += `<span class='sch_bar' style='${_bgColor}'>`;
+					
 					if(aDaySc.SCH_ICO){
+						str += `<span class='sch_bar ml20' style='${_bgColor}'>`;
 						str += `<span class="icon">${aDaySc.SCH_ICO}</span>`;
+					}else{
+						str += `<span class='sch_bar' style='${_bgColor}'>`;
 					}
 					str += `<span class="bar_txt">${title_display}</span></span>`;
 				}
