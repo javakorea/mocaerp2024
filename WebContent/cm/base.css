@@ -1771,6 +1771,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.spa_dt{padding:0; font-size:15px; margin:0}
 	.ico_weather{ width: 16px;    height: 16px;    background-size: 16px;    right: 23px;    top: 6px;}
 	.btn_toggle.mo{width:30px; height:30px;}
+	.btn_toggle.today.mo{line-height:30px}
 }
 
 
