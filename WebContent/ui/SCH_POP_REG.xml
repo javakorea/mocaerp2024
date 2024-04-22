@@ -95,7 +95,7 @@
 						scwin._parentDma.SCH_COLOR = 1;
 					}
 					rdo_gubunYn.setValue(scwin._parentDma.SCH_COLOR);
-
+					rdo_ico.setValue(scwin._parentDma.SCH_ICO);	
 
 					if(dma_content.get('SCH_END_TIME')){
 						scwin.sch_mode = 'DETAIL';
