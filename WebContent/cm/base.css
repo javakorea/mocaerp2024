@@ -1588,7 +1588,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .sch_tbody{width:100%; height:calc(100% - 34px);display: flex; flex-direction: column;border-radius: 0 0 15px 15px;  overflow: hidden;}
 .sch_td{background: #fff;  flex: 1;  border-bottom: 1px solid #f4f5f9;  overflow: hidden;  text-align: right; position:relative;}
 .sch_tr .sch_td:first-child .spa_dt, .sch_thead .sch_tr .sch_th:first-child{color:#d80635}
-.sch_tr .sch_td .spa_dt.holiday{color:#d80635; opacity 1;}
+.sch_tr .sch_td .spa_dt.holiday{color:#d80635; opacity:1; font-weight:bold;}
 .sch_tr .sch_td:last-child .spa_dt, .sch_thead .sch_tr .sch_th:last-child{color:#576ddc}
 .btn_sch{padding: 10px; background:#fff;  height: 36px; border-radius: 8px; border: 0; width: 36px; color: #333; font-weight: bold; font-size: 20px; line-height: 0.7em;  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
 .spa_dt{display: inline-block;  opacity:0.4; width: 20px; height: 20px; background: none; font-size: 20px; margin: 5px;  padding: 6px 7px 6px 6px; line-height: 18px; text-align: center; border-radius:50%;}
