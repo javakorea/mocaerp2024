@@ -794,7 +794,7 @@ scwin.btn_del_onclick = function(e) {
     com.win.confirm($p, '해당 일정을 삭제하시겠습니까?', function(e){
 		if(e.clickValue){
 			dma_content.set("SCH_DELYN","Y");
-			dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
+			dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE,M.T_DEL_MAPP");
 			dma_content.set("COMMON_STATUS"			, "U_SCH_DELYN");
 			/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
 			/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);

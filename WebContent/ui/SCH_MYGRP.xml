@@ -171,7 +171,7 @@ scwin.grd1_oncellclick = function(row,col,colId) {
 					dma_content.set("GRP_MANAGER_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
 					
 
-					dma_content.set("COMMON_MASTER_QUERY"	, "M.DEL_GRP");
+					dma_content.set("COMMON_MASTER_QUERY"	, "M.DEL_GRP,M.DEL_GRP_MEM_ANYGRP,M.DEL_MAPP_ANYGRP");
 					dma_content.set("COMMON_STATUS"			, "D");
 					com.sbm.execute(sbm_commonTran);
 				}

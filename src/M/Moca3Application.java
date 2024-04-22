@@ -118,8 +118,20 @@ public class Moca3Application {
 			Map resultAfterMap = null;
 			Map resultMap = new HashMap();
 			if(!"".equals(COMMON_MASTER_QUERY)) {
-				int re1 = ss.insert(COMMON_MASTER_QUERY, dma_common);
-				resultMap.put(this.COMMON_MASTER_RESULT, re1);
+				String querys = COMMON_MASTER_QUERY;
+				String[] queryArr = querys.split(",");
+				List list = new ArrayList();
+				for(int i=0; i < queryArr.length; i++) {
+					String query = queryArr[i];
+					int re1 = ss.insert(query, dma_common);
+					list.add(re1);
+				}
+				resultMap.put(this.COMMON_MASTER_RESULT, list.toString());
+				
+				
+				
+				
+				////////////insert후 selectKey로 가져온컬럼들이 있다면 따로 담아서 리턴함!(예) 회원가입insert후 session정보select
 				Set s = dma_common.keySet();
 				Map resultRow = new HashMap();
 				if(s != null) {
@@ -131,7 +143,8 @@ public class Moca3Application {
 						}
 					}
 				}
-				resultAfterMap = resultRow;				
+				resultAfterMap = resultRow;		
+				/////////////////////////////////////////////////////////////////////////////////////////////////
 			}
 			Map result = new HashMap();
 			
@@ -182,7 +195,7 @@ public class Moca3Application {
 			}
 			
 			
-			resultMap.put("COMMON_RESULT_ROW", resultAfterMap);
+			resultMap.put("COMMON_RESULT_ROW", resultAfterMap);//회원가입후 회원세션정보가져오기
 			resultMap.put(this.COMMON_DETAIL_RESULT, result);
 			resultMap.put(this.COMMON_PARAM_MAP, dma_common);
 		COMMON_RESULT_MAP.put(this.COMMON_RESULT, resultMap);

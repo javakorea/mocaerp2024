@@ -274,7 +274,7 @@
     
     
     <insert id="INS_MEMBER" parameterType="java.util.Map" useGeneratedKeys="true"  >
-        /*INS_MEMBER*/
+        /*INS_MEMBER 회원가입후 회원세션정보가져오기*/
     	INSERT INTO T_MEMBER
 		(
 			U_ID, U_EMAIL, U_NAME, U_PHONE, U_REG_DT, U_LEVEL, U_ADDR, U_SOCIAL, U_BIRTH_DT
@@ -305,13 +305,7 @@
 			FROM T_GRP
 			WHERE 1=1 AND GRP_NM = #{GRP_NM}
     </select>
-    <insert id="INS_GRP" parameterType="java.util.Map" >
-        /*INS_GRP*/
-    	INSERT INTO T_GRP
-		(GRP_NM,GRP_REG_DTTM,GRP_MANAGER_ID,GRP_MEMBER_MAX)
-		VALUES
-		(#{GRP_NM},TO_CHAR(NOW(),'YYYYMMDDHH24MISS'),#{GRP_MANAGER_ID},100)
-    </insert>
+
     
     
     
@@ -336,9 +330,33 @@
 			AND G.U_ID = M.U_ID
 			AND U_GRP_NM=#{U_GRP_NM}
     </select> 
-    
-    
-    
+    <insert id="INS_GRP" parameterType="java.util.Map" >
+        /*INS_GRP 채널생성*/
+    	INSERT INTO T_GRP
+		(GRP_NM,GRP_REG_DTTM,GRP_MANAGER_ID,GRP_MEMBER_MAX)
+		VALUES
+		(#{GRP_NM},TO_CHAR(NOW(),'YYYYMMDDHH24MISS'),#{GRP_MANAGER_ID},100)
+    </insert>
+    <delete id="DEL_GRP" parameterType="java.util.Map" >
+        /*DEL_GRP 채널삭제_STEP1/3 채널만삭제*/
+	    DELETE FROM T_GRP
+		WHERE 1=1
+		AND GRP_NM=#{GRP_NM}
+		AND GRP_MANAGER_ID=#{GRP_MANAGER_ID}
+    </delete>
+     <delete id="DEL_GRP_MEM_ANYGRP" parameterType="java.util.Map" >
+        /*DEL_GRP_MEM_ANYGRP 채널삭제_STEP2/3 채널맴버삭제*/
+		DELETE FROM T_GRP_MEM 
+		WHERE U_GRP_NM = #{GRP_NM}
+    </delete>    
+    <delete id="DEL_MAPP_ANYGRP" parameterType="java.util.Map" >
+        /*DEL_MAPP_ANYGRP 채널삭제_STEP3/3 채널일정매핑삭제*/
+		DELETE FROM T_MAPP 
+		WHERE GRP_NM = #{GRP_NM}
+    </delete>
+
+       
+
     <!-- 설정_채널가입 -->
    	<select id="SER_INGRP" parameterType="java.util.Map" resultType="java.util.HashMap">
    			/* SER_INGRP 설정_채널가입 구독중인채널목록*/
@@ -366,7 +384,7 @@
     
    
     <insert id="I_CH_JOIN" parameterType="java.util.Map" >
-        /*INS_GRP*/
+        /*I_CH_JOIN*/
     	INSERT INTO T_GRP_MEM
 		(U_GRP_NM,U_ID,GRP_JOIN_DTTM)
 		VALUES
@@ -395,20 +413,8 @@
 		AND U_ID=#{U_ID}
     </update>    
 
-    <insert id="DEL_GRP" parameterType="java.util.Map" >
-        /*DEL_GRP*/
-	    DELETE FROM T_GRP
-		WHERE 1=1
-		AND GRP_NM=#{GRP_NM}
-		AND GRP_MANAGER_ID=#{GRP_MANAGER_ID}
-    </insert>
-    <insert id="INS_MAPP" parameterType="java.util.Map" >
-        /*INS_GRP*/
-    	INSERT INTO T_MAPP
-		(GRP_NM,SCH_WRITER, SCH_START, SCH_IDX)
-		VALUES
-		(#{GRP_NM},#{SCH_WRITER}, #{SCH_START}, #{SCH_IDX})
-    </insert>
+
+
    	<select id="SEL_GRP_FORSCH" parameterType="java.util.Map" resultType="java.util.HashMap">
    			/* SEL_GRP_FORSCH 스케쥴에 매핑된 그룹리스트 가져오기 */
 			SELECT 
@@ -431,7 +437,7 @@
     
         
     <insert id="INS_SCHEDULE" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="SCH_IDX">
-        /*INS_SCHEDULE*/
+        /*INS_SCHEDULE 일정등록 STEP1/2*/
     	INSERT INTO T_SCHEDULE
 		(
 			SCH_WRITER, SCH_START, SCH_IDX, 
@@ -446,15 +452,24 @@
 			'N', 'N', 'N'
 		);
         <selectKey keyProperty="SCH_IDX" resultType="string" order="BEFORE">
-        	/* selectKey in INS_SCHEDULE */
+        	/* selectKey in INS_SCHEDULE '일정등록'의 BEFORE*/
 			SELECT NVL(MAX(SCH_IDX)+1,1) FROM T_SCHEDULE
 			WHERE 1=1
 			AND SCH_WRITER 	= #{SCH_WRITER}
 			AND SCH_START 	= #{SCH_START}
 		</selectKey>
     </insert>
+    <insert id="INS_MAPP" parameterType="java.util.Map" >
+        /*INS_MAPP 일정등록 STEP2/2 일정을채널에공유 등록/수정*/
+    	INSERT INTO T_MAPP
+		(GRP_NM,SCH_WRITER, SCH_START, SCH_IDX)
+		VALUES
+		(#{GRP_NM},#{SCH_WRITER}, #{SCH_START}, #{SCH_IDX})
+    </insert>
+    
+        
     <update id="UPT_SCHEDULE" parameterType="java.util.Map" useGeneratedKeys="true">
-        /*UPT_SCHEDULE*/
+        /*UPT_SCHEDULE 일정수정,일정삭제 STEP1/2*/
          UPDATE T_SCHEDULE SET 
          	<if test="SCH_START_TIME != null and SCH_START_TIME != ''">SCH_START_TIME = #{SCH_START_TIME}, </if>
 			<if test="SCH_END != null and SCH_END != ''">SCH_END = #{SCH_END}, </if>
@@ -467,11 +482,18 @@
 			<if test="SCH_CONT != null and SCH_CONT != ''">SCH_CONT = #{SCH_CONT},</if>	
 			SCH_UPTDT =  CURRENT_TIMESTAMP
          WHERE 1=1
-         AND SCH_WRITER=#{SCH_WRITER}
-         AND SCH_START=#{SCH_START}
-         AND SCH_IDX=#{SCH_IDX}
+         AND SCH_WRITER	=#{SCH_WRITER}
+         AND SCH_START	=#{SCH_START}
+         AND SCH_IDX	=#{SCH_IDX}
     </update>
-    
+    <delete id="T_DEL_MAPP" parameterType="java.util.Map" >
+        /*T_DEL_MAPP 일정등록 STEP2/2 일정을채널에공유 등록/수정*/
+		DELETE FROM T_MAPP 
+		WHERE 1=1
+		AND SCH_WRITER 	=#{SCH_WRITER}
+		AND SCH_START 	=#{SCH_START}
+		AND SCH_IDX 	=#{SCH_IDX}
+    </delete>
 
     
     
