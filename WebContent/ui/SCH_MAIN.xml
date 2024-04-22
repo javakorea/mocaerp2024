@@ -238,6 +238,8 @@
 						<w2:key id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:key>
 						<w2:key id="STATUS" name="STATUS" dataType="text"></w2:key>
 						<w2:key id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:key>
+						<w2:key id="SCH_ICO" name="SCH_ICO" dataType="text"></w2:key>
+						
 						<w2:key id="TYPE" name="LINK" dataType="text"></w2:key>
 
 						<!-- 공통부 -->
@@ -489,13 +491,15 @@ scwin.draw = function(yyyyMM,_scope) {
 					}else{
 						title_display = aDaySc.SCH_TITLE;
 					}
-
-
-					
 					if(aDaySc.TYPE == 'LINK'){
 						title_display = scwin.linkIcon+title_display;
 					}
-					str += `<span class='sch_bar' style='${_bgColor}'><span class="icon">${title_display.substring(0,1)}</span><span class="bar_txt">${title_display.substring(1)}</span></span>`;
+
+					str += `<span class='sch_bar' style='${_bgColor}'>`;
+					if(aDaySc.SCH_ICO){
+						str += `<span class="icon">${aDaySc.SCH_ICO}</span>`;
+					}
+					str += `<span class="bar_txt">${title_display}</span></span>`;
 				}
 				_contents.render.innerHTML = str;
 			}else{
