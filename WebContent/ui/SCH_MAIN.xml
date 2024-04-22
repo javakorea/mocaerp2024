@@ -181,6 +181,7 @@
 						<w2:column id="SCH_DELYN" name="SCH_DELYN" dataType="text"></w2:column>
 						<w2:column id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:column>
 						<w2:column id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:column>
+						<w2:column id="SCH_ICO" name="SCH_ICO" dataType="text"></w2:column>
 					</w2:columnInfo>
 					<w2:data use="false"></w2:data>
 				</w2:dataList>
@@ -649,6 +650,7 @@ scwin.btn_reg_onclick = function(e) {
 		com.win.confirm(message, function(e){
 			if(e.clickValue){
 				/* contents */
+				dma_content.set("SCH_ICO",wfm_pop.scope.rdo_ico.getValue());
 				dma_content.set("SCH_TITLE",wfm_pop.scope.edi_1.getValue().substring(0,20));
 				dma_content.set("SCH_CONT", wfm_pop.scope.edi_1.getValue());
 				dma_content.set("SCH_CURRENTMONTH",wfm_pop.scope.ipt_day.getValue().substr(0,6));

@@ -19,6 +19,12 @@
 						<w2:column id="CODE" name="CODE" dataType="text" length="" />
 						<w2:column id="DATA" name="DATA" dataType="text" length="" />
 					</w2:columnInfo>
+				</w2:dataList>				
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_ico_list" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="CODE" name="CODE" dataType="text" length="" />
+						<w2:column id="DATA" name="DATA" dataType="text" length="" />
+					</w2:columnInfo>
 				</w2:dataList>					
 			</w2:dataCollection>
 			<w2:workflowCollection></w2:workflowCollection>
@@ -31,9 +37,11 @@
 	xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
 	xhr.responseType = 'json';
 	xhr.onload = function() {
-		debugger;
 		let result = xhr.response;
-
+		debugger;
+		if(result.dlt_list1){//아이콘리스트
+			dlt_ico_list.setJSON(result.dlt_list1);
+		}
 		if(result.dlt_list){
 			dlt_channel_list.setJSON(result.dlt_list);
 			let day = $p.parent().scwin.selectedCell.getAttribute('yyyyMMdd');
@@ -65,7 +73,9 @@
 				xhr2.responseType = 'json';
 				xhr2.onload = function() {
 					let result = xhr2.response;
-					debugger;
+					if(result.dlt_list1){
+						rdo_ico.setValue(str);
+					}
 					if(result.dlt_list){
 						let str = '';
 						for(let j=0; j < result.dlt_list.length; j++){
@@ -134,7 +144,7 @@
 			edi_1.focus();
 		}
 	};
-	xhr.send(JSON.stringify({dma_search:{COMMON_QUERY:'M.LST_GRP',GRP_MANAGER_ID:JSON.parse(sessionStorage.getItem('session')).R_ID}}));
+	xhr.send(JSON.stringify({dma_search:{COMMON_QUERY:'M.LST_GRP,M.LST_ICO_MY',GRP_MANAGER_ID:JSON.parse(sessionStorage.getItem('session')).R_ID}}));
 
 
 };
@@ -322,6 +332,24 @@ scwin.trigger2_onclick = function(e) {
 							</xf:select>
 						</xf:group>
 					</xf:group>
+					<xf:group tagname="tr" id="tr_ico" style="height:80px">
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
+							<w2:textbox class="" id="" label="아이콘" style=""></w2:textbox>
+						</xf:group>
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes></w2:attributes>
+							<xf:select1 selectedindex="-1"  appearance="full" cols="" disabled="" id="rdo_ico" ref="" renderType="radiogroup" rows="1"
+								style="color:#333" class="" separator=",">
+								<xf:choices>
+									<xf:itemset nodeset="data:dlt_ico_list">
+										<xf:label ref="DATA"></xf:label>
+										<xf:value ref="CODE"></xf:value>
+									</xf:itemset>
+								</xf:choices>
+							</xf:select1>
+						</xf:group>
+					</xf:group>					
 					<xf:group tagname="tr" style="display:none;" id="tr_title">
 						<xf:group tagname="th" class="w2tb_th">
 							<w2:attributes></w2:attributes>

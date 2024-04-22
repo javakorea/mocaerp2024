@@ -330,8 +330,14 @@
 		AND ICO_NM=#{ICO_NM}
 		AND ICO_MANAGER_ID=#{ICO_MANAGER_ID}
     </delete> 
-    
-    
+   	<select id="LST_ICO_MY" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* LST_ICO_MY 등록_수정시 나의아이콘_목록조회*/
+			SELECT  CONCAT(ICO,' ',ICO_NM) AS DATA, ICO AS CODE
+			FROM 	T_ICO
+			WHERE 1=1 
+			AND ICO_MANAGER_ID = #{GRP_MANAGER_ID}
+			ORDER BY 1 DESC				
+    </select>
     
     
     

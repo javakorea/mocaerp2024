@@ -84,7 +84,7 @@ scwin.trigger1_onclick = function(e) {
 	com.win.confirm($p, '등록하시겠습니까?', function(e){
 		if(e.clickValue){
 			dma_content.set("ICO_NM",ico_nm);
-			dma_content.set("ico",ico);
+			dma_content.set("ICO",ico);
 			dma_content.set("ICO_MANAGER_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
 
 			dma_content.set("COMMON_MASTER_QUERY"	, "M.INS_ICO");
@@ -113,6 +113,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 		let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
 		if(request.COMMON_STATUS == 'I'){
 			com.win.alert('등록되었습니다.', function(e){
+				ipt_ico.setValue('');
 				ipt_ico_nm.setValue('');
 				grp_createGrp.hide('');
 				grp_dim_white.hide('');
@@ -173,21 +174,21 @@ scwin.grd_oncellclick = function(row,col,colId) {
 			</xf:group>
 			<xf:group adaptiveThreshold="" class="" id="" style="">
 				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
-					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style="height:100px"
+					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style="height:800px"
 					ev:oncellclick="scwin.grd_oncellclick" rowNumVisible="true" readOnly="true">
 					<w2:header id="header2" style="">
 						<w2:row id="row3" style="">
-							<w2:column width="130" inputType="text" style="" id="column1" value="아이콘" displayMode="label"></w2:column>
-							<w2:column width="70" inputType="text" style="" id="column3" value="타이틀" displayMode="label"></w2:column>
-							<w2:column width="120" inputType="text" style="" id="column5" value="등록일시" displayMode="label" ></w2:column>
+							<w2:column width="50" inputType="text" style="" id="column1" value="아이콘" displayMode="label"></w2:column>
+							<w2:column width="85" inputType="text" style="" id="column3" value="타이틀" displayMode="label"></w2:column>
+							<w2:column width="145" inputType="text" style="" id="column5" value="등록일시" displayMode="label" ></w2:column>
 							<w2:column width="50" inputType="text" style="" id="column4" value="" displayMode="label"></w2:column>
 						</w2:row>
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
 							<w2:column width="50" inputType="text" style="" id="ICO" value="" displayMode="label"></w2:column>
-							<w2:column width="130" inputType="text" style="" id="ICO_NM" value="" displayMode="label" textAlign="left"></w2:column>
-							<w2:column width="120" inputType="text" style="" id="ICO_REG_DTTM" value="" displayMode="label"
+							<w2:column width="85" inputType="text" style="" id="ICO_NM" value="" displayMode="label" textAlign="left"></w2:column>
+							<w2:column width="145" inputType="text" style="" id="ICO_REG_DTTM" value="" displayMode="label"
 								displayFormat="####-##-## ##:##:##">
 							</w2:column>
 							<w2:column width="50" inputType="button" style="" id="ICO_BTN" value="" displayMode="label"></w2:column>
@@ -258,7 +259,7 @@ scwin.grd_oncellclick = function(row,col,colId) {
 				<xf:group id="" class="" style='padding:4px'>
 					<xf:trigger type="button" id="trigger1"
 						style="width: 100px;height: 40px;font-size:14px;margin:4px;background-color:#3a4891;color:#FFF" ev:onclick="scwin.trigger1_onclick">
-						<xf:label><![CDATA[중복확인]]></xf:label>
+						<xf:label><![CDATA[등록]]></xf:label>
 					</xf:trigger>
 					<xf:trigger type="button" id="trigger2"
 						style="width: 100px;height: 40px;font-size:14px;margin:4px;background-color:#576DDC;color:#FFF" ev:onclick="scwin.trigger2_onclick">
