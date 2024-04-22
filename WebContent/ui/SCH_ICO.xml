@@ -111,11 +111,7 @@ scwin.sbm_commonTran_submitdone = function(e) {
 	let _j = e.responseJSON;
 	if(_j.status == "S"){
 		let request = _j.COMMON_RESULT.COMMON_PARAM_MAP;
-		if(request.COMMON_STATUS == 'U_APPR'){
-			com.win.alert('승인되었습니다.', function(e){
-				scwin.detail_search();
-			});		
-		}else if(request.COMMON_STATUS == 'I'){
+		if(request.COMMON_STATUS == 'I'){
 			com.win.alert('등록되었습니다.', function(e){
 				ipt_ico_nm.setValue('');
 				grp_createGrp.hide('');
@@ -137,7 +133,25 @@ scwin.btn_search_onclick = function(e) {
 	com.sbm.execute (sbm_commonList);
 };
 
-]]></script>
+scwin.trigger2_onclick = function(e) {
+	grp_createGrp.hide('');
+	grp_dim_white.hide('');
+};
+scwin.grd_oncellclick = function(row,col,colId) {
+	let ICO_NM = this._dataList.getCellData(row,"ICO_NM");
+	if(colId == 'ICO_BTN'){
+		com.win.confirm($p, `[아이콘:${ICO_NM}]을 삭제하시겠습니까?`, function(e){
+			if(e.clickValue){
+				dma_content.set("ICO_NM",ICO_NM);
+				dma_content.set("ICO_MANAGER_ID",JSON.parse(sessionStorage.getItem('session')).R_ID);
+
+				dma_content.set("COMMON_MASTER_QUERY"	, "M.DEL_ICO");
+				dma_content.set("COMMON_STATUS"			, "D");
+				com.sbm.execute(sbm_commonTran);
+			}
+		});	
+	}
+};]]></script>
 	</head>
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group class="sub_contents flex_gvw flex_m" id="group1" style="">
@@ -160,7 +174,7 @@ scwin.btn_search_onclick = function(e) {
 			<xf:group adaptiveThreshold="" class="" id="" style="">
 				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list"
 					defaultCellHeight="26" focusMode="row" id="grd1" scrollByColumn="false" scrollByColumnAdaptive="false" style="height:100px"
-					rowNumVisible="true" readOnly="true">
+					ev:oncellclick="scwin.grd_oncellclick" rowNumVisible="true" readOnly="true">
 					<w2:header id="header2" style="">
 						<w2:row id="row3" style="">
 							<w2:column width="130" inputType="text" style="" id="column1" value="아이콘" displayMode="label"></w2:column>

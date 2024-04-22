@@ -323,6 +323,17 @@
 		VALUES
 		(#{ICO_NM},#{ICO_MANAGER_ID},TO_CHAR(NOW(),'YYYYMMDDHH24MISS'),#{ICO_MAX},#{ICO})
     </insert>
+    <delete id="DEL_ICO" parameterType="java.util.Map" >
+        /*DEL_ICO 아이콘삭제*/
+	    DELETE FROM T_ICO
+		WHERE 1=1
+		AND ICO_NM=#{ICO_NM}
+		AND ICO_MANAGER_ID=#{ICO_MANAGER_ID}
+    </delete> 
+    
+    
+    
+    
     
        
     
