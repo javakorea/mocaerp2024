@@ -116,7 +116,7 @@ scwin.cell_onclick = function() {
 							<xf:group style="" id="" class=""></xf:group>
 						</xf:group>
 						<xf:group style="" id="cell01" class="sch_td" ev:onclick="scwin.cell_onclick">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
+							<w2:span label="" style="" class="spa_dt " id=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
 						</xf:group>
 						<xf:group style="" id="cell02" class="sch_td" ev:onclick="scwin.cell_onclick">
@@ -124,7 +124,7 @@ scwin.cell_onclick = function() {
 							<xf:group style="" id="" class=""></xf:group>
 						</xf:group>
 						<xf:group style="" id="cell03" class="sch_td" ev:onclick="scwin.cell_onclick">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
+							<w2:span label="" style="" class="spa_dt holiday" id=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
 						</xf:group>
 						<xf:group style="" id="cell04" class="sch_td" ev:onclick="scwin.cell_onclick">
@@ -272,7 +272,7 @@ scwin.cell_onclick = function() {
 							<xf:group style="" id="" class=""></xf:group>
 						</xf:group>
 						<xf:group style="" id="cell51" class="sch_td" ev:onclick="scwin.cell_onclick">
-							<w2:span label="" style="" class="spa_dt" id=""></w2:span>
+							<w2:span label="" style="" class="spa_dt holiday" id=""></w2:span>
 							<xf:group style="" id="" class=""></xf:group>
 						</xf:group>
 						<xf:group style="" id="cell52" class="sch_td" ev:onclick="scwin.cell_onclick">
