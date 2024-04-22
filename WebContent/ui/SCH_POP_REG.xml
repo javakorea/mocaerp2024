@@ -38,8 +38,8 @@
 	xhr.responseType = 'json';
 	xhr.onload = function() {
 		let result = xhr.response;
-		debugger;
 		if(result.dlt_list1){//아이콘리스트
+			result.dlt_list1.push({CODE:'',DATA:'아이콘없음'});
 			dlt_ico_list.setJSON(result.dlt_list1);
 		}
 		if(result.dlt_list){

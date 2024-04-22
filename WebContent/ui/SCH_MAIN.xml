@@ -288,7 +288,7 @@
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.selectedCell = null;
 scwin.selectedSchObj = null;
 
-scwin.linkIcon = '⊶';
+scwin.linkIcon = '';
 scwin.yyyyMmColor = '#dc5773';
 scwin.cellBgColor = '#deecee';
 scwin.left = null;

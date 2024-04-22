@@ -514,7 +514,7 @@
 			<if test="SCH_SENDYN != null and SCH_SENDYN != ''">SCH_SENDYN = #{SCH_SENDYN},</if>
 			<if test="SCH_TITLE != null and SCH_TITLE != ''">SCH_TITLE = #{SCH_TITLE},</if>	
 			<if test="SCH_CONT != null and SCH_CONT != ''">SCH_CONT = #{SCH_CONT},</if>	
-			<if test="SCH_ICO != null and SCH_ICO != ''">SCH_ICO = #{SCH_ICO},</if>	
+			SCH_ICO = #{SCH_ICO},
 			SCH_UPTDT =  CURRENT_TIMESTAMP
          WHERE 1=1
          AND SCH_WRITER	=#{SCH_WRITER}
