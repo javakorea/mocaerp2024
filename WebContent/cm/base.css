@@ -483,6 +483,7 @@ input[type="file"]{cursor:pointer;}
 .dfbox{position:relative;width:100%; min-height:42px}/* 타이틀 박스 */
 .dfbox:after{content:'';display:block;clear:both;}
 .dfbox h3{position:relative;display:inline-block;padding:0;font-size:14px;line-height:26px;}
+.dfbox h3:before{content: ''; display: inline-block; position: relative; width: 4px; height: 4px; background: #576ddc; top:-4px;margin-right: 5px; border-radius: 50%;}
 .dfbox h4{display:inline-block;position:relative;padding:0 0 0 16px;margin:0;line-height:26px;font-size:13px;font-weight:600}
 .dfbox h4:before{content:'';display:inline-block;position:absolute;top:11px;left:8px;width:3px;height:3px;background:#2d353c;border-radius:100%;}
 .dfbox .fr{float:right;min-height:26px;line-height:26px;}
@@ -1196,7 +1197,7 @@ input[type="file"]{cursor:pointer;}
 	.tw_menu .w2treeview_row_depth1 .w2treeview_label{background-color: #fff;  color: #576DDC;  border: 0;  font-size: 23px;  box-shadow: inset 0 -8px 0 #576DDC30;  border-radius: 0;  width: auto;  padding: 0 10px 0 0;}
 	.tw_menu .w2treeview_row_depth1 .w2treeview_label.w2treeview_select_node
 	.tw_menu .w2treeview_row_depth2 .w2treeview_label{font-size:16px;}
-	.tw_menu .w2treeview_row_depth2 .w2treeview_label{font-size:16px;    width: 100%;  display: inline-block;}
+	.tw_menu .w2treeview_row_depth2 .w2treeview_label{font-size:16px;    width: 100%;  display: inline-block; box-sizing:border-box}
 	
 .show_menu .side{bottom:0;}
 .show_menu .side_r{right:0;bottom:0;}

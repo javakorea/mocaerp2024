@@ -312,7 +312,7 @@ scwin.usercnt = function(v1,v2,row,col){
 				
 			<xf:group class="fl" id="" style="">
 					
-				</xf:group><w2:textbox class="" id="txt_title_mychin" label="- 채널별구독자목록" style="top: 16px;    font-size: 16px;" tagname="h3"></w2:textbox><xf:group class="fr" id="" style="">
+				</xf:group><w2:textbox class="" id="txt_title_mychin" label="채널별구독자목록" style="top: 16px;    font-size: 16px;" tagname="h3"></w2:textbox><xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox>
 				</xf:group></xf:group>
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
