@@ -480,14 +480,14 @@ input[type="file"]{cursor:pointer;}
 .btnbox .btn_cm.pt:active:hover{background-color:#1c77cb;border-color:#1a65a8;}
 
 /* 타이틀영역 */
-.dfbox{position:relative;margin:0 0 5px;width:100%;}/* 타이틀 박스 */
+.dfbox{position:relative;width:100%; min-height:42px}/* 타이틀 박스 */
 .dfbox:after{content:'';display:block;clear:both;}
 .dfbox h3{position:relative;display:inline-block;padding:0;font-size:14px;line-height:26px;}
 .dfbox h4{display:inline-block;position:relative;padding:0 0 0 16px;margin:0;line-height:26px;font-size:13px;font-weight:600}
 .dfbox h4:before{content:'';display:inline-block;position:absolute;top:11px;left:8px;width:3px;height:3px;background:#2d353c;border-radius:100%;}
 .dfbox .fr{float:right;min-height:26px;line-height:26px;}
 .dfbox .fr > *{float:left;}
-.dfbox .fr > .w2textbox {margin-right:16px;font-size:12px;font-weight:bold;display:inline-block; vertical-align:middle;position: relative;  top: 9px;}
+.dfbox .fr > .w2textbox {margin-right:5px;font-size:16px;font-weight:bold;display:inline-block; vertical-align:middle;position: relative;  top: 16px;}
 .dfbox .fr > .sum {color:#e98c3b; margin-right:0; }
 .dfbox .fr > .ett {color:#45b7af; margin-right:4px;}
 .dfbox .fr > .w2radio { margin-right:16px;}
@@ -495,7 +495,7 @@ input[type="file"]{cursor:pointer;}
 .dfbox .fr .btn_cm:last-of-type{margin-right:0;}
 
 /* search table */
-.shbox{position:relative;margin:0 0 16px;padding:0 16px 0;background-color:#f2f3f4;border:1px solid #ced4da;}
+.shbox{position:relative;padding:0 16px 0;background-color:#f2f3f4;border:1px solid #ced4da;}
 .shbox .shbox_inner{position:relative;margin:0 85px 0 0;padding:0;overflow:hidden;}
 .shbox .shbox_inner.on{display:block;height:100%;transition:all 0.5s;}
 .shbox .tb{border:0;}
@@ -1500,6 +1500,7 @@ input[type="file"]{cursor:pointer;}
 .li_color:nth-child(2n){margin-left:5px;}
 .li_color:last-child{margin-bottom:0;}
 .btn_cm.blue, .btn_cm.blue:active, .btn_cm.blue:active:hover{ background-color: #fff;   color: #333;  border: 1px solid #333;}
+.btn_cm.refresh{background: url(/cm/images/ico_refresh.svg) center no-repeat; background-size: 20px; text-indent: -999px;    width: 36px;  height: 36px;}
 .fullcalendar{height:100%;}
 .fullcalendar .cke_editor{width:100% !important}
 .fullcalendar .fc-view-harness{height:100% !important}
@@ -1775,7 +1776,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.sch_tbody{height:calc(100% - 18px)}
 	.spa_dt{padding:0; font-size:15px; margin:0}
 	.ico_weather{ width: 16px;    height: 16px;    background-size: 16px;    right: 23px;    top: 6px;}
-	.btn_toggle.mo{width:30px; height:30px;}
+	.btn_toggle.mo.sch{width:30px; height:30px;}
 	.btn_toggle.today.mo{line-height:30px}
 }
 

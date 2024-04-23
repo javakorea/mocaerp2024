@@ -257,7 +257,7 @@ scwin.usercnt = function(v1,v2,row,col){
 						ev:onclick="scwin.btn_write_onclick">
 						<xf:label><![CDATA[내채널만들기]]></xf:label>
 					</xf:trigger>
-					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_search" style="margin-top:3px" type="button"
+					<xf:trigger class="btn_cm blue refresh" disabled="" escape="false" id="btn_search" style="margin-top:3px" type="button"
 						ev:onclick="scwin.btn_search_onclick">
 						<xf:label><![CDATA[조회]]></xf:label>
 					</xf:trigger>
@@ -308,13 +308,13 @@ scwin.usercnt = function(v1,v2,row,col){
 
 			<!-- 2번 -->
 			<xf:group class="dfbox" id="" style="">
-				<xf:group class="fl" id="" style="">
-					<w2:textbox class="" id="txt_title_mychin" label="- 채널별구독자목록" style="font-size:16px;margin-top:8px"></w2:textbox>
-				</xf:group>
-				<xf:group class="fr" id="" style="">
+				
+				
+			<xf:group class="fl" id="" style="">
+					
+				</xf:group><w2:textbox class="" id="txt_title_mychin" label="- 채널별구독자목록" style="top: 16px;    font-size: 16px;" tagname="h3"></w2:textbox><xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox>
-				</xf:group>
-			</xf:group>
+				</xf:group></xf:group>
 			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
 				<w2:gridView autoFit="lastColumn" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dlt_list_mychin"
 					defaultCellHeight="26" focusMode="row" id="grd_mychin" scrollByColumn="false" scrollByColumnAdaptive="false" style=""

@@ -44,7 +44,7 @@ scwin.reload = function () {
 	<body ev:onpageload="scwin.onpageload">
 		<xf:group class="pgtbox tac" id="grp_main" style="">
 			<xf:group id="" class="fl" style="position:absolute">
-				<w2:anchor class="btn_toggle logout mo" ev:onclick="com.mdi_close" id="anchor1" name="" outerDiv="false" style="">
+				<w2:anchor class="btn_toggle logout mo ml0" ev:onclick="com.mdi_close" id="anchor1" name="" outerDiv="false" style="">
 					<xf:label><![CDATA[slide]]></xf:label>
 				</w2:anchor><w2:anchor ev:onclick="com.btn_togglemenu_onclick" outerDiv="false" name="" style="\" id="btn_menu"
 					class="btn_toggle menu mo">

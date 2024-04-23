@@ -309,7 +309,7 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 		</style>
 	</head>
 	<body ev:onpageload="scwin.onpageload" >
-		<xf:group id="grp_root" class="sub_contents flex_gvw" style="display:none;">
+		<xf:group id="grp_root" class="sub_contents flex_gvw" style="">
 
 			<xf:group class="sch_titleArea" id="" style="">
 				<xf:group class="sch_detail_wrap" id="grp_adayList" style="">
@@ -346,11 +346,11 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 					</xf:group>
 				</xf:group>
 				<xf:group class="fl" id="">
-					<w2:anchor class="btn_toggle menu mo" ev:onclick="com.btn_togglemenu_onclick" id="btn_menu" name="" outerDiv="false"
+					<w2:anchor class="btn_toggle menu mo sch ml0" ev:onclick="com.btn_togglemenu_onclick" id="btn_menu" name="" outerDiv="false"
 						style="">
 						<xf:label><![CDATA[]]></xf:label>
 					</w2:anchor>
-					<w2:anchor class="btn_toggle left mo" id="btn_prev" name="" outerDiv="false"
+					<w2:anchor class="btn_toggle left mo sch" id="btn_prev" name="" outerDiv="false"
 						style="" ev:onclick="scwin.btn_prev_onclick">
 						<xf:label><![CDATA[slide]]></xf:label>
 					</w2:anchor>
@@ -361,11 +361,11 @@ scwin.SCH_CURRENTMONTH_onviewchange = function(info) {
 					</xf:input>
 				</xf:group>
 				<xf:group class="fr" id="">
-					<w2:anchor class="btn_toggle right mo" id="btn_next" name="" outerDiv="false"
+					<w2:anchor class="btn_toggle right mo sch" id="btn_next" name="" outerDiv="false"
 						style="" ev:onclick="scwin.btn_next_onclick">
 						<xf:label><![CDATA[slide]]></xf:label>
 					</w2:anchor>
-					<w2:anchor class="btn_toggle today mo mr5" id="btn_today" name="" outerDiv="false"
+					<w2:anchor class="btn_toggle today mo sch mr5" id="btn_today" name="" outerDiv="false"
 						style="" ev:onclick="scwin.btn_today_onclick">
 						<xf:label><![CDATA[오늘]]></xf:label>
 					</w2:anchor>

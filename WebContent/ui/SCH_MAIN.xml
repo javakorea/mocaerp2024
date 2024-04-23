@@ -893,11 +893,11 @@ scwin.sbm_commonTran_submitdone = function(e) {
 					</xf:group>
 					<xf:group id="" class="fl">
 
-						<w2:anchor class="btn_toggle menu mo" id="btn_menu" name="" outerDiv="false" style=""
+						<w2:anchor class="btn_toggle menu mo sch" id="btn_menu" name="" outerDiv="false" style=""
 							ev:onclick="com.btn_togglemenu_onclick">
 							<xf:label><![CDATA[]]></xf:label>
 						</w2:anchor>
-						<w2:anchor class="btn_toggle left mo" ev:onclick="scwin.btn_left_onclick" id="btn_left" name="" outerDiv="false"
+						<w2:anchor class="btn_toggle left mo sch" ev:onclick="scwin.btn_left_onclick" id="btn_left" name="" outerDiv="false"
 							style="">
 							<xf:label><![CDATA[slide]]></xf:label>
 						</w2:anchor>
@@ -909,11 +909,11 @@ scwin.sbm_commonTran_submitdone = function(e) {
 					</xf:group>
 					<xf:group id="" class="fr">
 						
-						<w2:anchor class="btn_toggle right mo" ev:onclick="scwin.btn_right_onclick" id="btn_right" name="" outerDiv="false"
+						<w2:anchor class="btn_toggle right mo sch" ev:onclick="scwin.btn_right_onclick" id="btn_right" name="" outerDiv="false"
 							style="">
 							<xf:label><![CDATA[slide]]></xf:label>
 						</w2:anchor>
-					<w2:anchor class="btn_toggle today mo mr5" ev:onclick="scwin.btn_today_onclick" id="btn_today" name="" outerDiv="false" style="">
+					<w2:anchor class="btn_toggle today mo sch mr5" ev:onclick="scwin.btn_today_onclick" id="btn_today" name="" outerDiv="false" style="">
 							<xf:label><![CDATA[오늘]]></xf:label>
 						</w2:anchor></xf:group>
 				</xf:group>
