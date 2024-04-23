@@ -244,7 +244,7 @@ scwin.trigger2_onclick = function(e) {
 					</xf:trigger>
 				</xf:group>
 			</xf:group>
-			<xf:group class="tbbox noline read mb10" id="tbl_search" style="border-bottom:1px solid #333;">
+			<xf:group class="tbbox noline read mb10" id="tbl_search" style="border-bottom:1px solid #333;flex:auto;">
 				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
 					<w2:attributes>
 						<w2:summary></w2:summary>
@@ -314,7 +314,7 @@ scwin.trigger2_onclick = function(e) {
 							</xf:group>
 						</xf:group>
 					</xf:group>
-					<xf:group tagname="tr" id="tr_channel" style="height:80px">
+					<xf:group tagname="tr" id="tr_channel" style="">
 						<xf:group tagname="th" class="w2tb_th">
 							<w2:attributes></w2:attributes>
 							<w2:textbox class="" id="" label="공유" style=""></w2:textbox>
@@ -332,7 +332,7 @@ scwin.trigger2_onclick = function(e) {
 							</xf:select>
 						</xf:group>
 					</xf:group>
-					<xf:group tagname="tr" id="tr_ico" style="height:80px">
+					<xf:group tagname="tr" id="tr_ico" style="">
 						<xf:group tagname="th" class="w2tb_th">
 							<w2:attributes></w2:attributes>
 							<w2:textbox class="" id="" label="아이콘" style=""></w2:textbox>
@@ -364,7 +364,7 @@ scwin.trigger2_onclick = function(e) {
 			</xf:group>
 			<xf:group id="" class="edbox sch">
 				<xf:group id="" style="" class="edi_btn"></xf:group>
-				<xf:textarea id="edi_1" style="height:100%;" ref="data:dma_content.SCH_CONT" escape="false" class="sch_view_cont"></xf:textarea>
+				<xf:textarea id="edi_1" style="" ref="data:dma_content.SCH_CONT" escape="false" class="sch_view_cont"></xf:textarea>
 			</xf:group>
 		</xf:group>
 		<xf:group id="grp_dim_white" class=""

@@ -152,12 +152,12 @@ scwin.display_color = function(_data){
 						</xf:group>
 					</xf:group>
 					<xf:group tagname="tr" id="tr_writer" style="display:none;">
+						<xf:group tagname="th" class="w2tb_th">
+							<w2:attributes></w2:attributes>
+						<w2:textbox id="" label="작성자" style=""></w2:textbox></xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-						</xf:group>
-						<xf:group tagname="td" class="w2tb_td">
-							<w2:attributes></w2:attributes>
-							<w2:textbox id="" label="작성자:" style="color:black;font-size: 30px"></w2:textbox>
+							
 							<xf:input class="" id="ibx_schdWriter" placeholder="" readOnly="true" ref="data:dma_content.SCH_WRITER" style="width:100%;">
 							</xf:input>
 						</xf:group>

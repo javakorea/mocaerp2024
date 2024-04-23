@@ -1196,7 +1196,7 @@ input[type="file"]{cursor:pointer;}
 	.tw_menu .w2treeview_row_depth1 .w2treeview_label{background-color: #fff;  color: #576DDC;  border: 0;  font-size: 23px;  box-shadow: inset 0 -8px 0 #576DDC30;  border-radius: 0;  width: auto;  padding: 0 10px 0 0;}
 	.tw_menu .w2treeview_row_depth1 .w2treeview_label.w2treeview_select_node
 	.tw_menu .w2treeview_row_depth2 .w2treeview_label{font-size:16px;}
-	.tw_menu .w2treeview_row_depth2 .w2treeview_label{font-size:16px;}
+	.tw_menu .w2treeview_row_depth2 .w2treeview_label{font-size:16px;    width: 100%;  display: inline-block;}
 	
 .show_menu .side{bottom:0;}
 .show_menu .side_r{right:0;bottom:0;}
@@ -1484,7 +1484,7 @@ input[type="file"]{cursor:pointer;}
 .edbox .w2editor{min-height:calc(100% - 100px);height:100%;}
 .sch.edbox .w2editor, .sch.edbox{height:100% !important; }
 /*.sch.edbox .w2textarea {padding:15px; font-size:25px; line-height:1.5em; background: #fff; border-radius: 10px;} */
-.sch.edbox .w2textarea {font-size:20px;}
+.sch.edbox .w2textarea {font-size:20px;height:100%}
 .sch.edbox .w2textarea:hover{border:1px solid #333}
 .w2editor .cke[role="application"]{width:100% !important; height:100% !important;}
 .w2editor .cke_contents{flex:auto; height:100% !important;}
@@ -1633,7 +1633,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .grp_setFromTo .w2inputCalendar_div_img{width:100%}
 .grp_setFromTo .w2inputCalendar_div_img button{background: none !important; position:absolute; top:0; left:0}
 
-.btn_moreDetail{    width: 30px;  text-indent: -9999px;  background: url(/cm/images/ico_arrowBottom.png) no-repeat;  position: absolute;  right: 20px;  border: 0;  height: 30px;  top: 23px;  background-size: 30px;}
+.btn_moreDetail{    width: 30px;  text-indent: -9999px;  background: url(/cm/images/ico_arrowBottom.png) no-repeat;  position: absolute;  right: 20px;  border: 0;  height: 30px;  top: 14px;  background-size: 30px;}
 .btn_moreDetail[value="간편등록모드로이동"]{transform:rotate(180deg)}
 .tbbox.join .tb{border:0}
 .tbbox.join .tb .w2tb_th, .tbbox.join .tb.w2tb.w2tb_adaptive_layout .w2tb_th{position:relative; top:unset; left:unset; font-size: 20px;  height: 30px; border: 0;  background: #fff;}
@@ -1749,14 +1749,18 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.dfbox .df_tit {margin-top: 0; line-height:27px;}
 	
 	.flex_gvw, .flex_gvw .wq_flx {display:block;}
-	.flex_gvw.flex_m, .pop_contents.flex_gvw.flex_m{display:flex; padding:10px;}
-	.pop_contents.flex_gvw.flex_m .edbox {display: flex;  width: 100%;  flex-direction: column; }
+	.flex_gvw.flex_m, .pop_contents.flex_gvw.flex_m{display:flex; padding:10px; flex-wrap:nowrap}
+	.pop_contents.flex_gvw.flex_m .edbox {display: flex;  width: 100%;  flex-direction: column}
 	.pop_contents.flex_gvw.flex_m .edbox > .w2editor {height:100% !important}
 	.pop_contents.flex_gvw.flex_m .edbox .cke_button__source_label, .cke_button__sourcedialog_label{display:none}
 	
 	.ipt_color{right:3px !important;}
 	.txt_saveDt{display: inline-block; left: 0; position: absolute; z-index: 2; top: -18px;}
 	.tbbox.noline.read .w2tb_adaptive_layout tr{display:flex;}
+	.tbbox.noline .tb tr{height:auto}
+	.tbbox.noline.read .tb .w2tb_td{height: auto}
+	.tbbox.noline.read .tb .w2tb_td[data-title="아이콘"]  .w2radio_item {width:calc(50% - 30px);}
+	.tbbox.noline .w2radio{height:auto !important;}
 	.side .btn_area{display:block !important;    z-index: 1;  position: absolute;  right: 0;}
 	.wfm_tit{display:block}
 	.wfm_tit:before{content:''; position:absolute;    left: -10px;  right: -10px;  border-bottom: 1px solid #333;  top: 48px;}
@@ -1783,6 +1787,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.w2tb.w2tb_adaptive_layout .w2autoComplete,
 	.w2tb.w2tb_adaptive_layout .w2checkcombobox{min-width:40px; width:100% !important; margin-right:4px;}
 	.w2tb.w2tb_adaptive_layout .w2input.grp_fromto {width: calc(50% - 2.5px) !Important; font-size:22px !important;}
+	
 	
 	.login_wrap.type2 .login_container{ width: 312px;}
 	.login_wrap.type2 .login_contents ul li a {margin-left: 10px;padding-left: 10px;}
