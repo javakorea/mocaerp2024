@@ -244,7 +244,12 @@ scwin.trigger2_onclick = function(e) {
 					</xf:trigger>
 				</xf:group>
 			</xf:group>
-			<xf:group class="tbbox noline read mb10" id="tbl_search" style="border-bottom:1px solid #333;flex:auto;">
+			
+			<xf:group id="" class="edbox sch mb10 mt10">
+				<xf:group id="" style="" class="edi_btn"></xf:group>
+				<xf:textarea id="edi_1" style="" ref="data:dma_content.SCH_CONT" escape="false" class="sch_view_cont"></xf:textarea>
+			</xf:group>
+		<xf:group class="tbbox noline read mb0" id="tbl_search" style="border-top:1px solid #333;flex:auto;">
 				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
 					<w2:attributes>
 						<w2:summary></w2:summary>
@@ -261,8 +266,7 @@ scwin.trigger2_onclick = function(e) {
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="" renderType="radiogroup" rows="1"
-								selectedIndex="0" style="color:#333" class="sch_rdo">
+							<xf:select1 appearance="full" cols="" disabled="" id="rdo_gubunYn" ref="" renderType="radiogroup" rows="1" selectedIndex="0" style="color:#333" class="sch_rdo">
 								<xf:choices>
 									<xf:itemset nodeset="data:dlt_gubunList">
 										<xf:label ref="DATA"></xf:label>
@@ -280,15 +284,12 @@ scwin.trigger2_onclick = function(e) {
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:group id="" style="" class="grp_setFromTo">
-								<w2:inputCalendar id="ipc_start" style="" calendarValueType="yearMonthDate"
-									pickerType="dynamic" readOnly="true">
+								<w2:inputCalendar id="ipc_start" style="" calendarValueType="yearMonthDate" pickerType="dynamic" readOnly="true">
 								</w2:inputCalendar>
-								<xf:input id="ipt_startHH" style="" readOnly="true"
-									ev:onclick="scwin.tri_HH_onclick" class="iptHHmm">
+								<xf:input id="ipt_startHH" style="" readOnly="true" ev:onclick="scwin.tri_HH_onclick" class="iptHHmm">
 								</xf:input>
 								<w2:textbox id="" label=":" style="color: #333;font-size: 20px"></w2:textbox>
-								<xf:input id="ipt_startMI" style="" readOnly="true"
-									ev:onclick="scwin.tri_MI_onclick" class="iptHHmm">
+								<xf:input id="ipt_startMI" style="" readOnly="true" ev:onclick="scwin.tri_MI_onclick" class="iptHHmm">
 								</xf:input>
 							</xf:group>
 						</xf:group>
@@ -301,15 +302,12 @@ scwin.trigger2_onclick = function(e) {
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
 							<xf:group id="" style="" class="grp_setFromTo">
-								<w2:inputCalendar id="ipc_end" style="" calendarValueType="yearMonthDate"
-									pickerType="dynamic">
+								<w2:inputCalendar id="ipc_end" style="" calendarValueType="yearMonthDate" pickerType="dynamic">
 								</w2:inputCalendar>
-								<xf:input id="ipt_endHH" style="" readOnly="true"
-									ev:onclick="scwin.tri_HH_onclick" class="iptHHmm">
+								<xf:input id="ipt_endHH" style="" readOnly="true" ev:onclick="scwin.tri_HH_onclick" class="iptHHmm">
 								</xf:input>
 								<w2:textbox id="" label=":" style="color: #333;font-size: 20px"></w2:textbox>
-								<xf:input id="ipt_endMI" style="" readOnly="true"
-									ev:onclick="scwin.tri_MI_onclick" class="iptHHmm">
+								<xf:input id="ipt_endMI" style="" readOnly="true" ev:onclick="scwin.tri_MI_onclick" class="iptHHmm">
 								</xf:input>
 							</xf:group>
 						</xf:group>
@@ -321,8 +319,7 @@ scwin.trigger2_onclick = function(e) {
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:select selectedindex="-1"  appearance="full" cols="" disabled="" id="chk_channel" ref="" renderType="checkboxgroup" rows="1"
-								style="color:#333" class="" separator=",">
+							<xf:select selectedindex="-1" appearance="full" cols="" disabled="" id="chk_channel" ref="" renderType="checkboxgroup" rows="1" style="color:#333" class="" separator=",">
 								<xf:choices>
 									<xf:itemset nodeset="data:dlt_channel_list">
 										<xf:label ref="DATA"></xf:label>
@@ -339,8 +336,7 @@ scwin.trigger2_onclick = function(e) {
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:select1 selectedindex="-1"  appearance="full" cols="" disabled="" id="rdo_ico" ref="" renderType="radiogroup" rows="1"
-								style="color:#333" class="" separator=",">
+							<xf:select1 selectedindex="-1" appearance="full" cols="" disabled="" id="rdo_ico" ref="" renderType="radiogroup" rows="1" style="color:#333" class="" separator=",">
 								<xf:choices>
 									<xf:itemset nodeset="data:dlt_ico_list">
 										<xf:label ref="DATA"></xf:label>
@@ -361,12 +357,7 @@ scwin.trigger2_onclick = function(e) {
 						</xf:group>
 					</xf:group>
 				</xf:group>
-			</xf:group>
-			<xf:group id="" class="edbox sch">
-				<xf:group id="" style="" class="edi_btn"></xf:group>
-				<xf:textarea id="edi_1" style="" ref="data:dma_content.SCH_CONT" escape="false" class="sch_view_cont"></xf:textarea>
-			</xf:group>
-		</xf:group>
+			</xf:group></xf:group>
 		<xf:group id="grp_dim_white" class=""
 			style="display:none;z-index:9998;background-color:#FFF;opacity:0.8;position:absolute;top:0px;bottom:0px;left:0px;right:0px"
 			ev:onclick="scwin.grp_dim_white_onclick">
