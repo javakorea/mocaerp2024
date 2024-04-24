@@ -354,27 +354,28 @@ public class Moca3Application {
 	@RequestMapping(value = "/FRM/LOGIN.do")
 	public Map LOGIN(@RequestBody Map param,HttpServletRequest request) throws Exception {
 		Map member = u.selectMap(param,ss);
+		Map session = (Map)member.get("dma_map");
 		Map parameter = (Map)param.get("dma_search");
 		boolean isExeUpdate = false;
-		if(parameter.get("U_EMAIL") !=null && (parameter.get("U_EMAIL") != member.get("R_EMAIL"))){
+		if(parameter.get("U_EMAIL") !=null && !"".equals(parameter.get("U_EMAIL")) &&(!parameter.get("U_EMAIL").equals(session.get("R_EMAIL")))) {				
 			isExeUpdate = true;
-		}else if(parameter.get("U_NAME") !=null && (parameter.get("U_NAME") != member.get("R_NAME"))){
+		}else if(parameter.get("U_NAME") !=null && !"".equals(parameter.get("U_NAME")) &&(!parameter.get("U_NAME").equals(session.get("R_NAME")))) {			
 			isExeUpdate = true;
-		}else if(parameter.get("U_PHONE") !=null && (parameter.get("U_PHONE") != member.get("R_PHONE"))){
+		}else if(parameter.get("U_PHONE") !=null && !"".equals(parameter.get("U_PHONE")) &&(!parameter.get("U_PHONE").equals(session.get("R_PHONE")))) {
 			isExeUpdate = true;
-		}else if(parameter.get("U_LEVEL") !=null && (parameter.get("U_LEVEL") != member.get("R_LEVEL"))){
+		}else if(parameter.get("U_LEVEL") !=null && !"".equals(parameter.get("U_LEVEL")) &&(!parameter.get("U_LEVEL").equals(session.get("R_LEVEL")))) {
 			isExeUpdate = true;
-		}else if(parameter.get("U_ADDR") !=null && (parameter.get("U_ADDR") != member.get("R_ADDR"))){
+		}else if(parameter.get("U_ADDR") !=null && !"".equals(parameter.get("U_ADDR")) &&(!parameter.get("U_ADDR").equals(session.get("R_ADDR")))) {
 			isExeUpdate = true;
-		}else if(parameter.get("U_SOCIAL") !=null && (parameter.get("U_SOCIAL") != member.get("R_SOCIAL"))){
+		}else if(parameter.get("U_SOCIAL") !=null && !"".equals(parameter.get("U_SOCIAL")) &&(!parameter.get("U_SOCIAL").equals(session.get("R_SOCIAL")))) {				
 			isExeUpdate = true;
-		}else if(parameter.get("U_S_NAME") !=null && (parameter.get("U_S_NAME") != member.get("R_S_NAME"))){
+		}else if(parameter.get("U_S_NAME") !=null && !"".equals(parameter.get("U_S_NAME")) &&(!parameter.get("U_S_NAME").equals(session.get("R_S_NAME")))) {			
 			isExeUpdate = true;
-		}else if(parameter.get("U_SERVERAUTHCODE") !=null && (parameter.get("U_SERVERAUTHCODE") != member.get("R_SERVERAUTHCODE"))){
+		}else if(parameter.get("U_SERVERAUTHCODE") !=null && !"".equals(parameter.get("U_SERVERAUTHCODE")) &&(!parameter.get("U_SERVERAUTHCODE").equals(session.get("R_SERVERAUTHCODE")))) {
 			isExeUpdate = true;
-		}else if(parameter.get("U_PUSH_TOKEN") !=null && (parameter.get("U_PUSH_TOKEN") != member.get("R_PUSH_TOKEN"))){
+		}else if(parameter.get("U_PUSH_TOKEN") !=null && !"".equals(parameter.get("U_PUSH_TOKEN")) &&(!parameter.get("U_PUSH_TOKEN").equals(session.get("R_PUSH_TOKEN")))) {
 			isExeUpdate = true;
-		}else if(parameter.get("U_BIRTH_DT") !=null && (parameter.get("U_BIRTH_DT") != member.get("R_BIRTH_DT"))){
+		}else if(parameter.get("U_BIRTH_DT") !=null && !"".equals(parameter.get("U_BIRTH_DT")) &&(!parameter.get("U_BIRTH_DT").equals(session.get("R_BIRTH_DT")))) {
 			isExeUpdate = true;
 		}
 		if(isExeUpdate) {
