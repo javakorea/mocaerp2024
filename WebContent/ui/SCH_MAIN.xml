@@ -319,7 +319,7 @@ scwin.getColor = function(_gubun){
 };
 
 scwin.onpageload = function() {
-	dma_search.set("SCH_WRITER",JSON.parse(sessionStorage.getItem('loginInfo')).id);
+	dma_search.set("SCH_WRITER",JSON.parse(sessionStorage.getItem('session')).R_ID);
 	let thisMonth = WebSquare.date.getCurrentServerDate('yyyyMM');
 	SCH_CURRENTMONTH.setValue(thisMonth);
 
@@ -410,7 +410,7 @@ scwin.setCalData = function(list,_isLink){
 	for(let i=0; i < list.length; i++){
 		let c = list[i];
 		if(_isLink){
-			if(c.SCH_WRITER != JSON.parse(sessionStorage.getItem('loginInfo')).id){
+			if(c.SCH_WRITER != getU_ID()){
 				//구독일정일경우
 				c.TYPE = 'LINK';
 			}
@@ -668,7 +668,7 @@ scwin.btn_reg_onclick = function(e) {
 				dma_content.set("COMMON_DETAIL_INSERTQUERY"	, "M.INS_MAPP");
 				dma_content.set("COMMON_MASTER_KEY","SCH_WRITER,SCH_START,SCH_IDX");dma_content.set("COMMON_DETAIL_KEY","SCH_WRITER,SCH_START,SCH_IDX");
 
-				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
+				/* key1 */dma_content.set("SCH_WRITER"			, getU_ID());
 				/* key2 */dma_content.set("SCH_START"			, wfm_pop.scope.ipt_day.getValue());
 				wfm_pop.scope.chk_channel.getValue();
 
@@ -676,7 +676,7 @@ scwin.btn_reg_onclick = function(e) {
 				let detail_list = [];
 				for(let i=0; i < arr.length; i++){
 					let row = {GRP_NM : arr[i]};
-					row["SCH_WRITER"] = JSON.parse(sessionStorage.getItem('loginInfo')).id;
+					row["SCH_WRITER"] = getU_ID();
 					row["SCH_START"] = wfm_pop.scope.ipt_day.getValue();
 					detail_list.push(row);
 				}
@@ -733,7 +733,7 @@ scwin.btn_update_onclick = function(e) {
 				dma_content.set("SCH_COLOR", wfm_pop.scope.rdo_gubunYn.getValue());
 				dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
 				dma_content.set("COMMON_STATUS"			, "U");
-				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
+				/* key1 */dma_content.set("SCH_WRITER"			, getU_ID());
 				/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);
 				/* key3 */dma_content.set("SCH_IDX"				, scwin.selectedSchObj.SCH_IDX);
 
@@ -754,7 +754,7 @@ scwin.btn_update_onclick = function(e) {
 				let detail_list = [];
 				for(let i=0; i < arr.length; i++){
 					let row = {GRP_NM : arr[i]};
-					row["SCH_WRITER"] = JSON.parse(sessionStorage.getItem('loginInfo')).id;
+					row["SCH_WRITER"] = getU_ID();
 					row["SCH_START"] = wfm_pop.scope.ipt_day.getValue();
 					detail_list.push(row);
 				}
@@ -779,7 +779,7 @@ scwin.btn_success_onclick = function(e) {
 				dma_content.set("SCH_SUCCESSYN","N");
 				dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
 				dma_content.set("COMMON_STATUS"			, "U_SCH_SUCCESSYN_N");
-				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
+				/* key1 */dma_content.set("SCH_WRITER"			, getU_ID());
 				/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);
 				/* key3 */dma_content.set("SCH_IDX"				, scwin.selectedSchObj.SCH_IDX);
 				com.sbm.execute(sbm_commonTran);
@@ -791,7 +791,7 @@ scwin.btn_success_onclick = function(e) {
 				dma_content.set("SCH_SUCCESSYN","Y");
 				dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE");
 				dma_content.set("COMMON_STATUS"			, "U_SCH_SUCCESSYN");
-				/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
+				/* key1 */dma_content.set("SCH_WRITER"			, getU_ID());
 				/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);
 				/* key3 */dma_content.set("SCH_IDX"				, scwin.selectedSchObj.SCH_IDX);
 				com.sbm.execute(sbm_commonTran);
@@ -806,7 +806,7 @@ scwin.btn_del_onclick = function(e) {
 			dma_content.set("SCH_DELYN","Y");
 			dma_content.set("COMMON_MASTER_QUERY"	, "M.UPT_SCHEDULE,M.T_DEL_MAPP");
 			dma_content.set("COMMON_STATUS"			, "U_SCH_DELYN");
-			/* key1 */dma_content.set("SCH_WRITER"			, JSON.parse(sessionStorage.getItem('loginInfo')).id);
+			/* key1 */dma_content.set("SCH_WRITER"			, getU_ID());
 			/* key2 */dma_content.set("SCH_START"			, scwin.selectedSchObj.SCH_START);
 			/* key3 */dma_content.set("SCH_IDX"				, scwin.selectedSchObj.SCH_IDX);			
 			com.sbm.execute(sbm_commonTran);

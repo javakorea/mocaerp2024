@@ -124,7 +124,7 @@ scwin.sch_cal1_onclick = function(retObj,b,c) {
 		}else{
 			_popupName = "일정등록";
 			_param.mode = "write";
-			_param.writer = JSON.parse(sessionStorage.getItem("loginInfo")).name;
+			_param.writer = getU_NAME();
 		}
 		var data = { data: _param, callbackFn: "scwin.schedulePop_callback" };
 		var options = {

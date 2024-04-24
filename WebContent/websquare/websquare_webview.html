@@ -1,81 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
+		<script type="text/javascript" src="/cm/util.js"></script>
 	</head>
 <body   style="background: url(/cm/images/loading2.gif) no-repeat fixed center/50%; background-size:150px;">
 			<script>
-		<!-- 시스템 공통함수-->
-		function getLocationSignUpUrl(){
-			return '/websquare/websquare.html?w2xPath=/ui/FRM_SIGNUP.xml&p='+new Date().getTime();
-		};
-		function getLocationMainUrl(){
-			return '/websquare/websquare.html?w2xPath=/ui/index_windowContainer.xml&p='+new Date().getTime();
-		};				
-		function isMobile (_type) {
-			if(_type){
-				if(navigator.userAgent.indexOf(_type) > -1){//'Ios'는 아직작업안됨
-					return true;
-				}else{
-					return false;
-				}
-			}else{
-				if(navigator.userAgent.indexOf('Android') > -1){
-					return true;
-				}else{
-					return WebSquare.util.isMobile();
-				}
-			}
-		};	
 		if (isMobile('Android') != -1 && window['webViewTeammoca']) {
 			webViewTeammoca.postMessage('webLoadDone');
 		}
-				
-		function go (_obj) {	
-			var newUser = {social:'google'};
-			newUser.email = _obj.email;
-			newUser.displayName = _obj.displayName;
-			if(_obj.name){
-				newUser.displayName = _obj.name;
-			}
-			newUser.id = _obj.id;
-			newUser.admin = 'N';
-			if(_obj.sub){
-				newUser.id = _obj.sub;
-			}	
-			if(_obj.id ==  '108943482886035511239'){
-				//_obj.id == '101079382101809037163' ||
-				newUser.admin = 'Y';
-			}			
-			sessionStorage.setItem("loginInfo", JSON.stringify(newUser));
-            var xhr = new XMLHttpRequest();
-            xhr.open('post', '/FRM/LOGIN.do');
-            xhr.setRequestHeader("Content-Type", 'application/json; charset=utf-8');
-            xhr.responseType = 'json';
-            xhr.onload = () => {
-            	let result = xhr.response;
-				if(result.dma_map){
-					sessionStorage.setItem("session", JSON.stringify(result.dma_map));
-					location.href = getLocationMainUrl();//메인화면
-				}else{
-					location.href = getLocationSignUpUrl();//회원가입
-				}
-            };
-            newUser['COMMON_QUERY'] = 'M.SEL_MEMBER';
-            xhr.send(JSON.stringify({dma_search:newUser}));
-		};
-		function appToWeb(data){
-			if(data){
-				let arr = data.replace(/\s/g,'').replace(/GoogleSignInAccount:/g,'').replace(/\{|\}/g,'').split(',');
-				let userObj = {};
-				for(let i=0; i < arr.length; i++){
-					let arr2 = arr[i].split(':');
-					userObj[arr2[0]]=arr2[1];
-				}
-				go (userObj);
-			}
-		}
-				
-
 		
 	</script>
 </body>

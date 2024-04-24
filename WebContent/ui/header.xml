@@ -13,8 +13,7 @@
 			<w2:workflowCollection></w2:workflowCollection>
 		</xf:model>
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
-	let sInfo = JSON.parse(sessionStorage.getItem("loginInfo"));
-	txt_empNm.setValue(sInfo.displayName+' ('+sInfo.email+')');
+	txt_empNm.setValue(getU_NAME()+' ('+getU_EMAIL()  +')');
 };
 
 /** 
@@ -181,11 +180,7 @@ scwin.btn_logout_onclick = function (e) {
 	//com.win.logout();
 	com.win.confirm($p, '로그아웃하시겠습니까?', function(e){
 		if(e.clickValue){
-			//var auth2 = gapi.auth2.getAuthInstance();
-			//auth2.signOut().then(function () {
-				sessionStorage.removeItem("loginInfo");
-				com.win.goHome();
-			//});
+			logout();
 		}
 	});
 	

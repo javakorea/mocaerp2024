@@ -55,10 +55,13 @@ scwin.tri_signup_onclick = function(e) {
 	}
 	com.win.confirm("회원가입하시겠습니까?", function(e){
 		if(e.clickValue){
-			let session = JSON.parse(sessionStorage.getItem("loginInfo"));
-			dma_content.set("U_ID"				, session.id);
-			dma_content.set("U_EMAIL"			, session.email);
-			dma_content.set("U_SOCIAL"			, session.social);
+			let loginInfo = JSON.parse(sessionStorage.getItem("loginInfo"));
+			dma_content.set("U_ID"					, loginInfo.U_ID);
+			dma_content.set("U_EMAIL"				, loginInfo.U_EMAIL);
+			dma_content.set("U_SOCIAL"				, loginInfo.U_SOCIAL);
+			dma_content.set("U_S_NAME"				, loginInfo.U_S_NAME);
+			dma_content.set("U_SERVERAUTHCODE"		, loginInfo.U_SERVERAUTHCODE);
+			dma_content.set("U_PUSH_TOKEN"			, loginInfo.U_PUSH_TOKEN);
 
 			dma_content.set("COMMON_MASTER_QUERY"	, "M.INS_MEMBER");
 			dma_content.set("COMMON_STATUS"			, "I");

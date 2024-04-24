@@ -278,26 +278,56 @@
     	INSERT INTO T_MEMBER
 		(
 			U_ID, U_EMAIL, U_NAME, U_PHONE, U_REG_DT, U_LEVEL, U_ADDR, U_SOCIAL, U_BIRTH_DT
+			,U_S_NAME,U_SERVERAUTHCODE,U_PUSH_TOKEN
 		)
 		VALUES(
 			#{U_ID}, #{U_EMAIL}, #{U_NAME}, #{U_PHONE}, TO_CHAR(NOW(),'YYYYMMDDHH24MISS'), #{U_LEVEL}, #{U_ADDR}, #{U_SOCIAL}, #{U_BIRTH_DT}
+			, #{U_S_NAME}, #{U_SERVERAUTHCODE}, #{U_PUSH_TOKEN}
 		);
         <selectKey keyProperty="R_ID,R_EMAIL,R_NAME,R_PHONE,R_REG_DT,R_LEVEL,R_ADDR,R_SOCIAL,R_BIRTH_DT" resultType="java.util.HashMap" order="AFTER" >
         	/* select result for insert in INS_MEMBER */
 			SELECT 
 			U_ID AS R_ID, U_EMAIL AS R_EMAIL, U_NAME AS R_NAME, U_PHONE AS R_PHONE, 
-			U_REG_DT AS R_REG_DT, U_LEVEL AS R_LEVEL, U_ADDR AS R_ADDR, U_SOCIAL AS R_SOCIAL, U_BIRTH_DT AS R_BIRTH_DT
+			U_REG_DT AS R_REG_DT, U_LEVEL AS R_LEVEL, U_ADDR AS R_ADDR, U_SOCIAL AS R_SOCIAL, U_BIRTH_DT AS R_BIRTH_DT,
+			U_S_NAMET AS R_S_NAMET,U_SERVERAUTHCODET AS R_SERVERAUTHCODET,U_PUSH_TOKENT AS R_PUSH_TOKENT
 			FROM T_MEMBER
 			WHERE 1=1 AND U_ID = #{U_ID}
 		</selectKey>
     </insert>
+    <update id="UPT_MEMBER" parameterType="java.util.Map" useGeneratedKeys="true"  >
+        /*UPT_MEMBER 회원정보변경시 수정*/
+         UPDATE T_MEMBER SET 
+         	<if test="U_EMAIL != null and U_EMAIL != ''">U_EMAIL = #{U_EMAIL}, </if>
+			<if test="U_NAME != null and U_NAME != ''">U_NAME = #{U_NAME}, </if>
+			<if test="U_PHONE != null and U_PHONE != ''">U_PHONE = #{U_PHONE}, </if>
+			<if test="U_REG_DT != null and U_REG_DT != ''">U_REG_DT = #{U_REG_DT}, </if>
+			<if test="U_LEVEL != null and U_LEVEL != ''">U_LEVEL = #{U_LEVEL},</if> 
+			<if test="U_ADDR != null and U_ADDR != ''">U_ADDR = #{U_ADDR},</if> 
+			<if test="U_SOCIAL != null and U_SOCIAL != ''">U_SOCIAL = #{U_SOCIAL},</if>
+			<if test="U_BIRTH_DT != null and U_BIRTH_DT != ''">U_BIRTH_DT = #{U_BIRTH_DT},</if>	
+			<if test="U_S_NAME != null and U_S_NAME != ''">U_S_NAME = #{U_S_NAME},</if>	
+			<if test="U_SERVERAUTHCODE != null and U_SERVERAUTHCODE != ''">U_SERVERAUTHCODE = #{U_SERVERAUTHCODE},</if>
+			<if test="U_PUSH_TOKEN != null and U_PUSH_TOKEN != ''">U_PUSH_TOKEN = #{U_PUSH_TOKEN},</if>
+			U_UPT_DT = TO_CHAR(NOW(),'YYYYMMDDHH24MISS')
+         WHERE 1=1 AND U_ID = #{U_ID}
+    </update>    
    	<select id="SEL_MEMBER" parameterType="java.util.Map" resultType="java.util.HashMap">
    			/* SEL_MEMBER */
 			SELECT 
-			U_ID AS R_ID, U_EMAIL AS R_EMAIL, U_NAME AS R_NAME, U_PHONE AS R_PHONE, 
-			U_REG_DT AS R_REG_DT, U_LEVEL AS R_LEVEL, U_ADDR AS R_ADDR, U_SOCIAL AS R_SOCIAL, U_BIRTH_DT AS R_BIRTH_DT
+			U_ID AS R_ID, 
+			U_EMAIL AS R_EMAIL, 
+			U_NAME AS R_NAME, 
+			U_PHONE AS R_PHONE, 
+			U_REG_DT AS R_REG_DT, 
+			U_LEVEL AS R_LEVEL, 
+			U_ADDR AS R_ADDR, 
+			U_SOCIAL AS R_SOCIAL,
+			U_S_NAME AS R_S_NAME,
+			U_SERVERAUTHCODE AS R_SERVERAUTHCODE,
+			U_PUSH_TOKEN AS R_PUSH_TOKEN,
+			U_BIRTH_DT AS R_BIRTH_DT
 			FROM T_MEMBER
-			WHERE 1=1 AND U_ID = #{id}
+			WHERE 1=1 AND U_ID = #{U_ID}
     </select>
    	<select id="SEL_GRP" parameterType="java.util.Map" resultType="java.util.HashMap">
    			/* SEL_GRP */

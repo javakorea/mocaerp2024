@@ -53,7 +53,7 @@
 			
 			$p.parent().btn_closePopup.setLabel('이전');
 			$p.parent().btn_closePopup.show('');	
-			if(JSON.parse(sessionStorage.getItem('loginInfo')).id == dma_content.get('SCH_WRITER')){
+			if(getU_ID() == dma_content.get('SCH_WRITER')){
 				if(dma_content.get('SCH_SUCCESSYN') == 'Y'){
 					$p.parent().btn_success.setLabel('완료취소');
 				}else{
