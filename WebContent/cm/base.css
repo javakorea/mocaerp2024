@@ -547,14 +547,14 @@ input[type="file"]{cursor:pointer;}
 
 .tbbox.noline{border: 1px solid #333; color:#333}
 .tbbox.noline.read{border:0}
-.tbbox.noline .tb tr{height:40px;}
-.tbbox.noline .tb .w2tb_th, .tbbox.noline .tb.w2tb.w2tb_adaptive_layout .w2tb_th{position:relative; top:unset; left:unset;  width: 20%;  height: 40px; font-size:16px;  text-align:left; border: 0;  background: #fff; box-sizing:border-box;}
-.tbbox.noline .tb .w2tb_td, .tbbox.noline .tb.w2tb_adaptive_layout .w2tb_td{padding-left:0;}
+.tbbox.noline .tb tr{height:40px;border-bottom:1px solid #333 !important}
+.tbbox.noline .tb .w2tb_th, .tbbox.noline .tb.w2tb.w2tb_adaptive_layout .w2tb_th{padding:4px;position:relative; top:unset; left:unset;  width: 18%;  height: 40px; font-size:16px;  text-align:left; border: 0;  background: #fff; box-sizing:border-box;}
+.tbbox.noline .tb .w2tb_td, .tbbox.noline .tb.w2tb_adaptive_layout .w2tb_td{}
 .tbbox.noline .grp_setFromTo{font-size:16px;}
 .tbbox.noline .tb, .tbbox.noline .tb .w2tb_td{border:0; padding-left:0; background: #fff}
-.tbbox.noline .tb .w2tb_td{padding-top:0; padding:4px; border:0}
-.tbbox.noline.read .tb.w2tb_adaptive_layout .w2tb_td{flex:1;border-top:0 !important;padding: 4px; line-height: 32px;}
-.tbbox.noline.read .tb .w2tb_td{background:#fff; padding-left:0; height:40px; box-sizing:border-box}
+.tbbox.noline .tb .w2tb_td{padding-top:0; padding:4px 8px; border:0}
+.tbbox.noline.read .tb.w2tb_adaptive_layout .w2tb_td{flex:1;border-top:0 !important;padding: 4px 8px; border-left:1px solid #333 !important; height: unset !important; padding-right:0}
+.tbbox.noline.read .tb .w2tb_td{background:#fff; height:40px; box-sizing:border-box; border-left:1px solid #333 !important;}
 .tbbox.noline .tb.w2tb_adaptive_layout .w2tb_td{border:0 !important}
 .tbbox.reg .tb .w2tb_td{padding:4px;}
 
@@ -1628,15 +1628,22 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .sch_rdo input[type="radio"]:checked + .w2radio_label:before{background:#333;}
 .sch_rdo .w2radio_label:before{left: -2px; width: 20px; height: 20px; top: 11px;}
 .sch_rdo input[type="radio"]:checked + .w2radio_label:after{background:#fff}
+
+.sch_cbx.w2checkbox .w2checkbox_label{margin-left:4px; font-size:14px}
+.sch_cbx.w2checkbox .w2checkbox_label:before{width:20px; height:20px; background:#fff;border:1px solid #333}
+.sch_cbx.w2checkbox .w2checkbox_item{top:0px}
+.sch_cbx input[type="checkbox"]:checked + .w2checkbox_label:before{background:#333;}
+.sch_cbx input[type="checkbox"]:checked + .w2checkbox_label:after{top:55%; left:5px}
 .grp_setFromTo{display:flex}
 .grp_setFromTo .w2inputCalendar_div{line-height: 30px; height: 30px; background:#fff}
-.grp_setFromTo .w2inputCalendar_divInput{font-size:20px; color: #fff; background: #333 !important; border: 1px solid #333;text-indent: 2px; line-height: 32px;}
+.grp_setFromTo .w2inputCalendar_divInput{font-size:19px; color: #fff; background: #333 !important; border: 1px solid #333;text-indent:0px; line-height: 32px;}
+.grp_setFromTo .w2inputCalendar_divInput[readonly="readonly"]{color: #333;  background: #fff !important; border: 0; margin-top: 1px;}
 .grp_setFromTo .iptHHmm{cursor:pointer; width: 36px; font-size: 20px; height:30px; line-height: 30px; text-align: center; color:#fff !important; background:#333 !important;}
 .grp_setFromTo .w2inputCalendar_div_img{width:100%}
 .grp_setFromTo .w2inputCalendar_div_img button{background: none !important; position:absolute; top:0; left:0}
 
-.btn_moreDetail{    width: 30px;  text-indent: -9999px;  background: url(/cm/images/ico_arrowBottom.png) no-repeat;  position: absolute;  right: 20px;  border: 0;  height: 30px;  top: 14px;  background-size: 30px;}
-.btn_moreDetail[value="간편등록모드로이동"]{transform:rotate(180deg)}
+.btn_moreDetail{    width: 30px;  text-indent: -9999px;  background: url(/cm/images/ico_arrowBottom.png) no-repeat;  position: absolute;  right: 20px;  border: 0;  height: 30px;  top: 14px;  background-size: 30px; transform: rotate(180deg);}
+.btn_moreDetail[value="간편등록모드로이동"]{transform:none}
 .tbbox.join .tb{border:0}
 .tbbox.join .tb .w2tb_th, .tbbox.join .tb.w2tb.w2tb_adaptive_layout .w2tb_th{position:relative; top:unset; left:unset; font-size: 20px;  height: 30px; border: 0;  background: #fff;}
 .tbbox.join .tb .w2tb_td, .tbbox.join .tb.w2tb_adaptive_layout .w2tb_td{padding-left:0; border-top: 0 !important; border:0; border-bottom:1px solid #666 !important; margin-bottom:20px;}
@@ -1761,8 +1768,12 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.tbbox.noline.read .w2tb_adaptive_layout tr{display:flex; border-bottom:1px solid #333;}
 	.tbbox.noline .tb tr{height:auto}
 	.tbbox.noline.read .tb .w2tb_td{height: auto}
-	.tbbox.noline.read .tb .w2tb_td[data-title="아이콘"] .w2radio_item {width:calc(50% - 30px);}
-	.tbbox.noline.read .tb .w2tb_td[data-title="아이콘"] .w2radio_label{font-size:13.5px;}
+	.tbbox.noline.read .tb .w2tb_td[data-title="아이콘"] .w2radio_item {width: calc(50% - 10px);  margin-right: 0; padding: 5px 0; text-indent:5px;}
+	.tbbox.noline.read .tb .w2tb_td[data-title="아이콘"] .w2radio_label{font-size:14px;}
+    .tbbox.noline.read .tb .w2tb_td[data-title="아이콘"] .w2radio_label:hover{background:none}
+	.tbbox .rdo_ico.w2radio .w2radio_item input[type="radio"]{display:none}
+	.tbbox .rdo_ico .w2radio_label:before{display:none}
+	.tbbox .rdo_ico	input[type="radio"]:checked + .w2radio_label:after{width:100%; height:90%; background:none; border:1px solid #333; border-radius:10px; top:5px; left:0}
 	.tbbox.noline .w2radio{height:auto !important;}
 	.side .btn_area{display:block !important;    z-index: 1;  position: absolute;  right: 0;}
 	.wfm_tit{display:block}
@@ -1780,6 +1791,21 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.ico_weather{ width: 16px;    height: 16px;    background-size: 16px;    right: 23px;    top: 6px;}
 	.btn_toggle.mo.sch{width:30px; height:30px;}
 	.btn_toggle.today.mo{line-height:30px}
+	
+	
+	.w2calendar[role="dialog"]{  width: 100%;   height:401px;   left: 0 !important; background:#333;  color:#fff}
+	.w2calendar[role="dialog"] .w2calendar_picker_header{width:100%; font-size:20px; color:#fff;   border-bottom: 1px solid #fff; margin-bottom: 10px; box-sizing: border-box;}
+	.w2calendar[role="dialog"] .w2calendar_content .w2calendar_col_day, .w2calendar_content .w2calendar_col_date{    height: 46px; font-size: 19px;}
+	.w2calendar[role="dialog"] .w2calendar_content .w2calendar_date_over{color:#1fb4c5}
+	.w2calendar[role="dialog"] .w2calendar_class1 .w2calendar_day_0, .w2calendar[role="dialog"] .w2calendar_class1 .w2calendar_day_0 button{color:#d02121}
+	.w2calendar[role="dialog"] .w2calendar_picker_header_last_entity{background:url(/cm/images/ico_right_w.png) no-repeat center; transform:rotate(180deg)}
+	.w2calendar[role="dialog"] .w2calendar_picker_header_next_entity{background:url(/cm/images/ico_right_w.png) no-repeat center;}
+	.w2calendar[role="dialog"]  .w2calendar_col_day_text {font-size:19px;}
+	.w2calendar[role="dialog"]  .w2calendar_picker_header_dynamic_entity:hover{background:none}
+	.w2calendar[role="dialog"]  .w2calendar_picker_content table td div{background: none;  font-size: 20px; height:74px}
+	.w2calendar[role="dialog"] .w2calendar_picker_content table td div.active, .w2calendar[role="dialog"] .w2calendar_picker_content table td div:hover{background:#5a82cf}
+	.w2calendar[role="dialog"] button.w2calendar_go_today{width:100%;color: #fff; border: 1px solid #fff; background: none; padding: 5px 10px; height: unset; font-size: 16px;}
+	.w2calendar[role="dialog"] .w2calendar_footer_date{color: #fff; font-size: 20px;}
 }
 
 
