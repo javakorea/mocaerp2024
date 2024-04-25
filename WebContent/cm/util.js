@@ -84,7 +84,9 @@ function go (_obj) {
 };
 function isAdmin () {
 	let adminYn = false;
-	if(JSON.parse(sessionStorage.getItem("loginInfo")).admin == "Y"){
+	
+	let em = getU_EMAIL();
+	if(em == 'javakoreaboss@gmail.com' || em == 'shj9321@gmail.com' || em == 'teammocaboss@gmail.com'){
 		adminYn = true;
 	}
 	return adminYn;
