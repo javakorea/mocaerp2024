@@ -162,7 +162,7 @@ scwin.grd_oncellclick = function(row,col,colId) {
 				</xf:group>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
-					<xf:trigger class="btn_cm blue" id="btn_write" style="margin-top:3px" type="button"
+					<xf:trigger class="btn_cm blue h36" id="btn_write" style="margin-top:3px" type="button"
 						ev:onclick="scwin.btn_write_onclick">
 						<xf:label><![CDATA[아이콘추가]]></xf:label>
 					</xf:trigger>

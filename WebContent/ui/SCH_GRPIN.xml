@@ -263,7 +263,7 @@ scwin.btnFormatter = function(_value){
 				</xf:group>
 				<xf:group class="fr" id="" style="">
 					<!-- 	<w2:textbox class="" id="txt_cnt_mychin" label="0건" style=""></w2:textbox> -->
-					<xf:trigger class="btn_cm blue" disabled="" escape="false" id="btn_reg"
+					<xf:trigger class="btn_cm blue h36" disabled="" escape="false" id="btn_reg"
 						style="width:100px;line-height: 0px;margin-top:4px;margin-bottom:2px" type="button" ev:onclick="scwin.btn_reg_onclick">
 						<xf:label><![CDATA[구독할채널찾기]]></xf:label>
 					</xf:trigger>

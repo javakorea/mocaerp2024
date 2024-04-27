@@ -489,7 +489,7 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 					</xf:group>
 					<xf:group style="" id="" class="fr">
 						<xf:select1 id="sbx_autoSec" chooseOption="" style="width:55px;display:none;" submenuSize="auto" allOption=""
-							disabled="false" direction="auto" appearance="minimal" disabledClass="w2selectbox_disabled" class="mr10" ref="" ev:onviewchange="scwin.sbx_autoSec_onviewchange">
+							disabled="false" direction="auto" appearance="minimal" disabledClass="w2selectbox_disabled" class="mr10 mt15" ref="" ev:onviewchange="scwin.sbx_autoSec_onviewchange">
 							<xf:choices>
 								<xf:item>
 									<xf:label><![CDATA[10초]]></xf:label>
@@ -506,7 +506,7 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 							</xf:choices>
 						</xf:select1>
 						<xf:select selectedindex="-1" id="cbx_autoSave" appearance="full" style="display:none;" cols="" rows="" ref=""
-							class="custom mr10" ev:onviewchange="scwin.cbx_autoSave_onviewchange">
+							class="custom mr10 mt15" ev:onviewchange="scwin.cbx_autoSave_onviewchange">
 							<xf:choices>
 								<xf:item>
 									<xf:label><![CDATA[자동저장]]></xf:label>
@@ -579,14 +579,12 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 				</xf:group>
 			</xf:group>
 			<xf:group class="dfbox" id="" style="">
-				<xf:trigger class="btn_cm" id="btn_fileDel" style="display:none;" type="button" ev:onclick="scwin.btn_fileDel_onclick">
+				<xf:group id="" class="fl"><xf:trigger ev:onclick="scwin.btn_fileDel_onclick" style="display:none;" id="btn_fileDel" type="button" class="btn_cm">
 					<xf:label><![CDATA[선택삭제지정]]></xf:label>
-				</xf:trigger>
-				<xf:trigger class="btn_cm" ev:onclick="scwin.btn_copy_onclick" id="btn_copy" style="display:none;" type="button">
+				</xf:trigger><xf:trigger ev:onclick="scwin.btn_copy_onclick" style="display:none;" id="btn_copy" type="button" class="btn_cm">
 					<xf:label><![CDATA[선택항목입력]]></xf:label>
-				</xf:trigger>
-				<xf:group class="fr" id="" style="">
-					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
+				</xf:trigger></xf:group><xf:group class="fr" id="" style="">
+					<w2:textbox class="" id="txt_cnt" label="0건" style="font-size:12px;"></w2:textbox>
 					<xf:input id="ibx_clip" style="width: 10px;border: 0;opacity: 0;position: absolute;left: 0;"></xf:input>
 					<xf:trigger class="btn_cm" ev:onclick="scwin.btn_fileUpload_onclick" id="btn_searchFile" style="display:none" type="button">
 						<xf:label><![CDATA[파일찾기]]></xf:label>

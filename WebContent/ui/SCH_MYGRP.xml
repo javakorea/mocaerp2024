@@ -253,11 +253,11 @@ scwin.usercnt = function(v1,v2,row,col){
 				</xf:group>
 				<xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style=""></w2:textbox>
-					<xf:trigger class="btn_cm blue" id="btn_write" style="margin-top:3px" type="button"
+					<xf:trigger class="btn_cm blue h36" id="btn_write" style="margin-top:3px" type="button"
 						ev:onclick="scwin.btn_write_onclick">
 						<xf:label><![CDATA[내채널만들기]]></xf:label>
 					</xf:trigger>
-					<xf:trigger class="btn_cm blue refresh" disabled="" escape="false" id="btn_search" style="margin-top:3px" type="button"
+					<xf:trigger class="btn_cm blue refresh h36" disabled="" escape="false" id="btn_search" style="margin-top:3px" type="button"
 						ev:onclick="scwin.btn_search_onclick">
 						<xf:label><![CDATA[조회]]></xf:label>
 					</xf:trigger>
