@@ -392,7 +392,7 @@ public class Moca3Application {
 		if(l != null){
 			for(int i=0;i < l.size() ;i++) {
 				Map row = (Map)l.get(i);
-				u.sendMessage("PUSH",String.valueOf(row.get("SCH_TITLE")) ,String.valueOf(row.get("SCH_CONT")),String.valueOf(row.get("U_PUSH_TOKEN")) );
+				u.sendMessage("PUSH","[당일]" ,String.valueOf(row.get("SCH_CONT")),String.valueOf(row.get("U_PUSH_TOKEN")) );
 			}
 		}		
 	};
@@ -403,7 +403,7 @@ public class Moca3Application {
 		if(l != null){
 			for(int i=0;i < l.size() ;i++) {
 				Map row = (Map)l.get(i);
-				u.sendMessage("PUSH",String.valueOf(row.get("SCH_TITLE")) ,String.valueOf(row.get("SCH_CONT")),String.valueOf(row.get("U_PUSH_TOKEN")) );
+				u.sendMessage("PUSH","[당일]",String.valueOf(row.get("SCH_CONT")),String.valueOf(row.get("U_PUSH_TOKEN")) );
 			}
 		}		
 	};
