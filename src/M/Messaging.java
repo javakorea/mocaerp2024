@@ -55,23 +55,13 @@ public class Messaging {
 		    GoogleCredentials googleCredentials = GoogleCredentials
 		            .fromStream(new FileInputStream(GOOGLE_APPLICATION_CREDENTIALS))
 		            .createScoped(Arrays.asList(SCOPES));
-		    /*
-          FirebaseOptions options = FirebaseOptions.builder()
-                  .setCredentials(googleCredentials)
-                  .build();
 
-          FirebaseApp.initializeApp(options);
-						LogUtil.info("파이어베이스 서버와의 연결에 성공했습니다.");
-			*/
 			LogUtil.info("==============GOOGLE_APPLICATION_CREDENTIALS=>"+GOOGLE_APPLICATION_CREDENTIALS);
-;
+
 			AccessToken at = googleCredentials.refreshAccessToken();
-		    LogUtil.info("==============at=>"+at);
+		    LogUtil.info("==============at1=>"+at);
 		    String v = at.getTokenValue();
-		    LogUtil.info("==============at=>"+v);
-		    
-		    LogUtil.info("==============googleCredentials=>"+googleCredentials);
-		    LogUtil.info("==============googleCredentials.getAccessToken()=>"+googleCredentials.getAccessToken());
+		    LogUtil.info("==============at2=>"+v);
 		    return v;	  
 		  
 	  }catch(Exception e) {
@@ -89,15 +79,12 @@ public class Messaging {
    * @throws IOException
    */
   private static HttpURLConnection getConnection() throws IOException {
-    // [START use_access_token]
     URL url = new URL(BASE_URL + FCM_SEND_ENDPOINT);
     HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
     String Authorization = "Bearer " + getAccessToken();
-    LogUtil.info("==============Authorization=>"+Authorization);
     httpURLConnection.setRequestProperty("Authorization", Authorization);
     httpURLConnection.setRequestProperty("Content-Type", "application/json; UTF-8");
     return httpURLConnection;
-    // [END use_access_token]
   }
 
   /**
@@ -108,10 +95,6 @@ public class Messaging {
    * @throws IOException
    */
   private static void sendMessage(JsonObject fcmMessage) throws IOException {
-
-	    
-	    
-	    
     HttpURLConnection connection = getConnection();
     connection.setDoOutput(true);
     OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
@@ -122,12 +105,9 @@ public class Messaging {
     int responseCode = connection.getResponseCode();
     if (responseCode == 200) {
       String response = inputstreamToString(connection.getInputStream());
-      System.out.println("Message sent to Firebase for delivery, response:");
-      System.out.println(response);
     } else {
       System.out.println("Unable to send message to Firebase:");
       String response = inputstreamToString(connection.getErrorStream());
-      System.out.println(response);
     }
   }
 
@@ -152,6 +132,7 @@ public class Messaging {
    * @return JSON representation of the FCM request body.
    */
   private static JsonObject buildOverrideMessage() {
+	/*
     JsonObject jNotificationMessage = buildNotificationMessage();
 
     JsonObject messagePayload = jNotificationMessage.get(MESSAGE_KEY).getAsJsonObject();
@@ -166,6 +147,8 @@ public class Messaging {
     jNotificationMessage.add(MESSAGE_KEY, messagePayload);
 
     return jNotificationMessage;
+    */
+	return null;
   }
 
   /**
@@ -216,9 +199,8 @@ public class Messaging {
    *
    * @throws IOException
    */
-  public static void sendCommonMessage() throws IOException {
-    JsonObject notificationMessage = buildNotificationMessage();
-    LogUtil.info("FCM request body for message using common notification object:");
+  public static void sendCommonMessage(String _title, String _body, String _token) throws IOException {
+    JsonObject notificationMessage = buildNotificationMessage(_title, _body, _token);
     prettyPrint(notificationMessage);
     sendMessage(notificationMessage);
   }
@@ -228,16 +210,25 @@ public class Messaging {
    *
    * @return JSON of notification message.
    */
-  private static JsonObject buildNotificationMessage() {
+  private static JsonObject buildNotificationMessage(String _title,String _body,String _token) {
     JsonObject jNotification = new JsonObject();
-    jNotification.addProperty("title", TITLE);
-    jNotification.addProperty("body", BODY);
     
-
+    if(_title != null) {
+    	jNotification.addProperty("title", _title);
+    }else {
+    	jNotification.addProperty("title", TITLE);
+    }
+    if(_body != null) {
+    	jNotification.addProperty("body", _body);
+    }else {
+    	jNotification.addProperty("body", BODY);
+    }
     JsonObject jMessage = new JsonObject();
     jMessage.add("notification", jNotification);
-    
-    jMessage.addProperty("token", "eQEOxlKJSeqKCdaISt_cpN:APA91bFNU-rqaROVrX5tUSkhveYTAtOys-A_eKOPD4AvH0kVzASoxwg-bFqElStoejXffWOrPPjrtaZeHjin6TY2r2O5gt0UUeOkkVJ4CV0NVbMwPh_iOxollsjBs9ziilZLPMKovUvR");
+
+    if(_token != null) {
+    	jMessage.addProperty("token", _token);
+    }
     JsonObject jFcm = new JsonObject();
     jFcm.add(MESSAGE_KEY, jMessage);
 
@@ -267,23 +258,51 @@ public class Messaging {
    */
   private static void prettyPrint(JsonObject jsonObject) {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    System.out.println(gson.toJson(jsonObject) + "\n");
+    LogUtil.info(gson.toJson(jsonObject) + "\n");
   }
 
-  public static void main(String[] args) throws IOException {
-    if (args.length == 1 && args[0].equals("common-message")) {
-      sendCommonMessage();
-    } else if (args.length == 1 && args[0].equals("override-message")) {
-      sendOverrideMessage();
-    } else {
-      System.err.println("Invalid command. Please use one of the following commands:");
-      // To send a simple notification message that is sent to all platforms using the common
-      // fields.
-      System.err.println("./gradlew run -Pmessage=common-message");
-      // To send a simple notification message to all platforms using the common fields as well as
-      // applying platform specific overrides.
-      System.err.println("./gradlew run -Pmessage=override-message");
-    }
-  }
+	/*
+	 * public static void main(String[] args) throws IOException { if (args.length
+	 * == 1 && args[0].equals("common-message")) { sendCommonMessage(); } else if
+	 * (args.length == 1 && args[0].equals("override-message")) {
+	 * sendOverrideMessage(); } else { System.err.
+	 * println("Invalid command. Please use one of the following commands:"); // To
+	 * send a simple notification message that is sent to all platforms using the
+	 * common // fields.
+	 * System.err.println("./gradlew run -Pmessage=common-message"); // To send a
+	 * simple notification message to all platforms using the common fields as well
+	 * as // applying platform specific overrides.
+	 * System.err.println("./gradlew run -Pmessage=override-message"); } }
+	 */
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
 
 }

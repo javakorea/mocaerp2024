@@ -41,6 +41,8 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -53,11 +55,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import websquare.logging.util.LogUtil;
 
+@PropertySource("classpath:application.properties") 
 @RestController
 @EnableScheduling
 @SpringBootApplication
 @Service("Moca3Application")
 public class Moca3Application {
+	public static Environment env;
+	
 	public static String STATUS = "rowStatus";
 	public static String MASTER_MAP = "dma_common_request";public static String MASTER_MAP_RESPONSE = "dma_common_response";
 	public static String MASTER_LiST = "dlt_common_master";
@@ -89,7 +94,7 @@ public class Moca3Application {
 	@Autowired
 	private SqlSession ss;
 
-	
+	public Environment en;
 	@CrossOrigin("*") //2023-11-28 @CrossOrigin(origins = "*", allowedHeaders = "*")
 	//@CrossOrigin(origins = "*", allowedHeaders  = "*")
 	
@@ -252,25 +257,6 @@ public class Moca3Application {
 				outs.close();		
 			}
 		}
-			
-		/*	
-		File file = new File( (String)fileInfoMap.get("PATH"));
-		response.setContentType("application/octet-stream; charset=utf-8");
-		response.setContentLength((int) file.length());
-		String browser = getBrowser(request);
-		String disposition = getDisposition((String)fileInfoMap.get("FILE_NM"), browser);
-		response.setHeader("Content-Disposition", disposition);
-		response.setHeader("Content-Transfer-Encoding", "binary");
-		OutputStream out = response.getOutputStream();
-		FileInputStream fis = null;
-		fis = new FileInputStream(file);
-		FileCopyUtils.copy(fis, out);
-		mocaEFLService.insertList_EFL_CAFL_DOWN_H(map);
-		if (fis != null)
-			fis.close();
-		out.flush();
-		out.close();
-		*/
 	};
 	public static String getBrowser(HttpServletRequest request) {
 		String header = request.getHeader("User-Agent");
@@ -382,6 +368,9 @@ public class Moca3Application {
 			ss.update("M.UPT_MEMBER", parameter);
 			member = u.selectMap(param,ss);
 		}
+		Map adminInfo = u.selectMap(u.getParamMap("M.SEL_ADMIN"),ss);
+		Map m = (Map)adminInfo.get("dma_map");
+		u.sendMessage("PUSH","로그인알림",parameter.get("U_EMAIL")+":"+session.get("R_NAME")+" ISUPT-"+isExeUpdate,String.valueOf(m.get("R_PUSH_TOKEN")) );
 		return member;
 	};	
 	
@@ -399,10 +388,9 @@ public class Moca3Application {
 	
 	//매일 아침 7시 조회 (당일 일정 조회)
 	@Scheduled(cron="0 0 7 * * ?")public void _0_0_7_A_A_Q() throws Exception{u.exeBatch("M.selectTodaySchedule","당일",ss);}
-	//매일 아침 9시 조회 (내일,3일전,7일전 일정 조회)
+	//매일 아침 9시 조회 (내일,3일전,7일전,미처리)
 	@Scheduled(cron="0 0 9 * * ?")public void _0_0_9_A_A_Q() throws Exception{u.exeBatch("M.selectTomorrowSchedule","1일전",ss);u.exeBatch("M.selectThreeDaysSchedule","3일전",ss);u.exeBatch("M.selectAWeekSchedule","7일전",ss);u.exeBatch("M.selectNotSuccessSchedule","미처리",ss);}
 	//월~금 아침 9시 (고정알림)
-	//
 	@Scheduled(cron = "0 0 9 ? * MON-FRI")public void _0_0_9_Q_A_MON_FRI() throws Exception{u.exeSms("안녕하세요! 오전9시 주식개장시간입니다",u.getSmsDefaultNumbers(null),"",null,ss,null);}
 	//[테스트용] 매시30분 (고정알림) 
 	//@Scheduled(cron = "0 30 * * * *")public void _0_30_A_A_A_A() throws Exception{u.exeSms("30분주기알림 테스트중입니다.",u.getSmsDefaultNumbers(null),"",null,ss);}	
@@ -470,8 +458,26 @@ public class Moca3Application {
 
 
 
-
 class u {
+	
+	public static void sendMessage(String _kind,String _title, String _body, String _ADMIN_PUSH_TOKEN) throws IOException {
+		//_kind : sms or push
+		if("PUSH".equalsIgnoreCase(_kind)) {
+			Messaging.sendCommonMessage(_title, _body,String.valueOf(_ADMIN_PUSH_TOKEN) );
+		}
+	};
+	  
+	  
+	  
+
+	public static Map getParamMap(String _COMMON_QUERY) {
+		Map p = new HashMap();	
+		Map p_sub = new HashMap();	
+		p_sub.put("COMMON_QUERY", _COMMON_QUERY);
+		p.put("dma_search", p_sub);
+		return p;
+	};
+	
 	public static String getSmsSchTime(Map sendMap) {
     	String _cont = sendMap.get("SCH_START").toString().substring(0, 16);
     	return _cont;

@@ -311,6 +311,24 @@
 			U_UPT_DT = TO_CHAR(NOW(),'YYYYMMDDHH24MISS')
          WHERE 1=1 AND U_ID = #{U_ID}
     </update>    
+   	<select id="SEL_ADMIN" parameterType="java.util.Map" resultType="java.util.HashMap">
+   			/* SEL_ADMIN 최고관리자정보를 읽어옴 */
+			SELECT 
+				U_ID AS R_ID, 
+				U_EMAIL AS R_EMAIL, 
+				U_NAME AS R_NAME, 
+				U_PHONE AS R_PHONE, 
+				U_REG_DT AS R_REG_DT, 
+				U_LEVEL AS R_LEVEL, 
+				U_ADDR AS R_ADDR, 
+				U_SOCIAL AS R_SOCIAL,
+				U_S_NAME AS R_S_NAME,
+				U_SERVERAUTHCODE AS R_SERVERAUTHCODE,
+				U_PUSH_TOKEN AS R_PUSH_TOKEN,
+				U_BIRTH_DT AS R_BIRTH_DT
+			FROM T_MEMBER
+			WHERE 1=1 AND U_LEVEL = '0'
+    </select>    
    	<select id="SEL_MEMBER" parameterType="java.util.Map" resultType="java.util.HashMap">
    			/* SEL_MEMBER */
 			SELECT 
