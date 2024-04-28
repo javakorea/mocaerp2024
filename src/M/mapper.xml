@@ -637,6 +637,49 @@
     
 
 
+    <select id="SEL_CRON_MY_TODAY_SCH_LIST" parameterType="java.util.Map" resultType="java.util.HashMap">
+		WITH T_SCHEDULE2 AS (
+			SELECT  TO_CHAR(NOW(),'YYYYMMDD') AS TODAY,SCH_START, CASE SCH_END WHEN '' THEN SCH_START ELSE SCH_END END AS SCH_END2,
+					SCH_IDX,
+					SCH_TITLE,
+					SCH_CONT,
+					SCH_WRITER,
+					SCH_CREATE_DTTM,
+					SCH_CURRENTMONTH,
+					SCH_START_TIME,
+					SCH_END,
+					SCH_END_TIME,
+					SCH_COLOR ,
+					SCH_COLOR AS FUL_COLOR,
+					SCH_DELYN,
+					SCH_SENDYN,
+					SCH_SUCCESSYN
+			FROM T_SCHEDULE
+			WHERE (TO_CHAR(NOW(),'YYYYMMDD') = SCH_START OR TO_CHAR(NOW(),'YYYYMMDD') <![CDATA[>]]> SCH_START)
+			AND SCH_SUCCESSYN !='Y'
+		)
+		SELECT * FROM T_SCHEDULE2 A ,T_MEMBER B
+		WHERE (A.TODAY <![CDATA[<]]> A.SCH_END2 OR A.TODAY = A.SCH_END2) AND A.SCH_WRITER = B.U_ID
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

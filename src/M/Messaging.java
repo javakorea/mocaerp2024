@@ -56,12 +56,12 @@ public class Messaging {
 		            .fromStream(new FileInputStream(GOOGLE_APPLICATION_CREDENTIALS))
 		            .createScoped(Arrays.asList(SCOPES));
 
-			LogUtil.info("==============GOOGLE_APPLICATION_CREDENTIALS=>"+GOOGLE_APPLICATION_CREDENTIALS);
+			//LogUtil.info("==============GOOGLE_APPLICATION_CREDENTIALS=>"+GOOGLE_APPLICATION_CREDENTIALS);
 
 			AccessToken at = googleCredentials.refreshAccessToken();
-		    LogUtil.info("==============at1=>"+at);
+		    //LogUtil.info("==============at1=>"+at);
 		    String v = at.getTokenValue();
-		    LogUtil.info("==============at2=>"+v);
+		    //LogUtil.info("==============at2=>"+v);
 		    return v;	  
 		  
 	  }catch(Exception e) {
@@ -258,7 +258,7 @@ public class Messaging {
    */
   private static void prettyPrint(JsonObject jsonObject) {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    LogUtil.info(gson.toJson(jsonObject) + "\n");
+    //LogUtil.info(gson.toJson(jsonObject) + "\n");
   }
 
 	/*

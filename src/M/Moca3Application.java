@@ -385,6 +385,29 @@ public class Moca3Application {
 	
 	
 	
+	//TOBE 매일 아침 6시 조회 (당일 일정 조회)
+	@Scheduled(cron="0 0 6 * * ?")public void _0_0_6_A_A_Q_TOBE() throws Exception{
+		//u.exeBatch("M.selectTodaySchedule","당일",ss);
+		List l = ss.selectList("M.SEL_CRON_MY_TODAY_SCH_LIST", new HashMap());
+		if(l != null){
+			for(int i=0;i < l.size() ;i++) {
+				Map row = (Map)l.get(i);
+				u.sendMessage("PUSH",String.valueOf(row.get("SCH_TITLE")) ,String.valueOf(row.get("SCH_CONT")),String.valueOf(row.get("U_PUSH_TOKEN")) );
+			}
+		}		
+	};
+	//TOBE 매일 아침 9시 조회 (당일 일정 조회)
+	@Scheduled(cron="0 0 9 * * ?")public void _0_0_9_A_A_Q_TOBE() throws Exception{
+		//u.exeBatch("M.selectTodaySchedule","당일",ss);
+		List l = ss.selectList("M.SEL_CRON_MY_TODAY_SCH_LIST", new HashMap());
+		if(l != null){
+			for(int i=0;i < l.size() ;i++) {
+				Map row = (Map)l.get(i);
+				u.sendMessage("PUSH",String.valueOf(row.get("SCH_TITLE")) ,String.valueOf(row.get("SCH_CONT")),String.valueOf(row.get("U_PUSH_TOKEN")) );
+			}
+		}		
+	};
+	
 	
 	
 	
