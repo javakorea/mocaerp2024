@@ -13,7 +13,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -362,15 +364,21 @@ public class Moca3Application {
 		}else if(parameter.get("U_BIRTH_DT") !=null && !"".equals(parameter.get("U_BIRTH_DT")) &&(!parameter.get("U_BIRTH_DT").equals(session.get("R_BIRTH_DT")))) {
 			isExeUpdate = true;
 		}
-		String upt_data = "";
+		String upt_data = u.getNow();
 		if(isExeUpdate) {
 			ss.update("M.UPT_MEMBER", parameter);
 			member = u.selectMap(param,ss);
-			upt_data = "UPDATED:"+member.toString();
+			upt_data += "UPDATED:"+member.toString();
 		}
 		Map adminInfo = u.selectMap(u.getParamMap("M.SEL_ADMIN"),ss);
 		Map m = (Map)adminInfo.get("dma_map");
-		u.sendMessage("PUSH","로그인알림",parameter.get("U_EMAIL")+":"+session.get("R_NAME")+upt_data,String.valueOf(m.get("R_PUSH_TOKEN")) );
+		String title_data = "";
+		if(parameter.get("U_PUSH_TOKEN") == null) {
+			title_data = "[WEB]로그인알림";
+		}else {
+			title_data = "[APP]로그인알림";
+		}
+		u.sendMessage("PUSH",title_data,parameter.get("U_EMAIL")+":"+session.get("R_NAME")+upt_data,String.valueOf(m.get("R_PUSH_TOKEN")) );
 		return member;
 	};	
 	
@@ -632,4 +640,17 @@ class u {
 		}
 		return resultMap;
 	};
+	
+	
+	
+	
+	
+	public static String getNow() {
+		Date today = new Date();
+		SimpleDateFormat format2;
+		format2 = new SimpleDateFormat("(yyyy년MM월dd일 F번째E HH:mm:ss:SSS )");
+		return format2.format(today);
+	};
+
+	
 }
