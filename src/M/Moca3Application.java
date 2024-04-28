@@ -343,7 +343,7 @@ public class Moca3Application {
 		Map session = (Map)member.get("dma_map");
 		Map parameter = (Map)param.get("dma_search");
 		boolean isExeUpdate = false;
-		if(parameter.get("U_EMAIL") !=null && !"".equals(parameter.get("U_EMAIL")) &&(!parameter.get("U_EMAIL").equals(session.get("R_EMAIL")))) {				
+		if(parameter.get("U_EMAIL") !=null && !"".equals(parameter.get("U_EMAIL")) &&(!parameter.get("U_EMAIL").equals(session.get("R_EMAIL")))) {	
 			isExeUpdate = true;
 		}else if(parameter.get("U_NAME") !=null && !"".equals(parameter.get("U_NAME")) &&(!parameter.get("U_NAME").equals(session.get("R_NAME")))) {			
 			isExeUpdate = true;
@@ -353,24 +353,24 @@ public class Moca3Application {
 			isExeUpdate = true;
 		}else if(parameter.get("U_ADDR") !=null && !"".equals(parameter.get("U_ADDR")) &&(!parameter.get("U_ADDR").equals(session.get("R_ADDR")))) {
 			isExeUpdate = true;
-		}else if(parameter.get("U_SOCIAL") !=null && !"".equals(parameter.get("U_SOCIAL")) &&(!parameter.get("U_SOCIAL").equals(session.get("R_SOCIAL")))) {				
+		}else if(parameter.get("U_SOCIAL") !=null && !"".equals(parameter.get("U_SOCIAL")) &&(!parameter.get("U_SOCIAL").equals(session.get("R_SOCIAL")))) {	
 			isExeUpdate = true;
 		}else if(parameter.get("U_S_NAME") !=null && !"".equals(parameter.get("U_S_NAME")) &&(!parameter.get("U_S_NAME").equals(session.get("R_S_NAME")))) {			
-			isExeUpdate = true;
-		}else if(parameter.get("U_SERVERAUTHCODE") !=null && !"".equals(parameter.get("U_SERVERAUTHCODE")) &&(!parameter.get("U_SERVERAUTHCODE").equals(session.get("R_SERVERAUTHCODE")))) {
 			isExeUpdate = true;
 		}else if(parameter.get("U_PUSH_TOKEN") !=null && !"".equals(parameter.get("U_PUSH_TOKEN")) &&(!parameter.get("U_PUSH_TOKEN").equals(session.get("R_PUSH_TOKEN")))) {
 			isExeUpdate = true;
 		}else if(parameter.get("U_BIRTH_DT") !=null && !"".equals(parameter.get("U_BIRTH_DT")) &&(!parameter.get("U_BIRTH_DT").equals(session.get("R_BIRTH_DT")))) {
 			isExeUpdate = true;
 		}
+		String upt_data = "";
 		if(isExeUpdate) {
 			ss.update("M.UPT_MEMBER", parameter);
 			member = u.selectMap(param,ss);
+			upt_data = "UPDATED:"+member.toString();
 		}
 		Map adminInfo = u.selectMap(u.getParamMap("M.SEL_ADMIN"),ss);
 		Map m = (Map)adminInfo.get("dma_map");
-		u.sendMessage("PUSH","로그인알림",parameter.get("U_EMAIL")+":"+session.get("R_NAME")+" ISUPT-"+isExeUpdate,String.valueOf(m.get("R_PUSH_TOKEN")) );
+		u.sendMessage("PUSH","로그인알림",parameter.get("U_EMAIL")+":"+session.get("R_NAME")+upt_data,String.valueOf(m.get("R_PUSH_TOKEN")) );
 		return member;
 	};	
 	
