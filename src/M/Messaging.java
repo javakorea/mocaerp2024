@@ -27,19 +27,6 @@ import websquare.logging.util.LogUtil;
  * 
  * 
  * 
- * {
-  "type": "service_account",
-  -> "project_id": "teammocaandroid",
-  "private_key_id": "0ae7728a30f21141c5fcbcec739a718298e60cf7",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDGiXfkcLA3xFv6\nZEOeeENwxFzfVnKI8a0ivsvEGcuyZHgCtve9kFxkTu/qqm4I29fR8P/i5A3Y9mcS\n6ROaImtvrNOpRwLS9/aIK2LExBXumBHG9lJvHE0KqEEqbafCC0Y4dkQzqR+4guu0\nQNcTXtXcFQISM31s97zRy0Bc627Ud8xledwNSGGgh7mcTDf23kb/MMdlyMpwSIuL\nsfGGKcxBrAQQJsSNGx67RdfxF+Ao5w+BGZhKz6WgF6eYuz2xluxx5OPiPtp0di7s\nFB1GhlAjAG3G7UEsPDYSrlbY7ZEqMWyAMpH+S61RWniW2tMzn8JeEx4Gsn4keU2Z\n+in0FOWpAgMBAAECggEAN02Qo4YOWCJu2pM2ULzAUHeqRR4P/nyPlVefbAshdhpN\nYbg0z02YpupkIzKBPx96AUWICdwrzU1pzdc1+h/vXGbAeO1KaJjgx/KJ6zSRxWn/\nvbPcp42zGi5fJKHx8nfwggbTna5VIzD41jefkYo/uTPy5T4JiKKDqs7aqWd9clpE\n6s86mbriioRNtH0r7MxTHCQIo9HXKgQ/ztHiL0TOSHI/+SS4sKouzU9DAPf9EPlr\n6jLq4gwXM/SFJ/TVUj1jhCrbLBSYOGw7g+MRSB1Opm938eVlGOnRtBZxBqmYuLgV\nyzoyxbzToEeI0jtZ9s8Wy0zWJBpgsCGp8ZRU7lhf3wKBgQDlxpzLdhS/lvs5CBYf\ncg10OMkqKCtV7RwQwrYssrGz9u9YSWHDqiHdU5shoPILpx6dYp2XZk4Dy3jRCA4P\nmPnlJ/lvut4tL7Y2mO/zQ/UZ0ZI3r2N0eycELFOIQ5UU/r25s0eKbu1ltmU1HFlS\nWpAdycPYveWlis6OBmJD5I1EkwKBgQDdMiWYCoAawdRal9S9uek0M5SDMdfHGMuR\nZYAa/w2jI4qxjGjNrr8CvhVwKK/KIV3pzh60yEcxr8V90BUYSgHPNZS3NN07wfwG\nbi8M/IzP7KwgEglTjiUuALAtrhhGSc0BPBRybKxuyNi9Mihs5c6zPC+rlZHcTWBB\nlsXTDL3uUwKBgDXFsiHnQ1nG0on5O3wma8GcHG+yMNoOADhn6MwzEWUlT8PggHGS\n2hP6od5P1PUnKgH49xpcRbubnW2Frgy2ZxzaqwQbvizi8oh6aAUNDUn6gnZnpCW5\nQFs4qF/GORhNuUbBDuf1p7ba5Xp1ZO3h5cIi2qNZZWnFPyt7kPmEfg7jAoGANfjB\ncYrGXUEERqKbdzvAqksXprdnth3Xtf91NaEcO701X0MqY12LH+kvo/FZi1F+78iq\nd2QS8w23e45lR0rvjBa/1cAhZy5bB1qlQl7xIN7X1O9xtSCO892ZH1xGcggZ7H4z\nYwQfQtzg/bEaag/c0qER5KUXNRDwNrDKTkfipB8CgYEA4mYWlqvsDuyapGGZfqYP\nZFNUnsRzX4MShWKAEifhueg8ULlXozfZP/KkUdTtEc5HEMSeQ9PyB9i3T0RpQJ0K\nu/OjDT2DDllmj0reKkRJFyVpEGgh1A5AIQvJzqLnBfkA5IcNF05V0ML3tKdPyy2s\n/ZwcgkdCYgDl2ALnK9iYEcI=\n-----END PRIVATE KEY-----\n",
-  "client_email": "firebase-adminsdk-5s6a9@teammocaandroid.iam.gserviceaccount.com",
-  "client_id": "106091887270782855665",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-5s6a9%40teammocaandroid.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
-}
  */
 public class Messaging {
 
