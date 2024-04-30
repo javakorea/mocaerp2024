@@ -517,7 +517,7 @@ scwin.draw = function(yyyyMM,_scope) {
 						//_contents.parentControl.setStyle('background-color',scwin.holidayColor);
 					}else{
 						let _bgColor = aDaySc['SCH_COLOR'];
-						_bgColor = scwin.getBgColorTag(_bgColor,aDaySc,isPast);
+						//_bgColor = scwin.getBgColorTag(_bgColor,aDaySc,isPast);
 						let title_display = '';
 						let link_display = '';
 						if(aDaySc.TYPE == 'LINK'){
@@ -529,6 +529,7 @@ scwin.draw = function(yyyyMM,_scope) {
 							str += `<span class='sch_bar' style='${_bgColor}'>`;
 							str += `<span class="icon">${link_display}</span>`;
 						}else{
+							_bgColor = scwin.getBgColorTag(_bgColor,aDaySc);//과거중 완료안된색  ispath를 전달안함
 							title_display = aDaySc.SCH_TITLE;	
 							if(aDaySc.SCH_ICO){
 								str += `<span class='sch_bar ml20' style='${_bgColor}'>`;
