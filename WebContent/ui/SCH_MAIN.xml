@@ -288,7 +288,7 @@
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.selectedCell = null;
 scwin.selectedSchObj = null;
 
-scwin.linkIcon = '';
+scwin.linkIcon = '↧';
 scwin.pastColor = '#f1f1f1';
 scwin.yyyyMmColor = '#dc5773';
 scwin.cellBgColor = '#deecee';
@@ -481,6 +481,8 @@ scwin.draw = function(yyyyMM,_scope) {
 			}
 			if((_yyyyMM+_spa.render.innerText) == _today){
 				_spa.addClass("today_display");
+				_contents.parentControl.setStyle('background-color','orange');
+				_contents.parentControl.setStyle('border-radius','10px');	
 			}else{
 				_spa.removeClass("today_display");
 			}
@@ -496,8 +498,7 @@ scwin.draw = function(yyyyMM,_scope) {
 			_contents.parentControl.childControlList[0].removeClass("holiday");
 			_contents.parentControl.childControlList[2].render.innerHTML = '';				
 			_contents.render.innerHTML = "";		
-			_contents.parentControl.setStyle('background-color','#ffffff');	
-			let SCH_SUCCESSYN = 'N';	
+			//_contents.parentControl.setStyle('background-color','#ffffff');	
 			if(o){
 				let str = '';
 				for(let i=0; i < o.length; i++){
@@ -507,41 +508,39 @@ scwin.draw = function(yyyyMM,_scope) {
 					if(_SCH_WRITER == '113260094161858860726' && _GRP_NM == '공휴일'){
 						_contents.parentControl.childControlList[0].addClass("holiday");
 						_contents.parentControl.childControlList[2].render.innerHTML = aDaySc.SCH_TITLE;
-						_contents.parentControl.setStyle('background-color',scwin.holidayColor);
+						//_contents.parentControl.setStyle('background-color',scwin.holidayColor);
 					}else{
 						let _bgColor = aDaySc['SCH_COLOR'];
 						_bgColor = scwin.getBgColorTag(_bgColor,aDaySc,isPast);
 						let title_display = '';
-						//SCH_SUCCESSYN = aDaySc.SCH_SUCCESSYN;
+						let link_display = '';
+						if(aDaySc.TYPE == 'LINK'){
+							link_display = scwin.linkIcon;
+						}							
 						if(aDaySc.SCH_SUCCESSYN == 'Y'){
 							title_display = aDaySc.SCH_TITLE;
-							_bgColor = `background-color:'${scwin.pastColor}';color:'#000000'`;
-						}else{
-							title_display = aDaySc.SCH_TITLE;
-						}
-						if(aDaySc.TYPE == 'LINK'){
-							title_display = scwin.linkIcon+title_display;
-						}
-						if(aDaySc.SCH_ICO){
-							if(isPast){
-								str += `<span class='sch_bar' style='${_bgColor}'>`;
-								//str += `<span class="icon">${aDaySc.SCH_ICO}</span>`;
-							}else{
-								str += `<span class='sch_bar ml20' style='${_bgColor}'>`;
-								str += `<span class="icon">${aDaySc.SCH_ICO}</span>`;
-							}
-						}else{
+							_bgColor = `background-color:${scwin.pastColor};color:#000`;							
 							str += `<span class='sch_bar' style='${_bgColor}'>`;
+							str += `<span class="icon">${link_display}</span>`;
+						}else{
+							title_display = aDaySc.SCH_TITLE;	
+							if(aDaySc.SCH_ICO){
+								str += `<span class='sch_bar ml20' style='${_bgColor}'>`;
+								str += `<span class="icon">${link_display}${aDaySc.SCH_ICO}</span>`;
+							}else{
+								str += `<span class='sch_bar' style='${_bgColor}'>`;	
+								str += `<span class="icon">${link_display}</span>`;
+							}
 						}
 						str += `<span class="bar_txt">${title_display}</span></span>`;
 					}
 				}
 				_contents.render.innerHTML = str;
 			}
-			if((Number(dayDiv.getAttribute('yyyyMMdd')) < Number(_today)) && SCH_SUCCESSYN != 'Y'){
-				//과거처리 
-				_contents.parentControl.setStyle('background-color',scwin.pastColor);
-			}
+			//if((Number(dayDiv.getAttribute('yyyyMMdd')) < Number(_today)) && SCH_SUCCESSYN != 'Y'){
+			//	//과거처리 
+			//	_contents.parentControl.setStyle('background-color',scwin.pastColor);
+			//}
 		}		
 	}
 };
