@@ -292,6 +292,7 @@ scwin.linkIcon = '';
 scwin.pastColor = '#f1f1f1';
 scwin.yyyyMmColor = '#dc5773';
 scwin.cellBgColor = '#deecee';
+scwin.holidayColor = '#d95252';
 scwin.left = null;
 scwin.center = null;
 scwin.right = null;
@@ -492,6 +493,11 @@ scwin.draw = function(yyyyMM,_scope) {
 				isPast = false;
 			}
 			let o = scwin.dayMap[dayDiv.getAttribute('yyyyMMdd')];
+			_contents.parentControl.childControlList[0].removeClass("holiday");
+			_contents.parentControl.childControlList[2].render.innerHTML = '';				
+			_contents.render.innerHTML = "";		
+			_contents.parentControl.setStyle('background-color','#ffffff');	
+			let SCH_SUCCESSYN = 'N';	
 			if(o){
 				let str = '';
 				for(let i=0; i < o.length; i++){
@@ -501,10 +507,12 @@ scwin.draw = function(yyyyMM,_scope) {
 					if(_SCH_WRITER == '113260094161858860726' && _GRP_NM == '공휴일'){
 						_contents.parentControl.childControlList[0].addClass("holiday");
 						_contents.parentControl.childControlList[2].render.innerHTML = aDaySc.SCH_TITLE;
+						_contents.parentControl.setStyle('background-color',scwin.holidayColor);
 					}else{
 						let _bgColor = aDaySc['SCH_COLOR'];
 						_bgColor = scwin.getBgColorTag(_bgColor,aDaySc,isPast);
 						let title_display = '';
+						//SCH_SUCCESSYN = aDaySc.SCH_SUCCESSYN;
 						if(aDaySc.SCH_SUCCESSYN == 'Y'){
 							title_display = aDaySc.SCH_TITLE;
 							_bgColor = `background-color:'${scwin.pastColor}';color:'#000000'`;
@@ -529,14 +537,10 @@ scwin.draw = function(yyyyMM,_scope) {
 					}
 				}
 				_contents.render.innerHTML = str;
-			}else{
-				_contents.render.innerHTML = "";				
 			}
-			if(Number(dayDiv.getAttribute('yyyyMMdd')) < Number(_today)){
+			if((Number(dayDiv.getAttribute('yyyyMMdd')) < Number(_today)) && SCH_SUCCESSYN != 'Y'){
 				//과거처리 
 				_contents.parentControl.setStyle('background-color',scwin.pastColor);
-			}else{
-				_contents.parentControl.setStyle('background-color','#ffffff');
 			}
 		}		
 	}
