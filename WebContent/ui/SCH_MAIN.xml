@@ -481,7 +481,7 @@ scwin.draw = function(yyyyMM,_scope) {
 			}
 			if((_yyyyMM+_spa.render.innerText) == _today){
 				_spa.addClass("today_display");
-				_contents.parentControl.setStyle('background-color','orange');
+				_contents.parentControl.setStyle('background-color','#ffa50063');
 				_contents.parentControl.setStyle('border-radius','10px');	
 			}else{
 				_spa.removeClass("today_display");
