@@ -289,6 +289,7 @@
 scwin.selectedSchObj = null;
 
 scwin.linkIcon = '';
+scwin.pastColor = '#fbfbfb';
 scwin.yyyyMmColor = '#dc5773';
 scwin.cellBgColor = '#deecee';
 scwin.left = null;
@@ -298,18 +299,20 @@ scwin.yoil = {일요일:0,월요일:1,화요일:2,수요일:3,목요일:4,금요
 scwin.dayMap = {};
 
 /* 구분컬러CSS로가져오기API */
-scwin.getBgColorTag = function(_gubun,o){
+scwin.getBgColorTag = function(_gubun,o,_isPast){
 	if(o && o.TYPE == 'LINK'){
-		let c = scwin.getColor(101);
+		let c = scwin.getColor(101,_isPast);
 		return `background-color:${c.backColor};color:${c.color}`;
 	}else{
-		let c = scwin.getColor(_gubun);
+		let c = scwin.getColor(_gubun,_isPast);
 		return `background-color:${c.backColor};color:${c.color}`;
 	}
 };
 /* 구분컬러가져오기API */
-scwin.getColor = function(_gubun){
-	if(_gubun == 1){
+scwin.getColor = function(_gubun,_isPast){
+	if(_isPast){
+		return {backColor:scwin.pastColor,color:'#000'};
+	}else if(_gubun == 1){
 		return {backColor:'#576DDC',color:'white'};
 	}else if(_gubun == 101){
 		return {backColor:'white',color:'black'};
@@ -471,44 +474,70 @@ scwin.draw = function(yyyyMM,_scope) {
 				writeDay++;
 				_spa.setLabel(writeDay);				dayDiv.setAttribute('yyyyMMdd',yyyyMM_next+((writeDay<10)? '0'+writeDay:writeDay));
 			}
-			if((yyyyMM+_spa.render.innerText) == _today){
+			let _yyyyMM = yyyyMM;
+			if(isStart == -1){
+				_yyyyMM = Number(yyyyMM)-1;
+			}
+			if((_yyyyMM+_spa.render.innerText) == _today){
 				_spa.addClass("today_display");
 			}else{
 				_spa.removeClass("today_display");
+			}
+
+			let isPast = false;
+			if(Number(dayDiv.getAttribute('yyyyMMdd')) < Number(_today)){
+				//과거처리 
+				isPast = true;
+			}else{
+				isPast = false;
 			}
 			let o = scwin.dayMap[dayDiv.getAttribute('yyyyMMdd')];
 			if(o){
 				let str = '';
 				for(let i=0; i < o.length; i++){
 					let aDaySc = o[i];
-					let _bgColor = aDaySc['SCH_COLOR'];
-					_bgColor = scwin.getBgColorTag(_bgColor,aDaySc);
-					let title_display = '';
-
-
-					if(aDaySc.SCH_SUCCESSYN == 'Y'){
-						title_display = '✔'+aDaySc.SCH_TITLE;
+					let _SCH_WRITER = aDaySc['SCH_WRITER'];
+					let _GRP_NM = aDaySc['GRP_NM'];
+					if(_SCH_WRITER == '113260094161858860726' && _GRP_NM == '공휴일'){
+						_contents.parentControl.childControlList[0].addClass("holiday");
+						_contents.parentControl.childControlList[2].render.innerHTML = aDaySc.SCH_TITLE;
 					}else{
-						title_display = aDaySc.SCH_TITLE;
+						let _bgColor = aDaySc['SCH_COLOR'];
+						_bgColor = scwin.getBgColorTag(_bgColor,aDaySc,isPast);
+						let title_display = '';
+						if(aDaySc.SCH_SUCCESSYN == 'Y'){
+							title_display = aDaySc.SCH_TITLE;
+							_bgColor = `background-color:'${scwin.pastColor}';color:'#000000'`;
+						}else{
+							title_display = aDaySc.SCH_TITLE;
+						}
+						if(aDaySc.TYPE == 'LINK'){
+							title_display = scwin.linkIcon+title_display;
+						}
+						if(aDaySc.SCH_ICO){
+							if(isPast){
+								str += `<span class='sch_bar' style='${_bgColor}'>`;
+								//str += `<span class="icon">${aDaySc.SCH_ICO}</span>`;
+							}else{
+								str += `<span class='sch_bar ml20' style='${_bgColor}'>`;
+								str += `<span class="icon">${aDaySc.SCH_ICO}</span>`;
+							}
+						}else{
+							str += `<span class='sch_bar' style='${_bgColor}'>`;
+						}
+						str += `<span class="bar_txt">${title_display}</span></span>`;
 					}
-					if(aDaySc.TYPE == 'LINK'){
-						title_display = scwin.linkIcon+title_display;
-					}
-
-					
-					if(aDaySc.SCH_ICO){
-						str += `<span class='sch_bar ml20' style='${_bgColor}'>`;
-						str += `<span class="icon">${aDaySc.SCH_ICO}</span>`;
-					}else{
-						str += `<span class='sch_bar' style='${_bgColor}'>`;
-					}
-					str += `<span class="bar_txt">${title_display}</span></span>`;
 				}
 				_contents.render.innerHTML = str;
 			}else{
 				_contents.render.innerHTML = "";				
 			}
-			
+			if(Number(dayDiv.getAttribute('yyyyMMdd')) < Number(_today)){
+				//과거처리 
+				_contents.parentControl.setStyle('background-color',scwin.pastColor);
+			}else{
+				_contents.parentControl.setStyle('background-color','#ffffff');
+			}
 		}		
 	}
 };
