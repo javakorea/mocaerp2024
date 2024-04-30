@@ -289,7 +289,7 @@
 scwin.selectedSchObj = null;
 
 scwin.linkIcon = '';
-scwin.pastColor = '#fbfbfb';
+scwin.pastColor = '#f1f1f1';
 scwin.yyyyMmColor = '#dc5773';
 scwin.cellBgColor = '#deecee';
 scwin.left = null;
