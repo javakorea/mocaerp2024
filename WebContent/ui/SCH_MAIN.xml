@@ -531,10 +531,13 @@ scwin.draw = function(yyyyMM,_scope) {
 						//_bgColor = scwin.getBgColorTag(_bgColor,aDaySc,isPast);
 						let title_display = '';
 						let link_display = '';
+						let link_class = '';
 						if(aDaySc.TYPE == 'LINK'){
 							link_display = scwin.linkIcon;
+							link_class = 'down';
 						}else if(aDaySc.GRP_NM){
 							link_display = scwin.shareIcon;
+							link_class = 'up';
 						}
 						if(aDaySc.SCH_SUCCESSYN == 'Y'){
 							title_display = aDaySc.SCH_TITLE;
@@ -546,11 +549,11 @@ scwin.draw = function(yyyyMM,_scope) {
 							title_display = aDaySc.SCH_TITLE;	
 							if(aDaySc.SCH_ICO){
 								str += `<span class='sch_bar ml20' style='${_bgColor}'>`;
-								str += `<b>${link_display}</b>`;
+								str += `<b class='${link_class}'>${link_display}</b>`;
 								str += `<span class="icon">${aDaySc.SCH_ICO}</span>`;
 							}else{
 								str += `<span class='sch_bar' style='${_bgColor}'>`;	
-								str += `<b>${link_display}</b>`;
+								str += `<b class='${link_class}'>${link_display}</b>`;
 							}
 						}
 						str += `<span class="bar_txt">${title_display}</span></span>`;
