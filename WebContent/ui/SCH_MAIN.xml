@@ -290,7 +290,7 @@
 scwin.selectedSchObj = null;
 scwin.todayColor = '#ffa50063';
 //scwin.linkIcon = "<b style='color:green'>↧</b>";
-scwin.linkIcon = "<b style='color:orange'>⇣</b>";
+scwin.linkIcon = "<b style='color:red'>⇣</b>";
 scwin.shareIcon = "<b style='color:blue'>⇡</b>";
 
 

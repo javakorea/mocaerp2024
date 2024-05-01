@@ -33,10 +33,17 @@
 			
 			let grp_row = gen_item.getChild(tmpIdx, "grp_row");
 			let btn_ico = gen_item.getChild(tmpIdx, "ico");
+			let ico_net = gen_item.getChild(tmpIdx, "ico_net");
 			let ipt_title = gen_item.getChild(tmpIdx, "ipt_title");
 			let spa_success = gen_item.getChild(tmpIdx, "spa_success");
 			let data = dlt_gubunList.getMatchedJSON('CODE',row.SCH_COLOR);
-			btn_ico.setValue(row.SCH_ICO);
+			if(row.SCH_ICO){
+				btn_ico.setValue(row.SCH_ICO);
+			}else{
+				let _color = $p.parent().scwin.getColor(row.SCH_COLOR).backColor;
+				btn_ico.setValue(`<div style='width:30px;height:30px;background-color:${_color};'></div>`);
+			}
+			
 			
 			grp_row.setUserData('SCH_IDX',row.SCH_IDX);
 			grp_row.setUserData('SCH_OBJ',row);
@@ -50,10 +57,13 @@
 				//spa_success.removeClass('done');
 			}
 			if(row.TYPE == 'LINK'){
-				ipt_title.setValue('⊶'+row.SCH_TITLE);
+				ico_net.setValue($p.parent().scwin.linkIcon);
+			}else if(row.GRP_NM){
+				ico_net.setValue($p.parent().scwin.shareIcon);				
 			}else{
-				ipt_title.setValue(row.SCH_TITLE);
+				ico_net.setValue(`<div style='width:14px;height:10px;'></div>`);
 			}
+			ipt_title.setValue(row.SCH_TITLE);
 			ipt_title.setStyle('color','black');
 		}
 	}else{
@@ -84,6 +94,7 @@ scwin.btn_item_onclick = function () {
 				<xf:group style="" id="dfbox" class="dfbox">
 					<w2:generator style="" id="gen_item" class="gen_item" tagname="ul">
 						<xf:group id="grp_row" style="" tagname="li" ev:onclick="scwin.btn_item_onclick">
+							<w2:textbox class=" fl" id="ico_net" label="" style="cursor:pointer" tagname="span" escape="false"></w2:textbox>
 							<w2:textbox class="ico_success fl" id="ico" label="" style="cursor:pointer" tagname="span" escape="false"></w2:textbox>
 							<w2:textbox class="spa_listTitle fl" id="ipt_title" label="" style="cursor:pointer" tagname="span"></w2:textbox>
 <!-- 							<w2:textbox class="ico_success fl done" id="spa_success" label="" style="cursor:pointer" tagname="span"></w2:textbox> -->
