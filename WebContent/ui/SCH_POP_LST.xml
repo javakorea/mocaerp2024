@@ -51,10 +51,7 @@
 			//btn_item.setStyle('border-left',`10px solid ${_color}`);
 
 			if(row.SCH_SUCCESSYN == 'Y'){
-				//spa_success.addClass('done');
 				ipt_title.setStyle('text-decoration','line-through');
-			}else{
-				//spa_success.removeClass('done');
 			}
 			if(row.TYPE == 'LINK'){
 				ico_net.setValue($p.parent().scwin.linkIcon);
