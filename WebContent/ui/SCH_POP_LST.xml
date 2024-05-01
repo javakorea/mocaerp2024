@@ -54,9 +54,9 @@
 				ipt_title.setStyle('text-decoration','line-through');
 			}
 			if(row.TYPE == 'LINK'){
-				ico_net.setValue($p.parent().scwin.linkIcon);
+				ico_net.setValue(`<b class='down'>${$p.parent().scwin.linkIcon}</b>`);
 			}else if(row.GRP_NM){
-				ico_net.setValue($p.parent().scwin.shareIcon);				
+				ico_net.setValue(`<b class='up'>${$p.parent().scwin.shareIcon}</b>`);				
 			}else{
 				ico_net.setValue(`<div style='width:14px;height:10px;'></div>`);
 			}
@@ -91,7 +91,7 @@ scwin.btn_item_onclick = function () {
 				<xf:group style="" id="dfbox" class="dfbox">
 					<w2:generator style="" id="gen_item" class="gen_item" tagname="ul">
 						<xf:group id="grp_row" style="" tagname="li" ev:onclick="scwin.btn_item_onclick">
-							<w2:textbox class=" fl" id="ico_net" label="" style="cursor:pointer" tagname="span" escape="false"></w2:textbox>
+							<w2:textbox class="fl" id="ico_net" label="" style="cursor:pointer" tagname="span" escape="false"></w2:textbox>
 							<w2:textbox class="ico_success fl" id="ico" label="" style="cursor:pointer" tagname="span" escape="false"></w2:textbox>
 							<w2:textbox class="spa_listTitle fl" id="ipt_title" label="" style="cursor:pointer" tagname="span"></w2:textbox>
 <!-- 							<w2:textbox class="ico_success fl done" id="spa_success" label="" style="cursor:pointer" tagname="span"></w2:textbox> -->
