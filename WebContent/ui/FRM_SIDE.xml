@@ -180,6 +180,12 @@ scwin.onpageload = function () {
 	
 	com.win.openMenu('공유달력', '/ui/SCH_MAIN.xml', '1400', null, {isHistory: false, closable: true});
 	com.win.openMenu('회원가입', '/ui/FRM_SIGNUP.xml', '1400', null, {isHistory: false, closable: true});
+	//로그아웃을 위한 준비
+    if(!window['gapi']){
+        gcm.ext.scriptImport("https://apis.google.com/js/api.js",function(){
+            gapiLoaded();
+        });
+    }	
 };
 
 scwin.getInitData = function () {
@@ -264,7 +270,8 @@ scwin.trv_menu_onclick = function () {
 			com.win.confirm($p, '로그아웃하시겠습니까?', function(e){
 				if(e.clickValue){
 					sessionStorage.removeItem("loginInfo");
-					com.win.logout();
+					signOut();
+					
 				}
 			});
 			return;

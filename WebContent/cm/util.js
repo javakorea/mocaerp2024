@@ -128,6 +128,13 @@ function handleCredentialResponse(response) {
        
    // });
 };
+function signOut() {
+	
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      logout();
+    });
+  }
 /* 구글로그인 end --------------------------------------------------------------------*/
 
 
@@ -149,14 +156,18 @@ const SCOPES = 'https://www.googleapis.com/auth/contacts.readonly https://www.go
 	gapi.load('client', initializeGapiClient);
 	}
 	async function initializeGapiClient() {
-    await gapi.client.init({
-      apiKey: API_KEY,
-      discoveryDocs: [DISCOVERY_DOC],
-    });
-    console.log('API_KEY:'+API_KEY);
-    console.log('initializeGapiClient()-'+'API_KEY를 초기화하였습니다.');
-    gapiInited = true;
-    maybeEnableButtons();
+	    await gapi.client.init({
+	      apiKey: API_KEY,
+	      discoveryDocs: [DISCOVERY_DOC],
+	    });
+	    await gapi.auth2.init({
+	        clientId: CLIENT_ID,
+	        scope: SCOPES
+	    });	    
+	    console.log('API_KEY:'+API_KEY);
+	    console.log('initializeGapiClient()-'+'API_KEY를 초기화하였습니다.');
+	    gapiInited = true;
+	    maybeEnableButtons();
 	}
 	function gisLoaded() {
     console.log('################################################## Google Identity Services ,gisLoaded');

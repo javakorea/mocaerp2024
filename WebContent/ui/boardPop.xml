@@ -92,11 +92,7 @@
 		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
 	scwin.param = com.data.getParameter();
 	scwin.fn_setAdmin();
-    if(!window['gapi']){
-        gcm.ext.scriptImport("https://apis.google.com/js/api.js",function(){
-            gapiLoaded();
-        });
-    }
+
 	CKEDITOR.on('instanceReady', function(ev) {
         scwin.editor = ev.editor;
     });
@@ -211,7 +207,6 @@ scwin.fn_bytesToLabel = function(_byte){
 	};		
 	/* 게시물(등록,수정)의 저장 */
 	scwin.btn_confirm_onclick = function() {
-		debugger;
 		//등록
 		if(scwin.param.data.rowJson){
 			scwin.btn_update_onclick();

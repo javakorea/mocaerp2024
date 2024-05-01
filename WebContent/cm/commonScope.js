@@ -3098,7 +3098,7 @@ com.win.logoutSubmitDone = function() {
 	let lengIsOne = arguments[0].responseJSON.length
 	sessionStorage.removeItem("loginInfo");
 	sessionStorage.removeItem("session");
-	com.win.goHome();
+	signOut();
 };
 
 /**
