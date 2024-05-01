@@ -289,7 +289,8 @@
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.selectedCell = null;
 scwin.selectedSchObj = null;
 scwin.todayColor = '#ffa50063';
-scwin.linkIcon = '↧';
+//scwin.linkIcon = "<b style='color:green'>↧</b>";
+scwin.linkIcon = "<b style='color:orange'>⇣</b>";
 scwin.shareIcon = "<b style='color:blue'>⇡</b>";
 
 
@@ -328,13 +329,12 @@ scwin.getColor = function(_gubun,_isPast){
 
 scwin.onpageload = function() {
 	dma_search.set("SCH_WRITER",JSON.parse(sessionStorage.getItem('session')).R_ID);
-	let thisMonth = WebSquare.date.getCurrentServerDate('yyyyMM');
-	SCH_CURRENTMONTH.setValue(thisMonth);
-
 	scwin.left = wfm_cal_prev;
 	scwin.center = wfm_cal;
 	scwin.right = wfm_cal_next;	
 	gcm.ext.swiper.scriptImport(function(e){
+
+
 		scwin.swiper = new Swiper(".mySwiperNew", {
 			slidesPerView: 1,
 			loop: true
@@ -358,6 +358,10 @@ scwin.onpageload = function() {
 			}			
 			scwin.search();
 		});
+		let thisMonth = WebSquare.date.getCurrentServerDate('yyyyMM');
+		SCH_CURRENTMONTH.setValue(thisMonth);
+		let selectedCalObj = $p.getComponentById(scwin.swiper.slides[1].id);
+		selectedCalObj.scope.grp_yyyyMM.render.innerText = thisMonth;			
 		scwin.swiper.slideTo(1,0);//아이폰을위해서 (realIndexChange발생)
 	});	
 };
@@ -382,7 +386,6 @@ scwin.threeCalDraw = function(){
 
 	var yyyyMM_prev 	= WebSquare.date.dateTimeAdd( yyyyMM, -1, "month" );
 	var yyyyMM_next 	= WebSquare.date.dateTimeAdd( yyyyMM, 1, "month" );
-
 	scwin.center.scope.grp_yyyyMM.render.innerText = yyyyMM.substring(0,4)+'년'+yyyyMM.substring(4)+'월';
 	scwin.left.scope.grp_yyyyMM.render.innerText = yyyyMM_prev.substring(0,4)+'년'+yyyyMM_prev.substring(4)+'월';
 	scwin.right.scope.grp_yyyyMM.render.innerText = yyyyMM_next.substring(0,4)+'년'+yyyyMM_next.substring(4)+'월';	
@@ -487,8 +490,13 @@ scwin.draw = function(yyyyMM,_scope) {
 			let _yyyyMM = yyyyMM;
 			if(isStart == -1){
 				_yyyyMM = Number(yyyyMM)-1;
+			}else if(isStart == 1){
+				_yyyyMM = Number(yyyyMM)+1;
 			}
-			if((_yyyyMM+_spa.render.innerText) == _today){
+
+			let nowday = _spa.render.innerText;
+			nowday = ((nowday<10)? '0'+nowday:nowday);
+			if((_yyyyMM+nowday) == _today){
 				_spa.addClass("today_display");
 				_contents.parentControl.setStyle('background-color',scwin.todayColor);
 				_contents.parentControl.setStyle('border-radius','10px');	

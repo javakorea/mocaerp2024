@@ -31,25 +31,23 @@
 			let row = list[i];
 			let tmpIdx = gen_item.insertChild();
 			
-			
-			
 			let grp_row = gen_item.getChild(tmpIdx, "grp_row");
-			let btn_item = gen_item.getChild(tmpIdx, "btn_item");
+			let btn_ico = gen_item.getChild(tmpIdx, "ico");
 			let ipt_title = gen_item.getChild(tmpIdx, "ipt_title");
 			let spa_success = gen_item.getChild(tmpIdx, "spa_success");
 			let data = dlt_gubunList.getMatchedJSON('CODE',row.SCH_COLOR);
-			btn_item.setValue(data[0].DATA);
+			btn_ico.setValue(row.SCH_ICO);
 			
 			grp_row.setUserData('SCH_IDX',row.SCH_IDX);
 			grp_row.setUserData('SCH_OBJ',row);
 			let _color = $p.parent().scwin.getColor(row.SCH_COLOR).backColor;
-			//btn_item.setStyle('background-color',_color);
-			btn_item.setStyle('border-left',`10px solid ${_color}`);
+			//btn_item.setStyle('border-left',`10px solid ${_color}`);
 
 			if(row.SCH_SUCCESSYN == 'Y'){
-				spa_success.addClass('done');
+				//spa_success.addClass('done');
+				ipt_title.setStyle('text-decoration','line-through');
 			}else{
-				spa_success.removeClass('done');
+				//spa_success.removeClass('done');
 			}
 			if(row.TYPE == 'LINK'){
 				ipt_title.setValue('⊶'+row.SCH_TITLE);
@@ -64,10 +62,12 @@
 	$p.parent().grp_adayList.show();
 
 };
+
 scwin.btn_item_onclick = function () {
 	$p.parent().scwin.selectedSchObj = this.getUserData('SCH_OBJ');
 	$p.parent().wfm_pop.setSrc('/ui/SCH_POP_VIE.xml');
 };
+
 
 ]]></script>
 	</head>
@@ -84,12 +84,9 @@ scwin.btn_item_onclick = function () {
 				<xf:group style="" id="dfbox" class="dfbox">
 					<w2:generator style="" id="gen_item" class="gen_item" tagname="ul">
 						<xf:group id="grp_row" style="" tagname="li" ev:onclick="scwin.btn_item_onclick">
-							<xf:trigger style="font-size:18px;border-left: 10px solid #53a786;" id="btn_item" type="button" class="fl sch_list">
-								<xf:label><![CDATA[]]>
-								</xf:label>
-							</xf:trigger>
+							<w2:textbox class="ico_success fl" id="ico" label="" style="cursor:pointer" tagname="span" escape="false"></w2:textbox>
 							<w2:textbox class="spa_listTitle fl" id="ipt_title" label="" style="cursor:pointer" tagname="span"></w2:textbox>
-							<w2:textbox class="ico_success fl done" id="spa_success" label="" style="cursor:pointer" tagname="span"></w2:textbox>
+<!-- 							<w2:textbox class="ico_success fl done" id="spa_success" label="" style="cursor:pointer" tagname="span"></w2:textbox> -->
 						</xf:group>
 					</w2:generator>
 				</xf:group>
