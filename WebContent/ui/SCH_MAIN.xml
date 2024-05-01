@@ -290,8 +290,8 @@
 scwin.selectedSchObj = null;
 scwin.todayColor = '#ffa50063';
 //scwin.linkIcon = "<b style='color:green'>↧</b>";
-scwin.linkIcon = "<b style='color:red'>⇣</b>";
-scwin.shareIcon = "<b style='color:blue'>⇡</b>";
+scwin.linkIcon = "⇣";
+scwin.shareIcon = "⇡";
 
 
 scwin.pastColor = '#f1f1f1';
@@ -540,16 +540,17 @@ scwin.draw = function(yyyyMM,_scope) {
 							title_display = aDaySc.SCH_TITLE;
 							_bgColor = `background-color:${scwin.pastColor};color:gray`;							
 							str += `<span class='sch_bar' style='${_bgColor}'>`;
-							str += `<span class="icon">${link_display}</span>`;
+							str += `<b>${link_display}</b>`;
 						}else{
 							_bgColor = scwin.getBgColorTag(_bgColor,aDaySc);//과거중 완료안된색  ispath를 전달안함
 							title_display = aDaySc.SCH_TITLE;	
 							if(aDaySc.SCH_ICO){
 								str += `<span class='sch_bar ml20' style='${_bgColor}'>`;
-								str += `<span class="icon">${link_display}${aDaySc.SCH_ICO}</span>`;
+								str += `<b>${link_display}</b>`;
+								str += `<span class="icon">${aDaySc.SCH_ICO}</span>`;
 							}else{
 								str += `<span class='sch_bar' style='${_bgColor}'>`;	
-								str += `<span class="icon">${link_display}</span>`;
+								str += `<b>${link_display}</b>`;
 							}
 						}
 						str += `<span class="bar_txt">${title_display}</span></span>`;
