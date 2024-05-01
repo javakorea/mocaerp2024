@@ -375,8 +375,7 @@ scwin.threeCalDraw = function(){
 		}else if(yyyyMM.endsWith("05")){
 			grp_cal.setStyle('background-image', 'url(/cm/images/childrenday.gif)');
 		}
-		
-		//grp_cal.setStyle('background-repeat', 'no-repeat');
+		grp_cal.setStyle('background-repeat', 'no-repeat');
 		SCH_CURRENTMONTH.setStyle('color', scwin.gubun1Color);
 	}else{
 		grp_cal.setStyle('background-image', '');
