@@ -182,6 +182,7 @@
 						<w2:column id="SCH_SENDYN" name="SCH_SENDYN" dataType="text"></w2:column>
 						<w2:column id="SCH_SUCCESSYN" name="SCH_SUCCESSYN" dataType="text"></w2:column>
 						<w2:column id="SCH_ICO" name="SCH_ICO" dataType="text"></w2:column>
+						<w2:column id="GRP_NM" name="GRP_NM" dataType="text"></w2:column>
 					</w2:columnInfo>
 					<w2:data use="false"></w2:data>
 				</w2:dataList>
@@ -287,8 +288,11 @@
 		<w2:publicInfo method="" />
 		<script lazy="false" type="text/javascript"><![CDATA[scwin.selectedCell = null;
 scwin.selectedSchObj = null;
-
+scwin.todayColor = '#ffa50063';
 scwin.linkIcon = '↧';
+scwin.shareIcon = "<b style='color:blue'>⇡</b>";
+
+
 scwin.pastColor = '#f1f1f1';
 scwin.yyyyMmColor = '#dc5773';
 scwin.cellBgColor = '#deecee';
@@ -363,8 +367,7 @@ scwin.threeCalDraw = function(){
 	let _today = WebSquare.date.getCurrentServerDate('yyyyMMdd');
 	if(yyyyMM == _today.substring(0,6)){
 		if(yyyyMM.endsWith("04")){
-			//grp_cal.setStyle('background-image', 'url(/cm/images/f.gif)');
-			grp_cal.setStyle('background-image', 'url(/cm/images/childrenday.gif)');
+			grp_cal.setStyle('background-image', 'url(/cm/images/f.gif)');
 		}else if(yyyyMM.endsWith("05")){
 			grp_cal.setStyle('background-image', 'url(/cm/images/childrenday.gif)');
 		}
@@ -410,9 +413,9 @@ scwin.threeCalDraw = function(){
 		if(scwin.selectedCell && (scwin.selectedCell.getAttribute('yyyyMMdd').substring(0,6) != yyyyMM)){
 			if(scwin.selectedCell){scwin.selectedCell.setStyle('background-color','');scwin.selectedCell=null;}
 		};
-		scwin.draw(yyyyMM,scwin.center.scope);
 		scwin.draw(yyyyMM_prev,scwin.left.scope);
 		scwin.draw(yyyyMM_next,scwin.right.scope);
+		scwin.draw(yyyyMM,scwin.center.scope);
 	};
 }
 
@@ -487,9 +490,11 @@ scwin.draw = function(yyyyMM,_scope) {
 			}
 			if((_yyyyMM+_spa.render.innerText) == _today){
 				_spa.addClass("today_display");
-				_contents.parentControl.setStyle('background-color','#ffa50063');
+				_contents.parentControl.setStyle('background-color',scwin.todayColor);
 				_contents.parentControl.setStyle('border-radius','10px');	
 			}else{
+				_contents.parentControl.setStyle('background-color','');
+				_contents.parentControl.setStyle('border-radius','');
 				_spa.removeClass("today_display");
 			}
 
@@ -504,7 +509,6 @@ scwin.draw = function(yyyyMM,_scope) {
 			_contents.parentControl.childControlList[0].removeClass("holiday");
 			_contents.parentControl.childControlList[2].render.innerHTML = '';				
 			_contents.render.innerHTML = "";		
-			//_contents.parentControl.setStyle('background-color','#ffffff');	
 			if(o){
 				let str = '';
 				for(let i=0; i < o.length; i++){
@@ -514,7 +518,6 @@ scwin.draw = function(yyyyMM,_scope) {
 					if(_SCH_WRITER == '113260094161858860726' && _GRP_NM == '공휴일'){
 						_contents.parentControl.childControlList[0].addClass("holiday");
 						_contents.parentControl.childControlList[2].render.innerHTML = aDaySc.SCH_TITLE;
-						//_contents.parentControl.setStyle('background-color',scwin.holidayColor);
 					}else{
 						let _bgColor = aDaySc['SCH_COLOR'];
 						//_bgColor = scwin.getBgColorTag(_bgColor,aDaySc,isPast);
@@ -522,10 +525,12 @@ scwin.draw = function(yyyyMM,_scope) {
 						let link_display = '';
 						if(aDaySc.TYPE == 'LINK'){
 							link_display = scwin.linkIcon;
-						}							
+						}else if(aDaySc.GRP_NM){
+							link_display = scwin.shareIcon;
+						}
 						if(aDaySc.SCH_SUCCESSYN == 'Y'){
 							title_display = aDaySc.SCH_TITLE;
-							_bgColor = `background-color:${scwin.pastColor};color:#000`;							
+							_bgColor = `background-color:${scwin.pastColor};color:gray`;							
 							str += `<span class='sch_bar' style='${_bgColor}'>`;
 							str += `<span class="icon">${link_display}</span>`;
 						}else{
@@ -544,10 +549,6 @@ scwin.draw = function(yyyyMM,_scope) {
 				}
 				_contents.render.innerHTML = str;
 			}
-			//if((Number(dayDiv.getAttribute('yyyyMMdd')) < Number(_today)) && SCH_SUCCESSYN != 'Y'){
-			//	//과거처리 
-			//	_contents.parentControl.setStyle('background-color',scwin.pastColor);
-			//}
 		}		
 	}
 };
