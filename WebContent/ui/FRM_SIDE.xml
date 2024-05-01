@@ -78,7 +78,7 @@
 						</w2:row>
 						<w2:row>
 							<MENU_CD><![CDATA[2300]]></MENU_CD>
-							<MENU_NM><![CDATA[내채널]]></MENU_NM>
+							<MENU_NM><![CDATA[내채널  (내일정을 다른사람에게 공유할수있습니다!)]]></MENU_NM>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
 							<SRC_PATH><![CDATA[/ui/SCH_MYGRP.xml]]></SRC_PATH>
 							<TYPE><![CDATA[SCH]]></TYPE>
@@ -87,7 +87,7 @@
 						</w2:row>
 						<w2:row>
 							<MENU_CD><![CDATA[2400]]></MENU_CD>
-							<MENU_NM><![CDATA[채널가입]]></MENU_NM>
+							<MENU_NM><![CDATA[채널가입  (다른사람으로부터 일정을 공유받습니다!)]]></MENU_NM>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
 							<SRC_PATH><![CDATA[/ui/SCH_GRPIN.xml]]></SRC_PATH>
 							<TYPE><![CDATA[SCH]]></TYPE>
@@ -96,7 +96,7 @@
 						</w2:row>		
 						<w2:row>
 							<MENU_CD><![CDATA[2500]]></MENU_CD>
-							<MENU_NM><![CDATA[아이콘설정]]></MENU_NM>
+							<MENU_NM><![CDATA[아이콘설정  (일정등록시 아이콘을 선택할수있게됩니다!)]]></MENU_NM>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
 							<SRC_PATH><![CDATA[/ui/SCH_ICO.xml]]></SRC_PATH>
 							<TYPE><![CDATA[ICO]]></TYPE>
