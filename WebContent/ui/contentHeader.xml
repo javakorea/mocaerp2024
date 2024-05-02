@@ -24,6 +24,7 @@ scwin.wfTitleFavInit = function () {
 };
 
 scwin.setMenuNavi = function (menuCode, menuName, menuType) {
+	menuName = menuName.replace(/\(.*?\)/g,'');
 	txt_h1.setValue(menuName);
 };
 

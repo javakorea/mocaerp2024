@@ -1844,5 +1844,5 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	
 	
 	
-.down {color:red}
-.up {color:blue}
+.down {color:red;font-size:18px}
+.up {color:blue;font-size:18px}
