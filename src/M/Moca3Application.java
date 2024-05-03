@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -15,6 +16,7 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -38,9 +40,11 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
@@ -91,8 +95,7 @@ public class Moca3Application {
 	
 	public static String COMMON_RESULT = "COMMON_RESULT";
 	
-	
-	
+	public static String WeatherCertKey = " 1fWGdnl2FFHWCYLc2CRZaNAQJ%2BIcQ6tosYmoy6SATxdxrQohL7u0XgijQNK7rVOnQiecQR4Q9ButFDulM43Xjw%3D%3D";
 	@Autowired
 	private SqlSession ss;
 
@@ -341,6 +344,12 @@ public class Moca3Application {
 	//로그인 
 	@RequestMapping(value = "/FRM/LOGIN.do")
 	public Map LOGIN(@RequestBody Map param,HttpServletRequest request) throws Exception {
+		Map _weatherParam = new HashMap();
+		_weatherParam.put("posX", "30");
+		_weatherParam.put("posY", "30");
+		Map weaterReturn = u.getWeatherData(_weatherParam);
+		LogUtil.info("==weaterReturn======================================================================="+weaterReturn);
+		
 		Map member = u.selectMap(param,ss);
 		Map session = (Map)member.get("dma_map");
 		Map parameter = (Map)param.get("dma_search");
@@ -675,5 +684,165 @@ class u {
 		return format2.format(today);
 	};
 
+	
+	/**
+	 * 날씨 DATA를 조회한다.
+	 * https://www.data.go.kr/
+	 * REST방식 호출
+	 * 라이센스 키 2년에 한번씩 갱신해야함
+	 * 위치정보를 받아서  현재시간으로 호출한다.
+	 * @param list
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public static HashMap getWeatherData(Map param)throws Exception{
+
+		System.out.println("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 날씨테스트.");
+
+		HashMap hm = new HashMap();
+
+		try{
+
+			Calendar calender = Calendar.getInstance();
+			Date toDate = calender.getTime();
+
+			SimpleDateFormat fm = new SimpleDateFormat("yyyyMMdd");
+			String sDate = fm.format(toDate);
+
+			fm = new SimpleDateFormat("HHMM");
+			String sTime = fm.format(toDate);
+			// Base_time  : 0200, 0500, 0800, 1100, 1400, 1700, 2000, 2300 (1일 8회)
+			//API 제공 시간(~이후) : 02:10, 05:10, 08:10, 11:10, 14:10, 20:10, 23:10
+			int iTime = Integer.parseInt(sTime);
+			if( iTime <= 210){
+				sTime = "2300";
+			}else if( iTime > 210 && iTime <= 510 ){
+				sTime = "0200";
+			}else if( iTime > 510 && iTime <= 810 ){
+				sTime = "0500";
+			}else if( iTime > 810 && iTime <= 1110 ){
+				sTime = "0800";
+			}else if( iTime > 1110 && iTime <= 1410 ){
+				sTime = "1100";
+			}else if( iTime > 1410 && iTime <= 1710 ){
+				sTime = "1400";
+			}else if( iTime > 1710 && iTime <= 2010 ){
+				sTime = "1700";
+			}else if( iTime > 2010 && iTime <= 2310 ){
+				sTime = "2000";
+			}
+			//
+
+			String sPosX = (String)param.get("posX");
+			String sPosY = (String)param.get("posY");
+
+			StringBuffer  sTargetUrl = new StringBuffer("http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastSpaceData?");
+			LogUtil.info("========Moca3Application.WeatherCertKey=================================================================================="+Moca3Application.WeatherCertKey);
+			sTargetUrl.append("ServiceKey=" + Moca3Application.WeatherCertKey);
+			sTargetUrl.append("&base_date=" + sDate);
+			sTargetUrl.append("&base_time=" + sTime);
+			sTargetUrl.append("&nx=" + sPosX);
+			sTargetUrl.append("&ny=" + sPosY);
+			sTargetUrl.append("&_type=json");
+
+			System.out.println("sTargetUrl:" + sTargetUrl.toString());
+
+			URL wUrl = new URL(sTargetUrl.toString());
+			HttpURLConnection con = (HttpURLConnection) wUrl.openConnection();
+			con.setRequestMethod("GET"); // optional default is GET con.setRequestProperty("User-Agent", USER_AGENT); // add request header
+			int responseCode = con.getResponseCode();
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = in.readLine()) != null)
+			{
+				response.append(inputLine);
+			} in.close();
+
+			//{"response":{"header":{"resultCode":"0000","resultMsg":"OK"},"body":{"items":{"item":[{"baseDate"
+			//aseDate":20190426,"baseTime":"0500","category":"POP","fcstDate":20190426,"fcstTime":"0900","fcstValue":60,"nx":60,"ny":127},{
+			JSONParser parser = new JSONParser();
+			JSONObject json = (JSONObject)parser.parse( response.toString() );
+			JSONArray lstJson = (JSONArray)( (JSONObject)( (JSONObject)( (JSONObject)json.get("response") ).get("body") ).get("items")).get("item");
+
+			List <Map<String,Object>> resultList = new ArrayList();
+
+			long sT3H = 0;
+			long sREH = 0;
+			long sPTY = 0;
+			long sSKY = 0;
+
+			//
+			for( int i = 0; i < lstJson.size();i ++){
+
+				JSONObject jobj= (JSONObject)lstJson.get(i);
+				HashMap map = new HashMap();
+				Set set = jobj.keySet();
+
+				String category = (String)jobj.get("category");
+				//기온 category  T3H  fcstValue
+				if(  "T3H".equals(category)  ){
+					sT3H = (long)jobj.get("fcstValue");
+				//습도 category  REH  fcstValue
+				}else if(  "REH".equals(category)  ){
+					sREH = (long)jobj.get("fcstValue");
+
+				//강수형태 category  PTY  fcstValue
+			    //강수형태  : 없음(0), 비(1), 비/눈(2), 눈(3)
+				}else if(  "PTY".equals(category)  ){
+					sPTY = (long)jobj.get("fcstValue");
+
+			    //하늘상태 category  SKY  fcstValue
+				//하늘상태  : 맑음(1), 구름조금(2), 구름많음(3), 흐림(4)
+				}else if(  "SKY".equals(category)  ){
+					sSKY = (long)jobj.get("fcstValue");
+				}
+
+				Iterator it = set.iterator();
+				while( it.hasNext()){
+					String id  = (String)it.next();
+
+					Object val = (Object)jobj.get(id);
+	//				System.out.println("id===========>>" + id+ "  val:" + val);
+					map.put(id, val);
+
+				}
+
+				resultList.add(map);
+			}
+
+
+			//http://www.weather.go.kr/HELP/basic/help_01_03_01.jsp
+			//(습도-65)/14 * 1.054 ^ 온도
+			double  fRet = new Double( (sREH-65) ) / 14 * Math.pow( 1.054 , new Double( sT3H )) ;
+			double  lRet = Math.round(fRet*100) / 100.0;
+
+			String sRet = "";
+			if( lRet < 3 ){
+				sRet = "낮음";
+			}else if( lRet >= 3  && lRet < 7){
+				sRet = "보통";
+			}else if( lRet > 7){
+				sRet = "높음";
+			}
+
+			if( responseCode == 200 ){
+	//			hm.put("weatherData", response.toString() );
+				hm.put("ErrorCode", "0" );
+				hm.put("weatherData", resultList );
+				hm.put("foodData", lRet+"("+sRet+")" );
+			}else{
+				hm.put("ErrorCode", "-1" );
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+			hm.put("ErrorCode", "-1" );
+		}
+
+		return hm;
+	}
 	
 }
