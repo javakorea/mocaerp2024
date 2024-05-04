@@ -1590,7 +1590,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .sch_th > span{position: relative; top:8px; font-weight: bold; font-size: 16px;}
 .sch_thead{width:100%; display:flex; flex-direction: column; overflow: hidden;}
 .sch_tbody{width:100%; height:calc(100% - 34px);display: flex; flex-direction: column;border-radius: 0 0 15px 15px;  overflow: hidden;}
-.sch_td{background: #fff;  flex: 1;  border-bottom: 1px solid #f4f5f9;  overflow: hidden;  text-align: right; position:relative;}
+.sch_td{background: #fff;  flex: 1;  border-bottom: 1px solid #ddd;  border-right:1px solid #ddd; overflow: hidden;  text-align: right; position:relative;}
 .sch_tr .sch_td:first-child .spa_dt, .sch_thead .sch_tr .sch_th:first-child{color:#d80635}
 .sch_tr .sch_td .spa_dt.holiday{color:#d80635; opacity:1; font-weight:bold;}
 .sch_tr .sch_td:last-child .spa_dt, .sch_thead .sch_tr .sch_th:last-child{color:#576ddc}
