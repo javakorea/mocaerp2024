@@ -66,7 +66,7 @@
 
 scwin.trigger1_onclick = function(e) {
 	let ico = ipt_ico.getValue();
-	ico = ico.replace(/\s*/g,'');
+	//ico = ico.replace(/\s*/g,'');
 	let ico_nm = ipt_ico_nm.getValue();
 	ico_nm = ico_nm.replace(/\s*/g,'');	
 	if(!ico){
@@ -186,7 +186,7 @@ scwin.grd_oncellclick = function(row,col,colId) {
 					</w2:header>
 					<w2:gBody id="gBody2" style="">
 						<w2:row id="row4" style="">
-							<w2:column width="50" inputType="text" style="" id="ICO" value="" displayMode="label"></w2:column>
+							<w2:column width="50" inputType="text" style="" id="ICO" value="" displayMode="label" escape="false"></w2:column>
 							<w2:column width="85" inputType="text" style="" id="ICO_NM" value="" displayMode="label" textAlign="left"></w2:column>
 							<w2:column width="145" inputType="text" style="" id="ICO_REG_DTTM" value="" displayMode="label"
 								displayFormat="####-##-## ##:##:##">
@@ -254,7 +254,7 @@ scwin.grd_oncellclick = function(row,col,colId) {
 			<xf:group
 				style="text-align:center;position:absolute;top:40px;left:20px;right:20px;bottom:100px;z-index:9999;overflow-y:auto;border-radius:10px;display:none;"
 				id="grp_createGrp" class="">
-				<xf:input id="ipt_ico" style="width: 50px;height: 40px;font-size:16px" placeholder="문자아이콘을 입력하세요"></xf:input>
+				<xf:input id="ipt_ico" style="width: 150px;height: 40px;font-size:16px" placeholder="문자아이콘을 입력하세요" escape="false"></xf:input>
 				<xf:input id="ipt_ico_nm" style="width: 244px;height: 40px;font-size:16px" placeholder="아이콘제목을 입력하세요"></xf:input>
 				<xf:group id="" class="" style='padding:4px'>
 					<xf:trigger type="button" id="trigger1"

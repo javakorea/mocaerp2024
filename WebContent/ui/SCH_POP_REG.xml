@@ -336,7 +336,7 @@ scwin.trigger2_onclick = function(e) {
 						</xf:group>
 						<xf:group tagname="td" class="w2tb_td">
 							<w2:attributes></w2:attributes>
-							<xf:select1 selectedindex="-1" appearance="full" cols="" disabled="" id="rdo_ico" ref="" renderType="radiogroup" rows="1" style="color:#333" class="rdo_ico" separator=",">
+							<xf:select1 selectedindex="-1" appearance="full" cols="" disabled="" id="rdo_ico" ref="" renderType="radiogroup" rows="1" style="color:#333" class="rdo_ico" separator="," escape="false">
 								<xf:choices>
 									<xf:itemset nodeset="data:dlt_ico_list">
 										<xf:label ref="DATA"></xf:label>
