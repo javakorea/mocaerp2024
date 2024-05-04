@@ -1611,8 +1611,8 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .sch_list{width: 67px; height: 40px; text-align: left; text-indent: 10px; line-height:40px; background: #fff !important; color: #333; border:0;}
 .ico_success{display:inline-block;width:40px; height:40px; }
 .today_display {background: orange;;color:#fff !important;}
-.ico_holidayBar{width: 100px;  height: 20px; position: absolute;  left: 3px; background-size: 20px; top: 13px; background-repeat: no-repeat; font-size: 13px; color: #d80635; text-align: left; }
-.ico_weather{    width: 100px;  height: 20px;  position: absolute; right: 38px;  background-size: 20px;  top: 11px;background-repeat: no-repeat }
+.ico_holidayBar{width: 100px;  height: 20px; position: absolute;  right: 0px; background-size: 20px; top: 13px; background-repeat: no-repeat; font-size: 13px; color: #d80635; text-align: left; }
+.ico_weather{    width: 100px;  height: 20px;  position: absolute; left: 0px;  background-size: 20px;  top: 0px;background-repeat: no-repeat }
 .ico_weather.rain {background-image:url(/cm/images/ico_rain.svg); }
 .ico_weather.sunny {background-image:url(/cm/images/ico_sunny.svg); }
 .ico_weather.cloud {background-image:url(/cm/images/ico_cloud.svg); }
@@ -1796,7 +1796,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.sch_th > span{top:0}
 	.sch_tbody{height:calc(100% - 18px)}
 	.spa_dt{padding:0; font-size:15px; margin:0}
-	.ico_weather{ width: 16px;    height: 16px;    background-size: 16px;    right: 23px;    top: 6px;}
+	.ico_weather{ width: 16px;    height: 16px;    background-size: 16px;    left: 0px;    top: 6px;}
 	.btn_toggle.mo.sch{width:30px; height:30px;}
 	.btn_toggle.today.mo{line-height:30px}
 	
@@ -1814,7 +1814,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.w2calendar[role="dialog"] .w2calendar_picker_content table td div.active, .w2calendar[role="dialog"] .w2calendar_picker_content table td div:hover{background:#5a82cf}
 	.w2calendar[role="dialog"] button.w2calendar_go_today{width:100%;color: #fff; border: 1px solid #fff; background: none; padding: 5px 10px; height: unset; font-size: 16px;}
 	.w2calendar[role="dialog"] .w2calendar_footer_date{color: #fff; font-size: 20px;}
-	.ico_holidayBar{ left:unset;  right: 20px;  top: 6px; font-size: 10px; text-align:right }
+	.ico_holidayBar{ left:unset;  right: 18px;  top: 6px; font-size: 10px; text-align:right }
 	.sch_tr .sch_td .spa_dt.holiday{font-size:17.5px; letter-spacing:-3px; text-indent:-3px }
 }
 
@@ -1833,7 +1833,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	
 	.sch_titleArea .sch_tit > input{}
 	.spa_dt{ margin: 0px;  font-size: 0.7em; padding:0}
-	.ico_weather{width: 16px;  height: 16px;    background-size: 16px;  right: 22px;  top: 7px;}
+	.ico_weather{width: 16px;  height: 16px;    background-size: 16px;  left: 0px;  top: 0px;}
 	.sch_bar{text-overflow:clip; margin: 4px 2px; }
 	.side .grp_tab .tab_con{top:0px;}
 	.sch_titleArea{background-position:40%;}
