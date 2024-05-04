@@ -389,8 +389,8 @@ public class Moca3Application {
 	
 	
 	//TOBE 매일 아침 3시 조회 (당일 일정 조회)
-	//@Scheduled(cron="0 0 3 * * ?")
-	@Scheduled(cron="0 0/3 * * * ?")
+	@Scheduled(cron="0 0 3 * * ?")
+	//@Scheduled(cron="0 0/3 * * * ?")
 	@Transactional(rollbackFor = Exception.class)
 	public void _0_0_3_A_A_Q_TOBE() throws Exception{
 		List wList = u.getW("MEDM_REG");
