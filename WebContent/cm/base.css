@@ -1595,7 +1595,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .sch_tr .sch_td .spa_dt.holiday{color:#d80635; opacity:1; font-weight:bold;}
 .sch_tr .sch_td:last-child .spa_dt, .sch_thead .sch_tr .sch_th:last-child{color:#576ddc}
 .btn_sch{padding: 10px; background:#fff;  height: 36px; border-radius: 8px; border: 0; width: 36px; color: #333; font-weight: bold; font-size: 20px; line-height: 0.7em;  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
-.spa_dt{display: inline-block;  opacity:0.4; width: 20px; height: 20px; background: none; font-size: 20px; margin: 5px;  padding: 6px 7px 6px 6px; line-height: 18px; text-align: center; border-radius:50%;}
+.spa_dt{display: inline-block;  opacity:0.4; width: 20px; height: 20px; background: none; font-size: 20px; margin: 5px; line-height: 18px; text-align: center; border-radius:50%; position:relative; top:-2px;}
 .spa_dt.on{ opacity:1; }
 .sch_bar{display: block; padding: 2px;margin: 4px;  height: 16px; box-shadow: 1px 2px 2px rgba(0,0,0,0.1); border-radius: 3px; font-size:14px;  text-align:left; line-height:1.2; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 .sch_bar .icon{width:16px;  height: 16px;  display: inline-block; position: absolute; left: 2px; font-size:12px;}
@@ -1611,11 +1611,11 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .sch_list{width: 67px; height: 40px; text-align: left; text-indent: 10px; line-height:40px; background: #fff !important; color: #333; border:0;}
 .ico_success{display:inline-block;width:40px; height:40px; }
 .today_display {background: orange;;color:#fff !important;}
-.ico_holidayBar{width: 100px;  height: 20px; position: absolute;  right: 0px; background-size: 20px; top: 13px; background-repeat: no-repeat; font-size: 13px; color: #d80635; text-align: left; }
-.ico_weather{    width: 100px;  height: 20px;  position: absolute; left: 0px;  background-size: 20px;  top: 0px;background-repeat: no-repeat }
+.ico_holidayBar{width: 100px;  height: 20px; position: absolute;  right: 25px; background-size: 20px; top: 3px; background-repeat: no-repeat; font-size: 13px; color: #d80635; text-align: right; }
+.ico_weather{    width: 20px;  height: 20px;  position: absolute; left: 5px;  background-size: 20px;  top: 5px;background-repeat: no-repeat }
 .ico_weather.rain {background-image:url(/cm/images/ico_rain.svg); }
 .ico_weather.sunny {background-image:url(/cm/images/ico_sunny.svg); }
-.ico_weather.cloud {background-image:url(/cm/images/ico_cloud.svg); }
+.ico_weather.cloud {background-image:url(/cm/images/ico_cloud.svg);  background-position:0 3px;}
 .ico_success.done{background:url(/cm/images/ico_success.png) no-repeat center;}
 .spa_listTitle{color: #333; display: inline-block; width: calc(100% - 120px); height: 40px; text-indent:10px; line-height:40px;font-size: 20px;}
 .sch_detail_wrap .btn_list{    width: 80px; box-shadow: 2px 2px 12px #ddd;}
@@ -1814,7 +1814,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.w2calendar[role="dialog"] .w2calendar_picker_content table td div.active, .w2calendar[role="dialog"] .w2calendar_picker_content table td div:hover{background:#5a82cf}
 	.w2calendar[role="dialog"] button.w2calendar_go_today{width:100%;color: #fff; border: 1px solid #fff; background: none; padding: 5px 10px; height: unset; font-size: 16px;}
 	.w2calendar[role="dialog"] .w2calendar_footer_date{color: #fff; font-size: 20px;}
-	.ico_holidayBar{ left:unset;  right: 18px;  top: 6px; font-size: 10px; text-align:right }
+	.ico_holidayBar{ left:unset;  right: 15px;  top: 3px; font-size: 10px; text-align:right }
 	.sch_tr .sch_td .spa_dt.holiday{font-size:17.5px; letter-spacing:-3px; text-indent:-3px }
 }
 
@@ -1833,8 +1833,8 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	
 	.sch_titleArea .sch_tit > input{}
 	.spa_dt{ margin: 0px;  font-size: 0.7em; padding:0}
-	.ico_weather{width: 16px;  height: 16px;    background-size: 16px;  left: 0px;  top: 0px;}
-	.sch_bar{text-overflow:clip; margin: 4px 2px; }
+	.ico_weather{width: 16px;  height: 16px;    background-size: 16px;  left: 0px;  top: 4px;}
+	.sch_bar{text-overflow:clip; margin: 2px; margin-top:0; }
 	.side .grp_tab .tab_con{top:0px;}
 	.sch_titleArea{background-position:40%;}
 	.w2tb.w2tb_adaptive_layout .grp_setFromTo .w2input{width:40px !important;}	
@@ -1844,5 +1844,5 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	
 	
 	
-.down {color:red;font-size:18px}
-.up {color:blue;font-size:18px}
+.down {color:red;}
+.up {color:blue;}
