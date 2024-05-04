@@ -559,6 +559,7 @@ input[type="file"]{cursor:pointer;}
 .tbbox.noline.read .tb .w2tb_td{background:#fff; height:40px; box-sizing:border-box; border-left:1px solid #333 !important;}
 .tbbox.noline .tb.w2tb_adaptive_layout .w2tb_td{border:0 !important}
 .tbbox.reg .tb .w2tb_td{padding:4px;}
+.tbbox .rdo_ico img{width:20px !important; height:20px; position:relative; top:2px;}
 
 /* gridview */
 .w2grid .w2input{padding-right:0;box-sizing:content-box;}
@@ -1619,6 +1620,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .ico_weather.sunny {background-image:url(/cm/images/ico_sunny.svg); }
 .ico_weather.cloud {background-image:url(/cm/images/ico_cloud.svg);  background-position:0 3px;}
 .ico_success.done{background:url(/cm/images/ico_success.png) no-repeat center;}
+.list_ico img{width:33px; height:33px;}
 .spa_listTitle{color: #333; display: inline-block; width: calc(100% - 120px); height: 40px; text-indent:10px; line-height:40px;font-size: 20px;}
 .sch_detail_wrap .btn_list{    width: 80px; box-shadow: 2px 2px 12px #ddd;}
 .btn_schLeft{padding-top: 30px; display: inline-block; width: 60px; height: 50px; border: 0; border-radius: 10px; background-repeat: no-repeat;font-weight: bold; background-position: top center; font-size: 15px; margin: 10px; background-size: 30px; color:#333;}
