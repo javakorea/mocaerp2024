@@ -1595,9 +1595,9 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .sch_tr .sch_td .spa_dt.holiday{color:#d80635; opacity:1; font-weight:bold;}
 .sch_tr .sch_td:last-child .spa_dt, .sch_thead .sch_tr .sch_th:last-child{color:#576ddc}
 .btn_sch{padding: 10px; background:#fff;  height: 36px; border-radius: 8px; border: 0; width: 36px; color: #333; font-weight: bold; font-size: 20px; line-height: 0.7em;  box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
-.spa_dt{display: inline-block;  opacity:0.4; width: 20px; height: 20px; background: none; font-size: 20px; margin: 5px; line-height: 18px; text-align: center; border-radius:50%; position:relative; top:-2px;}
+.spa_dt{display: inline-block;  opacity:0.4; width: 20px; height: 20px; background: none; font-size: 20px; margin: 5px; margin-bottom:0;  line-height: 18px; text-align: center; border-radius:50%; position:relative; top:-2px;}
 .spa_dt.on{ opacity:1; }
-.sch_bar{display: block; padding: 2px;margin: 4px;  height: 16px; box-shadow: 1px 2px 2px rgba(0,0,0,0.1); border-radius: 3px; font-size:14px;  text-align:left; line-height:1.2; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
+.sch_bar{display: block; padding: 2px;margin: 4px; margin-top:0;  height: 16px; box-shadow: 1px 2px 2px rgba(0,0,0,0.1); border-radius: 3px; font-size:14px;  text-align:left; line-height:1.2; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 .sch_bar .icon{width:16px;  height: 16px;  display: inline-block; position: absolute; left: 2px; font-size:12px;}
 .sch_bar b{position:absolute; left:0;}
 .sch_bar b +  .icon{left:6px;}
@@ -1833,7 +1833,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	
 	.sch_titleArea .sch_tit > input{}
 	.spa_dt{ margin: 0px;  font-size: 0.7em; padding:0}
-	.ico_weather{width: 16px;  height: 16px;    background-size: 16px;  left: 0px;  top: 4px;}
+	.ico_weather{width: 16px;  height: 16px;    background-size: 16px;  left: 0px;  top: 0px;}
 	.sch_bar{text-overflow:clip; margin: 2px; margin-top:0; }
 	.side .grp_tab .tab_con{top:0px;}
 	.sch_titleArea{background-position:40%;}
