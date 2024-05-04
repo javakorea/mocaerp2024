@@ -204,6 +204,7 @@
 						<w2:key id="SCH_CURRENTMONTH" name="SCH_CURRENTMONTH" dataType="text"></w2:key>
 						<w2:key id="SCH_CURRENTMONTH_NEXT" name="SCH_CURRENTMONTH_NEXT" dataType="text"></w2:key>
 						<w2:key id="SCH_WRITER" name="SCH_WRITER" dataType="text"></w2:key>
+						<w2:key id="REG_NAME" name="REG_NAME" dataType="text"></w2:key>
 						
 						<!-- 공통부 -->
 						<w2:key id="COMMON_TRAN_ID" 			name="TRAN_ID" 						dataType="text"></w2:key>
@@ -392,9 +393,9 @@ scwin.threeCalDraw = function(){
 	dma_search.set('SCH_CURRENTMONTH_PREV',yyyyMM_prev);
 	dma_search.set('SCH_CURRENTMONTH',yyyyMM);
 	dma_search.set('SCH_CURRENTMONTH_NEXT',yyyyMM_next);
+	dma_search.set('REG_NAME','서울');
 
-
-	dma_search.set('COMMON_QUERY',"M.SEL_MY_SCH_LIST,M.SEL_CH_SCH_LIST");
+	dma_search.set('COMMON_QUERY',"M.SEL_MY_SCH_LIST,M.SEL_CH_SCH_LIST,M.SEL_WEATHER_LIST");
 	com.sbm.execute(sbm_schdList);
 	scwin.addDayMap = function(_key,_valObj){
 		let aDayList = scwin.dayMap[_key];
@@ -411,7 +412,9 @@ scwin.threeCalDraw = function(){
 		scwin.setCalData(e.responseJSON.dlt_list);
 		//구독일정 
 		scwin.setCalData(e.responseJSON.dlt_list1,'link');
-
+		//4일예보일정 
+		scwin.setCalData(e.responseJSON.dlt_list2,'WEATHER');
+		
 		if(scwin.selectedCell && (scwin.selectedCell.getAttribute('yyyyMMdd').substring(0,6) != yyyyMM)){
 			if(scwin.selectedCell){scwin.selectedCell.setStyle('background-color','');scwin.selectedCell=null;}
 		};
@@ -425,7 +428,9 @@ scwin.setCalData = function(list,_isLink){
 	for(let i=0; i < list.length; i++){
 		let c = list[i];
 		if(_isLink){
-			if(c.SCH_WRITER != getU_ID()){
+			if(_isLink == 'WEATHER'){
+				c.TYPE = 'WEATHER';
+			}else if(c.SCH_WRITER != getU_ID()){
 				//구독일정일경우
 				c.TYPE = 'LINK';
 			}
@@ -525,6 +530,16 @@ scwin.draw = function(yyyyMM,_scope) {
 					if(_SCH_WRITER == '113260094161858860726' && _GRP_NM == '공휴일'){
 						_contents.parentControl.childControlList[0].addClass("holiday");
 						_contents.parentControl.childControlList[2].render.innerHTML = aDaySc.SCH_TITLE;
+					}else if(aDaySc.TYPE == 'WEATHER'){
+						let t = aDaySc.SCH_TITLE;
+						let wo = _contents.parentControl.childControlList[3];
+						if(t.indexOf('비') > -1){
+							wo.addClass("rain");
+						}else if(t.indexOf('맑음') > -1){
+							wo.addClass("sunny");
+						}else{
+							wo.addClass("cloud");	
+						}
 					}else{
 						let _bgColor = aDaySc['SCH_COLOR'];
 						//_bgColor = scwin.getBgColorTag(_bgColor,aDaySc,isPast);

@@ -576,12 +576,49 @@
     </delete>
 
     
+    <delete id="DEL_APIHUBKMA_FCT_AFS_WL" parameterType="java.util.Map" >
+        /*DEL_APIHUBKMA_FCT_AFS_WL 주간/중기예보 육상 전체삭제*/
+		DELETE FROM T_APIHUBKMA_FCT_AFS_WL 
+    </delete> 
+    <insert id="INS_APIHUBKMA_FCT_AFS_WL" parameterType="java.util.Map" >
+        /*INS_APIHUBKMA_FCT_AFS_WL 주간/중기예보 육상 조회*/
+		INSERT INTO T_APIHUBKMA_FCT_AFS_WL (REG_ID, TM_FC, TM_EF, MOD_KEY, STN, C, SKY,PRE, CONF,WF, RN_ST) 
+		VALUES
+		(#{REG_ID}, #{TM_FC}, #{TM_EF}, #{MOD_KEY}, #{STN}, #{C}, #{SKY},#{PRE}, #{CONF},#{WF}, #{RN_ST})
+    </insert>
     
+    <delete id="DEL_APIHUBKMA_FCT_MEDM_REG" parameterType="java.util.Map" >
+        /*DEL_APIHUBKMA_FCT_MEDM_REG 중기 예보구역 전체삭제*/
+		DELETE FROM T_APIHUBKMA_FCT_MEDM_REG 
+    </delete> 
+    <insert id="INS_APIHUBKMA_FCT_MEDM_REG" parameterType="java.util.Map" >
+        /*INS_APIHUBKMA_FCT_MEDM_REG 중기 예보구역 입력*/
+		INSERT INTO T_APIHUBKMA_FCT_MEDM_REG (REG_ID, REG_NAME, TM_ST, TM_ED, REG_SP) 
+		VALUES
+		(#{REG_ID}, #{REG_NAME}, #{TM_ST}, #{TM_ED}, #{REG_SP})
+    </insert>
+      
+    <delete id="DEL_APIHUBKMA_FCT_AFS_DL" parameterType="java.util.Map" >
+        /*DEL_APIHUBKMA_FCT_AFS_DL 단기예보 육상 전체삭제*/
+		DELETE FROM T_APIHUBKMA_FCT_AFS_DL
+    </delete> 
+    <insert id="INS_APIHUBKMA_FCT_AFS_DL" parameterType="java.util.Map" >
+        /*INS_APIHUBKMA_FCT_AFS_DL 단기예보 육상 조회 입력*/
+		INSERT INTO T_APIHUBKMA_FCT_AFS_DL (REG_ID,TM_FC,TM_EF,MOD_KEY,NE,STN,C,MAN_ID,MAN_FC,W1,T,W2,TA,ST,SKY,PREP,WF) 
+		VALUES
+		(#{REG_ID},#{TM_FC},#{TM_EF},#{MOD_KEY},#{NE},#{STN},#{C},#{MAN_ID},#{MAN_FC},#{W1},#{T},#{W2},#{TA},#{ST},#{SKY},#{PREP},#{WF})
+    </insert> 
     
-    
-    
-    
-    
+   	<select id="SEL_WEATHER_LIST" parameterType="java.util.Map" resultType="java.util.HashMap">
+   		/* SEL_WEATHER 일기예보 4일예보 */
+		SELECT R.REG_NAME,SUBSTRING(W.TM_EF,1,8) AS SCH_START,W.WF AS SCH_TITLE
+		FROM T_APIHUBKMA_FCT_AFS_DL W,T_APIHUBKMA_FCT_MEDM_REG R
+		WHERE W.REG_ID = R.REG_ID
+		AND R.REG_NAME = #{REG_NAME}
+	 	AND W.TM_EF LIKE '%1200'
+		ORDER BY R.REG_ID ASC,W.TM_EF ASC 
+    </select>
+   
     
     
     <!-- 달력 -->

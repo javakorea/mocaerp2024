@@ -44,7 +44,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
@@ -52,6 +51,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -95,7 +95,7 @@ public class Moca3Application {
 	
 	public static String COMMON_RESULT = "COMMON_RESULT";
 	
-	public static String WeatherCertKey = " 1fWGdnl2FFHWCYLc2CRZaNAQJ%2BIcQ6tosYmoy6SATxdxrQohL7u0XgijQNK7rVOnQiecQR4Q9ButFDulM43Xjw%3D%3D";
+	public static String WeatherCertKey = "1fWGdnl2FFHWCYLc2CRZaNAQJ%2BIcQ6tosYmoy6SATxdxrQohL7u0XgijQNK7rVOnQiecQR4Q9ButFDulM43Xjw%3D%3D";
 	@Autowired
 	private SqlSession ss;
 
@@ -308,8 +308,8 @@ public class Moca3Application {
 	//메인 티스토리 크롤링  
 	@RequestMapping(value = "/main/selectTistroyList.do")
 	public List selectTistroyList(@RequestParam Map mocaMap) throws Exception {
-		String s = u.getWebPageString("https://teammoca.tistory.com");
-		
+		Map reMap = u.getWebPageString("https://teammoca.tistory.com","UTF-8");
+		String s = (String)reMap.get("STRING");
 		s = s.replaceAll("<a href=\"/", "<a target=\"_blank\" href=\"https://teammoca.tistory.com/");
 		String ptnStr = "<div\\s+class=\"post-item\">.*?</div>";
 		Pattern p = Pattern.compile(ptnStr,Pattern.CASE_INSENSITIVE | Pattern.DOTALL );
@@ -343,13 +343,8 @@ public class Moca3Application {
 	};
 	//로그인 
 	@RequestMapping(value = "/FRM/LOGIN.do")
+	@Transactional(rollbackFor = Exception.class)
 	public Map LOGIN(@RequestBody Map param,HttpServletRequest request) throws Exception {
-		Map _weatherParam = new HashMap();
-		_weatherParam.put("posX", "30");
-		_weatherParam.put("posY", "30");
-		Map weaterReturn = u.getWeatherData(_weatherParam);
-		LogUtil.info("==weaterReturn======================================================================="+weaterReturn);
-		
 		Map member = u.selectMap(param,ss);
 		Map session = (Map)member.get("dma_map");
 		Map parameter = (Map)param.get("dma_search");
@@ -393,7 +388,36 @@ public class Moca3Application {
 	
 	
 	
-	
+	//TOBE 매일 아침 3시 조회 (당일 일정 조회)
+	//@Scheduled(cron="0 0 3 * * ?")
+	@Scheduled(cron="0 0/3 * * * ?")
+	@Transactional(rollbackFor = Exception.class)
+	public void _0_0_3_A_A_Q_TOBE() throws Exception{
+		List wList = u.getW("MEDM_REG");
+		ss.delete("DEL_APIHUBKMA_FCT_MEDM_REG", new HashMap());
+		for(int j=0; j < wList.size(); j++) {
+			Map row = (Map)wList.get(j);
+			ss.insert("INS_APIHUBKMA_FCT_MEDM_REG",row);
+		}
+		List wList2 = u.getW("AFS_WL");
+		ss.delete("DEL_APIHUBKMA_FCT_AFS_WL", new HashMap());
+		for(int j=0; j < wList2.size(); j++) {
+			Map row = (Map)wList2.get(j);
+			ss.insert("INS_APIHUBKMA_FCT_AFS_WL",row);
+		}
+		
+		List wList3 = u.getW("AFS_DL");
+		ss.delete("DEL_APIHUBKMA_FCT_AFS_DL", new HashMap());
+		for(int j=0; j < wList3.size(); j++) {
+			Map row = (Map)wList3.get(j);
+			ss.insert("INS_APIHUBKMA_FCT_AFS_DL",row);
+		}		
+		Map adminInfo = u.selectMap(u.getParamMap("M.SEL_ADMIN"),ss);
+		Map m = (Map)adminInfo.get("dma_map");
+		String title_data = "";
+		title_data = "배치수행완료";
+		u.sendMessage("PUSH",title_data,"일기예보데이터 3시배치수행완료:"+"지역코드/"+wList.size()+","+"도별중기/"+wList2.size()+","+"시별단기/"+wList3.size(),String.valueOf(m.get("R_PUSH_TOKEN")) );
+	};
 	//TOBE 매일 아침 6시 조회 (당일 일정 조회)
 	@Scheduled(cron="0 0 6 * * ?")public void _0_0_6_A_A_Q_TOBE() throws Exception{
 		//u.exeBatch("M.selectTodaySchedule","당일",ss);
@@ -503,7 +527,9 @@ class u {
 	public static void sendMessage(String _kind,String _title, String _body, String _ADMIN_PUSH_TOKEN) throws IOException {
 		//_kind : sms or push
 		if("PUSH".equalsIgnoreCase(_kind)) {
+			LogUtil.info("PUSH START=================================================================================");
 			Messaging.sendCommonMessage(_title, _body,String.valueOf(_ADMIN_PUSH_TOKEN) );
+			LogUtil.info("PUSH END=================================================================================");
 		}
 	};
 	  
@@ -622,19 +648,28 @@ class u {
 		return result;
 	};
 	
-	public static String getWebPageString(String _url) throws MalformedURLException, IOException, UnsupportedEncodingException {
+	public static Map getWebPageString(String _url,String charset) throws MalformedURLException, IOException, UnsupportedEncodingException {
+		String _charset = "UTF-8";
+		if(charset != null) {
+			_charset = "EUC-KR";
+		}
 		URL url = new URL(_url);
 		URLConnection conn = url.openConnection();
 		InputStream is = conn.getInputStream();
-		InputStreamReader in = new InputStreamReader(is, "UTF-8");
+		InputStreamReader in = new InputStreamReader(is, _charset);
 		BufferedReader br = new BufferedReader(in);
 		StringBuffer sb = new StringBuffer();
 		String rLine = null;
+		List reList = new ArrayList();
 		while((rLine = br.readLine()) != null)
 		{
+			reList.add(rLine);
 			sb.append(rLine);
 		}
-        return sb.toString();
+		Map returnMap = new HashMap();
+		returnMap.put("LIST", reList);
+		returnMap.put("STRING", sb.toString());
+        return returnMap;
 	}	
 	
 	public static void setSuccessMsg(Map resultMap) {
@@ -845,4 +880,93 @@ class u {
 		return hm;
 	}
 	
+	 
+	
+	public static List getW(String gubun) {
+		List reList = new ArrayList();
+		try {		
+			if("AFS_WL".equalsIgnoreCase(gubun)) {
+				Map reMap = u.getWebPageString("https://apihub.kma.go.kr/api/typ01/url/fct_afs_wl.php?mode=0&disp=0&help=1&authKey=CxU6NEKFRnWVOjRChYZ1iA","EUC-KR");
+				List list = (List)reMap.get("LIST");
+				
+				for(int i=0; i < list.size(); i++) {
+					String rLine = (String)list.get(i);
+					String[] strs = rLine.split(" ");
+					if(strs.length > 10 && strs.length < 13) {
+						if(strs[2].length() == 12) {
+							Map row = new HashMap();
+							row.put("REG_ID", strs[0]);
+							row.put("TM_FC", strs[1]);
+							row.put("TM_EF", strs[2]);
+							row.put("MOD_KEY", strs[3]);
+							row.put("STN", strs[4]);
+							row.put("C", strs[5]);
+							row.put("SKY", strs[6]);
+							row.put("PRE", strs[7]);
+							row.put("CONF", "");//깨진문자인지 특수문자라 DB입력실패함
+							if(strs.length > 11) {
+								row.put("WF", (strs[9]+strs[10]).replaceAll("\"", ""));
+								row.put("RN_ST", strs[11]);
+							}else {
+								row.put("WF", strs[9].replaceAll("\"", ""));
+								row.put("RN_ST", strs[10]);
+							}
+							reList.add(row);
+						}
+					}
+				}
+			}else if("MEDM_REG".equalsIgnoreCase(gubun)) {
+				Map reMap = u.getWebPageString("https://apihub.kma.go.kr/api/typ01/url/fct_medm_reg.php?tmfc=0&authKey=CxU6NEKFRnWVOjRChYZ1iA","EUC-KR");
+				List list = (List)reMap.get("LIST");
+				for(int i=0; i < list.size(); i++) {
+					String rLine = (String)list.get(i);
+					String[] strs = rLine.split("\\s+");
+					if(strs.length > 4 && strs[2].length() == 12) {
+						Map row = new HashMap();
+						row.put("REG_ID", strs[0]);
+						row.put("TM_ST", strs[1]);
+						row.put("TM_ED", strs[2]);
+						row.put("REG_SP", strs[3]);
+						row.put("REG_NAME", strs[4]);
+						reList.add(row);
+					}
+				}
+			}else if("AFS_DL".equalsIgnoreCase(gubun)) {
+				Map reMap = u.getWebPageString("https://apihub.kma.go.kr/api/typ01/url/fct_afs_dl.php?disp=1&help=1&authKey=CxU6NEKFRnWVOjRChYZ1iA","EUC-KR");
+				List list = (List)reMap.get("LIST");
+				for(int i=0; i < list.size(); i++) {
+					String rLine = (String)list.get(i);
+					String[] strs = rLine.split(",");
+					if(strs.length > 16) {
+						Map row = new HashMap();
+						row.put("REG_ID", 	strs[0]);
+						row.put("TM_FC", 	strs[1]);
+						row.put("TM_EF", 	strs[2]);
+						row.put("MOD_KEY", 	strs[3]);
+						row.put("NE", 		strs[4]);
+						row.put("STN", 		strs[5]);
+						row.put("C", 		strs[6]);
+						row.put("MAN_ID", 	strs[7]);
+						row.put("MAN_FC", 	strs[8]);
+						row.put("W1", 		strs[9]);
+						row.put("T", 		strs[10]);
+						row.put("W2", 		strs[11]);
+						row.put("TA", 		strs[12]);
+						row.put("ST", 		strs[13]);
+						row.put("SKY", 		strs[14]);
+						row.put("PREP", 	strs[15]);
+						row.put("WF", 		strs[16]);
+						reList.add(row);
+					}
+				}
+			}
+			
+			
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return reList;
+	}
 }
