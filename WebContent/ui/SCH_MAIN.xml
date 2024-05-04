@@ -555,7 +555,7 @@ scwin.draw = function(yyyyMM,_scope) {
 						}
 						if(aDaySc.SCH_SUCCESSYN == 'Y'){
 							title_display = aDaySc.SCH_TITLE;
-							_bgColor = `background-color:${scwin.pastColor};color:gray`;							
+							_bgColor = `background-color:none;color:gray;text-decoration:line-through`;							
 							str += `<span class='sch_bar' style='${_bgColor}'>`;
 							str += `<b>${link_display}</b>`;
 						}else{
