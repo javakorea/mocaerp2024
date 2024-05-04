@@ -1599,7 +1599,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 .spa_dt.on{ opacity:1; }
 .sch_bar{display: block; padding: 2px;margin: 4px; margin-top:0;  height: 16px; box-shadow: 1px 2px 2px rgba(0,0,0,0.1); border-radius: 3px; font-size:14px;  text-align:left; line-height:1.2; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
 .sch_bar.small{font-size:12px; line-height:1.4}
-.sch_bar.complete{font-size:10px; margin-bottom:0}
+.sch_bar.done{font-size:10px; margin-bottom:0}
 .sch_bar .icon{width:16px;  height: 16px;  display: inline-block; position: absolute; left: 2px; font-size:12px;}
 .sch_bar b{position:absolute; left:0;}
 .sch_bar b +  .icon{left:6px;}
