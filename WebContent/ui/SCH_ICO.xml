@@ -254,7 +254,8 @@ scwin.grd_oncellclick = function(row,col,colId) {
 			<xf:group
 				style="text-align:center;position:absolute;top:40px;left:20px;right:20px;bottom:100px;z-index:9999;overflow-y:auto;border-radius:10px;display:none;"
 				id="grp_createGrp" class="">
-				<xf:input id="ipt_ico" style="width: 150px;height: 40px;font-size:16px" placeholder="문자아이콘을 입력하세요" escape="false"></xf:input>
+				<xf:input id="ipt_ico" style="width: 250px;height: 40px;font-size:16px" placeholder="핸드폰문자아이콘을 입력하세요" escape="false"></xf:input>
+				
 				<xf:input id="ipt_ico_nm" style="width: 244px;height: 40px;font-size:16px" placeholder="아이콘제목을 입력하세요"></xf:input>
 				<xf:group id="" class="" style='padding:4px'>
 					<xf:trigger type="button" id="trigger1"

@@ -322,7 +322,7 @@ scwin.getColor = function(_gubun,_isPast){
 	}else if(_gubun == 1){
 		return {backColor:'#576DDC',color:'white'};
 	}else if(_gubun == 101){
-		return {backColor:'white',color:'black'};
+		return {backColor:'#dc577e',color:'white'};
 	}else{
 		return {backColor:'#53A786',color:'white'};
 	}
