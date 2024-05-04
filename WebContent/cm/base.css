@@ -1814,7 +1814,7 @@ flex-shrink:0; height:100%; box-sizing:border-box;}
 	.w2calendar[role="dialog"] .w2calendar_picker_content table td div.active, .w2calendar[role="dialog"] .w2calendar_picker_content table td div:hover{background:#5a82cf}
 	.w2calendar[role="dialog"] button.w2calendar_go_today{width:100%;color: #fff; border: 1px solid #fff; background: none; padding: 5px 10px; height: unset; font-size: 16px;}
 	.w2calendar[role="dialog"] .w2calendar_footer_date{color: #fff; font-size: 20px;}
-	.ico_holidayBar{ left:unset;  right: 15px;  top: 3px; font-size: 10px; text-align:right }
+	.ico_holidayBar{ left:unset;  right: 18px;  top: 3px; font-size: 10px; text-align:right }
 	.sch_tr .sch_td .spa_dt.holiday{font-size:17.5px; letter-spacing:-3px; text-indent:-3px }
 }
 
