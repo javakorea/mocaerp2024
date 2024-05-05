@@ -376,7 +376,6 @@ function go_mobile (_objStr) {
 };
 function appToWeb(data){
 	if(data){
-		alert(data);
 		let arr = data.replace(/\s/g,'').replace(/\{|\}/g,'').split(',');
 		let userObj = {};
 		for(let i=0; i < arr.length; i++){
