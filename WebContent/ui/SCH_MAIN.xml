@@ -517,10 +517,15 @@ scwin.draw = function(yyyyMM,_scope) {
 			}else{
 				isPast = false;
 			}
+			//공휴일초기화
 			let o = scwin.dayMap[dayDiv.getAttribute('yyyyMMdd')];
 			_contents.parentControl.childControlList[0].removeClass("holiday");
 			_contents.parentControl.childControlList[2].render.innerHTML = '';				
-			_contents.render.innerHTML = "";		
+			_contents.render.innerHTML = "";
+			//날씨초기화	
+			let wo = _contents.parentControl.childControlList[3];
+			wo.removeClass("rain");wo.removeClass("sunny");wo.removeClass("cloud");
+										
 			if(o){
 				let str = '';
 				for(let i=0; i < o.length; i++){

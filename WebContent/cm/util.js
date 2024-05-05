@@ -129,11 +129,16 @@ function handleCredentialResponse(response) {
    // });
 };
 function signOut() {
-	
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      logout();
-    });
+	if (isMobile('Android') != -1 && window['webViewTeammoca']) {
+		//app
+		webViewTeammoca.postMessage('signOut');
+	}else{
+		//web
+	    var auth2 = gapi.auth2.getAuthInstance();
+	    auth2.signOut().then(function () {
+	      logout();
+	    });
+	}
   }
 /* 구글로그인 end --------------------------------------------------------------------*/
 
