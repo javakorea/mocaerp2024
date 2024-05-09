@@ -1240,52 +1240,12 @@ input[type="file"]{cursor:pointer;}
 .w2table_tabControl .w2table_tabControl_col {background-color:#fff;border-top:none;background-position:0 5px;padding-left:20px;}
 .w2table_tabControl .w2table_tabControl_col_over {background-color:#DBF0F7}
 
-/* page samlpe */
-.sample_box{overflow:hidden;}
-.pageWrap{overflow:hidden;margin-top:-30px;margin-left:-20px}
-.pageWrap .item{float:left;margin:30px 20px 0 20px;text-align:center;list-style:none}
-.pageWrap .item a{text-indent: -9999em;}
-.pageWrap .item a{display:block;width:156px;height:149px;background-repeat:no-repeat;background-position:0 0;margin:0 auto}
-.pageWrap .item a.searchGrid{background-image:url(/cm/images/img_searchGrid.png)}
-.pageWrap .item a.searchGrid:hover{background-image:url(/cm/images/img_searchGrid_hover.png)}
-.pageWrap .item a.searchTable{background-image:url(/cm/images/img_searchTable.png)}
-.pageWrap .item a.searchTable:hover{background-image:url(/cm/images/img_searchTable_hover.png)}
-.pageWrap .item a.searchTableGrid{background-image:url(/cm/images/img_searchTableGrid.png)}
-.pageWrap .item a.searchTableGrid:hover{background-image:url(/cm/images/img_searchTableGrid_hover.png)}
-.pageWrap .item a.searchTab{background-image:url(/cm/images/img_searchTab.png)}
-.pageWrap .item a.searchTab:hover{background-image:url(/cm/images/img_searchTab_hover.png)}
-.pageWrap .item a.searchMultiGrid{background-image:url(/cm/images/img_searchMultiGrid.png)}
-.pageWrap .item a.searchMultiGrid:hover{background-image:url(/cm/images/img_searchMultiGrid_hover.png)}
-.pageWrap .item a.searchTableTab{background-image:url(/cm/images/img_searchTableTab.png)}
-.pageWrap .item a.searchTableTab:hover{background-image:url(/cm/images/img_searchTableTab_hover.png)}
-.pageWrap .item a.treeGrid{background-image:url(/cm/images/img_treeGrid.png)}
-.pageWrap .item a.treeGrid:hover{background-image:url(/cm/images/img_treeGrid_hover.png)}
-.pageWrap .item a.hShuttleGrid{background-image:url(/cm/images/img_hShuttleGrid.png)}
-.pageWrap .item a.hShuttleGrid:hover{background-image:url(/cm/images/img_hShuttleGrid_hover.png)}
-.pageWrap .item a.vShuttleGrid{background-image:url(/cm/images/img_vShuttleGrid.png)}
-.pageWrap .item a.vShuttleGrid:hover{background-image:url(/cm/images/img_vShuttleGrid_hover.png)}
-.pageWrap .item a.popupGrid{background-image:url(/cm/images/img_popupGrid.png)}
-.pageWrap .item a.popupGrid:hover{background-image:url(/cm/images/img_popupGrid_hover.png)}
-.pageWrap .item a.popupAlert{background-image:url(/cm/images/img_popupAlert.png)}
-.pageWrap .item a.popupAlert:hover{background-image:url(/cm/images/img_popupAlert_hover.png)}
-.pageWrap .item a.hShuttleTree{background-image:url(/cm/images/img_hShuttleTree.png)}
-.pageWrap .item a.hShuttleTree:hover{background-image:url(/cm/images/img_hShuttleTree_hover.png)}
-.pageWrap .item a.accordion{background-image:url(/cm/images/img_accordion.png)}
-.pageWrap .item a.accordion:hover{background-image:url(/cm/images/img_accordion_hover.png)}
-.pageWrap .item a.treeMultiGrid{background-image:url(/cm/images/img_treeMultiGrid.png)}
-.pageWrap .item a.treeMultiGrid:hover{background-image:url(/cm/images/img_treeMultiGrid_hover.png)}
-.pageWrap .item a.calendar{background-image:url(/cm/images/img_calendar.png)}
-.pageWrap .item a.calendar:hover{background-image:url(/cm/images/img_calendar_hover.png)}
-.pageWrap .item a.chat{background-image:url(/cm/images/img_chat.png)}
-.pageWrap .item a.chat:hover{background-image:url(/cm/images/img_chat_hover.png)}
-.pageWrap .item a.login{background-image:url(/cm/images/img_login.png)}
-.pageWrap .item a.login:hover{background-image:url(/cm/images/img_login_hover.png)}
-.pageWrap .item a.slideBanner{background-image:url(/cm/images/img_slideBanner.png)}
-.pageWrap .item a.slideBanner:hover{background-image:url(/cm/images/img_slideBanner_hover.png)}
-.pageWrap .item a.stepTable{background-image:url(/cm/images/img_stepTable.png)}
-.pageWrap .item a.stepTable:hover{background-image:url(/cm/images/img_stepTable_hover.png)}
-.pageWrap .item a.searchMultiChart{background-image:url(/cm/images/img_searchMultiChart.png)}
-.pageWrap .item a.searchMultiChart:hover{background-image:url(/cm/images/img_searchMultiChart_hover.png)}
+/*alertPop*/
+.alertArea h3{font-size:20px}
+.alertArea .alertBox{width: 300px;    height: 150px;    background: #fff;    border-radius: 10px;    margin: 0 auto;    top: 30%;    position: relative;     padding:30px;}
+.alertArea .grpBtn{    position: absolute;  bottom: 20px; left: calc(50% - 50px);}
+.alertArea .msg{font-size: 16px;    font-weight: bold;    color: #666;}
+.alertArea .btn_confirm{background: #576DDC; color: #fff; border: 0;  padding: 10px; height: 36px;  width: 100px; border-radius: 4px;}
 
 .sub_contents{padding:20px}
 .main_contents .pgtbox{position:relative;margin:0 0 20px;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-flow:wrap;flex-flow:wrap}
