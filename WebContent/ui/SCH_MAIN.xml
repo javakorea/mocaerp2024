@@ -1005,13 +1005,19 @@ scwin.btn_ok_onclick = function(e) {
 
 
 
-		<xf:group class="alertArea" style="display:none;position: absolute;  left:0;right:0;top:0;bottom:0;background:rgba(0,0,0,0.3);z-index: 9999;" id="alertArea">
+		<xf:group class="alertArea" style="display: none;position: absolute;  left:0;right:0;top:0;bottom:0;background:rgba(0,0,0,0.3);z-index: 9999;" id="alertArea">
 			<xf:group class="alertBox" style="">
 				<xf:group class="alertTitle mb20" tagname="h3" style="">알림</xf:group>
 				<w2:textbox id="" class="msg"  label="일정을 등록해주세요" style=""></w2:textbox>
 				<xf:group class="grpBtn">
-					<xf:trigger type="button" id="btn_ok" style="" class="btn_confirm" ev:onclick="scwin.btn_ok_onclick">
+					<xf:trigger type="button" id="btn_ok" style="" class="btn_msg ok" ev:onclick="scwin.btn_ok_onclick">
 						<xf:label><![CDATA[확인]]></xf:label>
+					</xf:trigger>
+					<xf:trigger type="button" id=btn_yes" style="display: none;" class="btn_msg ok" ev:onclick="scwin.btn_yes_onclick">
+						<xf:label><![CDATA[예]]></xf:label>
+					</xf:trigger>
+					<xf:trigger type="button" id="btn_no" style="display: none" class="btn_msg no" ev:onclick="scwin.btn_no_onclick">
+						<xf:label><![CDATA[아니오]]></xf:label>
 					</xf:trigger>
 				</xf:group>
 			</xf:group>

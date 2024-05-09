@@ -1243,10 +1243,13 @@ input[type="file"]{cursor:pointer;}
 /*alertPop*/
 .alertArea h3{font-size:20px}
 .alertArea .alertBox{width: 300px;    height: 150px;    background: #fff;    border-radius: 10px;    margin: 0 auto;    top: 30%;    position: relative;     padding:30px;}
-.alertArea .grpBtn{    position: absolute;  bottom: 20px; left: calc(50% - 50px);}
+.alertArea.confirm .btn_confirm{}
+.alertArea .grpBtn{position: absolute; bottom: 20px; width: calc(100% - 60px); text-align: center;}
 .alertArea .msg{font-size: 16px;    font-weight: bold;    color: #666;}
-.alertArea .btn_confirm{background: #576DDC; color: #fff; border: 0;  padding: 10px; height: 36px;  width: 100px; border-radius: 4px;}
-
+.alertArea .btn_msg{color: #fff; border: 0;  padding: 10px; height: 36px;  width: 100px; border-radius: 4px;}
+.alertArea .btn_msg.ok{background: #576DDC; }
+.alertArea .btn_msg.no{background: #333; }
+.alertArea .btn_msg + .btn_msg{margin-left:5px;}
 .sub_contents{padding:20px}
 .main_contents .pgtbox{position:relative;margin:0 0 20px;display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-flow:wrap;flex-flow:wrap}
 .main_contents .pgtbox .pgt_tit{display:inline-block;font-weight:600;color:#000;font-size:20px;vertical-align:top}
