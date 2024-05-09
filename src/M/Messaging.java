@@ -30,7 +30,7 @@ import websquare.logging.util.LogUtil;
  */
 public class Messaging {
 
-  private static final String PROJECT_ID = "teammocaandroid";
+  private static final String PROJECT_ID = "mobilewithplan";
   private static final String BASE_URL = "https://fcm.googleapis.com";
   private static final String FCM_SEND_ENDPOINT = "/v1/projects/" + PROJECT_ID + "/messages:send";
 
