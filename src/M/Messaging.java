@@ -61,7 +61,7 @@ public class Messaging {
 			AccessToken at = googleCredentials.refreshAccessToken();
 		    //LogUtil.info("==============at1=>"+at);
 		    String v = at.getTokenValue();
-		    //LogUtil.info("==============at2=>"+v);
+		    LogUtil.info("==============at2=>"+v);
 		    return v;	  
 		  
 	  }catch(Exception e) {
