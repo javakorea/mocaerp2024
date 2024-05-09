@@ -1013,7 +1013,7 @@ scwin.btn_ok_onclick = function(e) {
 					<xf:trigger type="button" id="btn_ok" style="" class="btn_msg ok" ev:onclick="scwin.btn_ok_onclick">
 						<xf:label><![CDATA[확인]]></xf:label>
 					</xf:trigger>
-					<xf:trigger type="button" id=btn_yes" style="display: none;" class="btn_msg ok" ev:onclick="scwin.btn_yes_onclick">
+					<xf:trigger type="button" id="btn_yes" style="display: none;" class="btn_msg ok" ev:onclick="scwin.btn_yes_onclick">
 						<xf:label><![CDATA[예]]></xf:label>
 					</xf:trigger>
 					<xf:trigger type="button" id="btn_no" style="display: none" class="btn_msg no" ev:onclick="scwin.btn_no_onclick">
