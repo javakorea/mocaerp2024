@@ -29,7 +29,7 @@
 							<MENU_NM><![CDATA[업무관리]]></MENU_NM>
 							<MENU_LEVEL><![CDATA[1]]></MENU_LEVEL>
 						</w2:row>
-						<w2:row>
+<!-- 						<w2:row>
 							<MENU_CD><![CDATA[1100]]></MENU_CD>
 							<MENU_NM><![CDATA[스케줄러]]></MENU_NM>
 							<SRC_PATH><![CDATA[/ui/schedule.xml]]></SRC_PATH>
@@ -42,7 +42,7 @@
 							<SRC_PATH><![CDATA[/ui/SCH_MAIN.xml]]></SRC_PATH>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
 							<PARENT_MENU_CD><![CDATA[1000]]></PARENT_MENU_CD>
-						</w2:row>
+						</w2:row> -->
 						<w2:row>
 							<MENU_CD><![CDATA[1200]]></MENU_CD>
 							<MENU_NM><![CDATA[기술데이터]]></MENU_NM>
@@ -76,7 +76,7 @@
 							<ERP_YN><![CDATA[N]]></ERP_YN>
 							<PARENT_MENU_CD><![CDATA[2000]]></PARENT_MENU_CD>
 						</w2:row>
-						<w2:row>
+<!-- 						<w2:row>
 							<MENU_CD><![CDATA[2300]]></MENU_CD>
 							<MENU_NM><![CDATA[내채널  (내일정다른사람에게공유하기)]]></MENU_NM>
 							<MENU_LEVEL><![CDATA[2]]></MENU_LEVEL>
@@ -102,7 +102,7 @@
 							<TYPE><![CDATA[ICO]]></TYPE>
 							<ERP_YN><![CDATA[N]]></ERP_YN>
 							<PARENT_MENU_CD><![CDATA[2000]]></PARENT_MENU_CD>
-						</w2:row>																
+						</w2:row> -->																
 						<w2:row>
 							<MENU_CD><![CDATA[2600]]></MENU_CD>
 							<MENU_NM><![CDATA[로그아웃]]></MENU_NM>
@@ -178,8 +178,13 @@
 		<script type="text/javascript" lazy="false"><![CDATA[
 scwin.onpageload = function () {
 	
-	com.win.openMenu('공유달력', '/ui/SCH_MAIN.xml', '1400', null, {isHistory: false, closable: true});
-	com.win.openMenu('회원가입', '/ui/FRM_SIGNUP.xml', '1400', null, {isHistory: false, closable: true});
+	//com.win.openMenu('공유달력', '/ui/SCH_MAIN.xml', '1400', null, {isHistory: false, closable: true});
+	//com.win.openMenu('회원가입', '/ui/FRM_SIGNUP.xml', '1400', null, {isHistory: false, closable: true});
+
+	
+	scwin.setMenuRelation('회사데이터', '/ui/boardMain.xml', '1300', "Tree", {"boardType": 'COMDATA',"erpYn" :  'Y'});
+
+
 	//로그아웃을 위한 준비
     if(!window['gapi']){
         gcm.ext.scriptImport("https://apis.google.com/js/api.js",function(){
