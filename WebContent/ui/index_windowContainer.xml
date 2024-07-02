@@ -17,14 +17,17 @@
 	// Mobile일때 메뉴 동작	
 	if (WebSquare.util.isMobile()) {
 		grp_wrap.removeClass("show_menu");
+		grp_wrap.addClass("show_menu");
 		$(".btn_toggle_menu").click(function () {
 			$(".wrap").toggleClass("show_menu");
 			$(".btn_toggle_menu").toggleClass("on");
 			$(".dim").toggleClass("on");
 		});
 	} else {
+		
 		$(".btn_toggle_menu").click(function () {
-			grp_wrap.toggleClass("show_menu");
+			grp_wrap.removeClass("show_menu");
+			grp_wrap.addClass("show_menu");
 			$(".btn_toggle_menu").toggleClass("on");
 		});
 	}
