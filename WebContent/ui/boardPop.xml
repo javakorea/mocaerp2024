@@ -470,6 +470,9 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 	scwin.fn_auto();
 };
 ]]></script>
+<style>
+.cke_notifications_area {display: none;}
+</style>
 	</head>
 	<body ev:onpageload="scwin.onpageload"  ev:onpageunload="scwin.onpageunload">
 		<xf:group id="" class="pop_contents flex_gvw  flex_m" style="padding-bottom:0">
@@ -569,7 +572,7 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 				</xf:group>
 			</xf:group>
 			<xf:group id="" class="edbox" style="margin-bottom: 16px;">
-				<w2:editor style="" id="edi_1" menubar="board" ev:onload="scwin.edi_1_onload"></w2:editor>
+				<w2:editor style="width:100%;height:100%" id="edi_1" menubar="board" ev:onload="scwin.edi_1_onload" ></w2:editor>
 				<xf:group id="" style="" class="edi_btn">
 				</xf:group>
 			</xf:group>
