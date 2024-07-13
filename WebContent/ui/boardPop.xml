@@ -579,7 +579,7 @@ scwin.sbx_autoSec_onviewchange = function(info) {
 			<xf:group class="dfbox" id="" style="">
 				<xf:group id="" class="fl"><xf:trigger ev:onclick="scwin.btn_fileDel_onclick" style="display:none;" id="btn_fileDel" type="button" class="btn_cm">
 					<xf:label><![CDATA[선택삭제지정]]></xf:label>
-				</xf:trigger><xf:trigger ev:onclick="scwin.btn_copy_onclick" style="display:none;" id="btn_copy" type="button" class="btn_cm">
+				</xf:trigger><xf:trigger ev:onclick="scwin.btn_copy_onclick" style="" id="btn_copy" type="button" class="btn_cm">
 					<xf:label><![CDATA[선택항목입력]]></xf:label>
 				</xf:trigger></xf:group><xf:group class="fr" id="" style="">
 					<w2:textbox class="" id="txt_cnt" label="0건" style="font-size:12px;"></w2:textbox>
